@@ -13,7 +13,7 @@ can be found on [GitHub](https://github.com/inversepath).
 This repository is aimed towards developers, if you wish to purchase a USB
 armory board please see the [ordering information](http://inversepath.com/usbarmory#ordering).
 
-![USB armory](http://inversepath.com/images/usbarmory.jpg)
+![USB armory](http://inversepath.com/images/usbarmory_coin.jpg)
 
 Authors
 =======
