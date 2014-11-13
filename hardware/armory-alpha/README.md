@@ -20,9 +20,6 @@ This revision is the first manufactured prototype with JTAG and power debugging
 pin headers, it is provided for reference and not recommended for
 manufacturing.
 
-The first production release is currently under design optimization and
-features an improved PCB layout.
-
 Current schematics and layout files have been designed in KiCad (release
 2014-01-25 - 0.201403191418+4754~10~ubuntu12.04.1)
 
