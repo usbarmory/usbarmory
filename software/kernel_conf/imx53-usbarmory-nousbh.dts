@@ -1,4 +1,8 @@
 /*
+ * This DTS is for the "NOUSBH" variant of the beta board
+ * and is likely not needed for the production version.
+ */
+/*
  * Copyright 2011 Freescale Semiconductor, Inc.
  * Copyright 2011 Linaro Ltd.
  *
