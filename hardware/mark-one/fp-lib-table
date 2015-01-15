@@ -1,0 +1,6 @@
+(fp_lib_table
+  (lib (name armory)(type Legacy)(uri ../lib/armory.mod)(options "")(descr ""))
+  (lib (name connectors)(type Legacy)(uri ../lib/connectors.mod)(options "")(descr ""))
+  (lib (name inversepath)(type Legacy)(uri ../lib/inversepath.mod)(options "")(descr ""))
+  (lib (name smd)(type Legacy)(uri ../lib/smd.mod)(options "")(descr ""))
+)

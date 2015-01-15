@@ -31,10 +31,10 @@ The main documentation can be found on the
 Board revisions
 ===============
 
-* armory-alpha: first manufactured prototype with JTAG and power debugging pin
+* alpha: first manufactured prototype with JTAG and power debugging pin
   headers, provided for reference and not recommended for manufacturing.
 
-* armory-one: first release, currently under design optimization.
+* mark-one: first production release.
 
 License
 =======
