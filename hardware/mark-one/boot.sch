@@ -41,7 +41,7 @@ Date "10 Nov 2014"
 Rev "MARK I"
 Comp "Inverse Path S.r.l."
 Comment1 "Copyright © 2014 Inverse Path S.r.l."
-Comment2 "License: GNU General Public License, version 2"
+Comment2 "License: CERN OHL v1.2"
 Comment3 "http://inversepath.com/usbarmory"
 Comment4 ""
 $EndDescr

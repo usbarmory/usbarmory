@@ -19,7 +19,7 @@
     (rev "MARK I")
     (company "Inverse Path S.r.l.")
     (comment 1 "Copyright © 2014 Inverse Path S.r.l.")
-    (comment 2 "License: GNU General Public License, version 2")
+    (comment 2 "License: CERN OHL v1.2")
     (comment 3 http://inversepath.com/usbarmory)
   )
 

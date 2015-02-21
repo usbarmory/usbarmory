@@ -30,7 +30,6 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:armory
-LIBS:armory-cache
 EELAYER 24 0
 EELAYER END
 $Descr A3 16535 11693
@@ -41,7 +40,7 @@ Date "20 Aug 2014"
 Rev "ALPHA"
 Comp "Inverse Path S.r.l."
 Comment1 "Copyright © 2014 Inverse Path S.r.l."
-Comment2 "License: GNU General Public License, version 2"
+Comment2 "License: CERN OHL v1.2"
 Comment3 ""
 Comment4 ""
 $EndDescr
