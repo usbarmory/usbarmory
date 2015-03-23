@@ -1,0 +1,3 @@
+deb http://ftp.debian.org/debian wheezy main
+deb http://ftp.debian.org/debian wheezy-updates main
+deb http://security.debian.org wheezy/updates main
