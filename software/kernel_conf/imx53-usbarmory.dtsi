@@ -51,6 +51,22 @@
 	};
 };
 
+&cpu0 {
+	device_type = "cpu";
+	compatible = "arm,cortex-a8";
+	reg = <0x0>;
+	clocks = <&clks IMX5_CLK_ARM>;
+	clock-latency = <61036>;
+	voltage-tolerance = <5>;
+	operating-points = <
+		/* kHz */
+		 166666  850000
+		 400000  900000
+		 800000 1050000
+		1000000 1200000
+	>;
+};
+
 &esdhc1 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_esdhc1>;
