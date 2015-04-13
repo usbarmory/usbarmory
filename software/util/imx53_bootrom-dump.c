@@ -60,11 +60,13 @@ int main(int argc, char **argv) {
 	unsigned long read_result, writeval;
 	off_t target;
 
-	if (argc < 1) {
-		fprintf(stderr, "\nUsage:\t%s { address } [ data ]\n"
-			"\taddress : memory address to act upon\n"
-			"\tdata	: data to be written\n\n",
+	if ((argc < 1) || (strcmp(argv[1], "-h") == 0)) {
+		fprintf(stderr, "\nUsage:\t%s <address> <len>\n"
+			"\taddress : memory address to read\n"
+			"\tlen	: number of KB to be read\n\n",
 			argv[0]);
+		fprintf(stderr, "\t%s 0 16 > bootrom-0-16k.bin\n", argv[0]);
+		fprintf(stderr, "\t%s 0x404000 48 > bootrom-1-48k.bin\n", argv[0]);
 		exit(1);
 	}
 	target = strtoul(argv[1], 0, 0);
