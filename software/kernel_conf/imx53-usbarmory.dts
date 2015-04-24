@@ -10,7 +10,7 @@
 
 /dts-v1/;
 
-#include "imx53-usbarmory.dtsi"
+#include "imx53-usbarmory-common.dtsi"
 
 &usbotg {
 	dr_mode = "peripheral";
