@@ -1,5 +1,5 @@
 /*
- * USB armory MkI device mode device tree file
+ * USB armory MkI host mode device tree file
  * http://inversepath.com/usbarmory
  *
  * Copyright (C) 2015, Inverse Path
@@ -13,6 +13,6 @@
 #include "imx53-usbarmory.dtsi"
 
 &usbotg {
-	dr_mode = "peripheral";
+	dr_mode = "host";
 	status = "okay";
 };
