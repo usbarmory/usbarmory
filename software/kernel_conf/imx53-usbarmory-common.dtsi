@@ -43,7 +43,7 @@
 				reg = <0x63ff8000 0x4000>;
 				interrupts = <19 20>;
 				clocks = <&clks IMX5_CLK_SAHARA_IPG_GATE>,
-				         <&clks IMX5_CLK_SAHARA_IPG_GATE>;
+					 <&clks IMX5_CLK_SAHARA_IPG_GATE>;
 				clock-names = "ipg", "ahb";
 			};
 		};
