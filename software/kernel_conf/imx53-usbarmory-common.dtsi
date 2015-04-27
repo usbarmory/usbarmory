@@ -43,7 +43,7 @@
 				reg = <0x63ff8000 0x4000>;
 				interrupts = <19 20>;
 				clocks = <&clks IMX5_CLK_SAHARA_IPG_GATE>,
-				         <&clks IMX5_CLK_SAHARA_IPG_GATE>;
+					 <&clks IMX5_CLK_SAHARA_IPG_GATE>;
 				clock-names = "ipg", "ahb";
 			};
 		};
@@ -73,20 +73,15 @@
 
 &iomuxc {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_hog>;
 
 	imx53-usbarmory {
-		pinctrl_hog: hoggrp {
+		pinctrl_pinheader: pinheadergrp {
 			fsl,pins = <
-				MX53_PAD_GPIO_0__CCM_SSI_EXT1_CLK 0x80000000
-				MX53_PAD_GPIO_8__GPIO1_8          0x80000000
-				MX53_PAD_PATA_DATA14__GPIO2_14    0x80000000
-				MX53_PAD_PATA_DATA15__GPIO2_15    0x80000000
-				MX53_PAD_EIM_DA11__GPIO3_11       0x80000000
-				MX53_PAD_EIM_DA12__GPIO3_12       0x80000000
-				MX53_PAD_PATA_DA_0__GPIO7_6       0x80000000
-				MX53_PAD_PATA_DA_2__GPIO7_8       0x80000000
-				MX53_PAD_GPIO_16__GPIO7_11        0x80000000
+				MX53_PAD_CSI0_DAT8__GPIO5_26	0xc0
+				MX53_PAD_CSI0_DAT9__GPIO5_27	0xc0
+				MX53_PAD_CSI0_DAT10__GPIO5_28	0xc0
+				MX53_PAD_CSI0_DAT11__GPIO5_29	0xc0
+				MX53_PAD_CSI0_DAT12__GPIO5_30	0xc0
 			>;
 		};
 
@@ -118,6 +113,15 @@
 			fsl,pins = <
 				MX53_PAD_CSI0_DAT10__UART1_TXD_MUX	0x1e4
 				MX53_PAD_CSI0_DAT11__UART1_RXD_MUX	0x1e4
+			>;
+		};
+		pinctrl_gpio5: gpio5grp {
+			fsl,pins = <
+				MX53_PAD_CSI0_DAT8__GPIO5_26 0xc0
+				MX53_PAD_CSI0_DAT9__GPIO5_27 0xc0
+				MX53_PAD_CSI0_DAT10__GPIO5_28 0xc0
+				MX53_PAD_CSI0_DAT11__GPIO5_29 0xc0
+				MX53_PAD_CSI0_DAT12__GPIO5_30 0xc0
 			>;
 		};
 	};
