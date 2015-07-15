@@ -31,9 +31,6 @@ The main documentation can be found on the
 Board revisions
 ===============
 
-* alpha: first manufactured prototype with JTAG and power debugging pin
-  headers, provided for reference and not recommended for manufacturing.
-
 * mark-one: first production release.
 
 License
