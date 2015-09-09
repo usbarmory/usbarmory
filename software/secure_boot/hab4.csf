@@ -1,0 +1,40 @@
+# USB armory example Command Sequence File
+# i.MX53 HAB 4 (secure boot)
+#
+# Reference:
+# Freescale Semiconductor, HAB Code-Signing Tool User's Guide, Rev 2.1 4/2014a
+#
+# Freescale Semiconductor,  Application Note AN4581
+# Secure Boot on i.MX50, i.MX53, and i.MX 6 Series using HABv4, Rev. 0 10/2012
+#
+
+[Header]
+  Version = 4.0
+  Hash Algorithm = sha256
+  Engine = ANY
+  Engine Configuration = 0
+  Certificate Format = X509
+  Signature Format = CMS
+
+# Install the SRK table, this should match the fused sha256
+[Install SRK]
+  File = "crts/SRK_1_2_3_4_table.bin"
+  Source Index = 0
+
+# Install the certificate used to verify the CSF signature
+[Install CSFK]
+  File = "crts/CSF1_1_sha256_2048_65537_v3_usr_crt.pem"
+
+[Authenticate CSF]
+
+# Install the certificate used to verify the U-Boot signature
+[Install Key]
+  Verification Index = 0
+  Target Index = 2
+  File = "crts/IMG1_1_sha256_2048_65537_v3_usr_crt.pem"
+
+[Authenticate Data]
+  Verification Index = 2
+  # Copy here the three hex values given by u-boot mkimage tool
+  # HAB Blocks:   777ff400 00000000 00049c00
+  Blocks = 0x777FF400 0x0 0x49C00 "/tmp/u-boot.imx"
