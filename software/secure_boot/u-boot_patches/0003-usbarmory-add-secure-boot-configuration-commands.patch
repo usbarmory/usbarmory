@@ -1,0 +1,41 @@
+From 435ea99aab2a1a5aae6d268a798360e3434ea29c Mon Sep 17 00:00:00 2001
+From: Andrej Rosano <andrej@inversepath.com>
+Date: Wed, 9 Sep 2015 17:36:20 +0200
+Subject: [PATCH 3/4] usbarmory: add secure boot configuration commands
+
+Signed-off-by: Andrej Rosano <andrej@inversepath.com>
+---
+ board/inversepath/usbarmory/imximage.cfg | 2 +-
+ include/configs/usbarmory.h              | 3 +++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/board/inversepath/usbarmory/imximage.cfg b/board/inversepath/usbarmory/imximage.cfg
+index 392d2f9..69311bc 100644
+--- a/board/inversepath/usbarmory/imximage.cfg
++++ b/board/inversepath/usbarmory/imximage.cfg
+@@ -10,7 +10,7 @@
+ 
+ IMAGE_VERSION 2
+ BOOT_FROM sd
+-
++CSF 0x2000
+ 
+ /* IOMUX */
+ 
+diff --git a/include/configs/usbarmory.h b/include/configs/usbarmory.h
+index 4a7702c..b1cc98f 100644
+--- a/include/configs/usbarmory.h
++++ b/include/configs/usbarmory.h
+@@ -72,6 +72,9 @@
+ #define CONFIG_CMD_FUSE
+ #define CONFIG_FSL_IIM
+ 
++/* HAB */
++#define CONFIG_SECURE_BOOT
++
+ /* Linux boot */
+ #define CONFIG_LOADADDR		0x72000000
+ #define CONFIG_SYS_TEXT_BASE	0x77800000
+-- 
+2.1.4
+

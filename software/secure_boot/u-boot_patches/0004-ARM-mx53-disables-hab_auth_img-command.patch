@@ -1,0 +1,62 @@
+From bd268fbbe331eed17cf2f1e70c845a39afeca9ba Mon Sep 17 00:00:00 2001
+From: Andrej Rosano <andrej@inversepath.com>
+Date: Wed, 9 Sep 2015 18:00:17 +0200
+Subject: [PATCH 4/4] ARM: mx53: disables hab_auth_img command
+
+Signed-off-by: Andrej Rosano <andrej@inversepath.com>
+---
+ arch/arm/imx-common/hab.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/arch/arm/imx-common/hab.c b/arch/arm/imx-common/hab.c
+index 17e9dc7..fa8a110 100644
+--- a/arch/arm/imx-common/hab.c
++++ b/arch/arm/imx-common/hab.c
+@@ -208,6 +208,7 @@ int get_hab_status(void)
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_MX6
+ uint32_t authenticate_image(uint32_t ddr_start, uint32_t image_size)
+ {
+ 	uint32_t load_addr = 0;
+@@ -313,6 +314,7 @@ uint32_t authenticate_image(uint32_t ddr_start, uint32_t image_size)
+ 
+ 	return result;
+ }
++#endif
+ 
+ int do_hab_status(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
+ {
+@@ -326,6 +328,7 @@ int do_hab_status(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_MX6
+ static int do_authenticate_image(cmd_tbl_t *cmdtp, int flag, int argc,
+ 				char * const argv[])
+ {
+@@ -342,6 +345,7 @@ static int do_authenticate_image(cmd_tbl_t *cmdtp, int flag, int argc,
+ 
+ 	return rcode;
+ }
++#endif
+ 
+ U_BOOT_CMD(
+ 		hab_status, CONFIG_SYS_MAXARGS, 1, do_hab_status,
+@@ -349,6 +353,7 @@ U_BOOT_CMD(
+ 		""
+ 	  );
+ 
++#ifdef CONFIG_MX6
+ U_BOOT_CMD(
+ 		hab_auth_img, 3, 0, do_authenticate_image,
+ 		"authenticate image via HAB",
+@@ -356,3 +361,4 @@ U_BOOT_CMD(
+ 		"addr - image hex address\n"
+ 		"ivt_offset - hex offset of IVT in the image"
+ 	  );
++#endif
+-- 
+2.1.4
+
