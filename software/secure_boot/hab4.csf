@@ -7,7 +7,6 @@
 # Freescale Semiconductor,  Application Note AN4581
 # Secure Boot on i.MX50, i.MX53, and i.MX 6 Series using HABv4, Rev. 0 10/2012
 #
-
 [Header]
   Version = 4.0
   Hash Algorithm = sha256
