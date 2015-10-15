@@ -1,0 +1,57 @@
+From 62d44a1bd9f24c90228c534556ba9f0f4c417ea1 Mon Sep 17 00:00:00 2001
+From: Andrej Rosano <andrej@inversepath.com>
+Date: Wed, 9 Sep 2015 17:33:47 +0200
+Subject: [PATCH 2/4] ARM: mx53: add support for HAB commands
+
+Enables the hab_status command for the Freescale mx53 SoC.
+
+Signed-off-by: Andrej Rosano <andrej@inversepath.com>
+---
+ arch/arm/imx-common/hab.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/arm/imx-common/hab.c b/arch/arm/imx-common/hab.c
+index 4e4aafd..17e9dc7 100644
+--- a/arch/arm/imx-common/hab.c
++++ b/arch/arm/imx-common/hab.c
+@@ -133,6 +133,9 @@
+ 
+ bool is_hab_enabled(void)
+ {
++#ifdef CONFIG_MX53
++	return true;
++#else
+ 	struct ocotp_regs *ocotp = (struct ocotp_regs *)OCOTP_BASE_ADDR;
+ 	struct fuse_bank *bank = &ocotp->bank[0];
+ 	struct fuse_bank0_regs *fuse =
+@@ -140,6 +143,7 @@ bool is_hab_enabled(void)
+ 	uint32_t reg = readl(&fuse->cfg5);
+ 
+ 	return (reg & 0x2) == 0x2;
++#endif
+ }
+ 
+ void display_event(uint8_t *event_data, size_t bytes)
+@@ -223,7 +227,9 @@ uint32_t authenticate_image(uint32_t ddr_start, uint32_t image_size)
+ 		printf("\nAuthenticate image from DDR location 0x%x...\n",
+ 		       ddr_start);
+ 
++#ifdef CONFIG_MX6
+ 		hab_caam_clock_enable(1);
++#endif
+ 
+ 		if (hab_rvt_entry() == HAB_SUCCESS) {
+ 			/* If not already aligned, Align to ALIGN_SIZE */
+@@ -293,7 +299,9 @@ uint32_t authenticate_image(uint32_t ddr_start, uint32_t image_size)
+ 			puts("hab entry function fail\n");
+ 		}
+ 
++#ifdef CONFIG_MX6
+ 		hab_caam_clock_enable(0);
++#endif
+ 
+ 		get_hab_status();
+ 	} else {
+-- 
+2.1.4
+

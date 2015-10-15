@@ -1,0 +1,907 @@
+From 96c64fc1531466c947c3b262f2707460153f03cc Mon Sep 17 00:00:00 2001
+From: Andrej Rosano <andrej@inversepath.com>
+Date: Wed, 9 Sep 2015 17:04:33 +0200
+Subject: [PATCH 1/4] imx: move HAB code to imx general directories
+
+High Assurance Boot features are present on different i.MX
+architectures, move the code outside the mx6 specific locations.
+
+Signed-off-by: Andrej Rosano <andrej@inversepath.com>
+---
+ arch/arm/cpu/armv7/mx6/Makefile       |   1 -
+ arch/arm/cpu/armv7/mx6/hab.c          | 330 --------------------------------
+ arch/arm/imx-common/Makefile          |   1 +
+ arch/arm/imx-common/hab.c             | 350 ++++++++++++++++++++++++++++++++++
+ arch/arm/include/asm/arch-mx6/hab.h   |  78 --------
+ arch/arm/include/asm/imx-common/hab.h |  78 ++++++++
+ 6 files changed, 429 insertions(+), 409 deletions(-)
+ delete mode 100644 arch/arm/cpu/armv7/mx6/hab.c
+ create mode 100644 arch/arm/imx-common/hab.c
+ delete mode 100644 arch/arm/include/asm/arch-mx6/hab.h
+ create mode 100644 arch/arm/include/asm/imx-common/hab.h
+
+diff --git a/arch/arm/cpu/armv7/mx6/Makefile b/arch/arm/cpu/armv7/mx6/Makefile
+index bf6effc..8af191d 100644
+--- a/arch/arm/cpu/armv7/mx6/Makefile
++++ b/arch/arm/cpu/armv7/mx6/Makefile
+@@ -9,5 +9,4 @@
+ 
+ obj-y	:= soc.o clock.o
+ obj-$(CONFIG_SPL_BUILD)	     += ddr.o
+-obj-$(CONFIG_SECURE_BOOT)    += hab.o
+ obj-$(CONFIG_MP)             += mp.o
+diff --git a/arch/arm/cpu/armv7/mx6/hab.c b/arch/arm/cpu/armv7/mx6/hab.c
+deleted file mode 100644
+index 8dee595..0000000
+--- a/arch/arm/cpu/armv7/mx6/hab.c
++++ /dev/null
+@@ -1,330 +0,0 @@
+-/*
+- * Copyright (C) 2010-2014 Freescale Semiconductor, Inc.
+- *
+- * SPDX-License-Identifier:    GPL-2.0+
+- */
+-
+-#include <common.h>
+-#include <asm/io.h>
+-#include <asm/system.h>
+-#include <asm/arch/hab.h>
+-#include <asm/arch/clock.h>
+-#include <asm/arch/sys_proto.h>
+-
+-/* -------- start of HAB API updates ------------*/
+-
+-#define hab_rvt_report_event_p					\
+-(								\
+-	((is_cpu_type(MXC_CPU_MX6Q) ||				\
+-	  is_cpu_type(MXC_CPU_MX6D)) &&				\
+-	  (soc_rev() >= CHIP_REV_1_5)) ?			\
+-	((hab_rvt_report_event_t *)HAB_RVT_REPORT_EVENT_NEW) :	\
+-	(is_cpu_type(MXC_CPU_MX6DL) &&				\
+-	 (soc_rev() >= CHIP_REV_1_2)) ?				\
+-	((hab_rvt_report_event_t *)HAB_RVT_REPORT_EVENT_NEW) :	\
+-	((hab_rvt_report_event_t *)HAB_RVT_REPORT_EVENT)	\
+-)
+-
+-#define hab_rvt_report_status_p					\
+-(								\
+-	((is_cpu_type(MXC_CPU_MX6Q) ||				\
+-	  is_cpu_type(MXC_CPU_MX6D)) &&				\
+-	  (soc_rev() >= CHIP_REV_1_5)) ?			\
+-	((hab_rvt_report_status_t *)HAB_RVT_REPORT_STATUS_NEW) :\
+-	(is_cpu_type(MXC_CPU_MX6DL) &&				\
+-	 (soc_rev() >= CHIP_REV_1_2)) ?				\
+-	((hab_rvt_report_status_t *)HAB_RVT_REPORT_STATUS_NEW) :\
+-	((hab_rvt_report_status_t *)HAB_RVT_REPORT_STATUS)	\
+-)
+-
+-#define hab_rvt_authenticate_image_p				\
+-(								\
+-	((is_cpu_type(MXC_CPU_MX6Q) ||				\
+-	  is_cpu_type(MXC_CPU_MX6D)) &&				\
+-	  (soc_rev() >= CHIP_REV_1_5)) ?			\
+-	((hab_rvt_authenticate_image_t *)HAB_RVT_AUTHENTICATE_IMAGE_NEW) : \
+-	(is_cpu_type(MXC_CPU_MX6DL) &&				\
+-	 (soc_rev() >= CHIP_REV_1_2)) ?				\
+-	((hab_rvt_authenticate_image_t *)HAB_RVT_AUTHENTICATE_IMAGE_NEW) : \
+-	((hab_rvt_authenticate_image_t *)HAB_RVT_AUTHENTICATE_IMAGE)	\
+-)
+-
+-#define hab_rvt_entry_p						\
+-(								\
+-	((is_cpu_type(MXC_CPU_MX6Q) ||				\
+-	  is_cpu_type(MXC_CPU_MX6D)) &&				\
+-	  (soc_rev() >= CHIP_REV_1_5)) ?			\
+-	((hab_rvt_entry_t *)HAB_RVT_ENTRY_NEW) :		\
+-	(is_cpu_type(MXC_CPU_MX6DL) &&				\
+-	 (soc_rev() >= CHIP_REV_1_2)) ?				\
+-	((hab_rvt_entry_t *)HAB_RVT_ENTRY_NEW) :		\
+-	((hab_rvt_entry_t *)HAB_RVT_ENTRY)			\
+-)
+-
+-#define hab_rvt_exit_p						\
+-(								\
+-	((is_cpu_type(MXC_CPU_MX6Q) ||				\
+-	  is_cpu_type(MXC_CPU_MX6D)) &&				\
+-	  (soc_rev() >= CHIP_REV_1_5)) ?			\
+-	((hab_rvt_exit_t *)HAB_RVT_EXIT_NEW) :			\
+-	(is_cpu_type(MXC_CPU_MX6DL) &&				\
+-	 (soc_rev() >= CHIP_REV_1_2)) ?				\
+-	((hab_rvt_exit_t *)HAB_RVT_EXIT_NEW) :			\
+-	((hab_rvt_exit_t *)HAB_RVT_EXIT)			\
+-)
+-
+-#define IVT_SIZE		0x20
+-#define ALIGN_SIZE		0x1000
+-#define CSF_PAD_SIZE		0x2000
+-#define MX6DQ_PU_IROM_MMU_EN_VAR	0x009024a8
+-#define MX6DLS_PU_IROM_MMU_EN_VAR	0x00901dd0
+-#define MX6SL_PU_IROM_MMU_EN_VAR	0x00900a18
+-
+-/*
+- * +------------+  0x0 (DDR_UIMAGE_START) -
+- * |   Header   |                          |
+- * +------------+  0x40                    |
+- * |            |                          |
+- * |            |                          |
+- * |            |                          |
+- * |            |                          |
+- * | Image Data |                          |
+- * .            |                          |
+- * .            |                           > Stuff to be authenticated ----+
+- * .            |                          |                                |
+- * |            |                          |                                |
+- * |            |                          |                                |
+- * +------------+                          |                                |
+- * |            |                          |                                |
+- * | Fill Data  |                          |                                |
+- * |            |                          |                                |
+- * +------------+ Align to ALIGN_SIZE      |                                |
+- * |    IVT     |                          |                                |
+- * +------------+ + IVT_SIZE              -                                 |
+- * |            |                                                           |
+- * |  CSF DATA  | <---------------------------------------------------------+
+- * |            |
+- * +------------+
+- * |            |
+- * | Fill Data  |
+- * |            |
+- * +------------+ + CSF_PAD_SIZE
+- */
+-
+-bool is_hab_enabled(void)
+-{
+-	struct ocotp_regs *ocotp = (struct ocotp_regs *)OCOTP_BASE_ADDR;
+-	struct fuse_bank *bank = &ocotp->bank[0];
+-	struct fuse_bank0_regs *fuse =
+-		(struct fuse_bank0_regs *)bank->fuse_regs;
+-	uint32_t reg = readl(&fuse->cfg5);
+-
+-	return (reg & 0x2) == 0x2;
+-}
+-
+-void display_event(uint8_t *event_data, size_t bytes)
+-{
+-	uint32_t i;
+-
+-	if (!(event_data && bytes > 0))
+-		return;
+-
+-	for (i = 0; i < bytes; i++) {
+-		if (i == 0)
+-			printf("\t0x%02x", event_data[i]);
+-		else if ((i % 8) == 0)
+-			printf("\n\t0x%02x", event_data[i]);
+-		else
+-			printf(" 0x%02x", event_data[i]);
+-	}
+-}
+-
+-int get_hab_status(void)
+-{
+-	uint32_t index = 0; /* Loop index */
+-	uint8_t event_data[128]; /* Event data buffer */
+-	size_t bytes = sizeof(event_data); /* Event size in bytes */
+-	enum hab_config config = 0;
+-	enum hab_state state = 0;
+-	hab_rvt_report_event_t *hab_rvt_report_event;
+-	hab_rvt_report_status_t *hab_rvt_report_status;
+-
+-	hab_rvt_report_event = hab_rvt_report_event_p;
+-	hab_rvt_report_status = hab_rvt_report_status_p;
+-
+-	if (is_hab_enabled())
+-		puts("\nSecure boot enabled\n");
+-	else
+-		puts("\nSecure boot disabled\n");
+-
+-	/* Check HAB status */
+-	if (hab_rvt_report_status(&config, &state) != HAB_SUCCESS) {
+-		printf("\nHAB Configuration: 0x%02x, HAB State: 0x%02x\n",
+-		       config, state);
+-
+-		/* Display HAB Error events */
+-		while (hab_rvt_report_event(HAB_FAILURE, index, event_data,
+-					&bytes) == HAB_SUCCESS) {
+-			puts("\n");
+-			printf("--------- HAB Event %d -----------------\n",
+-			       index + 1);
+-			puts("event data:\n");
+-			display_event(event_data, bytes);
+-			puts("\n");
+-			bytes = sizeof(event_data);
+-			index++;
+-		}
+-	}
+-	/* Display message if no HAB events are found */
+-	else {
+-		printf("\nHAB Configuration: 0x%02x, HAB State: 0x%02x\n",
+-		       config, state);
+-		puts("No HAB Events Found!\n\n");
+-	}
+-	return 0;
+-}
+-
+-uint32_t authenticate_image(uint32_t ddr_start, uint32_t image_size)
+-{
+-	uint32_t load_addr = 0;
+-	size_t bytes;
+-	ptrdiff_t ivt_offset = 0;
+-	int result = 0;
+-	ulong start;
+-	hab_rvt_authenticate_image_t *hab_rvt_authenticate_image;
+-	hab_rvt_entry_t *hab_rvt_entry;
+-	hab_rvt_exit_t *hab_rvt_exit;
+-
+-	hab_rvt_authenticate_image = hab_rvt_authenticate_image_p;
+-	hab_rvt_entry = hab_rvt_entry_p;
+-	hab_rvt_exit = hab_rvt_exit_p;
+-
+-	if (is_hab_enabled()) {
+-		printf("\nAuthenticate image from DDR location 0x%x...\n",
+-		       ddr_start);
+-
+-		hab_caam_clock_enable(1);
+-
+-		if (hab_rvt_entry() == HAB_SUCCESS) {
+-			/* If not already aligned, Align to ALIGN_SIZE */
+-			ivt_offset = (image_size + ALIGN_SIZE - 1) &
+-					~(ALIGN_SIZE - 1);
+-
+-			start = ddr_start;
+-			bytes = ivt_offset + IVT_SIZE + CSF_PAD_SIZE;
+-#ifdef DEBUG
+-			printf("\nivt_offset = 0x%x, ivt addr = 0x%x\n",
+-			       ivt_offset, ddr_start + ivt_offset);
+-			puts("Dumping IVT\n");
+-			print_buffer(ddr_start + ivt_offset,
+-				     (void *)(ddr_start + ivt_offset),
+-				     4, 0x8, 0);
+-
+-			puts("Dumping CSF Header\n");
+-			print_buffer(ddr_start + ivt_offset+IVT_SIZE,
+-				     (void *)(ddr_start + ivt_offset+IVT_SIZE),
+-				     4, 0x10, 0);
+-
+-			get_hab_status();
+-
+-			puts("\nCalling authenticate_image in ROM\n");
+-			printf("\tivt_offset = 0x%x\n", ivt_offset);
+-			printf("\tstart = 0x%08lx\n", start);
+-			printf("\tbytes = 0x%x\n", bytes);
+-#endif
+-			/*
+-			 * If the MMU is enabled, we have to notify the ROM
+-			 * code, or it won't flush the caches when needed.
+-			 * This is done, by setting the "pu_irom_mmu_enabled"
+-			 * word to 1. You can find its address by looking in
+-			 * the ROM map. This is critical for
+-			 * authenticate_image(). If MMU is enabled, without
+-			 * setting this bit, authentication will fail and may
+-			 * crash.
+-			 */
+-			/* Check MMU enabled */
+-			if (get_cr() & CR_M) {
+-				if (is_cpu_type(MXC_CPU_MX6Q) ||
+-				    is_cpu_type(MXC_CPU_MX6D)) {
+-					/*
+-					 * This won't work on Rev 1.0.0 of
+-					 * i.MX6Q/D, since their ROM doesn't
+-					 * do cache flushes. don't think any
+-					 * exist, so we ignore them.
+-					 */
+-					writel(1, MX6DQ_PU_IROM_MMU_EN_VAR);
+-				} else if (is_cpu_type(MXC_CPU_MX6DL) ||
+-					   is_cpu_type(MXC_CPU_MX6SOLO)) {
+-					writel(1, MX6DLS_PU_IROM_MMU_EN_VAR);
+-				} else if (is_cpu_type(MXC_CPU_MX6SL)) {
+-					writel(1, MX6SL_PU_IROM_MMU_EN_VAR);
+-				}
+-			}
+-
+-			load_addr = (uint32_t)hab_rvt_authenticate_image(
+-					HAB_CID_UBOOT,
+-					ivt_offset, (void **)&start,
+-					(size_t *)&bytes, NULL);
+-			if (hab_rvt_exit() != HAB_SUCCESS) {
+-				puts("hab exit function fail\n");
+-				load_addr = 0;
+-			}
+-		} else {
+-			puts("hab entry function fail\n");
+-		}
+-
+-		hab_caam_clock_enable(0);
+-
+-		get_hab_status();
+-	} else {
+-		puts("hab fuse not enabled\n");
+-	}
+-
+-	if ((!is_hab_enabled()) || (load_addr != 0))
+-		result = 1;
+-
+-	return result;
+-}
+-
+-int do_hab_status(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
+-{
+-	if ((argc != 1)) {
+-		cmd_usage(cmdtp);
+-		return 1;
+-	}
+-
+-	get_hab_status();
+-
+-	return 0;
+-}
+-
+-static int do_authenticate_image(cmd_tbl_t *cmdtp, int flag, int argc,
+-				char * const argv[])
+-{
+-	ulong	addr, ivt_offset;
+-	int	rcode = 0;
+-
+-	if (argc < 3)
+-		return CMD_RET_USAGE;
+-
+-	addr = simple_strtoul(argv[1], NULL, 16);
+-	ivt_offset = simple_strtoul(argv[2], NULL, 16);
+-
+-	rcode = authenticate_image(addr, ivt_offset);
+-
+-	return rcode;
+-}
+-
+-U_BOOT_CMD(
+-		hab_status, CONFIG_SYS_MAXARGS, 1, do_hab_status,
+-		"display HAB status",
+-		""
+-	  );
+-
+-U_BOOT_CMD(
+-		hab_auth_img, 3, 0, do_authenticate_image,
+-		"authenticate image via HAB",
+-		"addr ivt_offset\n"
+-		"addr - image hex address\n"
+-		"ivt_offset - hex offset of IVT in the image"
+-	  );
+diff --git a/arch/arm/imx-common/Makefile b/arch/arm/imx-common/Makefile
+index b9f1ca4..1811f97 100644
+--- a/arch/arm/imx-common/Makefile
++++ b/arch/arm/imx-common/Makefile
+@@ -13,6 +13,7 @@ endif
+ ifeq ($(SOC),$(filter $(SOC),mx5 mx6))
+ obj-y	+= timer.o cpu.o speed.o
+ obj-$(CONFIG_SYS_I2C_MXC) += i2c-mxv7.o
++obj-$(CONFIG_SECURE_BOOT) += hab.o
+ endif
+ ifeq ($(SOC),$(filter $(SOC),mx6 mxs))
+ obj-y	+= misc.o
+diff --git a/arch/arm/imx-common/hab.c b/arch/arm/imx-common/hab.c
+new file mode 100644
+index 0000000..4e4aafd
+--- /dev/null
++++ b/arch/arm/imx-common/hab.c
+@@ -0,0 +1,350 @@
++/*
++ * Copyright (C) 2010-2014 Freescale Semiconductor, Inc.
++ *
++ * SPDX-License-Identifier:    GPL-2.0+
++ */
++
++#include <common.h>
++#include <asm/io.h>
++#include <asm/system.h>
++#include <asm/arch/clock.h>
++#include <asm/arch/imx-regs.h>
++#include <asm/arch/sys_proto.h>
++#include <asm/imx-common/hab.h>
++
++/* -------- start of HAB API updates ------------*/
++
++#ifdef CONFIG_MX53
++
++#define hab_rvt_report_event_p \
++	((hab_rvt_report_event_t *)HAB_RVT_REPORT_EVENT)
++
++#define hab_rvt_report_status_p \
++	((hab_rvt_report_status_t *)HAB_RVT_REPORT_STATUS)
++
++#define hab_rvt_authenticate_image_p \
++	((hab_rvt_authenticate_image_t *)HAB_RVT_AUTHENTICATE_IMAGE)
++
++#define hab_rvt_entry_p ((hab_rvt_entry_t *)HAB_RVT_ENTRY)
++
++#define hab_rvt_exit_p ((hab_rvt_exit_t *)HAB_RVT_EXIT)
++
++#else
++
++#define hab_rvt_report_event_p					\
++(								\
++	((is_cpu_type(MXC_CPU_MX6Q) ||				\
++	  is_cpu_type(MXC_CPU_MX6D)) &&				\
++	  (soc_rev() >= CHIP_REV_1_5)) ?			\
++	((hab_rvt_report_event_t *)HAB_RVT_REPORT_EVENT_NEW) :	\
++	(is_cpu_type(MXC_CPU_MX6DL) &&				\
++	 (soc_rev() >= CHIP_REV_1_2)) ?				\
++	((hab_rvt_report_event_t *)HAB_RVT_REPORT_EVENT_NEW) :	\
++	((hab_rvt_report_event_t *)HAB_RVT_REPORT_EVENT)	\
++)
++
++#define hab_rvt_report_status_p					\
++(								\
++	((is_cpu_type(MXC_CPU_MX6Q) ||				\
++	  is_cpu_type(MXC_CPU_MX6D)) &&				\
++	  (soc_rev() >= CHIP_REV_1_5)) ?			\
++	((hab_rvt_report_status_t *)HAB_RVT_REPORT_STATUS_NEW) :\
++	(is_cpu_type(MXC_CPU_MX6DL) &&				\
++	 (soc_rev() >= CHIP_REV_1_2)) ?				\
++	((hab_rvt_report_status_t *)HAB_RVT_REPORT_STATUS_NEW) :\
++	((hab_rvt_report_status_t *)HAB_RVT_REPORT_STATUS)	\
++)
++
++#define hab_rvt_authenticate_image_p				\
++(								\
++	((is_cpu_type(MXC_CPU_MX6Q) ||				\
++	  is_cpu_type(MXC_CPU_MX6D)) &&				\
++	  (soc_rev() >= CHIP_REV_1_5)) ?			\
++	((hab_rvt_authenticate_image_t *)HAB_RVT_AUTHENTICATE_IMAGE_NEW) : \
++	(is_cpu_type(MXC_CPU_MX6DL) &&				\
++	 (soc_rev() >= CHIP_REV_1_2)) ?				\
++	((hab_rvt_authenticate_image_t *)HAB_RVT_AUTHENTICATE_IMAGE_NEW) : \
++	((hab_rvt_authenticate_image_t *)HAB_RVT_AUTHENTICATE_IMAGE)	\
++)
++
++#define hab_rvt_entry_p						\
++(								\
++	((is_cpu_type(MXC_CPU_MX6Q) ||				\
++	  is_cpu_type(MXC_CPU_MX6D)) &&				\
++	  (soc_rev() >= CHIP_REV_1_5)) ?			\
++	((hab_rvt_entry_t *)HAB_RVT_ENTRY_NEW) :		\
++	(is_cpu_type(MXC_CPU_MX6DL) &&				\
++	 (soc_rev() >= CHIP_REV_1_2)) ?				\
++	((hab_rvt_entry_t *)HAB_RVT_ENTRY_NEW) :		\
++	((hab_rvt_entry_t *)HAB_RVT_ENTRY)			\
++)
++
++#define hab_rvt_exit_p						\
++(								\
++	((is_cpu_type(MXC_CPU_MX6Q) ||				\
++	  is_cpu_type(MXC_CPU_MX6D)) &&				\
++	  (soc_rev() >= CHIP_REV_1_5)) ?			\
++	((hab_rvt_exit_t *)HAB_RVT_EXIT_NEW) :			\
++	(is_cpu_type(MXC_CPU_MX6DL) &&				\
++	 (soc_rev() >= CHIP_REV_1_2)) ?				\
++	((hab_rvt_exit_t *)HAB_RVT_EXIT_NEW) :			\
++	((hab_rvt_exit_t *)HAB_RVT_EXIT)			\
++)
++
++#endif
++
++#define IVT_SIZE		0x20
++#define ALIGN_SIZE		0x1000
++#define CSF_PAD_SIZE		0x2000
++#define MX6DQ_PU_IROM_MMU_EN_VAR	0x009024a8
++#define MX6DLS_PU_IROM_MMU_EN_VAR	0x00901dd0
++#define MX6SL_PU_IROM_MMU_EN_VAR	0x00900a18
++
++/*
++ * +------------+  0x0 (DDR_UIMAGE_START) -
++ * |   Header   |                          |
++ * +------------+  0x40                    |
++ * |            |                          |
++ * |            |                          |
++ * |            |                          |
++ * |            |                          |
++ * | Image Data |                          |
++ * .            |                          |
++ * .            |                           > Stuff to be authenticated ----+
++ * .            |                          |                                |
++ * |            |                          |                                |
++ * |            |                          |                                |
++ * +------------+                          |                                |
++ * |            |                          |                                |
++ * | Fill Data  |                          |                                |
++ * |            |                          |                                |
++ * +------------+ Align to ALIGN_SIZE      |                                |
++ * |    IVT     |                          |                                |
++ * +------------+ + IVT_SIZE              -                                 |
++ * |            |                                                           |
++ * |  CSF DATA  | <---------------------------------------------------------+
++ * |            |
++ * +------------+
++ * |            |
++ * | Fill Data  |
++ * |            |
++ * +------------+ + CSF_PAD_SIZE
++ */
++
++bool is_hab_enabled(void)
++{
++	struct ocotp_regs *ocotp = (struct ocotp_regs *)OCOTP_BASE_ADDR;
++	struct fuse_bank *bank = &ocotp->bank[0];
++	struct fuse_bank0_regs *fuse =
++		(struct fuse_bank0_regs *)bank->fuse_regs;
++	uint32_t reg = readl(&fuse->cfg5);
++
++	return (reg & 0x2) == 0x2;
++}
++
++void display_event(uint8_t *event_data, size_t bytes)
++{
++	uint32_t i;
++
++	if (!(event_data && bytes > 0))
++		return;
++
++	for (i = 0; i < bytes; i++) {
++		if (i == 0)
++			printf("\t0x%02x", event_data[i]);
++		else if ((i % 8) == 0)
++			printf("\n\t0x%02x", event_data[i]);
++		else
++			printf(" 0x%02x", event_data[i]);
++	}
++}
++
++int get_hab_status(void)
++{
++	uint32_t index = 0; /* Loop index */
++	uint8_t event_data[128]; /* Event data buffer */
++	size_t bytes = sizeof(event_data); /* Event size in bytes */
++	enum hab_config config = 0;
++	enum hab_state state = 0;
++	hab_rvt_report_event_t *hab_rvt_report_event;
++	hab_rvt_report_status_t *hab_rvt_report_status;
++
++	hab_rvt_report_event = hab_rvt_report_event_p;
++	hab_rvt_report_status = hab_rvt_report_status_p;
++
++	if (is_hab_enabled())
++		puts("\nSecure boot enabled\n");
++	else
++		puts("\nSecure boot disabled\n");
++
++	/* Check HAB status */
++	if (hab_rvt_report_status(&config, &state) != HAB_SUCCESS) {
++		printf("\nHAB Configuration: 0x%02x, HAB State: 0x%02x\n",
++		       config, state);
++
++		/* Display HAB Error events */
++		while (hab_rvt_report_event(HAB_FAILURE, index, event_data,
++					&bytes) == HAB_SUCCESS) {
++			puts("\n");
++			printf("--------- HAB Event %d -----------------\n",
++			       index + 1);
++			puts("event data:\n");
++			display_event(event_data, bytes);
++			puts("\n");
++			bytes = sizeof(event_data);
++			index++;
++		}
++	}
++	/* Display message if no HAB events are found */
++	else {
++		printf("\nHAB Configuration: 0x%02x, HAB State: 0x%02x\n",
++		       config, state);
++		puts("No HAB Events Found!\n\n");
++	}
++	return 0;
++}
++
++uint32_t authenticate_image(uint32_t ddr_start, uint32_t image_size)
++{
++	uint32_t load_addr = 0;
++	size_t bytes;
++	ptrdiff_t ivt_offset = 0;
++	int result = 0;
++	ulong start;
++	hab_rvt_authenticate_image_t *hab_rvt_authenticate_image;
++	hab_rvt_entry_t *hab_rvt_entry;
++	hab_rvt_exit_t *hab_rvt_exit;
++
++	hab_rvt_authenticate_image = hab_rvt_authenticate_image_p;
++	hab_rvt_entry = hab_rvt_entry_p;
++	hab_rvt_exit = hab_rvt_exit_p;
++
++	if (is_hab_enabled()) {
++		printf("\nAuthenticate image from DDR location 0x%x...\n",
++		       ddr_start);
++
++		hab_caam_clock_enable(1);
++
++		if (hab_rvt_entry() == HAB_SUCCESS) {
++			/* If not already aligned, Align to ALIGN_SIZE */
++			ivt_offset = (image_size + ALIGN_SIZE - 1) &
++					~(ALIGN_SIZE - 1);
++
++			start = ddr_start;
++			bytes = ivt_offset + IVT_SIZE + CSF_PAD_SIZE;
++#ifdef DEBUG
++			printf("\nivt_offset = 0x%x, ivt addr = 0x%x\n",
++			       ivt_offset, ddr_start + ivt_offset);
++			puts("Dumping IVT\n");
++			print_buffer(ddr_start + ivt_offset,
++				     (void *)(ddr_start + ivt_offset),
++				     4, 0x8, 0);
++
++			puts("Dumping CSF Header\n");
++			print_buffer(ddr_start + ivt_offset+IVT_SIZE,
++				     (void *)(ddr_start + ivt_offset+IVT_SIZE),
++				     4, 0x10, 0);
++
++			get_hab_status();
++
++			puts("\nCalling authenticate_image in ROM\n");
++			printf("\tivt_offset = 0x%x\n", ivt_offset);
++			printf("\tstart = 0x%08lx\n", start);
++			printf("\tbytes = 0x%x\n", bytes);
++#endif
++			/*
++			 * If the MMU is enabled, we have to notify the ROM
++			 * code, or it won't flush the caches when needed.
++			 * This is done, by setting the "pu_irom_mmu_enabled"
++			 * word to 1. You can find its address by looking in
++			 * the ROM map. This is critical for
++			 * authenticate_image(). If MMU is enabled, without
++			 * setting this bit, authentication will fail and may
++			 * crash.
++			 */
++			/* Check MMU enabled */
++			if (get_cr() & CR_M) {
++				if (is_cpu_type(MXC_CPU_MX6Q) ||
++				    is_cpu_type(MXC_CPU_MX6D)) {
++					/*
++					 * This won't work on Rev 1.0.0 of
++					 * i.MX6Q/D, since their ROM doesn't
++					 * do cache flushes. don't think any
++					 * exist, so we ignore them.
++					 */
++					writel(1, MX6DQ_PU_IROM_MMU_EN_VAR);
++				} else if (is_cpu_type(MXC_CPU_MX6DL) ||
++					   is_cpu_type(MXC_CPU_MX6SOLO)) {
++					writel(1, MX6DLS_PU_IROM_MMU_EN_VAR);
++				} else if (is_cpu_type(MXC_CPU_MX6SL)) {
++					writel(1, MX6SL_PU_IROM_MMU_EN_VAR);
++				}
++			}
++
++			load_addr = (uint32_t)hab_rvt_authenticate_image(
++					HAB_CID_UBOOT,
++					ivt_offset, (void **)&start,
++					(size_t *)&bytes, NULL);
++			if (hab_rvt_exit() != HAB_SUCCESS) {
++				puts("hab exit function fail\n");
++				load_addr = 0;
++			}
++		} else {
++			puts("hab entry function fail\n");
++		}
++
++		hab_caam_clock_enable(0);
++
++		get_hab_status();
++	} else {
++		puts("hab fuse not enabled\n");
++	}
++
++	if ((!is_hab_enabled()) || (load_addr != 0))
++		result = 1;
++
++	return result;
++}
++
++int do_hab_status(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
++{
++	if ((argc != 1)) {
++		cmd_usage(cmdtp);
++		return 1;
++	}
++
++	get_hab_status();
++
++	return 0;
++}
++
++static int do_authenticate_image(cmd_tbl_t *cmdtp, int flag, int argc,
++				char * const argv[])
++{
++	ulong	addr, ivt_offset;
++	int	rcode = 0;
++
++	if (argc < 3)
++		return CMD_RET_USAGE;
++
++	addr = simple_strtoul(argv[1], NULL, 16);
++	ivt_offset = simple_strtoul(argv[2], NULL, 16);
++
++	rcode = authenticate_image(addr, ivt_offset);
++
++	return rcode;
++}
++
++U_BOOT_CMD(
++		hab_status, CONFIG_SYS_MAXARGS, 1, do_hab_status,
++		"display HAB status",
++		""
++	  );
++
++U_BOOT_CMD(
++		hab_auth_img, 3, 0, do_authenticate_image,
++		"authenticate image via HAB",
++		"addr ivt_offset\n"
++		"addr - image hex address\n"
++		"ivt_offset - hex offset of IVT in the image"
++	  );
+diff --git a/arch/arm/include/asm/arch-mx6/hab.h b/arch/arm/include/asm/arch-mx6/hab.h
+deleted file mode 100644
+index c9e5318..0000000
+--- a/arch/arm/include/asm/arch-mx6/hab.h
++++ /dev/null
+@@ -1,78 +0,0 @@
+-/*
+- * Copyright (C) 2012 Freescale Semiconductor, Inc. All Rights Reserved.
+- *
+- * SPDX-License-Identifier:    GPL-2.0+
+- *
+-*/
+-
+-#ifndef __SECURE_MX6Q_H__
+-#define __SECURE_MX6Q_H__
+-
+-#include <linux/types.h>
+-
+-/* -------- start of HAB API updates ------------*/
+-/* The following are taken from HAB4 SIS */
+-
+-/* Status definitions */
+-enum hab_status {
+-	HAB_STS_ANY = 0x00,
+-	HAB_FAILURE = 0x33,
+-	HAB_WARNING = 0x69,
+-	HAB_SUCCESS = 0xf0
+-};
+-
+-/* Security Configuration definitions */
+-enum hab_config {
+-	HAB_CFG_RETURN = 0x33, /**< Field Return IC */
+-	HAB_CFG_OPEN = 0xf0, /**< Non-secure IC */
+-	HAB_CFG_CLOSED = 0xcc /**< Secure IC */
+-};
+-
+-/* State definitions */
+-enum hab_state {
+-	HAB_STATE_INITIAL = 0x33, /**< Initialising state (transitory) */
+-	HAB_STATE_CHECK = 0x55, /**< Check state (non-secure) */
+-	HAB_STATE_NONSECURE = 0x66, /**< Non-secure state */
+-	HAB_STATE_TRUSTED = 0x99, /**< Trusted state */
+-	HAB_STATE_SECURE = 0xaa, /**< Secure state */
+-	HAB_STATE_FAIL_SOFT = 0xcc, /**< Soft fail state */
+-	HAB_STATE_FAIL_HARD = 0xff, /**< Hard fail state (terminal) */
+-	HAB_STATE_NONE = 0xf0, /**< No security state machine */
+-	HAB_STATE_MAX
+-};
+-
+-/*Function prototype description*/
+-typedef enum hab_status hab_rvt_report_event_t(enum hab_status, uint32_t,
+-		uint8_t* , size_t*);
+-typedef enum hab_status hab_rvt_report_status_t(enum hab_config *,
+-		enum hab_state *);
+-typedef enum hab_status hab_loader_callback_f_t(void**, size_t*, const void*);
+-typedef enum hab_status hab_rvt_entry_t(void);
+-typedef enum hab_status hab_rvt_exit_t(void);
+-typedef void *hab_rvt_authenticate_image_t(uint8_t, ptrdiff_t,
+-		void **, size_t *, hab_loader_callback_f_t);
+-typedef void hapi_clock_init_t(void);
+-
+-#ifdef CONFIG_MX6SX
+-#define HAB_RVT_BASE			0x00000100
+-#else
+-#define HAB_RVT_BASE			0x00000094
+-#endif
+-
+-#define HAB_RVT_ENTRY			(*(uint32_t *)(HAB_RVT_BASE + 0x04))
+-#define HAB_RVT_EXIT			(*(uint32_t *)(HAB_RVT_BASE + 0x08))
+-#define HAB_RVT_AUTHENTICATE_IMAGE	(*(uint32_t *)(HAB_RVT_BASE + 0x10))
+-#define HAB_RVT_REPORT_EVENT		(*(uint32_t *)(HAB_RVT_BASE + 0x20))
+-#define HAB_RVT_REPORT_STATUS		(*(uint32_t *)(HAB_RVT_BASE + 0x24))
+-
+-#define HAB_RVT_REPORT_EVENT_NEW               (*(uint32_t *)0x000000B8)
+-#define HAB_RVT_REPORT_STATUS_NEW              (*(uint32_t *)0x000000BC)
+-#define HAB_RVT_AUTHENTICATE_IMAGE_NEW         (*(uint32_t *)0x000000A8)
+-#define HAB_RVT_ENTRY_NEW                      (*(uint32_t *)0x0000009C)
+-#define HAB_RVT_EXIT_NEW                       (*(uint32_t *)0x000000A0)
+-
+-#define HAB_CID_ROM 0 /**< ROM Caller ID */
+-#define HAB_CID_UBOOT 1 /**< UBOOT Caller ID*/
+-/* ----------- end of HAB API updates ------------*/
+-
+-#endif
+diff --git a/arch/arm/include/asm/imx-common/hab.h b/arch/arm/include/asm/imx-common/hab.h
+new file mode 100644
+index 0000000..73db28e
+--- /dev/null
++++ b/arch/arm/include/asm/imx-common/hab.h
+@@ -0,0 +1,78 @@
++/*
++ * Copyright (C) 2012 Freescale Semiconductor, Inc. All Rights Reserved.
++ *
++ * SPDX-License-Identifier:    GPL-2.0+
++ *
++*/
++
++#ifndef __IMX_HAB_H__
++#define __IMX_HAB_H__
++
++#include <linux/types.h>
++
++/* -------- start of HAB API updates ------------*/
++/* The following are taken from HAB4 SIS */
++
++/* Status definitions */
++enum hab_status {
++	HAB_STS_ANY = 0x00,
++	HAB_FAILURE = 0x33,
++	HAB_WARNING = 0x69,
++	HAB_SUCCESS = 0xf0
++};
++
++/* Security Configuration definitions */
++enum hab_config {
++	HAB_CFG_RETURN = 0x33, /**< Field Return IC */
++	HAB_CFG_OPEN = 0xf0, /**< Non-secure IC */
++	HAB_CFG_CLOSED = 0xcc /**< Secure IC */
++};
++
++/* State definitions */
++enum hab_state {
++	HAB_STATE_INITIAL = 0x33, /**< Initialising state (transitory) */
++	HAB_STATE_CHECK = 0x55, /**< Check state (non-secure) */
++	HAB_STATE_NONSECURE = 0x66, /**< Non-secure state */
++	HAB_STATE_TRUSTED = 0x99, /**< Trusted state */
++	HAB_STATE_SECURE = 0xaa, /**< Secure state */
++	HAB_STATE_FAIL_SOFT = 0xcc, /**< Soft fail state */
++	HAB_STATE_FAIL_HARD = 0xff, /**< Hard fail state (terminal) */
++	HAB_STATE_NONE = 0xf0, /**< No security state machine */
++	HAB_STATE_MAX
++};
++
++/*Function prototype description*/
++typedef enum hab_status hab_rvt_report_event_t(enum hab_status, uint32_t,
++		uint8_t* , size_t*);
++typedef enum hab_status hab_rvt_report_status_t(enum hab_config *,
++		enum hab_state *);
++typedef enum hab_status hab_loader_callback_f_t(void**, size_t*, const void*);
++typedef enum hab_status hab_rvt_entry_t(void);
++typedef enum hab_status hab_rvt_exit_t(void);
++typedef void *hab_rvt_authenticate_image_t(uint8_t, ptrdiff_t,
++		void **, size_t *, hab_loader_callback_f_t);
++typedef void hapi_clock_init_t(void);
++
++#ifdef CONFIG_MX6SX
++#define HAB_RVT_BASE			0x00000100
++#else
++#define HAB_RVT_BASE			0x00000094
++#endif
++
++#define HAB_RVT_ENTRY			(*(uint32_t *)(HAB_RVT_BASE + 0x04))
++#define HAB_RVT_EXIT			(*(uint32_t *)(HAB_RVT_BASE + 0x08))
++#define HAB_RVT_AUTHENTICATE_IMAGE	(*(uint32_t *)(HAB_RVT_BASE + 0x10))
++#define HAB_RVT_REPORT_EVENT		(*(uint32_t *)(HAB_RVT_BASE + 0x20))
++#define HAB_RVT_REPORT_STATUS		(*(uint32_t *)(HAB_RVT_BASE + 0x24))
++
++#define HAB_RVT_REPORT_EVENT_NEW               (*(uint32_t *)0x000000B8)
++#define HAB_RVT_REPORT_STATUS_NEW              (*(uint32_t *)0x000000BC)
++#define HAB_RVT_AUTHENTICATE_IMAGE_NEW         (*(uint32_t *)0x000000A8)
++#define HAB_RVT_ENTRY_NEW                      (*(uint32_t *)0x0000009C)
++#define HAB_RVT_EXIT_NEW                       (*(uint32_t *)0x000000A0)
++
++#define HAB_CID_ROM 0 /**< ROM Caller ID */
++#define HAB_CID_UBOOT 1 /**< UBOOT Caller ID*/
++/* ----------- end of HAB API updates ------------*/
++
++#endif
+-- 
+2.1.4
+
