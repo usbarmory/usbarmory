@@ -1,0 +1,13 @@
+root ALL=(ALL) ALL
+
+interlock ALL=(root) NOPASSWD:							\
+	/bin/date -s @*,							\
+	/sbin/poweroff,								\
+	/bin/mount /dev/mapper/interlockfs /home/interlock/.interlock-mnt,      \
+	/bin/umount /home/interlock/.interlock-mnt,				\
+	/bin/chown interlock /home/interlock/.interlock-mnt,			\
+	/usr/sbin/cryptsetup luksOpen /dev/lvmvolume/armory interlockfs,	\
+	/usr/sbin/cryptsetup luksClose /dev/mapper/interlockfs,			\
+	/usr/sbin/cryptsetup luksChangeKey /dev/lvmvolume/armory,		\
+	/usr/sbin/cryptsetup luksRemoveKey /dev/lvmvolume/armory,		\
+	/usr/sbin/cryptsetup luksAddKey /dev/lvmvolume/armory

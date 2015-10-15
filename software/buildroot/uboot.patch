@@ -1,0 +1,21 @@
+diff -urN uboot-2015.07/include/configs/usbarmory.h uboot-2015.07-usbarmory_buildroot/include/configs/usbarmory.h
+--- uboot-2015.07/include/configs/usbarmory.h	2015-10-15 12:01:19.731872786 +0200
++++ uboot-2015.07-usbarmory_buildroot/include/configs/usbarmory.h	2015-10-15 12:02:50.945995175 +0200
+@@ -19,6 +19,8 @@
+ #define CONFIG_SYS_GENERIC_BOARD
+ #define CONFIG_MXC_GPIO
+ 
++#define CONFIG_SYS_BOOTM_LEN	0x0a00000	/* 10 MB */
++
+ #include <asm/arch/imx-regs.h>
+ 
+ #include <config_distro_defaults.h>
+@@ -90,7 +92,7 @@
+ 
+ #define MEM_LAYOUT_ENV_SETTINGS			\
+ 	"kernel_addr_r=0x70800000\0"		\
+-	"fdt_addr_r=0x71000000\0"		\
++	"fdt_addr_r=0x71200000\0"		\
+ 	"scriptaddr=0x70800000\0"		\
+ 	"pxefile_addr_r=0x70800000\0"		\
+ 	"ramdisk_addr_r=0x73000000\0"

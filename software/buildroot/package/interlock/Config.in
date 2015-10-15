@@ -1,0 +1,18 @@
+config BR2_PACKAGE_INTERLOCK
+        bool "interlock"
+        depends on BR2_PACKAGE_CRYPTSETUP
+        help
+          The INTERLOCK application is a file encryption front-end developed, but not
+          limited to, usage with the [USB armory](http://inversepath.com/usbarmory).
+
+          https://github.com/inversepath/interlock
+
+if BR2_PACKAGE_INTERLOCK
+
+config BR2_PACKAGE_INTERLOCK_TEXTSECURE
+        bool "interlock_textsecure"
+        depends on BR2_PACKAGE_INTERLOCK
+        help
+          Enable TextSecure/Signal support.
+
+endif

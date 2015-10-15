@@ -26,7 +26,7 @@ Documentation
 =============
 
 The main documentation can be found on the
-[project wiki](https://github.com/inversepath/usbarmory/wiki)
+[project wiki](https://github.com/inversepath/usbarmory/wiki).
 
 Board revisions
 ===============

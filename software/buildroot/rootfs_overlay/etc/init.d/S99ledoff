@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ "$1" != "start" ]; then
+  exit 0
+fi
+
+echo none > /sys/devices/platform/leds/leds/LED/trigger
+echo 1 > /sys/devices/platform/leds/leds/LED/brightness

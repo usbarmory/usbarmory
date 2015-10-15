@@ -1,0 +1,37 @@
+#!/bin/sh
+
+if [ "$1" != "start" ]; then
+  exit 0
+fi
+
+echo "Starting INTERLOCK"
+
+# Initial date is likely to be 1970-01-01, therefore we force a more current
+# one to have valid TLS certificate generation. The system date will be
+# overridden at first successful INTERLOCK login by the client via set_time
+# feature.
+/bin/date -s 201510131000
+
+if [ ! -b /dev/mmcblk0p2 ]; then
+  /usr/sbin/parted /dev/mmcblk0 --script mkpart primary ext4 21M 100%
+  /usr/sbin/parted /dev/mmcblk0 --script set 2 lvm on
+fi
+
+/usr/sbin/vgchange -ay
+/usr/sbin/pvcreate /dev/mmcblk0p2
+
+if [ $? == 0 ]; then
+  /usr/sbin/vgcreate lvmvolume /dev/mmcblk0p2
+  /usr/sbin/lvcreate -n armory -l 100%FREE lvmvolume
+  echo -n "usbarmory" | /usr/sbin/cryptsetup --cipher aes-xts-plain64 --key-size 256 --hash sha1 luksFormat /dev/lvmvolume/armory
+  echo -n "usbarmory" | /usr/sbin/cryptsetup luksOpen /dev/lvmvolume/armory interlockfs
+  /usr/sbin/mkfs.ext4 /dev/mapper/interlockfs
+  /usr/sbin/cryptsetup luksClose /dev/mapper/interlockfs
+fi
+
+# use microSD for generated TLS certs storage
+/bin/mount /dev/mmcblk0p1 /mnt/
+/bin/mkdir -p /mnt/interlock_certs
+/bin/chown interlock:interlock /mnt/interlock_certs
+
+sudo -u interlock /usr/bin/interlock -c /etc/interlock.conf > /dev/null 2> /dev/null &

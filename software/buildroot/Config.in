@@ -1,0 +1,1 @@
+source "$BR2_EXTERNAL/package/interlock/Config.in"

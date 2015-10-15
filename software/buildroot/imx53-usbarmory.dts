@@ -1,0 +1,18 @@
+/*
+ * USB armory MkI device mode device tree file
+ * http://inversepath.com/usbarmory
+ *
+ * Copyright (C) 2015, Inverse Path
+ * Andrej Rosano <andrej@inversepath.com>
+ *
+ * Licensed under GPLv2
+ */
+
+/dts-v1/;
+
+#include "imx53-usbarmory-common.dtsi"
+
+&usbotg {
+	dr_mode = "peripheral";
+	status = "okay";
+};

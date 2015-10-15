@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [ "$1" != "start" ]; then
+  exit 0
+fi
+
+echo "Starting g_ether module"
+
+/sbin/modprobe ci_hdrc_imx
+/sbin/modprobe g_ether
