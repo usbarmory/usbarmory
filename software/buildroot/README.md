@@ -36,16 +36,20 @@ The USB armory + INTERLOCK Buildroot image operates as follow:
   * The 'Poweroff' action, within INTERLOCK, allows safe shutdown.
 
   * The interlock user '.ssh' directory can be referenced within the encrypted
-    partition, therefore you can upload a '.ssh/authorized_keys' file with INTERLOCK
-    to have debugging SSH access.
+    partition, therefore you can upload a '.ssh/authorized_keys' file with
+    INTERLOCK to have debugging SSH access.
 
-    This is useful for [TextSecure registration](https://github.com/inversepath/interlock#textsecure-support)
-    which can be accomplished by logging in via SSH, logging out from
-    INTERLOCK, killing it and restarting it with
-    'interlock -c /etc/interlock.conf -r'. TextSecure registration and operation requires the host computer to
-    [share its Internet connection](https://github.com/inversepath/usbarmory/wiki/Host-communication#setup--connection-sharing-linux).
+    This is useful for TextSecure registration which can be accomplished by
+    logging in via SSH, logging out from INTERLOCK, killing it and restarting it
+    with 'interlock -c /etc/interlock.conf -r'. TextSecure registration and
+    operation requires the host computer to share its Internet connection.
 
-  * A serial console is available on the [breakout header](https://github.com/inversepath/usbarmory/wiki/GPIOs),
+    Links:
+    [TextSecure registration](https://github.com/inversepath/interlock#textsecure-support),
+    [Internet connection sharing](https://github.com/inversepath/usbarmory/wiki/Host-communication#setup--connection-sharing-linux).
+
+  * A serial console is available on the
+    [breakout header](https://github.com/inversepath/usbarmory/wiki/GPIOs),
     default root password is "usbarmory".
 
 The full list of features and capabilities of INTERLOCK is detailed in its
@@ -62,12 +66,13 @@ Compiling
 =========
 
 The [Buildroot requirements](http://buildroot.uclibc.org/downloads/manual/manual.html#requirement)
-and [INTERLOCK requirements](https://github.com/inversepath/interlock#compiling) must be satisfied
-before starting the compilation process.
+and [INTERLOCK requirements](https://github.com/inversepath/interlock#compiling)
+must be satisfied before starting the compilation process.
 
-The INTERLOCK  TextSecure feature is enabled by default in Buildroot configuration, therefore its
-[dependencies](https://github.com/inversepath/interlock#textsecure-support) are also required. The feature
-can be disabled in Buildroot configuration if desired.
+The INTERLOCK TextSecure feature is enabled by default in Buildroot
+configuration, therefore its [dependencies](https://github.com/inversepath/interlock#textsecure-support)
+are also required. The feature can be disabled in Buildroot '.config' file if
+desired.
 
 Install Buildroot:
 
