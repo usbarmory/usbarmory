@@ -7,4 +7,4 @@ is included to allow users to upload an authorized_keys file within the
 encrypted partition, exposed through INTERLOCK, and mounted on .interlock-mnt.
 
 This allows optional SSH access as the interlock user for TextSecure
-registration or debugging.
+registration, debugging and upgrading.
