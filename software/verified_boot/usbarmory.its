@@ -1,0 +1,47 @@
+/dts-v1/;
+
+/ {
+	description = "USB armory FIT file";
+	#address-cells = <1>;
+
+	images {
+		kernel@1 {
+			description = "Vanilla Linux kernel";
+			data = /incbin/("SET_LINUX_SRC_PATH/arch/arm/boot/zImage");
+			type = "kernel";
+			compression = "none";
+			arch = "arm";
+			os = "linux";
+			load = <0x70008000>;
+			entry = <0x70008000>;
+			kernel-version = <1>;
+			hash@1 {
+				algo = "sha256";
+			};
+		};
+		fdt@1 {
+			description = "USB armory devicetree blob";
+			data = /incbin/("SET_LINUX_SRC_PATH/arch/arm/boot/dts/imx53-usbarmory.dtb");
+			type = "flat_dt";
+			compression = "none";
+			arch = "arm";
+			fdt-version = <1>;
+			hash@1 {
+				algo = "sha256";
+			};
+		};
+	};
+
+	configurations {
+		default = "conf@1";
+		conf@1 {
+			kernel = "kernel@1";
+			fdt = "fdt@1";
+			signature@1 {
+				algo = "sha256,rsa2048";
+				key-name-hint = "usbarmory";
+				sign-images = "fdt", "kernel";
+			};
+		};
+	};
+};
