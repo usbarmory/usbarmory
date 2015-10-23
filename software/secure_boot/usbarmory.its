@@ -7,7 +7,7 @@
 	images {
 		kernel@1 {
 			description = "Vanilla Linux kernel";
-			data = /incbin/("SET_LINUX_SRC_PATH/arch/arm/boot/zImage");
+			data = /incbin/("${KERNEL_SRC}/arch/arm/boot/zImage");
 			type = "kernel";
 			compression = "none";
 			arch = "arm";
@@ -21,7 +21,7 @@
 		};
 		fdt@1 {
 			description = "USB armory devicetree blob";
-			data = /incbin/("SET_LINUX_SRC_PATH/arch/arm/boot/dts/imx53-usbarmory.dtb");
+			data = /incbin/("${KERNEL_SRC}/arch/arm/boot/dts/imx53-usbarmory.dtb");
 			type = "flat_dt";
 			compression = "none";
 			arch = "arm";

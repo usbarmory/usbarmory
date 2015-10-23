@@ -1,6 +1,6 @@
-diff -urN uboot-2015.07/include/configs/usbarmory.h uboot-2015.07-usbarmory_buildroot/include/configs/usbarmory.h
---- uboot-2015.07/include/configs/usbarmory.h	2015-10-15 12:01:19.731872786 +0200
-+++ uboot-2015.07-usbarmory_buildroot/include/configs/usbarmory.h	2015-10-15 12:02:50.945995175 +0200
+diff -urN u-boot-2015.10/include/configs/usbarmory.h u-boot-2015.10-usbarmory_buildroot/include/configs/usbarmory.h
+--- u-boot-2015.10/include/configs/usbarmory.h	2015-10-20 01:59:38.000000000 +0200
++++ u-boot-2015.10-usbarmory_buildroot/include/configs/usbarmory.h	2015-10-23 09:26:17.528513783 +0200
 @@ -19,6 +19,8 @@
  #define CONFIG_SYS_GENERIC_BOARD
  #define CONFIG_MXC_GPIO
@@ -10,7 +10,19 @@ diff -urN uboot-2015.07/include/configs/usbarmory.h uboot-2015.07-usbarmory_buil
  #include <asm/arch/imx-regs.h>
  
  #include <config_distro_defaults.h>
-@@ -90,7 +92,7 @@
+@@ -82,9 +84,9 @@
+ #define CONFIG_BOOTCOMMAND						\
+ 	"run distro_bootcmd; "						\
+ 	"setenv bootargs console=${console} ${bootargs_default}; "	\
+-	"ext2load mmc 0:1 ${kernel_addr_r} /boot/uImage; "		\
++	"ext2load mmc 0:1 ${kernel_addr_r} /boot/zImage; "		\
+ 	"ext2load mmc 0:1 ${fdt_addr_r} /boot/${fdtfile}; "		\
+-	"bootm ${kernel_addr_r} - ${fdt_addr_r}"
++	"bootz ${kernel_addr_r} - ${fdt_addr_r}"
+ 
+ #define BOOT_TARGET_DEVICES(func) func(MMC, mmc, 0)
+ 
+@@ -92,7 +94,7 @@
  
  #define MEM_LAYOUT_ENV_SETTINGS			\
  	"kernel_addr_r=0x70800000\0"		\
