@@ -8,12 +8,12 @@
 		kernel@1 {
 			description = "Vanilla Linux kernel";
 			data = /incbin/("arch/arm/boot/zImage");
-			type = "kernel";
+			type = "kernel_noload";
 			compression = "none";
 			arch = "arm";
 			os = "linux";
-			load = <0x70008000>;
-			entry = <0x70008000>;
+			load = <0>;
+			entry = <0>;
 			kernel-version = <1>;
 			hash@1 {
 				algo = "sha256";
