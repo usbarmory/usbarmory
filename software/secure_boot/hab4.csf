@@ -36,4 +36,4 @@
   Verification Index = 2
   # Copy here the three hex values given by u-boot mkimage tool
   # HAB Blocks:   777ff400 00000000 00049c00
-  Blocks = 0x777FF400 0x0 0x49C00 "/tmp/u-boot.imx"
+  Blocks = 0x777FF400 0x0 0x49C00 "/tmp/u-boot-dtb.imx"
