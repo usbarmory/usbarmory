@@ -88,13 +88,14 @@ the BR2_EXTERNAL environment variable. This generates a '.config' file that can
 be optionally customized if required:
 
 ```
-make BR2_EXTERNAL=<path to usbarmory repository>/software/buildroot usbarmory_mark_one_defconfig
+# adjust the USBARMORY_GIT variable accordingly to your environment
+make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot usbarmory_mark_one_defconfig
 ```
 
 The bootloader, kernel and filesystem can be built as follows:
 
 ```
-make BR2_EXTERNAL=<path to usbarmory repository>/software/buildroot
+make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot
 ```
 
 The process results in the following output files:
