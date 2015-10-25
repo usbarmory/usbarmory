@@ -1,0 +1,151 @@
+#!/usr/bin/ruby
+
+# USB armory - secure boot tool
+#   https://github.com/inversepath/usbarmory/wiki/Secure-boot
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE.
+
+# required gems can be installed with `gem install <name>` if missing
+require 'bit-struct'
+require 'digest'
+require 'getoptlong'
+require 'openssl'
+
+VERSION = 'alpha'
+
+class SRKTable
+  class Header < BitStruct
+    unsigned :tag, 8 * 1, :default =>   0xd7
+    unsigned :len, 8 * 2, :default => 0x0000
+    unsigned :ver, 8 * 1, :default =>   0x40
+    rest :pk_tables
+  end
+
+  class PublicKey < BitStruct
+    unsigned :tag1,    8 * 1, :default =>   0xe1
+    unsigned :key_len, 8 * 2, :default => 0x0000
+    unsigned :tag2,    8 * 1, :default =>   0x21
+    unsigned :empty,   8 * 2, :default => 0x0000
+    unsigned :tag3,    8 * 2, :default => 0x0080
+    unsigned :mod_len, 8 * 2, :default => 0x0000
+    unsigned :exp_len, 8 * 2, :default => 0x0000
+    rest :mod_and_exp
+
+    def set_mod(mod)
+      self.mod_len = mod.size
+      self.mod_and_exp = [mod.to_s(16)].pack('H*')
+    end
+
+    def set_exp(exp)
+      case exp
+      when 0x00..0xff
+        self.exp_len = 1
+        self.mod_and_exp += [exp].pack('C')
+      when 0xff..0xffff
+        self.exp_len = 2
+        self.mod_and_exp += [exp].pack('n')
+      when 0xffff..0xffffff
+        self.exp_len = 3
+        self.mod_and_exp += [exp].pack('N')[1..3]
+      else
+        raise 'unexpected exponent size'
+      end
+
+      self.key_len = self.length
+    end
+  end
+end
+
+def help
+  puts <<EOF
+Usage: usbarmory_sbtool [OPTIONS]
+  -1 | --key1 <public key>                  SRK public key 1 in PEM format
+  -2 | --key2 <public key>                  SRK public key 2 in PEM format
+  -3 | --key3 <public key>                  SRK public key 3 in PEM format
+  -4 | --key4 <public key>                  SRK public key 4 in PEM format
+     |
+  -v | --version                            Display version
+  -h | --help                               Show this help
+EOF
+end
+
+def gen_pk_table(key)
+  pem = OpenSSL::X509::Certificate.new(File.read(key))
+
+  pk_table = SRKTable::PublicKey.new
+  pk_table.set_mod(pem.public_key.n.to_i)
+  pk_table.set_exp(pem.public_key.e.to_i)
+
+  pk_table
+end
+
+opts = GetoptLong.new(
+  ['--debug',   '-d', GetoptLong::NO_ARGUMENT],
+  ['--key1',    '-1', GetoptLong::REQUIRED_ARGUMENT],
+  ['--key2',    '-2', GetoptLong::REQUIRED_ARGUMENT],
+  ['--key3',    '-3', GetoptLong::REQUIRED_ARGUMENT],
+  ['--key4',    '-4', GetoptLong::REQUIRED_ARGUMENT],
+  ['--version', '-v', GetoptLong::NO_ARGUMENT],
+  ['--help',    '-h', GetoptLong::NO_ARGUMENT]
+)
+
+begin
+  @debug = false
+  k1, k2, k3, k4 = nil
+
+  opts.each do |opt, arg|
+    case opt
+    when '--debug' then @debug = true
+    when '--key1'  then k1 = arg
+    when '--key2'  then k2 = arg
+    when '--key3'  then k3 = arg
+    when '--key4'  then k4 = arg
+    when '--help'
+      help
+      exit(0)
+    when '--version'
+      puts "usbarmory_sbtool #{VERSION}"
+      exit(0)
+    end
+  end
+
+  unless k1 or k2 or k3 or k4
+    puts 'Error: at least one public key must be specified!'
+    help
+    exit(0)
+  end
+
+  table = SRKTable::Header.new
+  pk_hashes = []
+
+  [k1, k2, k3, k4].compact.each do |k|
+    pk_table = gen_pk_table(k)
+    table.pk_tables += pk_table
+    pk_hashes << Digest::SHA256.digest(pk_table)
+  end
+
+  table.len = table.length
+  hash = Digest::SHA256.digest(pk_hashes.join)
+
+  puts <<EOF
+WARNING: enabling secure boot functionality on the USB armory SoC, unlike
+similar features on modern PCs, is an irreversible action that permanently
+fuses verification keys hashes on the device. This means that any errors in the
+process or loss of the signing PKI will result in a bricked device incapable of
+executing unsigned code. This is a security feature, not a bug.
+
+This tool is EXPERIMENTAL and it is highly recommended to verify the SRK table
+hash, before fusing, by comparing it with the Freescale IMX_CST_TOOL 2.2
+generated one.
+
+EOF
+
+  puts "SRK table hash: #{hash.unpack('H*')[0]}"
+
+rescue GetoptLong::InvalidOption, ArgumentError => e
+  puts "Error: #{e.message}" unless e.to_s.empty?
+  help
+  exit(1)
+end
