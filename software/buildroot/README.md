@@ -89,6 +89,7 @@ be optionally customized if required:
 
 ```
 # adjust the USBARMORY_GIT variable accordingly to your environment
+cd buildroot
 make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot usbarmory_mark_one_defconfig
 ```
 
