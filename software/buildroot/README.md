@@ -33,6 +33,9 @@ The USB armory + INTERLOCK Buildroot image operates as follow:
     allowing to change default credentials ("armory":"usbarmory") and
     interaction with the encrypted storage.
 
+    New HTTPS TLS certificates are generated at the very first boot, you can
+    access them, for import or customization, on the first microSD partition.
+
   * The 'Poweroff' action, within INTERLOCK, allows safe shutdown.
 
   * The interlock user '.ssh' directory can be referenced within the encrypted
