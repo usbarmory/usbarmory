@@ -151,7 +151,7 @@ its 'output/images' directory, to the 'boot' directory on the microSD card:
 ```
 mount ${TARGET_DEV}1 $TARGET_MNT
 mkdir ${TARGET_MNT}/boot
-cp output/images/uImage ${TARGET_MNT}/boot
+cp output/images/zImage ${TARGET_MNT}/boot
 cp output/images/imx53-usbarmory.dtb ${TARGET_MNT}/boot
 umount $TARGET_MNT
 ```
