@@ -106,7 +106,7 @@ The process results in the following output files:
 
   * The bootloader: output/images/u-boot.imx
   * The Device Tree Blob (dtb) file: output/images/imx53-usbarmory.dtb
-  * The kernel and embedded roots filesystem: output/images/uImage
+  * The kernel and embedded roots filesystem: output/images/zImage
 
 The next section illustrates how to install the ouput files on a target microSD
 card.
