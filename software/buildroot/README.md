@@ -43,13 +43,14 @@ The USB armory + INTERLOCK Buildroot image operates as follow:
     INTERLOCK to have SSH access for debugging or upgrading (see Upgrading
     section).
 
-    This is also useful for TextSecure registration which can be accomplished
-    by logging in via SSH, logging out from INTERLOCK, killing it and restarting it
-    with 'interlock -c /etc/interlock.conf -r'. TextSecure registration and
-    operation requires the host computer to share its Internet connection.
+    This is also useful for Signal/TextSecure registration which can be
+    accomplished by logging in via SSH, logging out of INTERLOCK, killing it
+    and restarting it with 'interlock -c /etc/interlock.conf -r'. The
+    registration and operation requires the host computer to share its Internet
+    connection.
 
     Links:
-    [TextSecure registration](https://github.com/inversepath/interlock#textsecure-support),
+    [Signal/TextSecure support](https://github.com/inversepath/interlock#signaltextsecure-support),
     [Internet connection sharing](https://github.com/inversepath/usbarmory/wiki/Host-communication#setup--connection-sharing-linux).
 
   * A serial console is available on the
@@ -74,8 +75,9 @@ The [Buildroot requirements](http://buildroot.uclibc.org/downloads/manual/manual
 and [INTERLOCK requirements](https://github.com/inversepath/interlock#compiling)
 must be satisfied before starting the compilation process.
 
-The INTERLOCK TextSecure feature is enabled by default in Buildroot
-configuration, therefore its [dependencies](https://github.com/inversepath/interlock#textsecure-support)
+The INTERLOCK Signal/TextSecure optional support is enabled by default in the
+Buildroot configuration, therefore its
+[dependencies](https://github.com/inversepath/interlock#signaltextsecure-support)
 are also required. The feature can be disabled in Buildroot '.config' file if
 desired.
 
