@@ -31,7 +31,7 @@ The main documentation can be found on the
 Board revisions
 ===============
 
-* mark-one: first production release.
+* mark-one (Mk I): first production release.
 
 License
 =======
