@@ -1,0 +1,52 @@
+/*
+ * USB armory MkI device mode device tree file
+ * http://inversepath.com/usbarmory
+ *
+ * Copyright (C) 2015, Inverse Path
+ * Andrej Rosano <andrej@inversepath.com>
+ *
+ * Licensed under GPLv2
+ */
+
+/dts-v1/;
+
+#include "imx53-usbarmory-common.dtsi"
+
+&usbotg {
+	dr_mode = "peripheral";
+	status = "okay";
+};
+
+&uart1 {
+	status = "disabled";
+};
+
+&iomuxc {
+	pinctrl-0 = <&pinctrl_ecspi2>;
+};
+
+&ecspi2 {
+	fsl,spi-num-chipselects = <2>;
+	cs-gpios = <&gpio5 29 0>, <&gpio5 30 0>;
+	status = "okay";
+
+	spidev0: spi@0 {
+		compatible = "spidev";
+		reg = <0>;
+		spi-max-frequency = <54000000>;
+	};
+
+	flash: m25p40@1 {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "st,m25p40", "st,m25p";
+		spi-max-frequency = <20000000>;
+		reg = <1>;
+
+		partition@0 {
+			label = "U-Boot";
+			reg = <0x0 0x40000>;
+			read-only;
+		};
+	};
+};
