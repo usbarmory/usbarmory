@@ -44,9 +44,8 @@
 		reg = <1>;
 
 		partition@0 {
-			label = "U-Boot";
-			reg = <0x0 0x40000>;
-			read-only;
+			label = "test-partition";
+			reg = <0x0 0x80000>;
 		};
 	};
 };
