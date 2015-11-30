@@ -30,18 +30,12 @@
 	cs-gpios = <&gpio5 29 0>, <&gpio5 30 0>;
 	status = "okay";
 
-	spidev0: spi@0 {
-		compatible = "spidev";
-		reg = <0>;
-		spi-max-frequency = <54000000>;
-	};
-
-	flash: m25p40@1 {
+	flash: m25p40@0 {
 		#address-cells = <1>;
 		#size-cells = <1>;
 		compatible = "st,m25p40", "st,m25p";
 		spi-max-frequency = <20000000>;
-		reg = <1>;
+		reg = <0>;
 
 		partition@0 {
 			label = "test-partition";
