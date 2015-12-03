@@ -75,16 +75,6 @@
 	pinctrl-names = "default";
 
 	imx53-usbarmory {
-		pinctrl_pinheader: pinheadergrp {
-			fsl,pins = <
-				MX53_PAD_CSI0_DAT8__GPIO5_26	0xc0
-				MX53_PAD_CSI0_DAT9__GPIO5_27	0xc0
-				MX53_PAD_CSI0_DAT10__GPIO5_28	0xc0
-				MX53_PAD_CSI0_DAT11__GPIO5_29	0xc0
-				MX53_PAD_CSI0_DAT12__GPIO5_30	0xc0
-			>;
-		};
-
 		led_pin_gpio4_27: led_gpio4_27@0 {
 			fsl,pins = <
 				MX53_PAD_DISP0_DAT6__GPIO4_27 0x80000000
@@ -115,13 +105,24 @@
 				MX53_PAD_CSI0_DAT11__UART1_RXD_MUX	0x1e4
 			>;
 		};
+
 		pinctrl_gpio5: gpio5grp {
 			fsl,pins = <
-				MX53_PAD_CSI0_DAT8__GPIO5_26 0xc0
-				MX53_PAD_CSI0_DAT9__GPIO5_27 0xc0
-				MX53_PAD_CSI0_DAT10__GPIO5_28 0xc0
-				MX53_PAD_CSI0_DAT11__GPIO5_29 0xc0
-				MX53_PAD_CSI0_DAT12__GPIO5_30 0xc0
+				MX53_PAD_CSI0_DAT8__GPIO5_26	0xc0
+				MX53_PAD_CSI0_DAT9__GPIO5_27	0xc0
+				MX53_PAD_CSI0_DAT10__GPIO5_28	0xc0
+				MX53_PAD_CSI0_DAT11__GPIO5_29	0xc0
+				MX53_PAD_CSI0_DAT12__GPIO5_30	0xc0
+			>;
+		};
+
+		pinctrl_ecspi2: ecspi2grp {
+			fsl,pins = <
+				MX53_PAD_CSI0_DAT8__ECSPI2_SCLK		0x80000000
+				MX53_PAD_CSI0_DAT9__ECSPI2_MOSI		0x80000000
+				MX53_PAD_CSI0_DAT10__ECSPI2_MISO	0x80000000
+				MX53_PAD_CSI0_DAT11__GPIO5_29		0x80000000
+				MX53_PAD_CSI0_DAT12__GPIO5_30		0x80000000
 			>;
 		};
 	};

@@ -18,7 +18,7 @@
 };
 
 &iomuxc {
-	pinctrl-0 = <&pinctrl_pinheader>;
+	pinctrl-0 = <&pinctrl_gpio5>;
 };
 
 &uart1 {

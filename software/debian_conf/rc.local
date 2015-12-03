@@ -14,6 +14,9 @@
 # Generate ssh host keys if missing
 FILES=$(ls /etc/ssh/ssh_host_* 2> /dev/null | wc -l)
 if [ "$FILES" = "0" ]; then
+  while [ $(cat /proc/sys/kernel/random/entropy_avail) -lt 256 ]; do
+    sleep 1;
+  done
   /usr/sbin/dpkg-reconfigure openssh-server
 fi
 
