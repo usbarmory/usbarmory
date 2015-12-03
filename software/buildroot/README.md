@@ -38,9 +38,9 @@ The USB armory + INTERLOCK Buildroot image operates as follow:
 
   * The 'Poweroff' action, within INTERLOCK, allows safe shutdown.
 
-  * The interlock user '.ssh' directory can be referenced within the encrypted
-    partition, therefore you can upload a '.ssh/authorized_keys' file with
-    INTERLOCK to have SSH access for debugging or upgrading (see Upgrading
+  * The "interlock" user '.ssh' directory can be referenced within the
+    encrypted partition, therefore you can upload a '.ssh/authorized_keys' file
+    with INTERLOCK to have SSH access for debugging or upgrading (see Upgrading
     section).
 
     This is also useful for Signal/TextSecure registration which can be
