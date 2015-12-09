@@ -1,6 +1,6 @@
 /*
  * USB armory MkI device tree include file
- * http://inversepath.com/usbarmory
+ * https://inversepath.com/usbarmory
  *
  * Copyright (C) 2015, Inverse Path
  * Andrej Rosano <andrej@inversepath.com>
@@ -75,16 +75,6 @@
 	pinctrl-names = "default";
 
 	imx53-usbarmory {
-		pinctrl_pinheader: pinheadergrp {
-			fsl,pins = <
-				MX53_PAD_CSI0_DAT8__GPIO5_26	0xc0
-				MX53_PAD_CSI0_DAT9__GPIO5_27	0xc0
-				MX53_PAD_CSI0_DAT10__GPIO5_28	0xc0
-				MX53_PAD_CSI0_DAT11__GPIO5_29	0xc0
-				MX53_PAD_CSI0_DAT12__GPIO5_30	0xc0
-			>;
-		};
-
 		led_pin_gpio4_27: led_gpio4_27@0 {
 			fsl,pins = <
 				MX53_PAD_DISP0_DAT6__GPIO4_27 0x80000000
@@ -102,26 +92,67 @@
 			>;
 		};
 
-		pinctrl_i2c1: i2c1grp {
+		pinctrl_i2c1_pmic: i2c1grp_pmic {
 			fsl,pins = <
-				MX53_PAD_CSI0_DAT8__I2C1_SDA	0xc0000000
-				MX53_PAD_CSI0_DAT9__I2C1_SCL	0xc0000000
+				MX53_PAD_EIM_D21__I2C1_SCL	0xc0000000
+				MX53_PAD_EIM_D28__I2C1_SDA	0xc0000000
 			>;
 		};
 
+		/*
+		UART mode pin header configration:
+		pin number:	1     2     3     4     5      6      7
+		function:	GND   5V    ?     ?     TX     RX     ?
+		*/
 		pinctrl_uart1: uart1grp {
 			fsl,pins = <
 				MX53_PAD_CSI0_DAT10__UART1_TXD_MUX	0x1e4
 				MX53_PAD_CSI0_DAT11__UART1_RXD_MUX	0x1e4
 			>;
 		};
+
+		/*
+		GPIO mode pin header configuration:
+		1     2     3         4         5         6         7
+		GND   5V    GPIO5[26] GPIO5[27] GPIO5[28] GPIO5[29] GPIO5[30]
+		*/
 		pinctrl_gpio5: gpio5grp {
 			fsl,pins = <
-				MX53_PAD_CSI0_DAT8__GPIO5_26 0xc0
-				MX53_PAD_CSI0_DAT9__GPIO5_27 0xc0
-				MX53_PAD_CSI0_DAT10__GPIO5_28 0xc0
-				MX53_PAD_CSI0_DAT11__GPIO5_29 0xc0
-				MX53_PAD_CSI0_DAT12__GPIO5_30 0xc0
+				MX53_PAD_CSI0_DAT8__GPIO5_26	0xc0
+				MX53_PAD_CSI0_DAT9__GPIO5_27	0xc0
+				MX53_PAD_CSI0_DAT10__GPIO5_28	0xc0
+				MX53_PAD_CSI0_DAT11__GPIO5_29	0xc0
+				MX53_PAD_CSI0_DAT12__GPIO5_30	0xc0
+			>;
+		};
+
+		/*
+		SPI mode pin header configuration:
+		1     2     3      4      5      6      7
+		GND   5V    SCLK   MOSI   MISO   /SS0   /SS1
+		*/
+		pinctrl_ecspi2: ecspi2grp {
+			fsl,pins = <
+				MX53_PAD_CSI0_DAT8__ECSPI2_SCLK		0x80000000
+				MX53_PAD_CSI0_DAT9__ECSPI2_MOSI		0x80000000
+				MX53_PAD_CSI0_DAT10__ECSPI2_MISO	0x80000000
+				MX53_PAD_CSI0_DAT11__GPIO5_29		0x80000000
+				MX53_PAD_CSI0_DAT12__GPIO5_30		0x80000000
+			>;
+		};
+
+		/*
+		I2C mode pin header configuration:
+		1     2    3     4     5          6          7
+		GND   5V   SDA   SCL   GPIO5[28]  GPIO5[29]  GPIO5[30]
+		*/
+		pinctrl_i2c1_pinheader: i2c1grp_pinheader {
+			fsl,pins = <
+				MX53_PAD_CSI0_DAT8__I2C1_SDA	0xc0000000
+				MX53_PAD_CSI0_DAT9__I2C1_SCL	0xc0000000
+				MX53_PAD_CSI0_DAT10__GPIO5_28	0x80000000
+				MX53_PAD_CSI0_DAT11__GPIO5_29	0x80000000
+				MX53_PAD_CSI0_DAT12__GPIO5_30	0x80000000
 			>;
 		};
 	};
@@ -138,10 +169,11 @@
 };
 
 &i2c1 {
+	pinctrl-0 = <&pinctrl_i2c1_pmic>;
+	status = "okay";
 	ltc3589: pmic@34 {
 		compatible = "lltc,ltc3589-2";
 		reg = <0x34>;
-
 		regulators {
 			sw1_reg: sw1 {
 				regulator-min-microvolt = <591930>;
