@@ -3,14 +3,14 @@ Embedded INTERLOCK distribution for the USB armory
 
 This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling a minimal embedded Linux environment for the
-[USB armory](http://inversepath.com/usbarmory) with
+[USB armory](https://inversepath.com/usbarmory) with
 [INTERLOCK](https://github.com/inversepath/interlock) support.
 
 Once installed on a microSD card for the USB armory, the Buildroot image allows
 quick and easy access to the INTERLOCK web application, exposing advanced
 interaction with an encrypted storage.
 
-![INTERLOCK screenshot](http://inversepath.com/images/interlock.png)
+![INTERLOCK screenshot](https://inversepath.com/images/interlock.png)
 
 Operation
 =========

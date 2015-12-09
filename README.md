@@ -1,19 +1,19 @@
 Introduction
 ============
 
-USB armory | http://inversepath.com/usbarmory  
+USB armory | https://inversepath.com/usbarmory  
 Copyright (c) 2015 Inverse Path S.r.l.
 
-The USB armory from [Inverse Path](http://inversepath.com) is an open source
+The USB armory from [Inverse Path](https://inversepath.com) is an open source
 hardware design, implementing a flash drive sized computer.
 
 This repository contains the hardware design, additional software repositories
 can be found on [GitHub](https://github.com/inversepath).
 
 This repository is aimed towards developers, if you wish to purchase a USB
-armory board please see the [ordering information](http://inversepath.com/usbarmory#ordering).
+armory board please see the [ordering information](https://inversepath.com/usbarmory#ordering).
 
-![USB armory](http://inversepath.com/images/usbarmory_top.jpg)
+![USB armory](https://inversepath.com/images/usbarmory_top.jpg)
 
 Authors
 =======
@@ -36,7 +36,7 @@ Board revisions
 License
 =======
 
-USB armory | http://inversepath.com/usbarmory  
+USB armory | https://inversepath.com/usbarmory  
 Copyright (c) 2015 Inverse Path S.r.l.
 
 This is an open hardware design licensed under the terms of the CERN Open
