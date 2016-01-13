@@ -1,5 +1,5 @@
 /*
- * Simple utility to dump Freescale i.MX53 internal Boot ROM
+ * Simple utility to dump the i.MX53 internal Boot ROM
  *
  * i.MX53 Boot ROM mapping:
  *   0x00000000 - 0x00003FFF 16KB
