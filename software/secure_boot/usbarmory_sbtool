@@ -13,7 +13,18 @@ require 'digest'
 require 'getoptlong'
 require 'openssl'
 
-VERSION = 'alpha'
+WARNING = <<EOF
+WARNING: enabling secure boot functionality on the USB armory SoC, unlike
+similar features on modern PCs, is an irreversible action that permanently
+fuses verification keys hashes on the device. This means that any errors in the
+process or loss of the signing PKI will result in a bricked device incapable of
+executing unsigned code. This is a security feature, not a bug.
+
+This tool is EXPERIMENTAL and it is highly recommended to verify the SRK table
+hash, before fusing, by comparing it with the Freescale IMX_CST_TOOL 2.2
+generated one.
+
+EOF
 
 class SRKTable
   class Header < BitStruct
@@ -61,12 +72,13 @@ end
 def help
   puts <<EOF
 Usage: usbarmory_sbtool [OPTIONS]
-  -1 | --key1 <public key>                  SRK public key 1 in PEM format
-  -2 | --key2 <public key>                  SRK public key 2 in PEM format
-  -3 | --key3 <public key>                  SRK public key 3 in PEM format
-  -4 | --key4 <public key>                  SRK public key 4 in PEM format
+  -1 | --key1  <public key>                 SRK public key 1 in PEM format
+  -2 | --key2  <public key>                 SRK public key 2 in PEM format
+  -3 | --key3  <public key>                 SRK public key 3 in PEM format
+  -4 | --key4  <public key>                 SRK public key 4 in PEM format
+  -o | --hash  <filename>                   Write SRK table hash to file
+  -O | --table <filename>                   Write SRK table to file
      |
-  -v | --version                            Display version
   -h | --help                               Show this help
 EOF
 end
@@ -87,13 +99,14 @@ opts = GetoptLong.new(
   ['--key2',    '-2', GetoptLong::REQUIRED_ARGUMENT],
   ['--key3',    '-3', GetoptLong::REQUIRED_ARGUMENT],
   ['--key4',    '-4', GetoptLong::REQUIRED_ARGUMENT],
-  ['--version', '-v', GetoptLong::NO_ARGUMENT],
+  ['--hash',    '-o', GetoptLong::REQUIRED_ARGUMENT],
+  ['--table',   '-O', GetoptLong::REQUIRED_ARGUMENT],
   ['--help',    '-h', GetoptLong::NO_ARGUMENT]
 )
 
 begin
   @debug = false
-  k1, k2, k3, k4 = nil
+  k1, k2, k3, k4, hash_file, table_file = nil
 
   opts.each do |opt, arg|
     case opt
@@ -102,11 +115,10 @@ begin
     when '--key2'  then k2 = arg
     when '--key3'  then k3 = arg
     when '--key4'  then k4 = arg
+    when '--hash'  then hash_file  = arg
+    when '--table' then table_file = arg
     when '--help'
       help
-      exit(0)
-    when '--version'
-      puts "usbarmory_sbtool #{VERSION}"
       exit(0)
     end
   end
@@ -129,21 +141,18 @@ begin
   table.len = table.length
   hash = Digest::SHA256.digest(pk_hashes.join)
 
-  puts <<EOF
-WARNING: enabling secure boot functionality on the USB armory SoC, unlike
-similar features on modern PCs, is an irreversible action that permanently
-fuses verification keys hashes on the device. This means that any errors in the
-process or loss of the signing PKI will result in a bricked device incapable of
-executing unsigned code. This is a security feature, not a bug.
-
-This tool is EXPERIMENTAL and it is highly recommended to verify the SRK table
-hash, before fusing, by comparing it with the Freescale IMX_CST_TOOL 2.2
-generated one.
-
-EOF
-
+  puts WARNING
   puts "SRK table hash: #{hash.unpack('H*')[0]}"
 
+  if hash_file
+    File.open(hash_file, 'w+').write(hash)   if hash_file
+    puts "SRK table hash written to #{hash_file}"
+  end
+
+  if table_file
+    File.open(table_file, 'w+').write(table)
+    puts "SRK table      written to #{table_file}"
+  end
 rescue GetoptLong::InvalidOption, ArgumentError => e
   puts "Error: #{e.message}" unless e.to_s.empty?
   help
