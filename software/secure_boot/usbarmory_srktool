@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-# USB armory - secure boot tool
+# USB armory - Secure Boot tool - Super Root Key (SRK) hash generation
 #   https://github.com/inversepath/usbarmory/wiki/Secure-boot
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
@@ -71,13 +71,13 @@ end
 
 def help
   puts <<EOF
-Usage: usbarmory_sbtool [OPTIONS]
-  -1 | --key1  <public key>                 SRK public key 1 in PEM format
-  -2 | --key2  <public key>                 SRK public key 2 in PEM format
-  -3 | --key3  <public key>                 SRK public key 3 in PEM format
-  -4 | --key4  <public key>                 SRK public key 4 in PEM format
-  -o | --hash  <filename>                   Write SRK table hash to file
-  -O | --table <filename>                   Write SRK table to file
+Usage: usbarmory_srktool [OPTIONS]
+  -1 | --key1  <public key path>            SRK public key 1 in PEM format
+  -2 | --key2  <public key path>            SRK public key 2 in PEM format
+  -3 | --key3  <public key path>            SRK public key 3 in PEM format
+  -4 | --key4  <public key path>            SRK public key 4 in PEM format
+  -o | --hash  <output filename>            Write SRK table hash to file
+  -O | --table <output filename>            Write SRK table to file
      |
   -h | --help                               Show this help
 EOF
@@ -94,7 +94,6 @@ def gen_pk_table(key)
 end
 
 opts = GetoptLong.new(
-  ['--debug',   '-d', GetoptLong::NO_ARGUMENT],
   ['--key1',    '-1', GetoptLong::REQUIRED_ARGUMENT],
   ['--key2',    '-2', GetoptLong::REQUIRED_ARGUMENT],
   ['--key3',    '-3', GetoptLong::REQUIRED_ARGUMENT],
@@ -105,12 +104,10 @@ opts = GetoptLong.new(
 )
 
 begin
-  @debug = false
   k1, k2, k3, k4, hash_file, table_file = nil
 
   opts.each do |opt, arg|
     case opt
-    when '--debug' then @debug = true
     when '--key1'  then k1 = arg
     when '--key2'  then k2 = arg
     when '--key3'  then k3 = arg
