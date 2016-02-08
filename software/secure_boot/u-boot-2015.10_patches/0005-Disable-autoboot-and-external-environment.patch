@@ -1,0 +1,35 @@
+From ab99ee0c6b2bd6cd1eac51a584014f75d8c507ee Mon Sep 17 00:00:00 2001
+From: Andrej Rosano <andrej@inversepath.com>
+Date: Mon, 8 Feb 2016 15:10:22 +0100
+Subject: [PATCH] Disable autoboot and external environment
+
+Signed-off-by: Andrej Rosano <andrej@inversepath.com>
+---
+ include/configs/usbarmory.h | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/include/configs/usbarmory.h b/include/configs/usbarmory.h
+index 01da47e..048179a 100644
+--- a/include/configs/usbarmory.h
++++ b/include/configs/usbarmory.h
+@@ -27,12 +27,13 @@
+ #define CONFIG_CMD_MEMTEST
+ 
+ /* U-Boot environment */
+-#define CONFIG_ENV_OVERWRITE
+ #define CONFIG_SYS_NO_FLASH
+-#define CONFIG_ENV_OFFSET	(6 * 64 * 1024)
+ #define CONFIG_ENV_SIZE		(8 * 1024)
+-#define CONFIG_ENV_IS_IN_MMC
+-#define CONFIG_SYS_MMC_ENV_DEV	0
++#define CONFIG_ENV_IS_NOWHERE
++
++/* Disable autoboot */
++#undef CONFIG_BOOTDELAY
++#define CONFIG_BOOTDELAY      -2
+ 
+ /* U-Boot general configurations */
+ #define CONFIG_SYS_CBSIZE	512
+-- 
+2.7.0
+
