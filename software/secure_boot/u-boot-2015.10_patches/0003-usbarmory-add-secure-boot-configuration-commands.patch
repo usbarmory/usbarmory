@@ -1,7 +1,7 @@
-From 7bd75f2744d5061bb9c5dc0b986c99509edda610 Mon Sep 17 00:00:00 2001
+From 812a245bff515dc9389d45f3010ee02745a6c205 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej@inversepath.com>
-Date: Wed, 9 Sep 2015 17:36:20 +0200
-Subject: [PATCH 3/4] usbarmory: add secure boot configuration commands
+Date: Mon, 8 Feb 2016 15:06:07 +0100
+Subject: [PATCH] usbarmory add secure boot configuration commands
 
 Signed-off-by: Andrej Rosano <andrej@inversepath.com>
 ---
@@ -23,12 +23,12 @@ index 392d2f9..69311bc 100644
  /* IOMUX */
  
 diff --git a/include/configs/usbarmory.h b/include/configs/usbarmory.h
-index 714e3e2..640cb53 100644
+index 91de81f..01da47e 100644
 --- a/include/configs/usbarmory.h
 +++ b/include/configs/usbarmory.h
-@@ -74,6 +74,9 @@
- #define CONFIG_CMD_FUSE
- #define CONFIG_FSL_IIM
+@@ -81,6 +81,9 @@
+ #define CONFIG_RSA
+ #define CONFIG_RSA_SOFTWARE_EXP
  
 +/* HAB */
 +#define CONFIG_SECURE_BOOT
@@ -37,5 +37,5 @@ index 714e3e2..640cb53 100644
  #define CONFIG_LOADADDR		0x72000000
  #define CONFIG_SYS_TEXT_BASE	0x77800000
 -- 
-2.1.4
+2.7.0
 
