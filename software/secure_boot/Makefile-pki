@@ -1,0 +1,65 @@
+SHELL = /bin/bash
+
+KEYS_PATH = keys
+KEY_LENGTH = 2048
+KEY_EXPIRY = 3650
+
+define gen_key
+	openssl genrsa -F4 \
+	  -out ${KEYS_PATH}/$1_${INDEX}_key.pem ${KEY_LENGTH}
+endef
+
+define gen_req
+	openssl req -new -batch \
+	  -subj /CN=$1_${INDEX}_sha256_${KEY_LENGTH}/ \
+	  -key  ${KEYS_PATH}/$1_${INDEX}_key.pem \
+	  -out  ${KEYS_PATH}/$1_${INDEX}.req
+endef
+
+define sign_cert
+	SSLWORKDIR=${KEYS_PATH} \
+	openssl ca -batch -md sha256 \
+	  -config  openssl.cnf \
+	  -extfile $2 \
+	  -outdir  ${KEYS_PATH} \
+	  -in      ${KEYS_PATH}/$1_${INDEX}.req \
+	  -out     ${KEYS_PATH}/$1_${INDEX}_crt.pem \
+	  -cert    $3 \
+	  -keyfile $4 \
+	  -days    ${KEY_EXPIRY}
+endef
+
+${KEYS_PATH}/SRK_%_crt.pem: INDEX = $(shell expr "$@" : '.*_\([1-4]\)_*')
+${KEYS_PATH}/SRK_%_crt.pem:
+	mkdir -p ${KEYS_PATH}
+	[ -f ${KEYS_PATH}/serial ] || echo "00" > ${KEYS_PATH}/serial
+	[ -f ${KEYS_PATH}/index.txt ] || touch ${KEYS_PATH}/index.txt
+	SSLWORKDIR=${KEYS_PATH} \
+	openssl req -nodes -x509 -extensions v3_ca \
+	  -config openssl.cnf \
+	  -newkey rsa:${KEY_LENGTH} \
+	  -subj /CN=SRK_${INDEX}_sha256_${KEY_LENGTH}/ \
+	  -keyout ${KEYS_PATH}/SRK_${INDEX}_key.pem \
+	  -out ${KEYS_PATH}/SRK_${INDEX}_crt.pem \
+	  -days ${KEY_EXPIRY}
+
+${KEYS_PATH}/CSF_%_crt.pem: INDEX = $(shell expr "$@" : '.*_\([1-4]\)_*')
+${KEYS_PATH}/CSF_%_crt.pem:
+	mkdir -p ${KEYS_PATH}
+	$(call gen_key,CSF)
+	$(call gen_req,CSF)
+	$(call sign_cert,CSF,cert.cnf,${KEYS_PATH}/SRK_${INDEX}_crt.pem,${KEYS_PATH}/SRK_${INDEX}_key.pem)
+
+${KEYS_PATH}/IMG_%_crt.pem: INDEX = $(shell expr "$@" : '.*_\([1-4]\)_*')
+${KEYS_PATH}/IMG_%_crt.pem:
+	mkdir -p ${KEYS_PATH}
+	$(call gen_key,IMG)
+	$(call gen_req,IMG)
+	$(call sign_cert,IMG,cert.cnf,${KEYS_PATH}/SRK_${INDEX}_crt.pem,${KEYS_PATH}/SRK_${INDEX}_key.pem)
+
+usbarmory_sb_keys: ${KEYS_PATH}/SRK_1_crt.pem \
+                   ${KEYS_PATH}/SRK_2_crt.pem \
+                   ${KEYS_PATH}/SRK_3_crt.pem \
+                   ${KEYS_PATH}/SRK_4_crt.pem \
+                   ${KEYS_PATH}/CSF_1_crt.pem \
+                   ${KEYS_PATH}/IMG_1_crt.pem

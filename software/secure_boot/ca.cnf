@@ -1,0 +1,4 @@
+basicConstraints = critical,CA:true
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer:always
+keyUsage = keyCertSign

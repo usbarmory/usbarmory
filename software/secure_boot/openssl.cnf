@@ -1,0 +1,55 @@
+dir			= ${ENV::SSLWORKDIR}
+
+[ ca ]
+default_ca		= CA_default
+
+[ CA_default ]
+serial			= $dir/serial
+database		= $dir/index.txt
+new_certs_dir		= $dir
+certificate		= $dir/cacert.pem
+private_key		= $dir/ca_key.pem
+default_days		= 365
+default_md		= sha256
+preserve		= no
+email_in_dn		= no
+nameopt			= default_ca
+certopt			= default_ca
+policy			= policy_match
+x509_extensions		= openssl_usr_cert
+
+[ policy_match ]
+countryName		= optional
+stateOrProvinceName	= optional
+organizationName	= optional
+organizationalUnitName	= optional
+commonName		= supplied
+emailAddress		= optional
+
+[ req ]
+default_bits		= 2048
+default_keyfile		= key.pem
+default_md		= sha256
+string_mask		= nombstr
+distinguished_name	= req_distinguished_name
+x509_extensions		= v3_ca
+
+[ req_distinguished_name ]
+
+[ v3_usr ]
+basicConstraints=CA:FALSE
+
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer
+
+[ v3_ca ]
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer:always
+
+basicConstraints = critical,CA:true
+
+keyUsage = keyCertSign
+
+[ v3_req ]
+basicConstraints	= CA:FALSE
+subjectKeyIdentifier	= hash
