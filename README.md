@@ -7,9 +7,6 @@ Copyright (c) 2015-2016 Inverse Path S.r.l.
 The USB armory from [Inverse Path](https://inversepath.com) is an open source
 hardware design, implementing a flash drive sized computer.
 
-This repository contains the hardware design, additional software repositories
-can be found on [GitHub](https://github.com/inversepath).
-
 This repository is aimed towards developers, if you wish to purchase a USB
 armory board please see the [ordering information](https://inversepath.com/usbarmory#ordering).
 
