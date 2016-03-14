@@ -282,9 +282,11 @@ begin
   img_start = ivt.self
   img_bytes = img_file.length
 
+  puts 'Reading CSF key'
   csf_pkey = OpenSSL::PKey::RSA.new(File.read(csf_k))
   csf_cert = OpenSSL::X509::Certificate.new File.read(csf_c)
 
+  puts 'Reading IMG key'
   img_pkey = OpenSSL::PKey::RSA.new(File.read(img_k))
   img_cert = OpenSSL::X509::Certificate.new File.read(img_c)
 
