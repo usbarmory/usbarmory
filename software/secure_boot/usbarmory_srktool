@@ -72,14 +72,14 @@ end
 def help
   puts <<EOF
 Usage: usbarmory_srktool [OPTIONS]
-  -1 | --key1  <public key path>            SRK public key 1 in PEM format
-  -2 | --key2  <public key path>            SRK public key 2 in PEM format
-  -3 | --key3  <public key path>            SRK public key 3 in PEM format
-  -4 | --key4  <public key path>            SRK public key 4 in PEM format
-  -o | --hash  <output filename>            Write SRK table hash to file
-  -O | --table <output filename>            Write SRK table to file
+  -1 | --key1  <public key path>     SRK public key 1 in PEM format
+  -2 | --key2  <public key path>     SRK public key 2 in PEM format
+  -3 | --key3  <public key path>     SRK public key 3 in PEM format
+  -4 | --key4  <public key path>     SRK public key 4 in PEM format
+  -o | --hash  <output filename>     Write SRK table hash to file
+  -O | --table <output filename>     Write SRK table to file
      |
-  -h | --help                               Show this help
+  -h | --help                        Show this help
 EOF
 end
 
