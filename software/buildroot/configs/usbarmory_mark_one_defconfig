@@ -998,7 +998,7 @@ BR2_PACKAGE_BOTAN_ARCH_SUPPORTS=y
 #
 # botan needs a toolchain w/ C++, threads
 #
-# BR2_PACKAGE_CA_CERTIFICATES is not set
+BR2_PACKAGE_CA_CERTIFICATES=y
 # BR2_PACKAGE_CRYPTODEV is not set
 # BR2_PACKAGE_GNUTLS is not set
 # BR2_PACKAGE_LIBASSUAN is not set
