@@ -28,15 +28,12 @@ require 'getoptlong'
 require 'openssl'
 
 WARNING = <<EOF
+
 WARNING: enabling secure boot functionality on the USB armory SoC, unlike
 similar features on modern PCs, is an irreversible action that permanently
 fuses verification keys hashes on the device. This means that any errors in the
 process or loss of the signing PKI will result in a bricked device incapable of
 executing unsigned code. This is a security feature, not a bug.
-
-This tool is EXPERIMENTAL and it is highly recommended to verify the SRK table
-hash, before fusing, by comparing it with the NXP IMX_CST_TOOL 2.2 generated
-one.
 
 EOF
 
