@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-INTERLOCK_VERSION = f1a2363c943a83e02c516f2b7fad04f077035d07
+INTERLOCK_VERSION = a60a5ed27f6098ab283e0d33711c7a5769800411
 INTERLOCK_SITE = $(call github,inversepath,interlock,$(INTERLOCK_VERSION))
 INTERLOCK_REPO = https://github.com/inversepath/interlock
 
@@ -24,8 +24,8 @@ define INTERLOCK_EXTRACT_CMDS
 	touch $(@D)/.stamp_downloaded
 endef
 
-ifeq ($(BR2_PACKAGE_INTERLOCK_TEXTSECURE),y)
-INTERLOCK_MAKE_TARGET="with_textsecure"
+ifeq ($(BR2_PACKAGE_INTERLOCK_SIGNAL),y)
+INTERLOCK_MAKE_TARGET="with_signal"
 else
 INTERLOCK_MAKE_TARGET="build"
 endif

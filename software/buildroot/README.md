@@ -43,14 +43,11 @@ The USB armory + INTERLOCK Buildroot image operates as follow:
     with INTERLOCK to have SSH access for debugging or upgrading (see Upgrading
     section).
 
-    This is also useful for Signal/TextSecure registration which can be
-    accomplished by logging in via SSH, logging out of INTERLOCK, killing it
-    and restarting it with 'interlock -c /etc/interlock.conf -r'. The
-    registration and operation requires the host computer to share its Internet
-    connection.
+  * INTERLOCK Signal support is enabled, its registration and operation require
+    the host computer to share its Internet connection.
 
     Links:
-    [Signal/TextSecure support](https://github.com/inversepath/interlock#signaltextsecure-support),
+    [Signal support](https://github.com/inversepath/interlock#signal-support),
     [Internet connection sharing](https://github.com/inversepath/usbarmory/wiki/Host-communication#setup--connection-sharing-linux).
 
   * A serial console is available on the
@@ -75,9 +72,8 @@ The [Buildroot requirements](http://buildroot.uclibc.org/downloads/manual/manual
 and [INTERLOCK requirements](https://github.com/inversepath/interlock#compiling)
 must be satisfied before starting the compilation process.
 
-The INTERLOCK Signal/TextSecure optional support is enabled by default in the
-Buildroot configuration, therefore its
-[dependencies](https://github.com/inversepath/interlock#signaltextsecure-support)
+INTERLOCK Signal support is enabled by default in the Buildroot configuration,
+therefore its [dependencies](https://github.com/inversepath/interlock#signal-support)
 are also required. The feature can be disabled in Buildroot '.config' file if
 desired.
 
@@ -87,7 +83,7 @@ Install Buildroot:
 git clone https://github.com/buildroot/buildroot
 # NOTE: you are welcome to try the current branch and report any issues that
 # you may encounter, for the last tested branch checkout the following one:
-# git checkout 306878fa0291bc52ac5a835fb29670f50cbe868c
+# git checkout 8a79c8d86fe9b8a1956d2fc36113342d576c6b84
 ```
 
 Download the USB armory [repository](https://github.com/inversepath/usbarmory)

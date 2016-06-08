@@ -9,10 +9,10 @@ config BR2_PACKAGE_INTERLOCK
 
 if BR2_PACKAGE_INTERLOCK
 
-config BR2_PACKAGE_INTERLOCK_TEXTSECURE
-        bool "interlock_textsecure"
+config BR2_PACKAGE_INTERLOCK_SIGNAL
+        bool "interlock_signal"
         depends on BR2_PACKAGE_INTERLOCK
         help
-          Enable TextSecure/Signal support.
+          Enable INTERLOCK Signal support.
 
 endif
