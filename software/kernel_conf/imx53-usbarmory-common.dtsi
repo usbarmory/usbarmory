@@ -35,19 +35,6 @@
 			linux,default-trigger = "heartbeat";
 		};
 	};
-
-	soc {
-		aips@60000000 {
-			sahara: crypto@63ff8000 {
-				compatible = "fsl,imx53-sahara";
-				reg = <0x63ff8000 0x4000>;
-				interrupts = <19 20>;
-				clocks = <&clks IMX5_CLK_SAHARA_IPG_GATE>,
-					 <&clks IMX5_CLK_SAHARA_IPG_GATE>;
-				clock-names = "ipg", "ahb";
-			};
-		};
-	};
 };
 
 &cpu0 {
@@ -138,6 +125,21 @@
 				MX53_PAD_CSI0_DAT10__ECSPI2_MISO	0x80000000
 				MX53_PAD_CSI0_DAT11__GPIO5_29		0x80000000
 				MX53_PAD_CSI0_DAT12__GPIO5_30		0x80000000
+			>;
+		};
+
+		/*
+		WILC1000 wifi module pin header configuration:
+		1     2     3      4      5      6      7
+		GND   5V    SCLK   MOSI   MISO   /SS0   GPIO_IRQ
+		*/
+		pinctrl_wilc1000: wilc1000grp {
+			fsl,pins = <
+				MX53_PAD_CSI0_DAT8__ECSPI2_SCLK		0x80000000
+				MX53_PAD_CSI0_DAT9__ECSPI2_MOSI		0x80000000
+				MX53_PAD_CSI0_DAT10__ECSPI2_MISO	0x80000000
+				MX53_PAD_CSI0_DAT11__GPIO5_29		0x80000000
+				MX53_PAD_CSI0_DAT12__GPIO5_30		0xc0
 			>;
 		};
 
