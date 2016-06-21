@@ -166,10 +166,6 @@
 	status = "okay";
 };
 
-&vpu {
-	status = "okay";
-};
-
 &i2c1 {
 	pinctrl-0 = <&pinctrl_i2c1_pmic>;
 	status = "okay";
