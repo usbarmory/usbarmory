@@ -7,14 +7,10 @@
  *
  * Instructions:
  *
- * 1. Compile
- *  gcc -o imx53_bootrom-dump imx53_bootrom-dump.c
+ * gcc -o imx53_bootrom-dump imx53_bootrom-dump.c
  *
- * 1. Temporarily run a Linux kernel without CONFIG_STRICT_DEVMEM set
- *
- * 2. Perform ROM dump as follows:
- *  sudo ./imx53_bootrom-dump 0 16        > imx53-bootrom-16K.bin
- *  sudo ./imx53_bootrom-dump 0x404000 48 > imx53-bootrom-48K.bin
+ * sudo ./imx53_bootrom-dump 0 16        > imx53-bootrom-16K.bin
+ * sudo ./imx53_bootrom-dump 0x404000 48 > imx53-bootrom-48K.bin
  *
  * Based on devmem2.c by Jan-Derk Bakker
  *  Copyright (C) 2000, Jan-Derk Bakker (jdb@lartmaker.nl)
