@@ -10,7 +10,7 @@ echo "Starting INTERLOCK"
 # one to have valid TLS certificate generation. The system date will be
 # overridden at first successful INTERLOCK login by the client via set_time
 # feature.
-/bin/date -s 201510131000
+/bin/date -s 201623061500
 
 if [ ! -b /dev/mmcblk0p2 ]; then
   /usr/sbin/parted /dev/mmcblk0 --script mkpart primary ext4 21M 100%
@@ -23,8 +23,14 @@ fi
 if [ $? == 0 ]; then
   /usr/sbin/vgcreate lvmvolume /dev/mmcblk0p2
   /usr/sbin/lvcreate -n armory -l 100%FREE lvmvolume
+
+  while [ $(cat /proc/sys/kernel/random/entropy_avail) -lt 256 ]; do
+    sleep 1;
+  done
+
   echo -n "usbarmory" | /usr/sbin/cryptsetup --cipher aes-xts-plain64 --key-size 256 --hash sha1 luksFormat /dev/lvmvolume/armory
   echo -n "usbarmory" | /usr/sbin/cryptsetup luksOpen /dev/lvmvolume/armory interlockfs
+
   /usr/sbin/mkfs.ext4 /dev/mapper/interlockfs
   /usr/sbin/cryptsetup luksClose /dev/mapper/interlockfs
 fi
