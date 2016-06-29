@@ -71,6 +71,17 @@
 			linux,default-trigger = "heartbeat";
 		};
 	};
+
+	soc {
+		aips@60000000 {
+			scc2: scc2@63fb4000 {
+				compatible = "fsl,imx53-scc2";
+				reg = <0x63fb4000 0x4000>,
+				      <0x07000000 0x4000>;
+				interrupts = <21 23>;
+			};
+		};
+	};
 };
 
 &cpu0 {
