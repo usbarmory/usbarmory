@@ -10,7 +10,7 @@ echo "Starting INTERLOCK"
 # one to have valid TLS certificate generation. The system date will be
 # overridden at first successful INTERLOCK login by the client via set_time
 # feature.
-/bin/date -s 201623061500
+/bin/date -s '2016-06-30 15:00:00'
 
 if [ ! -b /dev/mmcblk0p2 ]; then
   /usr/sbin/parted /dev/mmcblk0 --script mkpart primary ext4 21M 100%
@@ -34,6 +34,11 @@ if [ $? == 0 ]; then
   /usr/sbin/mkfs.ext4 /dev/mapper/interlockfs
   /usr/sbin/cryptsetup luksClose /dev/mapper/interlockfs
 fi
+
+# load mxc-scc2 drivers and grant INTERLOCK access
+/sbin/modprobe scc2
+/sbin/modprobe scc2_aes
+/bin/chown interlock:interlock /dev/scc2_aes
 
 # use microSD for generated TLS certs storage
 /bin/mount /dev/mmcblk0p1 /mnt/

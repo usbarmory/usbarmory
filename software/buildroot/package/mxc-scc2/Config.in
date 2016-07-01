@@ -1,0 +1,11 @@
+config BR2_PACKAGE_MXC_SCC2
+        bool "mxc_scc2"
+        help
+          The SCCv2 is a built-in hardware module that implements secure RAM and a
+          dedicated AES cryptographic engine for encryption/decryption operations.
+
+          This kernel driver is a port of the original Freescale one for Linux
+          3.x, with assorted bugfixes and the addition of the new character device
+          driver.
+
+          https://github.com/inversepath/mxc-scc2

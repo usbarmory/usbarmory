@@ -1,1 +1,2 @@
 source "$BR2_EXTERNAL/package/interlock/Config.in"
+source "$BR2_EXTERNAL/package/mxc-scc2/Config.in"
