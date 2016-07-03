@@ -50,6 +50,13 @@ The USB armory + INTERLOCK Buildroot image operates as follow:
     [Signal support](https://github.com/inversepath/interlock#signal-support),
     [Internet connection sharing](https://github.com/inversepath/usbarmory/wiki/Host-communication#setup--connection-sharing-linux).
 
+  * The driver for the USB armory SoC Security Controller (SCCv2) is included
+    as a Linux kernel moduled, loaded at boot and granted "interlock" user
+    privileges. It is unused by INTERLOCK in its default configuration.
+
+    Links:
+    [mxc-scc2 driver](https://github.com/inversepath/mxc-scc2)
+
   * A serial console is available on the
     [breakout header](https://github.com/inversepath/usbarmory/wiki/GPIOs),
     default root password is "usbarmory".
