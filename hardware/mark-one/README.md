@@ -19,7 +19,7 @@ revision (Mark I).
 Current schematics and layout files have been designed in KiCad (release
 2014-01-25 - 0.201403191418+4754~10~ubuntu12.04.1)
 
-PCB Information
+PCB information
 ===============
 
 6 layers, 2.00mm thickness  
@@ -64,7 +64,7 @@ Order and type of copper layers:
 Material: Isola PCL370-HR
 Total thickness: 2.0 mm
 
-DRC Information
+DRC information
 ---------------
 
 Minimum track width:            0.127 mm  
@@ -78,8 +78,8 @@ Inner layer annular ring:       0.075 mm
 Smallest final hole (plated):   0.150 mm
 
 
-Regulatory Compliance & Handling
-=================================
+Regulatory compliance & handling
+================================
 
 The USB armory board is intended for use as a development platform for hardware
 or software. The board is an open system design, which does not include a
