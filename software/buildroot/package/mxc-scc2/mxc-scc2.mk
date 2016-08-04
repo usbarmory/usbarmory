@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MXC_SCC2_VERSION = c8d328a13c7967f3be235fd23085d3a18e4ec003
+MXC_SCC2_VERSION = 013393510850bcee78a6dd32b0392547cfc8c33e
 MXC_SCC2_SITE = $(call github,inversepath,mxc-scc2,$(MXC_SCC2_VERSION))
 MXC_SCC2_REPO = https://github.com/inversepath/mxc-scc2
 
