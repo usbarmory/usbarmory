@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-INTERLOCK_VERSION = a9ce09352baadc39da01b62a60c973d58a45702a
+INTERLOCK_VERSION = b58c66a65c58e4a4e44b869f34d96e2f7e2959cc
 INTERLOCK_SITE = $(call github,inversepath,interlock,$(INTERLOCK_VERSION))
 INTERLOCK_REPO = https://github.com/inversepath/interlock
 

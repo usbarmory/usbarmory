@@ -90,7 +90,7 @@ Install Buildroot:
 git clone https://github.com/buildroot/buildroot
 # NOTE: you are welcome to try the current branch and report any issues that
 # you may encounter, for the last tested branch checkout the following one:
-# git checkout 484fd99092560a077761327653c25df4b868befd
+# git checkout ad0162623327fadd65b50a6007a5dfc5c52bd0a1
 ```
 
 Download the USB armory [repository](https://github.com/inversepath/usbarmory)
@@ -101,7 +101,7 @@ be optionally customized if required:
 ```
 # adjust the USBARMORY_GIT variable according to your environment
 cd buildroot
-make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot usbarmory_mark_one_defconfig
+make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot interlock_defconfig
 ```
 
 The bootloader, kernel and filesystem can be built as follows:
