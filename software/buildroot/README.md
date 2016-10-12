@@ -15,7 +15,7 @@ interaction with an encrypted storage.
 Operation
 =========
 
-The USB armory + INTERLOCK Buildroot image operates as follow:
+The USB armory + INTERLOCK Buildroot image operates as follows:
 
   * The board LED is used to indicate startup (flashing), boot completed (off)
     and shutdown (on) stages.
