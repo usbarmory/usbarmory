@@ -1,0 +1,5 @@
+config BR2_PACKAGE_QUBES_APP_LINUX_SPLIT_GPG
+        bool "qubes_app_linux_split_gpg"
+        help
+          https://github.com/QubesOS/qubes-app-linux-split-gpg
+          https://www.qubes-os.org/doc/split-gpg/

@@ -1,0 +1,29 @@
+# The following template is required for creation of GPG keys without a
+# passphrase, in line with the Qubes Split GPG project policies which indicate
+# that:
+#
+# - you may experience trouble when attempting to use a PGP key with a
+#   passphrase along with Split-GPG and Enigmail.
+#
+# - the Qubes OS project does "not believe PGP key passphrases to be
+#    significant from a security perspective"
+#
+# Sources: https://www.qubes-os.org/doc/split-gpg
+#          https://www.qubes-os.org/doc/qubes-builder
+#          http://blog.invisiblethings.org/keys/
+#
+# Example:
+# gpg2 --batch --gen-key genkey.template
+
+%echo Generating OpenPGP key
+Key-Type: RSA
+Key-Length: 2048
+Subkey-Type: RSA
+Subkey-Length: 2048
+Name-Real: User 1
+Name-Comment: User 1
+Name-Email: user@1.com
+Expire-Date: 0
+%no-protection
+%commit
+%echo done

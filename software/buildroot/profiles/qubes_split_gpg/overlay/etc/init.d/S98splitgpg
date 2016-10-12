@@ -1,0 +1,34 @@
+#!/bin/sh
+
+if [ "$1" != "start" ]; then
+  exit 0
+fi
+
+echo "Starting Qubes Split GPG Server"
+
+if [ ! -b /dev/mmcblk0p2 ]; then
+  /usr/sbin/parted /dev/mmcblk0 --script mkpart primary ext4 21M 100%
+  /usr/sbin/parted /dev/mmcblk0 --script set 2 lvm on
+fi
+
+/usr/sbin/vgchange -ay
+/usr/sbin/pvcreate /dev/mmcblk0p2
+
+if [ $? == 0 ]; then
+  /usr/sbin/vgcreate lvmvolume /dev/mmcblk0p2
+  /usr/sbin/lvcreate -n armory -l 100%FREE lvmvolume
+
+  while [ $(cat /proc/sys/kernel/random/entropy_avail) -lt 256 ]; do
+    sleep 1;
+  done
+
+  echo -n "usbarmory" | /usr/sbin/cryptsetup --cipher aes-xts-plain64 --key-size 256 --hash sha1 luksFormat /dev/lvmvolume/armory
+  echo -n "usbarmory" | /usr/sbin/cryptsetup luksOpen /dev/lvmvolume/armory encryptedfs
+
+  /usr/sbin/mkfs.ext4 /dev/mapper/encryptedfs
+  /usr/sbin/cryptsetup luksClose /dev/mapper/encryptedfs
+fi
+
+# disable confirmation prompt (LED is used instead)
+mkdir -p /var/run/qubes-gpg-split
+touch    /var/run/qubes-gpg-split/stat.usbarmory-gpg
