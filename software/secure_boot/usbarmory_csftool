@@ -380,7 +380,7 @@ begin
   csf.body += srk_table + csf_key + csf_sig + img_key + img_sig
 
   if csf.length > csf_pad_to
-    raise "unexpected CSF length (#{csf.length} > #{csf_pad_to}, aborting"
+    raise "unexpected CSF length (#{csf.length} > #{csf_pad_to}) (HINT: verify u-boot is compiled with CSF parameter set in imximage.cfg), aborting"
   elsif csf.length < csf_pad_to
     csf.body += "\x00" * (csf_pad_to - csf.length)
   end
