@@ -12,7 +12,7 @@ if [ ! -b /dev/mmcblk0p2 ]; then
 fi
 
 /usr/sbin/vgchange -ay
-/usr/sbin/pvcreate /dev/mmcblk0p2
+/usr/sbin/pvcreate -y /dev/mmcblk0p2
 
 if [ $? == 0 ]; then
   /usr/sbin/vgcreate lvmvolume /dev/mmcblk0p2
