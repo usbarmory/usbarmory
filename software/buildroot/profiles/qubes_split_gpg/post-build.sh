@@ -14,7 +14,7 @@ mkdir -p ${TARGET_DIR}/home/gpg/.ssh
 
 cp $SSH_LOGIN_PUBKEY ${TARGET_DIR}/home/gpg/.ssh/authorized_keys
 
-echo "command=\"/usr/lib/qubes-gpg-split/gpg-server /usr/bin/gpg_led_wrapper usbarmory-gpg\",no-pty,no-port-forwarding,no-agent-forwarding,no-X11-forwarding $(cat ${SSH_GPG_PUBKEY})" >> ${TARGET_DIR}/home/gpg/.ssh/authorized_keys
+echo "command=\"GNUPGHOME=/home/gpg/encryptedfs/.gnupg /usr/lib/qubes-gpg-split/gpg-server /usr/bin/gpg_led_wrapper usbarmory-gpg\",no-pty,no-port-forwarding,no-agent-forwarding,no-X11-forwarding $(cat ${SSH_GPG_PUBKEY})" >> ${TARGET_DIR}/home/gpg/.ssh/authorized_keys
 
 cat << EOF > ${TARGET_DIR}/usr/bin/gpg_led_wrapper
 #!/bin/sh

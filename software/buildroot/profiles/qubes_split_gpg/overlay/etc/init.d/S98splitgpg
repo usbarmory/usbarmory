@@ -31,4 +31,4 @@ fi
 
 # disable confirmation prompt (LED is used instead)
 mkdir -p /var/run/qubes-gpg-split
-touch    /var/run/qubes-gpg-split/stat.usbarmory-gpg
+touch -t 202001011600 /var/run/qubes-gpg-split/stat.usbarmory-gpg
