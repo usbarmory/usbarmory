@@ -1,3 +1,3 @@
-source "$BR2_EXTERNAL/package/interlock/Config.in"
-source "$BR2_EXTERNAL/package/mxc-scc2/Config.in"
-source "$BR2_EXTERNAL/package/qubes-app-linux-split-gpg/Config.in"
+source "$BR2_EXTERNAL_usbarmory_PATH/package/interlock/Config.in"
+source "$BR2_EXTERNAL_usbarmory_PATH/package/mxc-scc2/Config.in"
+source "$BR2_EXTERNAL_usbarmory_PATH/package/qubes-app-linux-split-gpg/Config.in"
