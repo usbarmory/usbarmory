@@ -18,4 +18,4 @@ Available profiles:
   *NOTE*: this is currently a work in progress, only preliminary/partial
   documentation is available.
 
-  Documentation: [Qubes Split GPG server](https://github.com/inversepath/usbarmory/blob/master/software/buildroot/README-Qubes_Split_GPG.md]
+  Documentation: [Qubes Split GPG server](https://github.com/inversepath/usbarmory/blob/master/software/buildroot/README-Qubes_Split_GPG.md)
