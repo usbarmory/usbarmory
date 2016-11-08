@@ -82,11 +82,21 @@ make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot qubes_split_pgp_defconfig
 ```
 
 Set the following environment variables for the 3 required SSH public keys (see
-Operation), note that three *different* public keys are required: LOGIN_PUBKEY,
-GPG_PUBKEY, IMPORT_PUBKEY.
+Operation), note that three *different* public keys are required.
+
+```
+export  LOGIN_PUBKEY=<path to public key>
+export    GPG_PUBKEY=<path to public key>
+export IMPORT_PUBKEY=<path to public key>
+```
 
 Set the LED_TIMEOUT environment variable, which represents the seconds for USB
 armory LED light up to notify about GPG operation requests.
+
+```
+# example of 4 seconds
+export LED_TIMEOUT=4
+```
 
 The bootloader, kernel and filesystem can be built as follows:
 
