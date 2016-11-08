@@ -78,7 +78,7 @@ be optionally customized if required:
 ```
 # adjust the USBARMORY_GIT variable according to your environment
 cd buildroot
-make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot qubes_split_pgp_defconfig
+make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot qubes_split_gpg_defconfig
 ```
 
 Set the following environment variables for the 3 required SSH public keys (see
