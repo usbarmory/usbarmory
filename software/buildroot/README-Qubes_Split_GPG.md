@@ -61,6 +61,9 @@ Compiling
 The [Buildroot requirements](http://buildroot.uclibc.org/downloads/manual/manual.html#requirement)
 must be satisfied before starting the compilation process.
 
+Additionally the 'dropbearkey' binary is required for key generation, provided
+part of the "dropbear" package on most distributions.
+
 Install Buildroot:
 
 ```

@@ -3,6 +3,8 @@
 rm       ${TARGET_DIR}/etc/dropbear
 mkdir -p ${TARGET_DIR}/etc/dropbear
 
+[ -x "$(command -v dropbearkey)" ] || echo -e "\ndropbearkey is missing, please ensure that dropbear is installed\n"
+
 dropbearkey -t rsa   -f ${TARGET_DIR}/etc/dropbear/dropbear_rsa_host_key
 dropbearkey -t dss   -f ${TARGET_DIR}/etc/dropbear/dropbear_dss_host_key
 dropbearkey -t ecdsa -f ${TARGET_DIR}/etc/dropbear/dropbear_ecdsa_host_key
