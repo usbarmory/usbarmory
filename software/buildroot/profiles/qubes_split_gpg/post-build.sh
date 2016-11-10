@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 rm       ${TARGET_DIR}/etc/dropbear
 mkdir -p ${TARGET_DIR}/etc/dropbear
 
