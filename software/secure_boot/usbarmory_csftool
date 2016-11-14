@@ -161,6 +161,14 @@ class HAB
       unsigned :plugin_flag, 32, 'reserved, should be zero',          :default => 0x0000
     end
   end
+
+  class DCD < BitStruct
+    unsigned :tag,        8, :default => HAB_TAG_DCD
+    unsigned :len,       16
+    unsigned :maj_ver,    4, :default => HAB_MAJOR_VERSION
+    unsigned :min_ver,    4, :default => HAB_MINOR_VERSION
+    rest     :body
+  end
 end
 
 class CSFCommand
@@ -204,6 +212,8 @@ Usage: usbarmory_csftool [OPTIONS]
   -x | --index   <SRK key index>     Index for SRK key (1-4)
   -i | --image   <filename>          Image file w/ IVT header (e.g. u-boot.imx)
   -o | --output  <filename>          Write CSF to file
+  -s | --serial                      Serial download mode
+  -S | --serial_dcd <address>        Serial download DCD ocram address (hex; depends on mfg tool used, default: 0x00910000)
      |
   -h | --help                        Show this help
 EOF
@@ -219,11 +229,15 @@ opts = GetoptLong.new(
   ['--index',   '-x', GetoptLong::REQUIRED_ARGUMENT],
   ['--image',   '-i', GetoptLong::REQUIRED_ARGUMENT],
   ['--output',  '-o', GetoptLong::REQUIRED_ARGUMENT],
+  ['--serial',  '-s', GetoptLong::NO_ARGUMENT],
+  ['--serial_dcd', '-S', GetoptLong::REQUIRED_ARGUMENT],
   ['--help',    '-h', GetoptLong::NO_ARGUMENT]
 )
 
 begin
   @debug = false
+  serial_mode = false
+  serial_dcd = 0x00910000
   csf_k, csf_c, img_k, img_c, srk_t, srk_i, image_file, output_file = nil
 
   opts.each do |opt, arg|
@@ -237,6 +251,8 @@ begin
     when '--image'   then image_file = arg
     when '--output'  then output_file = arg
     when '--debug'   then @debug = true
+    when '--serial'  then serial_mode = true
+    when '--serial_dcd' then serial_dcd = arg.hex
     when '--help'
       help
       exit(0)
@@ -339,6 +355,30 @@ begin
   authenticate_data.len = authenticate_data.length
   csf.len += authenticate_data.len
 
+  if serial_mode
+    puts "Serial download mode:"
+    dcd_start = ivt.dcd - ivt.self
+    dcd_len = HAB::DCD.new(img_file[dcd_start..img_bytes]).len
+    puts "  DCD starts at 0x#{dcd_start.to_s(16)}, length 0x#{dcd_len.to_s(16)}"
+    puts "  DCD OCRAM address 0x#{serial_dcd.to_s(16)}"
+
+    # [Authenticate Data] for dcd block
+    authenticate_dcd     = CSFCommand::AuthenticateData.new
+    authenticate_dcd.tag = HAB_CMD_AUT_DAT
+    authenticate_dcd.flg = HAB_CMD_AUT_DAT_CLR
+    authenticate_dcd.key = 2 # Verification Index = 2
+    authenticate_dcd.pcl = HAB_PCL_CMS
+    blk_dcd = CSFCommand::AuthenticateData::Blk.new
+    blk_dcd.blk_start = serial_dcd  # DCD location in ocram in Serial download mode
+    blk_dcd.blk_bytes = dcd_len
+    authenticate_dcd.blks = blk_dcd
+    authenticate_dcd.len = authenticate_dcd.length
+    csf.len += authenticate_dcd.len
+
+    # clear DCD pointer in IVT since Serial download mode will do the same on loading the image
+    img_file[0x0c..0x0f] = "\0\0\0\0"
+  end
+
   # CSF body
 
   csf_key = HAB::Certificate.new
@@ -360,6 +400,15 @@ begin
   img_sig.signature = tmp.ljust(tmp.length + pad_size, "\0")
   img_sig.len = img_sig.length
 
+  if serial_mode
+    # Sign the DCD block
+    dcd_sig = HAB::Signature.new
+    tmp = OpenSSL::PKCS7.sign(img_cert, img_pkey, img_file[dcd_start..(dcd_start+dcd_len-1)], nil, SIG_FLAGS).to_der
+    pad_size = (4 - (tmp.length % 4)) % 4
+    dcd_sig.signature = tmp.ljust(tmp.length + pad_size, "\0")
+    dcd_sig.len = dcd_sig.length
+  end
+
   # Set CSF commands offsets
   signature_length = img_sig.length
   install_srk.key_dat         = csf.len
@@ -369,6 +418,10 @@ begin
   authenticate_data.aut_start = install_img.key_dat        + img_key.len
 
   csf.body = install_srk + install_csfk + authenticate_csf + install_img + authenticate_data
+  if serial_mode
+    authenticate_dcd.aut_start  = authenticate_data.aut_start + img_sig.len
+    csf.body += authenticate_dcd
+  end
 
   # Sign the CSF commands
   csf_sig = HAB::Signature.new
@@ -378,6 +431,9 @@ begin
   csf_sig.len = csf_sig.length
 
   csf.body += srk_table + csf_key + csf_sig + img_key + img_sig
+  if serial_mode
+    csf.body += dcd_sig
+  end
 
   if csf.length > csf_pad_to
     raise "unexpected CSF length (#{csf.length} > #{csf_pad_to}) (HINT: verify u-boot is compiled with CSF parameter set in imximage.cfg), aborting"
