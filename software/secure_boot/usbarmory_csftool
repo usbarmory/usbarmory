@@ -39,6 +39,7 @@ EOF
 
 SIG_FLAGS = OpenSSL::PKCS7::BINARY | OpenSSL::PKCS7::NOCERTS | OpenSSL::PKCS7::NOSMIMECAP | OpenSSL::PKCS7::DETACHED
 IVT_OFFSET = 0x400 # 1k offset for SD images
+DCD = 0x00910000
 
 # High Assurance Boot version
 HAB_MAJOR_VERSION = 4
@@ -213,7 +214,8 @@ Usage: usbarmory_csftool [OPTIONS]
   -i | --image   <filename>          Image file w/ IVT header (e.g. u-boot.imx)
   -o | --output  <filename>          Write CSF to file
   -s | --serial                      Serial download mode
-  -S | --serial_dcd <address>        Serial download DCD ocram address (hex; depends on mfg tool used, default: 0x00910000)
+  -S | --dcd     <address>           Serial download DCD OCRAM address
+     |                                (depends on mfg tool, default: 0x00910000)
      |
   -h | --help                        Show this help
 EOF
@@ -230,14 +232,14 @@ opts = GetoptLong.new(
   ['--image',   '-i', GetoptLong::REQUIRED_ARGUMENT],
   ['--output',  '-o', GetoptLong::REQUIRED_ARGUMENT],
   ['--serial',  '-s', GetoptLong::NO_ARGUMENT],
-  ['--serial_dcd', '-S', GetoptLong::REQUIRED_ARGUMENT],
+  ['--dcd',     '-S', GetoptLong::REQUIRED_ARGUMENT],
   ['--help',    '-h', GetoptLong::NO_ARGUMENT]
 )
 
 begin
   @debug = false
   serial_mode = false
-  serial_dcd = 0x00910000
+  serial_dcd = DCD
   csf_k, csf_c, img_k, img_c, srk_t, srk_i, image_file, output_file = nil
 
   opts.each do |opt, arg|
@@ -252,7 +254,7 @@ begin
     when '--output'  then output_file = arg
     when '--debug'   then @debug = true
     when '--serial'  then serial_mode = true
-    when '--serial_dcd' then serial_dcd = arg.hex
+    when '--dcd'     then serial_dcd = arg.hex
     when '--help'
       help
       exit(0)
@@ -418,6 +420,7 @@ begin
   authenticate_data.aut_start = install_img.key_dat        + img_key.len
 
   csf.body = install_srk + install_csfk + authenticate_csf + install_img + authenticate_data
+
   if serial_mode
     authenticate_dcd.aut_start  = authenticate_data.aut_start + img_sig.len
     csf.body += authenticate_dcd
@@ -431,6 +434,7 @@ begin
   csf_sig.len = csf_sig.length
 
   csf.body += srk_table + csf_key + csf_sig + img_key + img_sig
+
   if serial_mode
     csf.body += dcd_sig
   end
