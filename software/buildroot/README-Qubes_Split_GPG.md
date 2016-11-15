@@ -51,7 +51,7 @@ The USB armory + Qubes Split GPG Buildroot image operates as follows:
 Qubes OS setup and operation
 ============================
 
-See the [qubes-qrexec-to-tcp repository](https://github.com/inversepath/qubes-qrexec-to-tcp)
+See repository [qubes-qrexec-to-tcp](https://github.com/inversepath/qubes-qrexec-to-tcp)
 for configuration files and instructions.
 
 Compiling
