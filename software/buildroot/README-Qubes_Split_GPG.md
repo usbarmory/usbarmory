@@ -12,11 +12,6 @@ act as gpg-server for Qubes Split GPG clients.
 
 ![Qubes Split GPG screenshot](https://www.qubes-os.org/attachment/wiki/SplitGpg/split-gpg-diagram.png)
 
-Qubes OS setup
-==============
-
-TBD (in development)
-
 Operation
 =========
 
@@ -53,7 +48,11 @@ The USB armory + Qubes Split GPG Buildroot image operates as follows:
     [breakout header](https://github.com/inversepath/usbarmory/wiki/GPIOs),
     default root password is "usbarmory".
 
-A typical usage session is as follows: TBD (in development).
+Qubes OS setup and operation
+============================
+
+See the [qubes-qrexec-to-tcp repository](https://github.com/inversepath/qubes-qrexec-to-tcp)
+for configuration files and instructions.
 
 Compiling
 =========
