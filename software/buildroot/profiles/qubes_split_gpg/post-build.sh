@@ -26,7 +26,7 @@ cat << EOF > ${TARGET_DIR}/usr/bin/gpg_led_wrapper
 #!/bin/sh
 
 sudo /etc/init.d/S00ledon stop
-sleep ${LED_TIMEOUT}
+sleep ${LED_TIMEOUT:-4} # default: 4s
 sudo /etc/init.d/S99ledoff start
 
 exec /usr/bin/gpg2 "\$@"
