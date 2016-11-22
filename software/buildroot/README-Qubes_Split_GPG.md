@@ -1,5 +1,5 @@
-Embedded INTERLOCK distribution for the USB armory
-==================================================
+Qubes Split GPG server for the USB armory
+=========================================
 
 This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling a minimal embedded Linux environment for the
