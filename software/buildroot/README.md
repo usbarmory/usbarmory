@@ -15,7 +15,4 @@ Available profiles:
 * [Qubes Split GPG](https://www.qubes-os.org/doc/split-gpg/) support for
   isolated Qubes OS GPG server with encrypted storage.
 
-  *NOTE*: this is currently a work in progress, only preliminary/partial
-  documentation is available.
-
   Documentation: [Qubes Split GPG server](https://github.com/inversepath/usbarmory/blob/master/software/buildroot/README-Qubes_Split_GPG.md)

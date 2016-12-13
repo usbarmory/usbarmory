@@ -1,5 +1,5 @@
-Embedded INTERLOCK distribution for the USB armory
-==================================================
+Qubes Split GPG server for the USB armory
+=========================================
 
 This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling a minimal embedded Linux environment for the
@@ -10,7 +10,7 @@ Once installed on a microSD card for the USB armory, the Buildroot image
 results in a minimal GPG installation, protected by encrypted storage, that can
 act as gpg-server for Qubes Split GPG clients.
 
-![Qubes Split GPG screenshot](https://www.qubes-os.org/attachment/wiki/SplitGpg/split-gpg-diagram.png)
+![Qubes Split GPG with USB armory](https://cdn.rawgit.com/inversepath/qubes-qrexec-to-tcp/master/images/qrexec-to-tcp.svg)
 
 Operation
 =========
@@ -26,27 +26,27 @@ The USB armory + Qubes Split GPG Buildroot image operates as follows:
     the emulated Ethernet over USB interface.
 
   * Only at the very first boot (which therefore takes longer than subsequent
-    ones), an encrypted partition is created and configured on volume "armory"
-    with default password "usbarmory".
+    ones), an encrypted partition is created and configured on volume `armory`
+    with default password `usbarmory`.
 
-  * The "gpg" user allows operation with 3 different SSH public keys (see
+  * The `gpg` user allows operation with 3 different SSH public keys (see
     Compiling for their configuration):
 
-    LOGIN_PUBKEY:  full shell access, use to unlock the encrypted partition
-                   after boot and setup GPG keyring at first boot;
+    `LOGIN_PUBKEY`:  full shell access, use to unlock the encrypted partition
+                     after boot and setup GPG keyring at first boot;
 
-    GPG_PUBKEY:    used by Qubes Split GPG client (see Qubes OS setup);
+    `GPG_PUBKEY`:    used by Qubes Split GPG client (see Qubes OS setup);
 
-    IMPORT_PUBKEY: used by Qubes Split GPG client for import commands
-                   (see Qubes OS setup).
+    `IMPORT_PUBKEY`: used by Qubes Split GPG client for import commands
+                     (see Qubes OS setup).
 
-  * The LED_TIMEOUT variable, passed at Buildroot image compilation, controls
+  * The `LED_TIMEOUT` variable, passed at Buildroot image compilation, controls
     the time the USB armory LED lights up to warn the user about GPG
     operations.
 
   * A serial console is available on the
     [breakout header](https://github.com/inversepath/usbarmory/wiki/GPIOs),
-    default root password is "usbarmory".
+    default root password is `usbarmory`.
 
 Qubes OS setup and operation
 ============================
@@ -60,7 +60,7 @@ Compiling
 The [Buildroot requirements](http://buildroot.uclibc.org/downloads/manual/manual.html#requirement)
 must be satisfied before starting the compilation process.
 
-Additionally the 'dropbearkey' binary is required for key generation, provided
+Additionally the `dropbearkey` binary is required for key generation, provided
 part of the "dropbear" package on most distributions.
 
 Install Buildroot:
@@ -69,13 +69,13 @@ Install Buildroot:
 git clone https://github.com/buildroot/buildroot
 # NOTE: you are welcome to try the current branch and report any issues that
 # you may encounter, for the last tested branch checkout the following one:
-# git checkout 90e38737a699a25f577684742c767375e74683c5
+# git checkout 2016.11-rc2
 ```
 
 Download the USB armory [repository](https://github.com/inversepath/usbarmory)
 and configure Buildroot by passing the directory holding this README file with
-the BR2_EXTERNAL environment variable. This generates a '.config' file that can
-be optionally customized if required:
+the `BR2_EXTERNAL` environment variable. This generates a `.config` file that
+can be optionally customized if required:
 
 ```
 # adjust the USBARMORY_GIT variable according to your environment
@@ -87,6 +87,7 @@ Set the following environment variables for the 3 required SSH public keys (see
 Operation), note that three *different* public keys are required.
 
 ```
+# IMPORTANT: the 3 variables must point to different keys
 export  LOGIN_PUBKEY=<path to public key>
 export    GPG_PUBKEY=<path to public key>
 export IMPORT_PUBKEY=<path to public key>
@@ -108,9 +109,9 @@ make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot
 
 The process results in the following output files:
 
-  * The bootloader: output/images/u-boot.imx
-  * The Device Tree Blob (dtb) file: output/images/imx53-usbarmory.dtb
-  * The kernel and embedded root filesystem: output/images/zImage
+  * The bootloader: `output/images/u-boot.imx`
+  * The Device Tree Blob (dtb) file: `output/images/imx53-usbarmory.dtb`
+  * The kernel and embedded root filesystem: `output/images/zImage`
 
 The next section illustrates how to install the ouput files on a target microSD
 card.
@@ -121,7 +122,7 @@ Preparing the microSD card for the first time
 **WARNING**: the following operations will destroy any previous contents on the
 target microSD card.
 
-**IMPORTANT**: $TARGET_DEV must be replaced with your microSD device, ensure
+**IMPORTANT**: `TARGET_DEV` must be replaced with your microSD device, ensure
 that you are specifying the correct one. Errors in target specification will
 result in disk corruption.
 
@@ -150,7 +151,7 @@ Installing / Upgrading
 ======================
 
 Mount the partition, copy the kernel and dtb files generated by Buildroot in
-its 'output/images' directory, to the 'boot' directory on the microSD card:
+its `output/images` directory, to the `boot` directory on the microSD card:
 
 ```
 mount ${TARGET_DEV}1 $TARGET_MNT
@@ -170,4 +171,4 @@ You should now be able to boot the USB armory using the imaged microSD card.
 
 **NOTE**: upgrading can also be performed live on the running image using SSH
 access (see Operation section) as the partition is automatically mounted under
-'/mnt' and sudo access is available.
+`/mnt` and sudo access is available.
