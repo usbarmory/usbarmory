@@ -44,9 +44,7 @@
  *     OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/dts-v1/;
-
-#include "imx53-usbarmory-common.dtsi"
+#include "imx53-usbarmory.dts"
 
 &usbotg {
 	dr_mode = "host";
