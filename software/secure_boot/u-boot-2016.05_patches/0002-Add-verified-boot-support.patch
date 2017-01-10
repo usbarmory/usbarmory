@@ -1,30 +1,16 @@
-From 7041b1346bb47fcef4ef6cbfd3e9cf4d71118717 Mon Sep 17 00:00:00 2001
+From 57046e91f8c599796b2dbc469552ff38e67a6a55 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej@inversepath.com>
-Date: Wed, 8 Jun 2016 14:54:32 +0200
+Date: Tue, 10 Jan 2017 13:55:00 +0100
 Subject: [PATCH 2/2] Add verified boot support
 
 Signed-off-by: Andrej Rosano <andrej@inversepath.com>
 ---
- board/inversepath/usbarmory/imximage.cfg |  2 +-
- configs/usbarmory_defconfig              |  9 +++++++++
- include/configs/usbarmory.h              | 18 ++++++++++--------
- 3 files changed, 20 insertions(+), 9 deletions(-)
+ configs/usbarmory_defconfig |  9 +++++++++
+ include/configs/usbarmory.h | 15 +++++++--------
+ 2 files changed, 16 insertions(+), 8 deletions(-)
 
-diff --git a/board/inversepath/usbarmory/imximage.cfg b/board/inversepath/usbarmory/imximage.cfg
-index 392d2f9..69311bc 100644
---- a/board/inversepath/usbarmory/imximage.cfg
-+++ b/board/inversepath/usbarmory/imximage.cfg
-@@ -10,7 +10,7 @@
- 
- IMAGE_VERSION 2
- BOOT_FROM sd
--
-+CSF 0x2000
- 
- /* IOMUX */
- 
 diff --git a/configs/usbarmory_defconfig b/configs/usbarmory_defconfig
-index 17e208b..9f530d9 100644
+index 17e208b767..9f530d92c4 100644
 --- a/configs/usbarmory_defconfig
 +++ b/configs/usbarmory_defconfig
 @@ -17,3 +17,12 @@ CONFIG_CMD_EXT4=y
@@ -41,7 +27,7 @@ index 17e208b..9f530d9 100644
 +CONFIG_RSA=y
 +CONFIG_RSA_SOFTWARE_EXP=y
 diff --git a/include/configs/usbarmory.h b/include/configs/usbarmory.h
-index 8568663..e3ee39e 100644
+index a4835c55e5..78cece78ca 100644
 --- a/include/configs/usbarmory.h
 +++ b/include/configs/usbarmory.h
 @@ -25,12 +25,13 @@
@@ -58,20 +44,11 @@ index 8568663..e3ee39e 100644
 +
 +/* Disable autoboot */
 +#undef CONFIG_BOOTDELAY
-+#define CONFIG_BOOTDELAY      -2
++#define CONFIG_BOOTDELAY -2
  
  /* U-Boot general configurations */
  #define CONFIG_SYS_CBSIZE	512
-@@ -69,17 +70,18 @@
- #define CONFIG_CMD_FUSE
- #define CONFIG_FSL_IIM
- 
-+/* HAB */
-+#define CONFIG_SECURE_BOOT
-+
- /* Linux boot */
- #define CONFIG_LOADADDR		0x72000000
- #define CONFIG_SYS_TEXT_BASE	0x77800000
+@@ -78,11 +79,9 @@
  #define CONFIG_SYS_LOAD_ADDR	CONFIG_LOADADDR
  #define CONFIG_HOSTNAME		usbarmory
  #define CONFIG_BOOTCOMMAND						\
@@ -86,5 +63,5 @@ index 8568663..e3ee39e 100644
  #define BOOT_TARGET_DEVICES(func) func(MMC, mmc, 0)
  
 -- 
-2.8.3
+2.11.0
 
