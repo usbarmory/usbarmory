@@ -2,7 +2,7 @@ Introduction
 ============
 
 USB armory | https://inversepath.com/usbarmory  
-Copyright (c) 2015-2016 Inverse Path S.r.l.
+Copyright (c) 2015-2017 Inverse Path S.r.l.
 
 The USB armory from [Inverse Path](https://inversepath.com) is an open source
 hardware design, implementing a flash drive sized computer.
@@ -34,7 +34,7 @@ License
 =======
 
 USB armory | https://inversepath.com/usbarmory  
-Copyright (c) 2015-2016 Inverse Path S.r.l.
+Copyright (c) 2015-2017 Inverse Path S.r.l.
 
 This is an open hardware design licensed under the terms of the CERN Open
 Hardware Licence (OHL) v1.2.
