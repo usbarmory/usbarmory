@@ -35,12 +35,10 @@ Layers
 
 Order and type of copper layers:  
   TOP:         signal, front components  
-  GND 1:       ground plane  
   SIGNAL 1:    signal  
   GND POWER 1: ground and power plane  
   GND POWER 2: ground and power plane  
   SIGNAL 2:    signal  
-  GND 2:       ground plane  
   BOTTOM:      signal, back components  
 
 | Layer | Description               |  Thickness (in um)  |
