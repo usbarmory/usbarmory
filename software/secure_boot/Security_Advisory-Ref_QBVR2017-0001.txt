@@ -137,11 +137,11 @@ Szkudlapski of Quarkslab.
 
 i.MX53 PoC [6] developed by Andrea Barisani and Andrej Rosano of Inverse Path.
 
-NXP Erratum
-===========
+CVE - NXP Erratum
+=================
 
-ERR010872
-ERR010873
+CVE-2017-7936 - ERR010872
+CVE-2017-7932 - ERR010873
 
 Timeline
 ========
@@ -151,6 +151,7 @@ Timeline
 2017-05-30: Quarkslab communicates embargo period until 2017-07-18.
 2017-05-30: Inverse Path proposes preliminary advisory release on 2017-06-05.
 2017-06-05: Inverse Path releases preliminary advisory.
+2017-06-06: added assigned CVE numbers.
 2017-07-18: planned date for Quarkslab public release of findings [4].
 2017-07-18: planned date for Inverse Path release of full advisory and i.MX53 PoC [6].
 
