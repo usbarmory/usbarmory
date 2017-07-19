@@ -28,17 +28,59 @@ impact its normal operation. This advisory concerns only users that follow, and
 rely upon, the Secure Boot [3] procedure. See Impact section for a detailed
 analysis.
 
-Finding #1 (ERR010873)
-======================
+X.509 parsing error (ERR010873)
+===============================
 
-Technical details under embargo until July 18th, by mutual agreement between
-reported and NXP.
+The initial HABv4 secure booting process can be summarized as follows:
 
-Finding #2 (ERR010872)
-======================
+1. Four Super Root Key (SRK) certification authorities are created.
 
-Technical details under embargo until July 18th, by mutual agreement between
-reported and NXP.
+2. A hash of the four concatenated SRK public keys is permanently fused in
+   the SoC.
+
+3. To sign the bootloader the boot image is integrated with a Command Sequence
+   File (CSF), parsed by the SoC internal boot ROM in order to:
+
+   A. Load the SRK public keys and verify that their concatenated hash matches
+      the one fused in the SoC.
+
+   B. Load the CSF signing public key.
+
+   C. Authenticate the CSF signing public key with one of the SRK keys.
+
+   D. Authenticate the CSF commands, which include the bootloader signature.
+
+The vulnerability takes place in the X.509 parsing of the CSF certificate which
+includes the signing public key (3.B). An excessively long `keyUsage` tag in
+the certificate triggers a stack overflow that can be leveraged to jump
+directly to the bootloader, bypassing authentication.
+
+The X.509 parsing error allows creation of bootloader images that, despite
+having an invalid signature, can be successfully booted on a device with HABv4
+in 'Closed' state.
+
+The parsing error does not require knowledge of the SRK public keys matching
+the fused hash (SRK table), as the certificate parsing step (3.B) can be forced
+as first command of the CSF.
+
+Inverse Path developed its own PoC [6] for the parsing error to confirm its
+application on the i.MX53 SoC, integrating it with the `usbarmory_csftool`
+utility, used to create USB armory Mk I signed bootloader images, by means of
+the added `--hab_poc` flag.
+
+SDP protection bypass (ERR010872)
+=================================
+
+The i.MX53 boot ROM features a built-in recovery mode that allows execution of
+arbitrary code directly through USB when no other boot methods (e.g. microSD
+card) are detected.
+
+The Serial Download Protocol (SDP), used on such interface, is supposed to
+prevent arbitrary write access on boot ROM own memory when HABv4 is enabled.
+
+Such protection however suffer from incorrect validations, ultimately allowing
+overwrite of the boot ROM stack with consequent arbitrary code execution, which
+leads to HABv4 bypass.
 
 Impact
 ======
@@ -106,7 +148,7 @@ The reported [4] vulnerabilities affect High Assurance Boot version 4 (HABv4)
 present on multiple Freescale/NXP i.MX family of application processors.
 
 The i.MX53 family of processors, mounted on all USB armory Mk I boards, is
-affected by the two reported vulnerabilities.
+affected by the X.509 parsing error and SDP protection bypass.
 
 Given that the internal boot ROM cannot be updated, only a new silicon revision
 by NXP, with an adequately patched boot ROM, can address the vulnerabilities.
@@ -140,8 +182,8 @@ i.MX53 PoC [6] developed by Andrea Barisani and Andrej Rosano of Inverse Path.
 CVE - NXP Erratum
 =================
 
-CVE-2017-7936 - ERR010872
-CVE-2017-7932 - ERR010873
+CVE-2017-7936 - ERR010872 ROM: Secure boot vulnerability when using the Serial Downloader
+CVE-2017-7932 - ERR010873 ROM: Secure boot vulnerability when authenticating a certificate
 
 Timeline
 ========
@@ -152,8 +194,8 @@ Timeline
 2017-05-30: Inverse Path proposes preliminary advisory release on 2017-06-05.
 2017-06-05: Inverse Path releases preliminary advisory.
 2017-06-06: added assigned CVE numbers.
-2017-07-18: planned date for Quarkslab public release of findings [4].
-2017-07-18: planned date for Inverse Path release of full advisory and i.MX53 PoC [6].
+2017-07-19: Quarkslab public release of findings [4].
+2017-07-19: Inverse Path release of full advisory and i.MX53 PoC [6].
 
 References
 ==========
@@ -161,9 +203,9 @@ References
 [1] https://github.com/inversepath/usbarmory/wiki
 [2] https://cache.freescale.com/files/32bit/doc/app_note/AN4581.pdf
 [3] https://github.com/inversepath/usbarmory/wiki/Secure-boot
-[4] to be released on 2017-07-18
+[4] https://blog.quarkslab.com/vulnerabilities-in-high-assurance-boot-of-nxp-imx-microprocessors.html
 [5] https://github.com/inversepath/usbarmory/wiki/Internal-Boot-ROM
-[6] to be released on 2017-07-18
+[6] https://github.com/inversepath/usbarmory/blob/master/software/secure_boot/usbarmory_csftool#L227
 [7] https://github.com/inversepath/mxc-scc2
 [8] https://github.com/inversepath/interlock
 [9] https://qct-qualcomm.secure.force.com/QCTConference/GenericSitePage?eventname=2017Security&page=Summit%20Information
