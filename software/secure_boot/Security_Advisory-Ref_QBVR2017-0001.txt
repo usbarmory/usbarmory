@@ -161,6 +161,9 @@ If and when NXP will release a new i.MX53 silicon revision, addressing the
 findings, Inverse Path plans to evaluate sourcing of updated components for a
 new production batch of the USB armory Mk I board.
 
+The list of affected NXP application processors can be found in the i.MX
+Community post titled "i.MX & Vybrid Security Vulnerability Errata" [10].
+
 Contact
 =======
 
@@ -196,19 +199,21 @@ Timeline
 2017-06-06: added assigned CVE numbers.
 2017-07-19: Quarkslab public release of findings [4].
 2017-07-19: Inverse Path release of full advisory and i.MX53 PoC [6].
+2017-07-27: added link to i.MX Community post that lists affected P/Ns.
 
 References
 ==========
 
-[1] https://github.com/inversepath/usbarmory/wiki
-[2] https://cache.freescale.com/files/32bit/doc/app_note/AN4581.pdf
-[3] https://github.com/inversepath/usbarmory/wiki/Secure-boot
-[4] https://blog.quarkslab.com/vulnerabilities-in-high-assurance-boot-of-nxp-imx-microprocessors.html
-[5] https://github.com/inversepath/usbarmory/wiki/Internal-Boot-ROM
-[6] https://github.com/inversepath/usbarmory/blob/master/software/secure_boot/usbarmory_csftool#L227
-[7] https://github.com/inversepath/mxc-scc2
-[8] https://github.com/inversepath/interlock
-[9] https://qct-qualcomm.secure.force.com/QCTConference/GenericSitePage?eventname=2017Security&page=Summit%20Information
+[1]  https://github.com/inversepath/usbarmory/wiki
+[2]  https://cache.freescale.com/files/32bit/doc/app_note/AN4581.pdf
+[3]  https://github.com/inversepath/usbarmory/wiki/Secure-boot
+[4]  https://blog.quarkslab.com/vulnerabilities-in-high-assurance-boot-of-nxp-imx-microprocessors.html
+[5]  https://github.com/inversepath/usbarmory/wiki/Internal-Boot-ROM
+[6]  https://github.com/inversepath/usbarmory/blob/master/software/secure_boot/usbarmory_csftool#L227
+[7]  https://github.com/inversepath/mxc-scc2
+[8]  https://github.com/inversepath/interlock
+[9]  https://qct-qualcomm.secure.force.com/QCTConference/GenericSitePage?eventname=2017Security&page=Summit%20Information
+[10] https://community.nxp.com/docs/DOC-334996
 
 Permalink
 =========
