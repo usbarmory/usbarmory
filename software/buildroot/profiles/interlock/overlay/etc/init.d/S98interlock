@@ -31,7 +31,7 @@ if [ $? == 0 ]; then
   echo -n "usbarmory" | /usr/sbin/cryptsetup --cipher aes-xts-plain64 --key-size 256 --hash sha1 luksFormat /dev/lvmvolume/armory
   echo -n "usbarmory" | /usr/sbin/cryptsetup luksOpen /dev/lvmvolume/armory interlockfs
 
-  /usr/sbin/mkfs.ext4 /dev/mapper/interlockfs
+  /sbin/mkfs.ext4 /dev/mapper/interlockfs
   /usr/sbin/cryptsetup luksClose /dev/mapper/interlockfs
 fi
 
