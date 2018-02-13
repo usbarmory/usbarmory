@@ -1,23 +1,24 @@
-From 2c5c8da648a2922f69724ba7290fa8e1af476822 Mon Sep 17 00:00:00 2001
+From efe9e98ae9b1c71640df95701bfb91059c14f728 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Tue, 13 Feb 2018 16:02:47 +0100
 Subject: [PATCH 3/3] Disable CLI
 
 Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
 ---
- configs/usbarmory_defconfig | 1 +
+ configs/usbarmory_defconfig | 2 ++
  include/configs/usbarmory.h | 1 +
- 2 files changed, 2 insertions(+)
+ 2 files changed, 3 insertions(+)
 
 diff --git a/configs/usbarmory_defconfig b/configs/usbarmory_defconfig
-index 11b02b87c8..309edc8819 100644
+index 11b02b87c8..14ddce414a 100644
 --- a/configs/usbarmory_defconfig
 +++ b/configs/usbarmory_defconfig
-@@ -23,3 +23,4 @@ CONFIG_FIT_SIGNATURE=y
+@@ -23,3 +23,5 @@ CONFIG_FIT_SIGNATURE=y
  CONFIG_DM=y
  CONFIG_RSA=y
  CONFIG_RSA_SOFTWARE_EXP=y
 +CONFIG_CMDLINE=n
++CONFIG_CMD_EXT2=y
 diff --git a/include/configs/usbarmory.h b/include/configs/usbarmory.h
 index 5dacf485b3..77c97dca5e 100644
 --- a/include/configs/usbarmory.h
