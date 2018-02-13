@@ -1,0 +1,77 @@
+From f317979d9f3d8819c5631980c441da1681b4c20c Mon Sep 17 00:00:00 2001
+From: Andrej Rosano <andrej.rosano@f-secure.com>
+Date: Tue, 13 Feb 2018 16:01:37 +0100
+Subject: [PATCH 2/3] Add verified boot support
+
+Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
+---
+ configs/usbarmory_defconfig | 13 +++++++++++--
+ include/configs/usbarmory.h | 12 ++++++------
+ 2 files changed, 17 insertions(+), 8 deletions(-)
+
+diff --git a/configs/usbarmory_defconfig b/configs/usbarmory_defconfig
+index 99cfbd72eb..11b02b87c8 100644
+--- a/configs/usbarmory_defconfig
++++ b/configs/usbarmory_defconfig
+@@ -2,7 +2,7 @@ CONFIG_ARM=y
+ CONFIG_ARCH_MX5=y
+ CONFIG_TARGET_USBARMORY=y
+ # CONFIG_CMD_BMODE is not set
+-CONFIG_DISTRO_DEFAULTS=y
++CONFIG_DISTRO_DEFAULTS=n
+ # CONFIG_USE_BOOTCOMMAND is not set
+ CONFIG_CMD_MEMTEST=y
+ CONFIG_CMD_FUSE=y
+@@ -10,7 +10,16 @@ CONFIG_CMD_I2C=y
+ CONFIG_CMD_MMC=y
+ CONFIG_CMD_USB=y
+ # CONFIG_CMD_SETEXPR is not set
+-CONFIG_ENV_IS_IN_MMC=y
++CONFIG_ENV_IS_IN_NOWHERE=y
+ CONFIG_USB=y
+ CONFIG_USB_STORAGE=y
+ CONFIG_OF_LIBFDT=y
++
++# Enable verified boot
++CONFIG_OF_CONTROL=y
++CONFIG_OF_SEPARATE=y
++CONFIG_FIT=y
++CONFIG_FIT_SIGNATURE=y
++CONFIG_DM=y
++CONFIG_RSA=y
++CONFIG_RSA_SOFTWARE_EXP=y
+diff --git a/include/configs/usbarmory.h b/include/configs/usbarmory.h
+index 4bebc5959c..5dacf485b3 100644
+--- a/include/configs/usbarmory.h
++++ b/include/configs/usbarmory.h
+@@ -19,9 +19,11 @@
+ #include <config_distro_defaults.h>
+ 
+ /* U-Boot environment */
+-#define CONFIG_ENV_OFFSET	(6 * 64 * 1024)
+ #define CONFIG_ENV_SIZE		(8 * 1024)
+-#define CONFIG_SYS_MMC_ENV_DEV	0
++
++/* Disable autoboot */
++#undef CONFIG_BOOTDELAY
++#define CONFIG_BOOTDELAY -2
+ 
+ /* U-Boot general configurations */
+ #define CONFIG_SYS_CBSIZE	512
+@@ -59,11 +61,9 @@
+ /* Linux boot */
+ #define CONFIG_HOSTNAME		usbarmory
+ #define CONFIG_BOOTCOMMAND						\
+-	"run distro_bootcmd; "						\
+ 	"setenv bootargs console=${console} ${bootargs_default}; "	\
+-	"ext2load mmc 0:1 ${kernel_addr_r} /boot/zImage; "		\
+-	"ext2load mmc 0:1 ${fdt_addr_r} /boot/${fdtfile}; "		\
+-	"bootz ${kernel_addr_r} - ${fdt_addr_r}"
++	"ext2load mmc 0:1 ${kernel_addr_r} /boot/usbarmory.itb; "	\
++	"bootm ${kernel_addr_r}"
+ 
+ #define BOOT_TARGET_DEVICES(func) func(MMC, mmc, 0)
+ 
+-- 
+2.16.1
+
