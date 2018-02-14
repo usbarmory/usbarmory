@@ -10,7 +10,7 @@ echo "Starting INTERLOCK"
 # one to have valid TLS certificate generation. The system date will be
 # overridden at first successful INTERLOCK login by the client via set_time
 # feature.
-/bin/date -s '2016-06-30 15:00:00'
+/bin/date -s '2018-02-01 15:00:00'
 
 if [ ! -b /dev/mmcblk0p2 ]; then
   /usr/sbin/parted /dev/mmcblk0 --script mkpart primary ext4 21M 100%
