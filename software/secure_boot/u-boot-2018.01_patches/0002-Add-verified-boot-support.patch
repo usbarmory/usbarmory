@@ -1,4 +1,4 @@
-From f317979d9f3d8819c5631980c441da1681b4c20c Mon Sep 17 00:00:00 2001
+From 0610a6e4546316f7eb46b48c49464ac0e7e3f1e1 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Tue, 13 Feb 2018 16:01:37 +0100
 Subject: [PATCH 2/3] Add verified boot support
@@ -10,7 +10,7 @@ Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
  2 files changed, 17 insertions(+), 8 deletions(-)
 
 diff --git a/configs/usbarmory_defconfig b/configs/usbarmory_defconfig
-index 99cfbd72eb..11b02b87c8 100644
+index 9173be34b5..2c5c348624 100644
 --- a/configs/usbarmory_defconfig
 +++ b/configs/usbarmory_defconfig
 @@ -2,7 +2,7 @@ CONFIG_ARM=y
@@ -22,7 +22,7 @@ index 99cfbd72eb..11b02b87c8 100644
  # CONFIG_USE_BOOTCOMMAND is not set
  CONFIG_CMD_MEMTEST=y
  CONFIG_CMD_FUSE=y
-@@ -10,7 +10,16 @@ CONFIG_CMD_I2C=y
+@@ -10,8 +10,17 @@ CONFIG_CMD_I2C=y
  CONFIG_CMD_MMC=y
  CONFIG_CMD_USB=y
  # CONFIG_CMD_SETEXPR is not set
@@ -31,6 +31,7 @@ index 99cfbd72eb..11b02b87c8 100644
  CONFIG_USB=y
  CONFIG_USB_STORAGE=y
  CONFIG_OF_LIBFDT=y
+ CONFIG_SECURE_BOOT=y
 +
 +# Enable verified boot
 +CONFIG_OF_CONTROL=y

@@ -1,16 +1,16 @@
-From f99d4563e290b11899ece526160e4681267072e0 Mon Sep 17 00:00:00 2001
+From 5d6cff8ea8c9c9484945e82351186bb0414280cc Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
-Date: Wed, 14 Feb 2018 15:36:22 +0100
+Date: Thu, 15 Feb 2018 12:21:49 +0100
 Subject: [PATCH 1/3] Add HAB support
 
-Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
 ---
  arch/arm/mach-imx/Makefile               | 5 +++++
  arch/arm/mach-imx/hab.c                  | 4 ++++
  arch/arm/mach-imx/mx5/soc.c              | 8 ++++++++
  board/inversepath/usbarmory/imximage.cfg | 1 +
+ configs/usbarmory_defconfig              | 1 +
  drivers/crypto/fsl/Makefile              | 2 ++
- 5 files changed, 20 insertions(+)
+ 6 files changed, 21 insertions(+)
 
 diff --git a/arch/arm/mach-imx/Makefile b/arch/arm/mach-imx/Makefile
 index d7966cfd4a..5efd51949d 100644
@@ -98,6 +98,15 @@ index 392d2f91ed..29f1d0e636 100644
  
  /* IOMUX */
  
+diff --git a/configs/usbarmory_defconfig b/configs/usbarmory_defconfig
+index 99cfbd72eb..9173be34b5 100644
+--- a/configs/usbarmory_defconfig
++++ b/configs/usbarmory_defconfig
+@@ -14,3 +14,4 @@ CONFIG_ENV_IS_IN_MMC=y
+ CONFIG_USB=y
+ CONFIG_USB_STORAGE=y
+ CONFIG_OF_LIBFDT=y
++CONFIG_SECURE_BOOT=y
 diff --git a/drivers/crypto/fsl/Makefile b/drivers/crypto/fsl/Makefile
 index ea878e1822..13e4a95459 100644
 --- a/drivers/crypto/fsl/Makefile
