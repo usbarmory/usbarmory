@@ -1,36 +1,25 @@
-From a2e86fff47442ac79ca9d1cf8f86ae430800e3f4 Mon Sep 17 00:00:00 2001
+From 58c00c3f171b60f759b5e1c1438cae0f4c2c7dca Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Tue, 13 Feb 2018 16:02:47 +0100
 Subject: [PATCH 3/3] Disable CLI
 
 Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
 ---
- configs/usbarmory_defconfig | 2 ++
- include/configs/usbarmory.h | 1 +
- 2 files changed, 3 insertions(+)
+ configs/usbarmory_defconfig | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/configs/usbarmory_defconfig b/configs/usbarmory_defconfig
-index 2c5c348624..8a37bdc2ae 100644
+index 2c5c348624..92c63ab17d 100644
 --- a/configs/usbarmory_defconfig
 +++ b/configs/usbarmory_defconfig
-@@ -24,3 +24,5 @@ CONFIG_FIT_SIGNATURE=y
+@@ -24,3 +24,7 @@ CONFIG_FIT_SIGNATURE=y
  CONFIG_DM=y
  CONFIG_RSA=y
  CONFIG_RSA_SOFTWARE_EXP=y
 +CONFIG_CMDLINE=n
 +CONFIG_CMD_EXT2=y
-diff --git a/include/configs/usbarmory.h b/include/configs/usbarmory.h
-index 5dacf485b3..77c97dca5e 100644
---- a/include/configs/usbarmory.h
-+++ b/include/configs/usbarmory.h
-@@ -84,6 +84,7 @@
- 	BOOTENV
- 
- #ifndef CONFIG_CMDLINE
-+#define CONFIG_BOOTARGS "console=ttymxc0,115200 root=/dev/mmcblk0p1 rootwait rw"
- #define USBARMORY_FIT_PATH	"/boot/usbarmory.itb"
- #define USBARMORY_FIT_ADDR	"0x70800000"
- #endif
++CONFIG_BOOTARGS="console=ttymxc0,115200 root=/dev/mmcblk0p1 rootwait rw"
++CONFIG_USE_BOOTARGS=y
 -- 
-2.16.1
+2.16.2
 
