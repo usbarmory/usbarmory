@@ -12,12 +12,11 @@ diff --git a/configs/usbarmory_defconfig b/configs/usbarmory_defconfig
 index 2c5c348624..92c63ab17d 100644
 --- a/configs/usbarmory_defconfig
 +++ b/configs/usbarmory_defconfig
-@@ -24,3 +24,7 @@ CONFIG_FIT_SIGNATURE=y
+@@ -24,3 +24,6 @@ CONFIG_FIT_SIGNATURE=y
  CONFIG_DM=y
  CONFIG_RSA=y
  CONFIG_RSA_SOFTWARE_EXP=y
 +CONFIG_CMDLINE=n
-+CONFIG_CMD_EXT2=y
 +CONFIG_BOOTARGS="console=ttymxc0,115200 root=/dev/mmcblk0p1 rootwait rw"
 +CONFIG_USE_BOOTARGS=y
 -- 

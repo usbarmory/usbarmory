@@ -13,12 +13,13 @@ diff --git a/configs/usbarmory_defconfig b/configs/usbarmory_defconfig
 index 9173be34b5..2c5c348624 100644
 --- a/configs/usbarmory_defconfig
 +++ b/configs/usbarmory_defconfig
-@@ -2,7 +2,7 @@ CONFIG_ARM=y
+@@ -2,7 +2,8 @@ CONFIG_ARM=y
  CONFIG_ARCH_MX5=y
  CONFIG_TARGET_USBARMORY=y
  # CONFIG_CMD_BMODE is not set
 -CONFIG_DISTRO_DEFAULTS=y
 +CONFIG_DISTRO_DEFAULTS=n
++CONFIG_CMD_EXT2=y
  # CONFIG_USE_BOOTCOMMAND is not set
  CONFIG_CMD_MEMTEST=y
  CONFIG_CMD_FUSE=y
