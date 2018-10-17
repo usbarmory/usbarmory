@@ -1,9 +1,9 @@
-Qubes Split GPG server for the USB armory
-=========================================
+Qubes Split GPG server for the USB armory Mk I
+==============================================
 
 This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling a minimal embedded Linux environment for the
-[USB armory](https://inversepath.com/usbarmory) with
+[USB armory](https://inversepath.com/usbarmory) Mk I with
 [Qubes Split GPG](https://www.qubes-os.org/doc/split-gpg/) support.
 
 Once installed on a microSD card for the USB armory, the Buildroot image
@@ -69,7 +69,7 @@ Install Buildroot:
 git clone https://github.com/buildroot/buildroot
 # NOTE: you are welcome to try the current branch and report any issues that
 # you may encounter, for the last tested branch checkout the following one:
-# cd buildroot && git checkout 2018.02.1
+# cd buildroot && git checkout 2018.08.1
 ```
 
 Download the USB armory [repository](https://github.com/inversepath/usbarmory)
@@ -80,7 +80,7 @@ can be optionally customized if required:
 ```
 # adjust the USBARMORY_GIT variable according to your environment
 cd buildroot
-make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot qubes_split_gpg_defconfig
+make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot qubes_split_gpg_mark-one_defconfig
 ```
 
 Set the following environment variables for the 3 required SSH public keys (see

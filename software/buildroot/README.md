@@ -5,7 +5,7 @@ This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling minimal single-purpose embedded Linux
 environments for the [USB armory](https://inversepath.com/usbarmory).
 
-Available profiles:
+Available USB armory Mk I profiles:
 
 * [INTERLOCK](https://github.com/inversepath/interlock) support for encrypted
   storage and Signal messaging.

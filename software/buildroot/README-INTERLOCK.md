@@ -1,9 +1,9 @@
-Embedded INTERLOCK distribution for the USB armory
-==================================================
+Embedded INTERLOCK distribution for the USB armory Mk I
+=======================================================
 
 This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling a minimal embedded Linux environment for the
-[USB armory](https://inversepath.com/usbarmory) with
+[USB armory](https://inversepath.com/usbarmory) Mk I with
 [INTERLOCK](https://github.com/inversepath/interlock) support.
 
 Once installed on a microSD card for the USB armory, the Buildroot image allows
@@ -90,7 +90,7 @@ Install Buildroot:
 git clone https://github.com/buildroot/buildroot
 # NOTE: you are welcome to try the current branch and report any issues that
 # you may encounter, for the last tested branch checkout the following one:
-# cd buildroot && git checkout 2018.02.1
+# cd buildroot && git checkout 2018.08.1
 ```
 
 Download the USB armory [repository](https://github.com/inversepath/usbarmory)
@@ -101,7 +101,7 @@ can be optionally customized if required:
 ```
 # adjust the USBARMORY_GIT variable according to your environment
 cd buildroot
-make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot interlock_defconfig
+make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot interlock_mark-one_defconfig
 ```
 
 The bootloader, kernel and filesystem can be built as follows:
