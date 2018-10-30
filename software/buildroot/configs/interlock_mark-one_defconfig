@@ -297,7 +297,7 @@ BR2_LINUX_KERNEL_ZIMAGE=y
 BR2_LINUX_KERNEL_DTS_SUPPORT=y
 # BR2_LINUX_KERNEL_USE_INTREE_DTS is not set
 BR2_LINUX_KERNEL_USE_CUSTOM_DTS=y
-BR2_LINUX_KERNEL_CUSTOM_DTS_PATH="${USBARMORY_GIT}/software/kernel_conf/dts-4.8/imx53-usbarmory.dts ${USBARMORY_GIT}/software/kernel_conf/dts-4.8/imx53-usbarmory-common.dtsi"
+BR2_LINUX_KERNEL_CUSTOM_DTS_PATH="${USBARMORY_GIT}/software/kernel_conf/mark-one/imx53-usbarmory.dts ${USBARMORY_GIT}/software/kernel_conf/mark-one/imx53-usbarmory-common.dtsi"
 
 #
 # Linux Kernel Extensions
