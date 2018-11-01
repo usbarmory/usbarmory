@@ -21,7 +21,7 @@
 		};
 		fdt@1 {
 			description = "Technexion Pico i.MX6UL Board devicetree blob";
-			data = /incbin/("arch/arm/boot/dts/imx6ul-pico-hobbit.dtb");
+			data = /incbin/("arch/arm/boot/dts/imx6ul-pico-hobbit-caam.dtb");
 			type = "flat_dt";
 			compression = "none";
 			arch = "arm";

@@ -1,14 +1,15 @@
-From 2ff5b31c9cb42eaac0eb6d1a931a7670f0d5dbac Mon Sep 17 00:00:00 2001
+From 18b9caf4649cf8498bec3250f9b0a7b609858a50 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Mon, 27 Aug 2018 12:04:35 +0200
-Subject: Add verified boot support
+Subject: [PATCH] Add verified boot support
 
 ---
- configs/pico-imx6ul_defconfig             | 10 +++++++++-
- 1 files changed, 10 insertions(+), 1 deletion(-)
+ configs/pico-imx6ul_defconfig | 10 +++++++++-
+ include/configs/pico-imx6ul.h | 17 +++++------------
+ 2 files changed, 14 insertions(+), 13 deletions(-)
 
 diff --git a/configs/pico-imx6ul_defconfig b/configs/pico-imx6ul_defconfig
-index 67b3eb1024..240b4bd97f 100644
+index 7a4c63e415..a416310ec4 100644
 --- a/configs/pico-imx6ul_defconfig
 +++ b/configs/pico-imx6ul_defconfig
 @@ -28,7 +28,7 @@ CONFIG_CMD_EXT4=y
@@ -20,9 +21,9 @@ index 67b3eb1024..240b4bd97f 100644
  CONFIG_DFU_MMC=y
  CONFIG_FSL_ESDHC=y
  CONFIG_PHYLIB=y
-@@ -45,3 +45,11 @@ CONFIG_USB_GADGET_DOWNLOAD=y
+@@ -44,3 +44,11 @@ CONFIG_USB_GADGET_DOWNLOAD=y
  CONFIG_OF_LIBFDT=y
-
+ 
  CONFIG_SECURE_BOOT=y
 +
 +CONFIG_DM=y
@@ -32,6 +33,45 @@ index 67b3eb1024..240b4bd97f 100644
 +CONFIG_FIT_SIGNATURE=y
 +CONFIG_RSA=y
 +CONFIG_RSA_SOFTWARE_EXP=y
+diff --git a/include/configs/pico-imx6ul.h b/include/configs/pico-imx6ul.h
+index 038b0a4778..11346d2645 100644
+--- a/include/configs/pico-imx6ul.h
++++ b/include/configs/pico-imx6ul.h
+@@ -70,16 +70,12 @@
+ 	"setup_emmc=gpt write mmc 0 $partitions; reset;\0" \
+ 	"mmcargs=setenv bootargs console=${console},${baudrate} " \
+ 		"root=PARTUUID=${uuid} rootwait rw\0" \
+-	"loadimage=load mmc ${mmcdev}:${mmcpart} ${loadaddr} ${image}\0" \
++	"loadimage=load mmc ${mmcdev}:${mmcpart} ${loadaddr} pico.itb\0" \
+ 	"loadfdt=load mmc ${mmcdev}:${mmcpart} ${fdt_addr} ${fdt_file}\0" \
+ 	"mmcboot=echo Booting from mmc ...; " \
+ 		"run finduuid; " \
+ 		"run mmcargs; " \
+-		"if run loadfdt; then " \
+-			"bootz ${loadaddr} - ${fdt_addr}; " \
+-		"else " \
+-			"echo WARN: Cannot load the DT; " \
+-		"fi;\0" \
++		"bootm ${loadaddr}\0" \
+ 	"netargs=setenv bootargs console=${console},${baudrate} " \
+ 		"root=/dev/nfs " \
+ 	"ip=dhcp nfsroot=${serverip}:${nfsroot},v3,tcp\0" \
+@@ -106,12 +102,9 @@
+ 		"fi;\0" \
+ 
+ #define CONFIG_BOOTCOMMAND \
+-	   "if mmc rescan; then " \
+-		   "if run loadimage; then " \
+-			   "run mmcboot; " \
+-		   "else run netboot; " \
+-		   "fi; " \
+-	   "else run netboot; fi"
++	"setenv bootargs console=ttymxc5,115200; "	\
++	"ext2load mmc 0:1 ${loadaddr} pico.itb; "	\
++	"bootm ${loadaddr}"
+ 
+ #define CONFIG_SYS_MEMTEST_START	0x80000000
+ #define CONFIG_SYS_MEMTEST_END		CONFIG_SYS_MEMTEST_START + SZ_128M
 -- 
-2.19.0
+2.19.1
 
