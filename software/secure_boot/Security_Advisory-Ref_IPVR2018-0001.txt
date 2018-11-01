@@ -1,0 +1,313 @@
+Security advisory: U-Boot verified boot bypass
+==============================================
+
+The Universal Boot Loader - U-Boot [1] verified boot feature allows
+cryptographic authentication of signed kernel images, before their execution.
+
+This feature is essential in maintaining a full chain of trust on systems which
+are secure booted by means of an hardware anchor.
+
+Multiple techniques have been identified that allow to execute arbitrary code,
+within a running U-Boot instance, by means of externally provided
+unauthenticated data.
+
+All such techniques spawn from the lack of memory allocation protection within
+the U-Boot architecture, which results in several means of providing
+excessively large images during the boot process.
+
+Some implementers might find the following issues as an intrinsic
+characteristic of the U-Boot memory model, and consequently a mere aspect of
+correct U-Boot configuration and command restrictions.
+
+However in our opinion the inability of U-Boot to protect itself when loading
+binaries is an unexpected result of non trivial understanding, particularly
+important to emphasize in trusted boot scenarios.
+
+This advisory details two specific techniques that allow to exploit U-Boot lack
+of memory allocation restrictions, with the most severe case also detailing a
+workaround to mitigate the issue.
+
+It must be emphasized that cases detailed in the next sections only represent
+two possible occurrences of such architectural limitation, other U-Boot image
+loading functions are extremely likely to suffer from the same validation
+issues.
+
+To a certain extent the identified issues are similar to one of the findings
+reported as CVE-2018-1000205 [2], however they concern different functions
+which in some cases are at a lower level, therefore earlier in the boot image
+loading stage.
+
+Again all such issues are a symptom of the same core architectural limitation,
+being the lack of memory allocation constraints for received images.
+
+It is highly recommended, for implementers of trusted boot schemes, to review
+use of all U-Boot booting/loading commands, and not merely the two specific
+ones involved in the findings below, to apply limitations (where
+applicable/possible) to the size of loaded images in relation to the available
+RAM.
+
+It should also be emphasized that any trusted boot scheme must also rely on an
+appropriate lockdown of all possibilities for interactive consoles, by boot
+process interruption or failure, to ever be prompted.
+
+
+U-Boot insufficient boundary checks in filesystem image load
+------------------------------------------------------------
+
+The U-Boot bootloader supports kernel loading from a variety of filesystem
+formats, through the `load` command or its filesystem specific equivalents
+(e.g. `ext2load`, `ext4load`, `fatload`, etc.)
+
+These commands do not protect system memory from being overwritten when loading
+files of a length that exceeds the boundaries of the relocated U-Boot memory
+region, filled with the loaded file starting from the passed `addr` variable.
+
+Therefore an excessively large boot image, saved on the filesystem, can be
+crafted to overwrite all U-Boot static and runtime memory segments, and in
+general all device addressable memory starting from the `addr` load address
+argument.
+
+The memory overwrite can directly lead to arbitrary code execution, fully
+controlled by the contents of the loaded image.
+
+When verified boot is implemented, the issue allows to bypass its intended
+validation as the memory overwrite happens before any validation can take
+place.
+
+The following example illustrates the issue, triggered with a 129MB file on a
+machine with 128MB or RAM:
+
+```
+U-Boot 2018.09-rc1 (Oct 10 2018 - 10:52:54 +0200)
+
+DRAM:  128 MiB
+Flash: 128 MiB
+MMC:   MMC: 0
+
+# print memory information
+=> bdinfo
+arch_number = 0x000008E0
+boot_params = 0x60002000
+DRAM bank   = 0x00000000
+-> start    = 0x60000000
+-> size     = 0x08000000
+DRAM bank   = 0x00000001
+-> start    = 0x80000000
+-> size     = 0x00000004
+eth0name    = smc911x-0
+ethaddr     = 52:54:00:12:34:56
+current eth = smc911x-0
+ip_addr     = <NULL>
+baudrate    = 38400 bps
+TLB addr    = 0x67FF0000
+relocaddr   = 0x67F96000
+reloc off   = 0x07796000
+irq_sp      = 0x67EF5EE0
+sp start    = 0x67EF5ED0
+
+# load large file
+=> ext2load mmc 0 0x60000000 fitimage.itb
+
+# In this specific example U-Boot falls in an infinite loop, results vary
+# depending on the test case and filesystem/device driver used. A debugging
+# session demonstrates memory being overwritten:
+(gdb) p gd
+$28 = (volatile gd_t *) 0x67ef5ef8
+(gdb) p *gd
+$27 = {bd = 0x7f7f7f7f, flags = 2139062143, baudrate = 2139062143, ... }
+(gdb) x/300x 0x67ef5ef8
+0x67ef5ef8:	0x7f7f7f7f	0x7f7f7f7f	0x7f7f7f7f	0x7f7f7f7f
+```
+
+It can be seen that memory address belonging to U-Boot data segments, in this
+specific case the global data structure `gd`, is overwritten with payload
+originating from `fitimage.itb` (filled with `0x7f7f7f7f`).
+
+### Impact
+
+Arbitrary code execution can be achieved within a U-Boot instance by means of
+unauthenticated binary images, loaded through the `load` command or its
+filesystem specific equivalents.
+
+It should be emphasized that all load commands are likely to be affected by the
+same underlying root cause of this vulnerability.
+
+### Workaround
+
+The optional `bytes` argument can be passed to all load commands to restrict
+the maximum size of the retrieved data.
+
+The issue can be therefore mitigated by passing a `bytes` argument with a value
+consistent with the U-Boot memory regions mapping and size.
+
+
+U-Boot insufficient boundary checks in network image boot
+---------------------------------------------------------
+
+The U-Boot bootloader supports kernel loading from a variety of network
+sources, such as TFTP via the `tftpboot` command.
+
+This command does not protect system memory from being overwritten when loading
+files of a length that exceeds the boundaries of the relocated U-Boot memory
+region, filled with the loaded file starting from the passed `loadAddr`
+variable.
+
+Therefore an excessively large boot image, served over TFTP, can be crafted to
+overwrite all U-Boot static and runtime memory segments, and in general all
+device addressable memory starting from the `loadAddr` load address argument.
+
+The memory overwrite can directly lead to arbitrary code execution, fully
+controlled by the contents of the loaded image.
+
+When verified boot is implemented, the issue allows to bypass its intended
+validation as the memory overwrite happens before any validation can take
+place.
+
+The issue can be exploited by several means:
+
+  - An excessively large crafted boot image file is parsed by the
+    `tftp_handler` function which lacks any size checks, allowing the memory
+    overwrite.
+
+  - A malicious server can manipulate TFTP packet sequence numbers to store
+    downloaded file chunks at arbitrary memory locations, given that the
+    sequence number is directly used by the `tftp_handler` function to calculate
+    the destination address for downloaded file chunks.
+
+    Additionally the `store_block` function, used to store downloaded file
+    chunks in memory, when invoked by `tftp_handler` with a `tftp_cur_block`
+    value of 0, triggers an unchecked integer underflow.
+
+    This allows to potentially erase memory located before the `loadAddr` when
+    a packet is sent with a null, following at least one valid packet.
+
+The following example illustrates the issue, triggered with a 129MB file on a
+machine with 128MB or RAM:
+
+```
+U-Boot 2018.09-rc1 (Oct 10 2018 - 10:52:54 +0200)
+
+DRAM:  128 MiB
+Flash: 128 MiB
+MMC:   MMC: 0
+
+# print memory information
+=> bdinfo
+arch_number = 0x000008E0
+boot_params = 0x60002000
+DRAM bank   = 0x00000000
+-> start    = 0x60000000
+-> size     = 0x08000000
+DRAM bank   = 0x00000001
+-> start    = 0x80000000
+-> size     = 0x00000004
+eth0name    = smc911x-0
+ethaddr     = 52:54:00:12:34:56
+current eth = smc911x-0
+ip_addr     = <NULL>
+baudrate    = 38400 bps
+TLB addr    = 0x67FF0000
+relocaddr   = 0x67F96000
+reloc off   = 0x07796000
+irq_sp      = 0x67EF5EE0
+sp start    = 0x67EF5ED0
+
+# configure environment
+=> setenv loadaddr 0x60000000
+=> dhcp
+smc911x: MAC 52:54:00:12:34:56
+smc911x: detected LAN9118 controller
+smc911x: phy initialized
+smc911x: MAC 52:54:00:12:34:56
+BOOTP broadcast 1
+DHCP client bound to address 10.0.0.20 (1022 ms)
+Using smc911x-0 device
+TFTP from server 10.0.0.1; our IP address is 10.0.0.20
+Filename 'fitimage.bin'.
+Load address: 0x60000000
+Loading: #################################################################
+...
+         ####################################
+
+R00=7f7f7f7f R01=67fedf6e R02=00000000 R03=7f7f7f7f
+R04=7f7f7f7f R05=7f7f7f7f R06=7f7f7f7f R07=7f7f7f7f
+R08=7f7f7f7f R09=7f7f7f7f R10=0000d677 R11=67fef670
+R12=00000000 R13=67ef5cd0 R14=02427f7f R15=7f7f7f7e
+PSR=400001f3 -Z-- T S svc32
+```
+
+It can be seen that the program counter (PC, r15) is set to an address
+originating from `fitimage.itb` (filled with `0x7f7f7f7f`), as the result of
+the U-Boot memory overwrite.
+
+### Impact
+
+Arbitrary code execution can be achieved within a U-Boot instance by means of
+unauthenticated binary images, passed through TFTP and loaded through the
+`tftpboot` command, or by a malicious TFTP server capable of sending arbitrary
+response packets.
+
+It should be emphasized that all network boot commands are likely to be
+affected by the same underlying root cause of this vulnerability.
+
+### Workaround
+
+The `tftpboot` command lacks any optional argument to restrict the maximum size
+of downloaded images, therefore the only workaround at this time is to avoid
+using this command on environments that require trusted boot.
+
+
+Affected version
+----------------
+
+All released U-Boot versions, at the time of this advisory release, are
+believed to be vulnerable.
+
+All tests have been performed against U-Boot version 2018.09-rc1.
+
+
+Credit
+------
+
+Vulnerabilities discovered and reported by the Inverse Path team at F-Secure,
+in collaboration with Quarkslab.
+
+
+CVE
+---
+
+CVE-2018-18440: U-Boot insufficient boundary checks in filesystem image load
+CVE-2018-18439: U-Boot insufficient boundary checks in network image boot
+
+
+Timeline
+--------
+
+2018-10-05: network boot finding identified during internal security audit
+            by Inverse Path team at F-Secure in collaboration with Quarkslab.
+
+2018-10-10: filesystem load finding identified during internal security audit
+            by Inverse Path team at F-Secure.
+
+2018-10-12: vulnerability reported by Inverse Path team at F-Secure to U-Boot
+            core maintainer and Google security, embargo set to 2018-11-02.
+
+2018-10-16: Google closes ticket reporting that ChromeOS is not affected due
+            to their specific environment customizations.
+
+2018-10-17: CVE IDs requested to MITRE and assigned.
+
+2018-11-02: advisory release.
+
+
+References
+----------
+
+[1] https://www.denx.de/wiki/U-Boot
+[2] https://lists.denx.de/pipermail/u-boot/2018-June/330487.html
+
+
+Permalink
+---------
+
+https://github.com/inversepath/usbarmory/blob/master/software/secure_boot/Security_Advisory-Ref_IPVR2018-0001.txt
