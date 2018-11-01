@@ -1,0 +1,8 @@
+config BR2_PACKAGE_CAAM_KEYBLOB
+        bool "caam_keyblob"
+        help
+          The NXP Cryptographic Acceleration and Assurance Module (CAAM) is a built-in
+          hardware module that implements secure RAM and a dedicated AES cryptographic
+          engine for encryption/decryption operations.
+
+          https://github.com/inversepath/caam-keyblob
