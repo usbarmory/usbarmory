@@ -1,4 +1,3 @@
-
 Security advisory: High Assurance Boot (HABv4) bypass
 =====================================================
 
