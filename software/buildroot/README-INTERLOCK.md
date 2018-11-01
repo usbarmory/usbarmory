@@ -51,7 +51,7 @@ The USB armory + INTERLOCK Buildroot image operates as follows:
     [Internet connection sharing](https://github.com/inversepath/usbarmory/wiki/Host-communication#setup--connection-sharing-linux).
 
   * The driver for the USB armory SoC Security Controller (SCCv2) is included
-    as a Linux kernel moduled, loaded at boot and granted `interlock` user
+    as a Linux kernel module, loaded at boot and granted `interlock` user
     privileges. It is unused by INTERLOCK in its default configuration.
 
     Links:
