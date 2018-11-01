@@ -1,0 +1,37 @@
+From 2ff5b31c9cb42eaac0eb6d1a931a7670f0d5dbac Mon Sep 17 00:00:00 2001
+From: Andrej Rosano <andrej.rosano@f-secure.com>
+Date: Mon, 27 Aug 2018 12:04:35 +0200
+Subject: Add verified boot support
+
+---
+ configs/pico-imx6ul_defconfig             | 10 +++++++++-
+ 1 files changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/configs/pico-imx6ul_defconfig b/configs/pico-imx6ul_defconfig
+index 67b3eb1024..240b4bd97f 100644
+--- a/configs/pico-imx6ul_defconfig
++++ b/configs/pico-imx6ul_defconfig
+@@ -28,7 +28,7 @@ CONFIG_CMD_EXT4=y
+ CONFIG_CMD_EXT4_WRITE=y
+ CONFIG_CMD_FAT=y
+ CONFIG_CMD_FS_GENERIC=y
+-CONFIG_ENV_IS_IN_MMC=y
++CONFIG_ENV_IS_NOWHERE=y
+ CONFIG_DFU_MMC=y
+ CONFIG_FSL_ESDHC=y
+ CONFIG_PHYLIB=y
+@@ -45,3 +45,11 @@ CONFIG_USB_GADGET_DOWNLOAD=y
+ CONFIG_OF_LIBFDT=y
+
+ CONFIG_SECURE_BOOT=y
++
++CONFIG_DM=y
++CONFIG_FIT=y
++CONFIG_OF_CONTROL=y
++CONFIG_OF_SEPARATE=y
++CONFIG_FIT_SIGNATURE=y
++CONFIG_RSA=y
++CONFIG_RSA_SOFTWARE_EXP=y
+-- 
+2.19.0
+
