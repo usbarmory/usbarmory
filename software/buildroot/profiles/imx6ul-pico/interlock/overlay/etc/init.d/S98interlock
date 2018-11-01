@@ -13,12 +13,12 @@ echo "Starting INTERLOCK"
 /bin/date -s '2018-02-01 15:00:00'
 
 if [ ! -b /dev/mmcblk0p2 ]; then
-  /usr/sbin/parted /dev/mmcblk0 --script mkpart primary ext4 21M 100%
+  /usr/sbin/parted /dev/mmcblk0 --script mkpart primary ext4 100M 100%
   /usr/sbin/parted /dev/mmcblk0 --script set 2 lvm on
 fi
 
 /usr/sbin/vgchange -ay
-/usr/sbin/pvcreate -y /dev/mmcblk0p2
+/usr/sbin/pvcreate -ff -y /dev/mmcblk0p2
 
 if [ $? == 0 ]; then
   /usr/sbin/vgcreate lvmvolume /dev/mmcblk0p2
