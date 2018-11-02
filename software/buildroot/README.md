@@ -22,4 +22,4 @@ Available i.MX6UL profiles (USB armory Mk II prototyping):
 * [INTERLOCK](https://github.com/inversepath/interlock) support for encrypted
   storage and Signal messaging.
 
-  Documentation: [Embedded INTERLOCK distribution (i.MX6UL)](https://github.com/inversepath/usbarmory/blob/master/software/buildroot/README-imx6ul-pico.md)
+  Documentation: [Embedded INTERLOCK distribution (i.MX6UL)](https://github.com/inversepath/usbarmory/blob/master/software/buildroot/README-INTERLOCK-imx6ul-pico.md)
