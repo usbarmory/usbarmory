@@ -60,14 +60,6 @@ The i.MX6UL PICO + INTERLOCK Buildroot image operates as follows:
 The full list of features and capabilities of INTERLOCK is detailed in its
 [documentation](https://github.com/inversepath/interlock/blob/master/README.md).
 
-Binary releases
-===============
-
-Users that do not desire to manually compile and install the
-image can find binary releases at the following URL:
-
-https://github.com/inversepath/interlock/releases
-
 Compiling
 =========
 
