@@ -10,9 +10,16 @@ Available USB armory Mk I profiles:
 * [INTERLOCK](https://github.com/inversepath/interlock) support for encrypted
   storage and Signal messaging.
 
-  Documentation: [Embedded INTERLOCK distribution](https://github.com/inversepath/usbarmory/blob/master/software/buildroot/README-INTERLOCK.md)
+  Documentation: [Embedded INTERLOCK distribution (Mk I)](https://github.com/inversepath/usbarmory/blob/master/software/buildroot/README-INTERLOCK.md)
 
 * [Qubes Split GPG](https://www.qubes-os.org/doc/split-gpg/) support for
   isolated Qubes OS GPG server with encrypted storage.
 
   Documentation: [Qubes Split GPG server](https://github.com/inversepath/usbarmory/blob/master/software/buildroot/README-Qubes_Split_GPG.md)
+
+Available i.MX6UL profiles (USB armory Mk II prototyping):
+
+* [INTERLOCK](https://github.com/inversepath/interlock) support for encrypted
+  storage and Signal messaging.
+
+  Documentation: [Embedded INTERLOCK distribution (i.MX6UL)](https://github.com/inversepath/usbarmory/blob/master/software/buildroot/README-imx6ul-pico.md)
