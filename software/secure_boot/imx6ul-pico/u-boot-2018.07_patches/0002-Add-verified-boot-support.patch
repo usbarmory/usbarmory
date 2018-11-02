@@ -37,25 +37,6 @@ diff --git a/include/configs/pico-imx6ul.h b/include/configs/pico-imx6ul.h
 index 038b0a4778..11346d2645 100644
 --- a/include/configs/pico-imx6ul.h
 +++ b/include/configs/pico-imx6ul.h
-@@ -70,16 +70,12 @@
- 	"setup_emmc=gpt write mmc 0 $partitions; reset;\0" \
- 	"mmcargs=setenv bootargs console=${console},${baudrate} " \
- 		"root=PARTUUID=${uuid} rootwait rw\0" \
--	"loadimage=load mmc ${mmcdev}:${mmcpart} ${loadaddr} ${image}\0" \
-+	"loadimage=load mmc ${mmcdev}:${mmcpart} ${loadaddr} pico.itb\0" \
- 	"loadfdt=load mmc ${mmcdev}:${mmcpart} ${fdt_addr} ${fdt_file}\0" \
- 	"mmcboot=echo Booting from mmc ...; " \
- 		"run finduuid; " \
- 		"run mmcargs; " \
--		"if run loadfdt; then " \
--			"bootz ${loadaddr} - ${fdt_addr}; " \
--		"else " \
--			"echo WARN: Cannot load the DT; " \
--		"fi;\0" \
-+		"bootm ${loadaddr}\0" \
- 	"netargs=setenv bootargs console=${console},${baudrate} " \
- 		"root=/dev/nfs " \
- 	"ip=dhcp nfsroot=${serverip}:${nfsroot},v3,tcp\0" \
 @@ -106,12 +102,9 @@
  		"fi;\0" \
  
@@ -66,8 +47,8 @@ index 038b0a4778..11346d2645 100644
 -		   "else run netboot; " \
 -		   "fi; " \
 -	   "else run netboot; fi"
-+	"setenv bootargs console=ttymxc5,115200; "	\
-+	"ext2load mmc 0:1 ${loadaddr} pico.itb; "	\
++	"setenv bootargs console=ttymxc5,115200; "		\
++	"ext2load mmc 0:1 ${loadaddr} pico.itb 0x4000000; "	\
 +	"bootm ${loadaddr}"
  
  #define CONFIG_SYS_MEMTEST_START	0x80000000

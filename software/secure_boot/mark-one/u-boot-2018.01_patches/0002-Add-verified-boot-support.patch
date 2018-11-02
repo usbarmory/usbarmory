@@ -69,7 +69,7 @@ index 4bebc5959c..5dacf485b3 100644
 -	"ext2load mmc 0:1 ${kernel_addr_r} /boot/zImage; "		\
 -	"ext2load mmc 0:1 ${fdt_addr_r} /boot/${fdtfile}; "		\
 -	"bootz ${kernel_addr_r} - ${fdt_addr_r}"
-+	"ext2load mmc 0:1 ${kernel_addr_r} /boot/usbarmory.itb; "	\
++	"ext2load mmc 0:1 ${kernel_addr_r} /boot/usbarmory.itb 0x4000000; "	\
 +	"bootm ${kernel_addr_r}"
  
  #define BOOT_TARGET_DEVICES(func) func(MMC, mmc, 0)
