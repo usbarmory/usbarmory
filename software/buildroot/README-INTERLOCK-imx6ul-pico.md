@@ -130,7 +130,7 @@ hid-generic 0003:15A2:007D.0009: hiddev0,hidraw0: USB HID v1.10 Device [Freescal
 Load the bootloader using the [imx_loader](https://github.com/boundarydevices/imx_usb_loader) utility:
 
 ```
-sudo imx_usb output/images/u-boot.imx
+imx_usb output/images/u-boot.imx
 ```
 
 On the i.MX6UL PICO console port accessible via the micro USB interface (serial
