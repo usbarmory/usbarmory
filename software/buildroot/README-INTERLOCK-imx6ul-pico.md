@@ -193,7 +193,7 @@ its `output/images` directory, to the root directory on the eMMC:
 ```
 mount ${TARGET_DEV}1 $TARGET_MNT
 cp output/images/zImage ${TARGET_MNT}
-cp output/images/imx6ul-pico-hobbit-caam.dtb ${TARGET_MNT}
+cp output/images/imx6ul-pico-hobbit-caam.dtb ${TARGET_MNT}/imx6ul-pico-hobbit.dtb
 umount $TARGET_MNT
 ```
 
