@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-INTERLOCK_VERSION = 1f8c385e66447b8b2063de26f71cce3f3e7adfc1
+INTERLOCK_VERSION = d587d2addb4d42b9f24a8914a7bf9a3795f1935b
 INTERLOCK_SITE = $(call github,inversepath,interlock,$(INTERLOCK_VERSION))
 INTERLOCK_REPO = https://github.com/inversepath/interlock
 
@@ -31,7 +31,7 @@ INTERLOCK_MAKE_TARGET="build"
 endif
 
 define INTERLOCK_INSTALL_TARGET_CMDS
-	$(TARGET_MAKE_ENV) $(MAKE) $(INTERLOCK_MAKE_TARGET) GOARCH=arm CC=$(TARGET_CC) CGO_ENABLED=1 -C $(@D)
+	$(TARGET_MAKE_ENV) $(MAKE) $(INTERLOCK_MAKE_TARGET) BUILD_USER=buildroot BUILD_HOST=inversepath GOARCH=arm CC=$(TARGET_CC) CGO_ENABLED=1 -C $(@D)
 	mkdir -p $(TARGET_DIR)/usr/share/interlock
 	cp -r $(@D)/static $(TARGET_DIR)/usr/share/interlock
 	$(INSTALL) -m 0755 -D $(@D)/interlock $(TARGET_DIR)/usr/bin/interlock

@@ -90,7 +90,7 @@ Install Buildroot:
 git clone https://github.com/buildroot/buildroot
 # NOTE: you are welcome to try the current branch and report any issues that
 # you may encounter, for the last tested branch checkout the following one:
-# cd buildroot && git checkout 2018.08.1
+# cd buildroot && git checkout 2018.11.1
 ```
 
 Download the USB armory [repository](https://github.com/inversepath/usbarmory)
@@ -113,7 +113,7 @@ make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot
 The process results in the following output files:
 
   * The bootloader: `output/images/u-boot.imx`
-  * The Device Tree Blob (dtb) file: `output/images/imx53-usbarmory.dtb`
+  * The Device Tree Blob (dtb) file: `output/images/imx53-usbarmory-scc2.dtb`
   * The kernel and embedded root filesystem: `output/images/zImage`
 
 The next section illustrates how to install the ouput files on a target microSD
@@ -160,7 +160,7 @@ its `output/images` directory, to the `boot` directory on the microSD card:
 mount ${TARGET_DEV}1 $TARGET_MNT
 mkdir ${TARGET_MNT}/boot
 cp output/images/zImage ${TARGET_MNT}/boot
-cp output/images/imx53-usbarmory.dtb ${TARGET_MNT}/boot
+cp output/images/imx53-usbarmory-scc2.dtb ${TARGET_MNT}/boot/imx53-usbarmory.dtb
 umount $TARGET_MNT
 ```
 
