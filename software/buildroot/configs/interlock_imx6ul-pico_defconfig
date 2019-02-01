@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot 2018.11.1 Configuration
+# Buildroot 2018.11.2 Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 
@@ -82,8 +82,8 @@ BR2_ARM_CPU_ARMV7A=y
 # armv7a cores
 #
 # BR2_cortex_a5 is not set
-# BR2_cortex_a7 is not set
-BR2_cortex_a8=y
+BR2_cortex_a7=y
+# BR2_cortex_a8 is not set
 # BR2_cortex_a9 is not set
 # BR2_cortex_a12 is not set
 # BR2_cortex_a15 is not set
@@ -113,8 +113,6 @@ BR2_cortex_a8=y
 # BR2_cortex_a73_a35 is not set
 # BR2_cortex_a73_a53 is not set
 # BR2_exynos_m1 is not set
-# BR2_falkor is not set
-# BR2_qdf24xx is not set
 # BR2_xgene1 is not set
 # BR2_ARM_EABI is not set
 BR2_ARM_EABIHF=y
@@ -337,8 +335,8 @@ BR2_LINUX_KERNEL_CUSTOM_VERSION=y
 # BR2_LINUX_KERNEL_CUSTOM_GIT is not set
 # BR2_LINUX_KERNEL_CUSTOM_HG is not set
 # BR2_LINUX_KERNEL_CUSTOM_SVN is not set
-BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE="4.14.96"
-BR2_LINUX_KERNEL_VERSION="4.14.96"
+BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE="4.14.97"
+BR2_LINUX_KERNEL_VERSION="4.14.97"
 BR2_LINUX_KERNEL_PATCH=""
 # BR2_LINUX_KERNEL_USE_DEFCONFIG is not set
 # BR2_LINUX_KERNEL_USE_ARCH_DEFAULT_CONFIG is not set
@@ -1221,7 +1219,7 @@ BR2_PACKAGE_WEBRTC_AUDIO_PROCESSING_ARCH_SUPPORTS=y
 # BR2_PACKAGE_LIBARCHIVE is not set
 
 #
-# libsquish needs a toolchain w/ C++, dynamic library
+# libsquish needs a toolchain w/ C++
 #
 # BR2_PACKAGE_LIBZIP is not set
 # BR2_PACKAGE_LZO is not set
@@ -1589,7 +1587,6 @@ BR2_PACKAGE_LIBAIO=y
 # BR2_PACKAGE_LIBXKBCOMMON is not set
 # BR2_PACKAGE_MRAA is not set
 # BR2_PACKAGE_MTDEV is not set
-# BR2_PACKAGE_NE10 is not set
 # BR2_PACKAGE_NEARDAL is not set
 # BR2_PACKAGE_OWFS is not set
 # BR2_PACKAGE_PCSC_LITE is not set
@@ -2983,13 +2980,13 @@ BR2_TARGET_UBOOT=y
 # BR2_TARGET_UBOOT_BUILD_SYSTEM_KCONFIG is not set
 BR2_TARGET_UBOOT_BUILD_SYSTEM_LEGACY=y
 BR2_TARGET_UBOOT_BOARDNAME="pico-imx6ul"
-# BR2_TARGET_UBOOT_LATEST_VERSION is not set
-BR2_TARGET_UBOOT_CUSTOM_VERSION=y
+BR2_TARGET_UBOOT_LATEST_VERSION=y
+# BR2_TARGET_UBOOT_CUSTOM_VERSION is not set
 # BR2_TARGET_UBOOT_CUSTOM_TARBALL is not set
 # BR2_TARGET_UBOOT_CUSTOM_GIT is not set
 # BR2_TARGET_UBOOT_CUSTOM_HG is not set
 # BR2_TARGET_UBOOT_CUSTOM_SVN is not set
-BR2_TARGET_UBOOT_VERSION="2018.07"
+BR2_TARGET_UBOOT_VERSION="2018.09"
 BR2_TARGET_UBOOT_PATCH="${BR2_EXTERNAL}/u-boot-increase_bootm_len.patch"
 # BR2_TARGET_UBOOT_NEEDS_DTC is not set
 # BR2_TARGET_UBOOT_NEEDS_PYLIBFDT is not set
@@ -3635,7 +3632,7 @@ BR2_LINUX_KERNEL_CUSTOM_GIT_VERSION=""
 # BR2_HAVE_DEVFILES is not set
 
 #
-# User-provided option
+# External options
 #
 
 BR2_PACKAGE_INTERLOCK=y

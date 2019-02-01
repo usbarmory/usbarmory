@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot 2018.11.1 Configuration
+# Buildroot 2018.11.2 Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 
@@ -112,8 +112,6 @@ BR2_cortex_a8=y
 # BR2_cortex_a73_a35 is not set
 # BR2_cortex_a73_a53 is not set
 # BR2_exynos_m1 is not set
-# BR2_falkor is not set
-# BR2_qdf24xx is not set
 # BR2_xgene1 is not set
 # BR2_ARM_EABI is not set
 BR2_ARM_EABIHF=y
@@ -319,6 +317,7 @@ BR2_ROOTFS_OVERLAY="${BR2_EXTERNAL}/profiles/mark-one/network/overlay ${BR2_EXTE
 BR2_ROOTFS_POST_BUILD_SCRIPT="${BR2_EXTERNAL}/profiles/mark-one/qubes_split_gpg/post-build.sh"
 BR2_ROOTFS_POST_FAKEROOT_SCRIPT=""
 BR2_ROOTFS_POST_IMAGE_SCRIPT=""
+BR2_ROOTFS_POST_SCRIPT_ARGS=""
 
 #
 # Kernel
@@ -335,8 +334,8 @@ BR2_LINUX_KERNEL_CUSTOM_VERSION=y
 # BR2_LINUX_KERNEL_CUSTOM_GIT is not set
 # BR2_LINUX_KERNEL_CUSTOM_HG is not set
 # BR2_LINUX_KERNEL_CUSTOM_SVN is not set
-BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE="4.14.96"
-BR2_LINUX_KERNEL_VERSION="4.14.96"
+BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE="4.14.97"
+BR2_LINUX_KERNEL_VERSION="4.14.97"
 BR2_LINUX_KERNEL_PATCH=""
 # BR2_LINUX_KERNEL_USE_DEFCONFIG is not set
 # BR2_LINUX_KERNEL_USE_ARCH_DEFAULT_CONFIG is not set
@@ -1219,7 +1218,7 @@ BR2_PACKAGE_WEBRTC_AUDIO_PROCESSING_ARCH_SUPPORTS=y
 # BR2_PACKAGE_LIBARCHIVE is not set
 
 #
-# libsquish needs a toolchain w/ C++, dynamic library
+# libsquish needs a toolchain w/ C++
 #
 # BR2_PACKAGE_LIBZIP is not set
 # BR2_PACKAGE_LZO is not set
@@ -2731,8 +2730,8 @@ BR2_PACKAGE_XENOMAI_ARCH_SUPPORTS=y
 # BR2_PACKAGE_DTACH is not set
 # BR2_PACKAGE_EASY_RSA is not set
 # BR2_PACKAGE_FILE is not set
-# BR2_PACKAGE_GNUPG is not set
 BR2_PACKAGE_GNUPG2=y
+# BR2_PACKAGE_GNUPG2_GPGV is not set
 # BR2_PACKAGE_INOTIFY_TOOLS is not set
 # BR2_PACKAGE_LOCKFILE_PROGS is not set
 # BR2_PACKAGE_LOGROTATE is not set
@@ -2981,13 +2980,13 @@ BR2_TARGET_UBOOT=y
 # BR2_TARGET_UBOOT_BUILD_SYSTEM_KCONFIG is not set
 BR2_TARGET_UBOOT_BUILD_SYSTEM_LEGACY=y
 BR2_TARGET_UBOOT_BOARDNAME="usbarmory"
-# BR2_TARGET_UBOOT_LATEST_VERSION is not set
+BR2_TARGET_UBOOT_LATEST_VERSION=y
 # BR2_TARGET_UBOOT_CUSTOM_VERSION is not set
 # BR2_TARGET_UBOOT_CUSTOM_TARBALL is not set
 # BR2_TARGET_UBOOT_CUSTOM_GIT is not set
 # BR2_TARGET_UBOOT_CUSTOM_HG is not set
 # BR2_TARGET_UBOOT_CUSTOM_SVN is not set
-BR2_TARGET_UBOOT_VERSION="2018.07"
+BR2_TARGET_UBOOT_VERSION="2018.09"
 BR2_TARGET_UBOOT_PATCH="${BR2_EXTERNAL}/u-boot-increase_bootm_len.patch"
 # BR2_TARGET_UBOOT_NEEDS_DTC is not set
 # BR2_TARGET_UBOOT_NEEDS_PYLIBFDT is not set
@@ -3098,6 +3097,24 @@ BR2_PACKAGE_HOST_UTIL_LINUX=y
 #
 # Legacy config options
 #
+
+#
+# Legacy options removed in 2018.11
+#
+# BR2_TARGET_XLOADER is not set
+# BR2_PACKAGE_TIDSP_BINARIES is not set
+# BR2_PACKAGE_DSP_TOOLS is not set
+# BR2_PACKAGE_GST_DSP is not set
+# BR2_PACKAGE_BOOTUTILS is not set
+# BR2_PACKAGE_EXPEDITE is not set
+# BR2_PACKAGE_MESA3D_OPENGL_TEXTURE_FLOAT is not set
+# BR2_KERNEL_HEADERS_4_10 is not set
+# BR2_KERNEL_HEADERS_4_11 is not set
+# BR2_KERNEL_HEADERS_4_12 is not set
+# BR2_KERNEL_HEADERS_4_13 is not set
+# BR2_KERNEL_HEADERS_4_15 is not set
+# BR2_KERNEL_HEADERS_4_17 is not set
+# BR2_PACKAGE_LIBNFTNL_XML is not set
 
 #
 # Legacy options removed in 2018.08

@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot 2018.11.1 Configuration
+# Buildroot 2018.11.2 Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 
@@ -112,8 +112,6 @@ BR2_cortex_a8=y
 # BR2_cortex_a73_a35 is not set
 # BR2_cortex_a73_a53 is not set
 # BR2_exynos_m1 is not set
-# BR2_falkor is not set
-# BR2_qdf24xx is not set
 # BR2_xgene1 is not set
 # BR2_ARM_EABI is not set
 BR2_ARM_EABIHF=y
@@ -319,6 +317,7 @@ BR2_ROOTFS_OVERLAY="${BR2_EXTERNAL}/profiles/mark-one/network/overlay ${BR2_EXTE
 BR2_ROOTFS_POST_BUILD_SCRIPT=""
 BR2_ROOTFS_POST_FAKEROOT_SCRIPT=""
 BR2_ROOTFS_POST_IMAGE_SCRIPT="${BR2_EXTERNAL}/profiles/mark-one/kernel/rename_scc2_dtb.sh"
+BR2_ROOTFS_POST_SCRIPT_ARGS=""
 
 #
 # Kernel
@@ -335,8 +334,8 @@ BR2_LINUX_KERNEL_CUSTOM_VERSION=y
 # BR2_LINUX_KERNEL_CUSTOM_GIT is not set
 # BR2_LINUX_KERNEL_CUSTOM_HG is not set
 # BR2_LINUX_KERNEL_CUSTOM_SVN is not set
-BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE="4.14.96"
-BR2_LINUX_KERNEL_VERSION="4.14.96"
+BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE="4.14.97"
+BR2_LINUX_KERNEL_VERSION="4.14.97"
 BR2_LINUX_KERNEL_PATCH=""
 # BR2_LINUX_KERNEL_USE_DEFCONFIG is not set
 # BR2_LINUX_KERNEL_USE_ARCH_DEFAULT_CONFIG is not set
@@ -356,8 +355,7 @@ BR2_LINUX_KERNEL_GZIP=y
 # BR2_LINUX_KERNEL_LZO is not set
 # BR2_LINUX_KERNEL_XZ is not set
 BR2_LINUX_KERNEL_DTS_SUPPORT=y
-# BR2_LINUX_KERNEL_USE_INTREE_DTS is not set
-BR2_LINUX_KERNEL_USE_CUSTOM_DTS=y
+BR2_LINUX_KERNEL_INTREE_DTS_NAME=""
 BR2_LINUX_KERNEL_CUSTOM_DTS_PATH="${USBARMORY_GIT}/software/kernel_conf/mark-one/imx53-usbarmory-scc2.dts"
 # BR2_LINUX_KERNEL_NEEDS_HOST_OPENSSL is not set
 # BR2_LINUX_KERNEL_NEEDS_HOST_LIBELF is not set
@@ -1220,7 +1218,7 @@ BR2_PACKAGE_WEBRTC_AUDIO_PROCESSING_ARCH_SUPPORTS=y
 # BR2_PACKAGE_LIBARCHIVE is not set
 
 #
-# libsquish needs a toolchain w/ C++, dynamic library
+# libsquish needs a toolchain w/ C++
 #
 # BR2_PACKAGE_LIBZIP is not set
 # BR2_PACKAGE_LZO is not set
@@ -3101,6 +3099,24 @@ BR2_PACKAGE_HOST_UTIL_LINUX=y
 #
 
 #
+# Legacy options removed in 2018.11
+#
+# BR2_TARGET_XLOADER is not set
+# BR2_PACKAGE_TIDSP_BINARIES is not set
+# BR2_PACKAGE_DSP_TOOLS is not set
+# BR2_PACKAGE_GST_DSP is not set
+# BR2_PACKAGE_BOOTUTILS is not set
+# BR2_PACKAGE_EXPEDITE is not set
+# BR2_PACKAGE_MESA3D_OPENGL_TEXTURE_FLOAT is not set
+# BR2_KERNEL_HEADERS_4_10 is not set
+# BR2_KERNEL_HEADERS_4_11 is not set
+# BR2_KERNEL_HEADERS_4_12 is not set
+# BR2_KERNEL_HEADERS_4_13 is not set
+# BR2_KERNEL_HEADERS_4_15 is not set
+# BR2_KERNEL_HEADERS_4_17 is not set
+# BR2_PACKAGE_LIBNFTNL_XML is not set
+
+#
 # Legacy options removed in 2018.08
 #
 # BR2_PACKAGE_DOCKER_ENGINE_STATIC_CLIENT is not set
@@ -3634,7 +3650,7 @@ BR2_LINUX_KERNEL_CUSTOM_GIT_VERSION=""
 # BR2_HAVE_DEVFILES is not set
 
 #
-# User-provided option
+# External options
 #
 
 BR2_PACKAGE_INTERLOCK=y
