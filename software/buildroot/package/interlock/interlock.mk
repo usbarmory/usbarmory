@@ -31,7 +31,7 @@ INTERLOCK_MAKE_TARGET="build"
 endif
 
 define INTERLOCK_INSTALL_TARGET_CMDS
-	$(TARGET_MAKE_ENV) $(MAKE) $(INTERLOCK_MAKE_TARGET) BUILD_USER=buildroot BUILD_HOST=inversepath GOARCH=arm CC=$(TARGET_CC) CGO_ENABLED=1 -C $(@D)
+	$(TARGET_MAKE_ENV) $(MAKE) $(INTERLOCK_MAKE_TARGET) GOARCH=arm CC=$(TARGET_CC) CGO_ENABLED=1 -C $(@D)
 	mkdir -p $(TARGET_DIR)/usr/share/interlock
 	cp -r $(@D)/static $(TARGET_DIR)/usr/share/interlock
 	$(INSTALL) -m 0755 -D $(@D)/interlock $(TARGET_DIR)/usr/bin/interlock
