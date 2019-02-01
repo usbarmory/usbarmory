@@ -318,7 +318,7 @@ BR2_ROOTFS_USERS_TABLES="${BR2_EXTERNAL}/profiles/mark-one/interlock/users"
 BR2_ROOTFS_OVERLAY="${BR2_EXTERNAL}/profiles/mark-one/network/overlay ${BR2_EXTERNAL}/profiles/mark-one/interlock/overlay"
 BR2_ROOTFS_POST_BUILD_SCRIPT=""
 BR2_ROOTFS_POST_FAKEROOT_SCRIPT=""
-BR2_ROOTFS_POST_IMAGE_SCRIPT=""
+BR2_ROOTFS_POST_IMAGE_SCRIPT="${BR2_EXTERNAL}/profiles/mark-one/kernel/rename_scc2_dtb.sh"
 
 #
 # Kernel

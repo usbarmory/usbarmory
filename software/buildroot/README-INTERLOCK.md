@@ -113,7 +113,7 @@ make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot
 The process results in the following output files:
 
   * The bootloader: `output/images/u-boot.imx`
-  * The Device Tree Blob (dtb) file: `output/images/imx53-usbarmory-scc2.dtb`
+  * The Device Tree Blob (dtb) file: `output/images/imx53-usbarmory.dtb`
   * The kernel and embedded root filesystem: `output/images/zImage`
 
 The next section illustrates how to install the ouput files on a target microSD
@@ -160,7 +160,7 @@ its `output/images` directory, to the `boot` directory on the microSD card:
 mount ${TARGET_DEV}1 $TARGET_MNT
 mkdir ${TARGET_MNT}/boot
 cp output/images/zImage ${TARGET_MNT}/boot
-cp output/images/imx53-usbarmory-scc2.dtb ${TARGET_MNT}/boot/imx53-usbarmory.dtb
+cp output/images/imx53-usbarmory.dtb ${TARGET_MNT}/boot
 umount $TARGET_MNT
 ```
 
