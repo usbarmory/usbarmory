@@ -70,7 +70,7 @@
 	status = "okay";
 };
 
-&iomuxc {
+&gpio5 {
 	pinctrl-0 = <&pinctrl_gpio5>;
 };
 

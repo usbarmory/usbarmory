@@ -74,11 +74,8 @@
 	status = "disabled";
 };
 
-&iomuxc {
-	pinctrl-0 = <&pinctrl_i2c1_pinheader>;
-};
-
 &i2c1 {
+	pinctrl-0 = <&pinctrl_i2c1_pinheader>;
 	ltc3589: pmic@34 {
 		status = "disabled";
 	};
