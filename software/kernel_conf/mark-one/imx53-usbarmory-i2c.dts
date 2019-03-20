@@ -73,6 +73,7 @@
 };
 
 &i2c1 {
+	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_i2c1_pinheader>;
 	ltc3589: pmic@34 {
 		status = "disabled";

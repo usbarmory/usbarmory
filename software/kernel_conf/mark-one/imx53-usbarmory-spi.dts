@@ -73,6 +73,7 @@
 };
 
 &ecspi2 {
+	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_ecspi2>;
 	fsl,spi-num-chipselects = <2>;
 	cs-gpios = <&gpio5 29 0>, <&gpio5 30 0>;
