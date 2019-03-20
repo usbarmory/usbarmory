@@ -47,21 +47,19 @@
 #include "imx53-usbarmory.dts"
 
 &iomuxc {
-	imx53-usbarmory {
-		/*
-		SPI mode pin header configuration:
-		1     2     3      4      5      6      7
-		GND   5V    SCLK   MOSI   MISO   /SS0   /SS1
-		*/
-		pinctrl_ecspi2: ecspi2grp {
-			fsl,pins = <
-				MX53_PAD_CSI0_DAT8__ECSPI2_SCLK		0x0
-				MX53_PAD_CSI0_DAT9__ECSPI2_MOSI		0x0
-				MX53_PAD_CSI0_DAT10__ECSPI2_MISO	0x0
-				MX53_PAD_CSI0_DAT11__GPIO5_29		0x0
-				MX53_PAD_CSI0_DAT12__GPIO5_30		0x0
-			>;
-		};
+	/*
+	SPI mode pin header configuration:
+	1     2     3      4      5      6      7
+	GND   5V    SCLK   MOSI   MISO   /SS0   /SS1
+	*/
+	pinctrl_ecspi2: ecspi2grp {
+		fsl,pins = <
+			MX53_PAD_CSI0_DAT8__ECSPI2_SCLK		0x0
+			MX53_PAD_CSI0_DAT9__ECSPI2_MOSI		0x0
+			MX53_PAD_CSI0_DAT10__ECSPI2_MISO	0x0
+			MX53_PAD_CSI0_DAT11__GPIO5_29		0x0
+			MX53_PAD_CSI0_DAT12__GPIO5_30		0x0
+		>;
 	};
 };
 

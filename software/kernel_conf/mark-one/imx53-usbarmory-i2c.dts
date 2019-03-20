@@ -47,21 +47,19 @@
 #include "imx53-usbarmory.dts"
 
 &iomuxc {
-	imx53-usbarmory {
-		/*
-		I2C mode pin header configuration:
-		1     2    3     4     5          6          7
-		GND   5V   SDA   SCL   GPIO5[28]  GPIO5[29]  GPIO5[30]
-		*/
-		pinctrl_i2c1_pinheader: i2c1grp_pinheader {
-			fsl,pins = <
-				MX53_PAD_CSI0_DAT8__I2C1_SDA	0x0
-				MX53_PAD_CSI0_DAT9__I2C1_SCL	0x0
-				MX53_PAD_CSI0_DAT10__GPIO5_28	0xc0
-				MX53_PAD_CSI0_DAT11__GPIO5_29	0xc0
-				MX53_PAD_CSI0_DAT12__GPIO5_30	0xc0
-			>;
-		};
+	/*
+	I2C mode pin header configuration:
+	1     2    3     4     5          6          7
+	GND   5V   SDA   SCL   GPIO5[28]  GPIO5[29]  GPIO5[30]
+	*/
+	pinctrl_i2c1_pinheader: i2c1grp_pinheader {
+		fsl,pins = <
+			MX53_PAD_CSI0_DAT8__I2C1_SDA	0x0
+			MX53_PAD_CSI0_DAT9__I2C1_SCL	0x0
+			MX53_PAD_CSI0_DAT10__GPIO5_28	0xc0
+			MX53_PAD_CSI0_DAT11__GPIO5_29	0xc0
+			MX53_PAD_CSI0_DAT12__GPIO5_30	0xc0
+		>;
 	};
 };
 

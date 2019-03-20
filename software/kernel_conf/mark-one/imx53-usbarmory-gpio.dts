@@ -47,21 +47,19 @@
 #include "imx53-usbarmory.dts"
 
 &iomuxc {
-	imx53-usbarmory {
-		/*
-		GPIO mode pin header configuration:
-		1     2     3         4         5         6         7
-		GND   5V    GPIO5[26] GPIO5[27] GPIO5[28] GPIO5[29] GPIO5[30]
-		*/
-		pinctrl_gpio5: gpio5grp {
-			fsl,pins = <
-				MX53_PAD_CSI0_DAT8__GPIO5_26	0xc0
-				MX53_PAD_CSI0_DAT9__GPIO5_27	0xc0
-				MX53_PAD_CSI0_DAT10__GPIO5_28	0xc0
-				MX53_PAD_CSI0_DAT11__GPIO5_29	0xc0
-				MX53_PAD_CSI0_DAT12__GPIO5_30	0xc0
-			>;
-		};
+	/*
+	GPIO mode pin header configuration:
+	1     2     3         4         5         6         7
+	GND   5V    GPIO5[26] GPIO5[27] GPIO5[28] GPIO5[29] GPIO5[30]
+	*/
+	pinctrl_gpio5: gpio5grp {
+		fsl,pins = <
+			MX53_PAD_CSI0_DAT8__GPIO5_26	0xc0
+			MX53_PAD_CSI0_DAT9__GPIO5_27	0xc0
+			MX53_PAD_CSI0_DAT10__GPIO5_28	0xc0
+			MX53_PAD_CSI0_DAT11__GPIO5_29	0xc0
+			MX53_PAD_CSI0_DAT12__GPIO5_30	0xc0
+		>;
 	};
 };
 
