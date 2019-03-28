@@ -21,7 +21,7 @@
 		};
 		fdt@1 {
 			description = "USB armory devicetree blob";
-			data = /incbin/("arch/arm/boot/dts/imx53-usbarmory.dtb");
+			data = /incbin/("arch/arm/boot/dts/imx53-usbarmory-scc2.dtb");
 			type = "flat_dt";
 			compression = "none";
 			arch = "arm";
