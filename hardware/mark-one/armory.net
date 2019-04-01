@@ -2975,7 +2975,7 @@
     (library (logical conn)
       (uri /usr/share/kicad/library/conn.lib))
     (library (logical armory)
-      (uri ../lib/armory.lib)))
+      (uri ../lib.legacy/armory.lib)))
   (nets
     (net (code 1) (name /Interfaces/USB_VBUS)
       (node (ref U1) (pin 24))

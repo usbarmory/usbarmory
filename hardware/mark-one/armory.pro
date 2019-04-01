@@ -29,10 +29,10 @@ DrawSegmentWidth=0.2
 BoardOutlineThickness=0.15
 ModuleOutlineThickness=0.15
 [pcbnew/libraries]
-LibDir=../lib
+LibDir=../lib.legacy
 [eeschema]
 version=1
-LibDir=../lib
+LibDir=../lib.legacy
 [eeschema/libraries]
 LibName1=armory-cache
 LibName2=power

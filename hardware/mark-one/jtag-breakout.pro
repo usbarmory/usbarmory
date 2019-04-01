@@ -13,7 +13,7 @@ version=1
 PageLayoutDescrFile=
 SubpartIdSeparator=0
 SubpartFirstId=65
-LibDir=../lib
+LibDir=../lib.legacy
 NetFmtName=PcbnewAdvanced
 RptD_X=0
 RptD_Y=100
@@ -72,4 +72,4 @@ DrawSegmentWidth=0.2
 BoardOutlineThickness=0.15
 ModuleOutlineThickness=0.15
 [pcbnew/libraries]
-LibDir=../lib
+LibDir=../lib.legacy
