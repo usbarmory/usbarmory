@@ -1,16 +1,15 @@
 /*
- * Simple utility to dump NXP i.MX53 internal Boot ROM
+ * Simple utility to dump NXP i.MX6UL internal Boot ROM
  *
- * i.MX53 Boot ROM mapping:
- *   0x00000000 - 0x00003FFF 16KB
- *   0x00404000 - 0x0040FFFF 48KB
+ * i.MX6UL Boot ROM mapping:
+ *   0x00000000 - 0x00016FFF 92KB
+ *   0x00017000 - 0x00017FFF  4KB (protected area)
  *
  * Instructions:
  *
- * gcc -o imx53_bootrom-dump imx53_bootrom-dump.c
+ * gcc -o imx6ul_bootrom-dump imx6ul_bootrom-dump.c
  *
- * sudo ./imx53_bootrom-dump 0x00000000 16 > imx53-bootrom-16K.bin
- * sudo ./imx53_bootrom-dump 0x00404000 48 > imx53-bootrom-48K.bin
+ * sudo ./imx6ul_bootrom-dump 0x00000000 92 > imx6ul-bootrom-92K.bin
  *
  * Based on devmem2.c by Jan-Derk Bakker
  *  Copyright (C) 2000, Jan-Derk Bakker (jdb@lartmaker.nl)
@@ -61,8 +60,7 @@ int main(int argc, char **argv) {
 			"\taddress : memory address to read\n"
 			"\tlen	: number of KB to be read\n\n",
 			argv[0]);
-		fprintf(stderr, "\t%s 0x00000000 16 > bootrom-0-16k.bin\n", argv[0]);
-		fprintf(stderr, "\t%s 0x00404000 48 > bootrom-1-48k.bin\n", argv[0]);
+		fprintf(stderr, "\t%s 0x00000000 92 > imx6ul-bootrom-92k.bin\n", argv[0]);
 		exit(1);
 	}
 	target = strtoul(argv[1], 0, 0);
