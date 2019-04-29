@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
 	unsigned long read_result, writeval;
 	off_t target;
 
-	if ((argc < 1) || (strcmp(argv[1], "-h") == 0)) {
+	if ((argc < 3) || (strcmp(argv[1], "-h") == 0)) {
 		fprintf(stderr, "\nUsage:\t%s <address> <len>\n"
 			"\taddress : memory address to read\n"
 			"\tlen	: number of KB to be read\n\n",
