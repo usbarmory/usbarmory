@@ -10,6 +10,9 @@ hardware design, implementing a flash drive sized computer.
 This repository is aimed towards developers, if you wish to purchase a USB
 armory board please see the [ordering information](https://inversepath.com/usbarmory#ordering).
 
+![Mk I Top](images/armory-mark-one-top.svg)
+![Mk I Bottom](images/armory-mark-one-bottom.svg)
+
 Revision information
 ====================
 
