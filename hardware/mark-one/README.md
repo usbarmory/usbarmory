@@ -10,20 +10,20 @@ hardware design, implementing a flash drive sized computer.
 This repository is aimed towards developers, if you wish to purchase a USB
 armory board please see the [ordering information](https://inversepath.com/usbarmory#ordering).
 
-![Mk I Top](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-one-top.svg)
-![Mk I Bottom](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-one-bottom.svg)
-
 Revision information
 ====================
 
 This directory contains the hardware design for the USB armory board, first
 revision (Mark I).
 
-Current schematics and layout files have been designed in KiCad (release
-2014-01-25 - 0.201403191418+4754~10~ubuntu12.04.1)
+Current schematics and layout files have been designed in KiCad (`release
+2014-01-25 - 0.201403191418+4754~10~ubuntu12.04.1`)
 
 PCB information
 ===============
+
+![Mk I Top](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-one-top.svg?sanitize=true)
+![Mk I Bottom](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-one-bottom.svg?sanitize=true)
 
 6 layers, 2.00mm thickness  
 Outer layers 0.5 oz base copper foil  
