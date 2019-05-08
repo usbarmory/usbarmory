@@ -10,8 +10,6 @@ hardware design, implementing a flash drive sized computer.
 This repository is aimed towards developers, if you wish to purchase a USB
 armory board please see the [ordering information](https://inversepath.com/usbarmory#ordering).
 
-![USB armory](https://inversepath.com/images/usbarmory_top.jpg)
-
 Authors
 =======
 
@@ -28,7 +26,14 @@ The main documentation can be found on the
 Board revisions
 ===============
 
+* USB armory Mk II: [under development](https://github.com/inversepath/usbarmory/wiki/Mk-II-Roadmap).
+
+![Mk II Top](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-top.png)
+![Mk II Bottom](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-bottom.png)
+
 * mark-one (Mk I): first production release.
+
+![USB armory Mk I](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-one.png)
 
 License
 =======
