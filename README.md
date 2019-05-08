@@ -31,7 +31,7 @@ Board revisions
 ![Mk II Top](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-top.png)
 ![Mk II Bottom](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-bottom.png)
 
-* mark-one (Mk I): first production release.
+* USB armory Mk I: first production release.
 
 ![USB armory Mk I](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-one.png)
 
