@@ -200,7 +200,7 @@ Load the bootloader using the [imx_loader](https://github.com/boundarydevices/im
 imx_usb output/images/u-boot.imx
 ```
 
-On the USB armory Mk II serial console, accessible through the [debyg
+On the USB armory Mk II serial console, accessible through the [debug
 accessory](https://github.com/inversepath/usbarmory/tree/master/hardware/mark-two-debug-accessory),
 start the USB storage emulation mode:
 
