@@ -56,7 +56,7 @@ The USB armory + INTERLOCK Buildroot image operates as follows:
     [caam-keyblob driver](https://github.com/inversepath/caam-keyblob)
 
   * A serial console is available through the
-    [debyg accessory](https://github.com/inversepath/usbarmory/tree/master/hardware/mark-two-debug-accessory),
+    [debug accessory](https://github.com/inversepath/usbarmory/tree/master/hardware/mark-two-debug-accessory),
     default root password is `usbarmory`.
 
 The full list of features and capabilities of INTERLOCK is detailed in its
