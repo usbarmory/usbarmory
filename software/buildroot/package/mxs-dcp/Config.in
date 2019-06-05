@@ -1,0 +1,11 @@
+config BR2_PACKAGE_MXS_DCP
+        bool "mxs_dcp"
+        help
+          The NXP Data Co-Processor (DCP) is a built-in hardware module for specific NXP
+          SoCs that implements a dedicated AES cryptographic engine for
+          encryption/decryption operations.
+
+          This driver is a customized version of the mainline Linux kernel
+          driver, patched to allow use of the OTPMK released by the SNVS.
+
+          https://github.com/inversepath/mxs-dcp

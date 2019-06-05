@@ -1,0 +1,10 @@
+
+The following symbolic link:
+
+  /home/interlock/.ssh -> /home/interlock/.interlock-mnt/.ssh
+
+is included to allow users to upload an authorized_keys file within the
+encrypted partition, exposed through INTERLOCK, and mounted on .interlock-mnt.
+
+This allows optional SSH access as 'interlock' user for debugging and
+upgrading.

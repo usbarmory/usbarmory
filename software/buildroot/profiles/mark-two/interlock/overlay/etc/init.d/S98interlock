@@ -35,10 +35,8 @@ if [ $? == 0 ]; then
   /usr/sbin/cryptsetup luksClose /dev/mapper/interlockfs
 fi
 
-# load mxc-scc2 drivers and grant INTERLOCK access
-/sbin/modprobe scc2
-/sbin/modprobe scc2_aes
-/bin/chown interlock:interlock /dev/scc2_aes
+# load mxs-dcp driver and grant INTERLOCK access
+/sbin/modprobe mxs_dcp
 
 # use microSD for generated TLS certs storage
 /bin/mount /dev/mmcblk0p1 /mnt/

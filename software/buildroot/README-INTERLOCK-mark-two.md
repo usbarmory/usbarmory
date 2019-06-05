@@ -1,22 +1,22 @@
-Embedded INTERLOCK distribution for the Technexion i.MX6UL PICO
-===============================================================
+# Embedded INTERLOCK distribution for the USB armory Mk II
 
 This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling a minimal embedded Linux environment for the
-[Technexion i.MX6UL PICO](https://www.technexion.com/products/system-on-modules/pico/pico-compute-modules/detail/PICO-IMX6UL-EMMC)
-SoM on the [PICO-PI](https://www.technexion.com/products/pico-baseboards/detail/PICO-PI)
-baseboard board with [INTERLOCK](https://github.com/inversepath/interlock) support.
+[USB armory](https://inversepath.com/usbarmory) Mk II with
+[INTERLOCK](https://github.com/inversepath/interlock) support.
 
-Once installed on the eMMC of the i.MX6UL PICO, the Buildroot image allows
+Once installed on a microSD card for the USB armory, the Buildroot image allows
 quick and easy access to the INTERLOCK web application, exposing advanced
 interaction with an encrypted storage.
 
 ![INTERLOCK screenshot](https://inversepath.com/images/interlock.png)
 
-Operation
-=========
+## Operation
 
-The i.MX6UL PICO + INTERLOCK Buildroot image operates as follows:
+The USB armory + INTERLOCK Buildroot image operates as follows:
+
+  * The board LED is used to indicate startup (flashing), boot completed (off)
+    and shutdown (on) stages.
 
   * At boot a DHCP server is started to automatically expose the USB armory
     default IP address (10.0.0.1) to the host, which typically requires no
@@ -24,14 +24,15 @@ The i.MX6UL PICO + INTERLOCK Buildroot image operates as follows:
     the emulated Ethernet over USB interface.
 
   * Only at the very first boot (which therefore takes longer than subsequent
-    ones), an encrypted partition is created and configured on volume `interlock`
-    with default password `interlock`.
+    ones), an encrypted partition is created and configured on volume `armory`
+    with default password `usbarmory`.
 
   * The INTERLOCK application is reachable at address https://10.0.0.1:4430
-    allowing to change default credentials (`interlock:interlock`) and interaction
+    allowing to change default credentials (`armory:usbarmory`) and interaction
     with the encrypted storage.
 
-    New HTTPS TLS certificates are generated at the very first boot.
+    New HTTPS TLS certificates are generated at the very first boot, you can
+    access them, for import or customization, on the first microSD partition.
 
   * The 'Poweroff' action, within INTERLOCK, allows safe shutdown.
 
@@ -54,14 +55,21 @@ The i.MX6UL PICO + INTERLOCK Buildroot image operates as follows:
     Links:
     [caam-keyblob driver](https://github.com/inversepath/caam-keyblob)
 
-  * A serial console is available on the the micro USB interface.
-    default root password is `pico`.
+  * A serial console is available through the
+    [debyg accessory](https://github.com/inversepath/usbarmory/tree/master/hardware/mark-two-debug-accessory),
+    default root password is `usbarmory`.
 
 The full list of features and capabilities of INTERLOCK is detailed in its
 [documentation](https://github.com/inversepath/interlock/blob/master/README.md).
 
-Compiling
-=========
+## Binary releases
+
+Users that do not desire to manually compile and install the
+image can find binary releases at the following URL:
+
+https://github.com/inversepath/interlock/releases
+
+## Compiling
 
 The [Buildroot requirements](http://buildroot.uclibc.org/downloads/manual/manual.html#requirement)
 and [INTERLOCK requirements](https://github.com/inversepath/interlock#compiling)
@@ -78,7 +86,7 @@ Install Buildroot:
 git clone https://github.com/buildroot/buildroot
 # NOTE: you are welcome to try the current branch and report any issues that
 # you may encounter, for the last tested branch checkout the following one:
-# cd buildroot && git checkout 2018.11.2
+# cd buildroot && git checkout 2019.02.2
 ```
 
 Download the USB armory [repository](https://github.com/inversepath/usbarmory)
@@ -89,7 +97,7 @@ can be optionally customized if required:
 ```
 # adjust the USBARMORY_GIT variable according to your environment
 cd buildroot
-make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot interlock_imx6ul-pico_defconfig
+make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot interlock_mark-two_defconfig
 ```
 
 The bootloader, kernel and filesystem can be built as follows:
@@ -101,30 +109,89 @@ make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot
 The process results in the following output files:
 
   * The bootloader: `output/images/u-boot.imx`
-  * The Device Tree Blob (dtb) file: `output/images/imx6ul-pico-hobbit-caam.dtb`
+  * The Device Tree Blob (dtb) file: `output/images/imx6ul-usbarmory.dtb`
   * The kernel and embedded root filesystem: `output/images/zImage`
 
-The next section illustrates how to install the ouput files on the i.MX6UL PICO board.
+The next sections illustrates how to install the output files on a target
+microSD card or the built-in eMMC card, according to user boot media
+preference.
 
-Accessing the i.MX6UL PICO eMMC as USB storage device
-=====================================================
+## Using the microSD as boot media
+
+### Preparing the microSD card for the first time
+
+**WARNING**: the following operations will destroy any previous contents on the
+target microSD card.
+
+**IMPORTANT**: `TARGET_DEV` must be replaced with your microSD device, ensure
+that you are specifying the correct one. Errors in target specification will
+result in disk corruption.
+
+```
+export TARGET_DEV=/dev/sdX # pick the appropriate device name for your microSD card (e.g. /dev/sdb)
+export TARGET_MNT=/mnt     # set the microSD root file system mounting path
+```
+
+The microSD card must be configured with a single partition with Linux (83)
+type and 16M of size, all previous partitions configured on the card must be
+deleted before the following instructions are applied.
+
+Create the partition:
+
+```
+parted $TARGET_DEV --script mkpart primary ext2 5M 21M
+```
+
+Format the partition with an ext2 filesystem:
+
+```
+mkfs.ext2 ${TARGET_DEV}1
+```
+
+### microSD installation / upgrade
+
+Mount the partition, copy the kernel and dtb files generated by Buildroot in
+its `output/images` directory, to the `boot` directory on the microSD card:
+
+```
+mount ${TARGET_DEV}1 $TARGET_MNT
+mkdir ${TARGET_MNT}/boot
+cp output/images/zImage ${TARGET_MNT}/boot
+cp output/images/imx6ul-usbarmory.dtb ${TARGET_MNT}/boot
+umount $TARGET_MNT
+```
+
+Install the bootloader:
+
+```
+dd if=output/images/u-boot.imx of=$TARGET_DEV bs=512 seek=2 conv=fsync
+```
+
+You should now be able to boot the USB armory using the imaged microSD card.
+
+**NOTE**: upgrading can also be performed live on the running image using SSH
+access (see Operation section) as the partition is automatically mounted under
+`/mnt` and sudo access is available.
+
+## Using the eMMC as boot media
+
+### Accessing the USB armory Mk II eMMC as USB storage device
 
 **WARNING**: the following operations will destroy any previous contents on the
 target eMMC.
 
-Set the i.MX6UL PICO to boot in Serial Boot Loader mode as described on the
-[PICO-PI hardware manual](https://s3.us-east-2.amazonaws.com/technexion/documentation/pico-pi-imx7-rev-b1.pdf)
-(page 18). Connect the USB Type-C interface to the host and verify that your
-host kernel successfully detects the board:
+Set the USB armory Mk II to boot in Serial Boot Loader by setting the boot
+switch towards the microSD slot, without a microSD card connected. Connect the
+USB Type-C interface to the host and verify that your host kernel successfully
+detects the board:
 
 ```
-usb 1-1: new high-speed USB device number 48 using xhci_hcd
-usb 1-1: New USB device found, idVendor=15a2, idProduct=007d, bcdDevice= 0.01
+usb 1-1: new high-speed USB device number 8 using xhci_hcd
+usb 1-1: New USB device found, idVendor=15a2, idProduct=0080, bcdDevice= 0.01
 usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
-usb 1-1: Product: SP Blank 6UL 
+usb 1-1: Product: SE Blank 6ULL
 usb 1-1: Manufacturer: Freescale SemiConductor Inc 
-hid-generic 0003:15A2:007D.0009: hiddev0,hidraw0: USB HID v1.10 Device [Freescale SemiConductor Inc  SP Blank 6UL ] on usb-0000:00:14.0-1/input0
-
+hid-generic 0003:15A2:0080.0003: hiddev96,hidraw1: USB HID v1.10 Device [Freescale SemiConductor Inc  SE Blank 6ULL] on usb-0000:00:14.0-1/input0
 ```
 
 Load the bootloader using the [imx_loader](https://github.com/boundarydevices/imx_usb_loader) utility:
@@ -133,8 +200,9 @@ Load the bootloader using the [imx_loader](https://github.com/boundarydevices/im
 imx_usb output/images/u-boot.imx
 ```
 
-On the i.MX6UL PICO console port accessible via the micro USB interface (serial
-protocol: 115200 8N1) start the USB storage emulation mode:
+On the USB armory Mk II serial console, accessible through the [debyg
+accessory](https://github.com/inversepath/usbarmory/tree/master/hardware/mark-two-debug-accessory),
+start the USB storage emulation mode:
 
 ```
 => ums 0 mmc 0
@@ -153,26 +221,28 @@ sd 3:0:0:0: [sdX] Attached SCSI removable disk
 
 ```
 
-Preparing the i.MX6UL PICO eMMC for the first time
-==================================================
+### Preparing the eMMC for the first time
 
-**IMPORTANT**: `TARGET_DEV` must be replaced with the device your kernel assigned to
-the i.MX6UL PICO board, ensure that you are specifying the correct one. Errors
-in target specification will result in disk corruption.
+**WARNING**: the following operations will destroy any previous contents on the
+target eMMC.
+
+**IMPORTANT**: `TARGET_DEV` must be replaced with the device your kernel
+assigned to the USB armory Mk II board, ensure that you are specifying the
+correct one. Errors in target specification will result in disk corruption.
 
 ```
 export TARGET_DEV=/dev/sdX # pick the appropriate device name for the eMMC device (e.g. /dev/sdb)
 export TARGET_MNT=/mnt     # set the eMMC root file system mounting path
 ```
 
-The eMMC must be configured with a single partition with Linux (83)
-type and 100M of size, all previous partitions configured on the card must be
+The eMMC must be configured with a single partition with Linux (83) type and at
+least 21M of size, all previous partitions configured on the card must be
 deleted before the following instructions are applied.
 
 Create the partition:
 
 ```
-parted $TARGET_DEV --script mkpart primary ext2 5M 100M
+parted $TARGET_DEV --script mkpart primary ext2 5M 21M
 ```
 
 Format the partition with an ext2 filesystem:
@@ -181,10 +251,9 @@ Format the partition with an ext2 filesystem:
 mkfs.ext2 ${TARGET_DEV}1
 ```
 
-Installing / Upgrading
-======================
+### eMMC installation / upgrade
 
-Set up access accordingly to section _Accessing the i.MX6UL PICO eMMC as USB
+Set up access accordingly to section _Accessing the USB armory Mk II eMMC as USB
 storage device_ instructions.
 
 Mount the partition, copy the kernel and dtb files generated by Buildroot in
@@ -193,7 +262,7 @@ its `output/images` directory, to the root directory on the eMMC:
 ```
 mount ${TARGET_DEV}1 $TARGET_MNT
 cp output/images/zImage ${TARGET_MNT}
-cp output/images/imx6ul-pico-hobbit-caam.dtb ${TARGET_MNT}/imx6ul-pico-hobbit.dtb
+cp output/images/imx6ul-usbarmory.dtb ${TARGET_MNT}/
 umount $TARGET_MNT
 ```
 
@@ -205,8 +274,6 @@ dd if=output/images/u-boot.imx of=$TARGET_DEV bs=512 seek=2 conv=fsync
 
 On the bootloader console press CTRL+C to stop the usb storage emulation mode.
 Then disconnect the Type-C USB interface and restore eMMC boot mode.
-
-You should now be able to boot the i.MX6UL PICO.
 
 **NOTE**: upgrading can also be performed live on the running image using SSH
 access (see Operation section) as the partition is automatically mounted under

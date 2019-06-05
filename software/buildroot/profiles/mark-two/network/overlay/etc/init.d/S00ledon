@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ "$1" != "stop" ]; then
+  exit 0;
+fi
+
+# FIXME
+#echo 0 > /sys/devices/platform/leds/leds/LED/brightness

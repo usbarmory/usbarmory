@@ -1,0 +1,194 @@
+/*
+ * USB armory Mk II device tree file
+ * https://inversepath.com/usbarmory
+ *
+ * Copyright (C) 2019, F-Secure Corporation
+ * Andrej Rosano <andrej.rosano@f-secure.com>
+ *
+ * This file is dual-licensed: you can use it either under the terms
+ * of the GPL or the X11 license, at your option. Note that this dual
+ * licensing only applies to this file, and not this project as a
+ * whole.
+ *
+ *  a) This file is free software; you can redistribute it and/or
+ *     modify it under the terms of the GNU General Public License as
+ *     published by the Free Software Foundation; either version 2 of the
+ *     License, or (at your option) any later version.
+ *
+ *     This file is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ * Or, alternatively,
+ *
+ *  b) Permission is hereby granted, free of charge, to any person
+ *     obtaining a copy of this software and associated documentation
+ *     files (the "Software"), to deal in the Software without
+ *     restriction, including without limitation the rights to use,
+ *     copy, modify, merge, publish, distribute, sublicense, and/or
+ *     sell copies of the Software, and to permit persons to whom the
+ *     Software is furnished to do so, subject to the following
+ *     conditions:
+ *
+ *     The above copyright notice and this permission notice shall be
+ *     included in all copies or substantial portions of the Software.
+ *
+ *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ *     OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+/dts-v1/;
+
+#include "imx6ul.dtsi"
+
+/ {
+	model = "F-Secure USB armory mkII";
+	compatible = "inversepath,imx6ul-usbarmory-mkII", "fsl,imx6ul";
+
+	chosen {
+		stdout-path = &uart2;
+	};
+
+	memory {
+		reg = <0x80000000 0x20000000>;
+	};
+
+	regulators {
+		compatible = "simple-bus";
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		reg_sd1_vmmc: sd1_regulator {
+			compatible = "regulator-fixed";
+			regulator-name = "VSD_3V3";
+			regulator-min-microvolt = <3300000>;
+			regulator-max-microvolt = <3300000>;
+			gpio = <&gpio1 9 GPIO_ACTIVE_HIGH>;
+			enable-active-high;
+		};
+	};
+};
+
+&uart2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart2>;
+	status = "okay";
+};
+
+&usdhc1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_usdhc1>;
+	no-1-8-v;
+	keep-power-in-suspend;
+	wakeup-source;
+	status = "okay";
+};
+
+&usdhc2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_usdhc2>;
+	non-removable;
+	status = "okay";
+};
+
+&iomuxc {
+	pinctrl_uart2: uart2grp {
+		fsl,pins = <
+			MX6UL_PAD_UART2_TX_DATA__UART2_DCE_TX	0x1b0b1
+			MX6UL_PAD_UART2_RX_DATA__UART2_DCE_RX	0x1b0b1
+		>;
+	};
+
+	pinctrl_usdhc1: usdhc1grp {
+		fsl,pins = <
+			MX6UL_PAD_SD1_CMD__USDHC1_CMD		0x1f019
+			MX6UL_PAD_SD1_CLK__USDHC1_CLK		0x1f019
+			MX6UL_PAD_SD1_DATA0__USDHC1_DATA0	0x1f019
+			MX6UL_PAD_SD1_DATA1__USDHC1_DATA1	0x1f019
+			MX6UL_PAD_SD1_DATA2__USDHC1_DATA2	0x1f019
+			MX6UL_PAD_SD1_DATA3__USDHC1_DATA3	0x1f019
+		>;
+	};
+
+	pinctrl_usdhc2: usdhc2grp {
+		fsl,pins = <
+			MX6UL_PAD_NAND_RE_B__USDHC2_CLK		0x10071
+			MX6UL_PAD_NAND_WE_B__USDHC2_CMD		0x17059
+			MX6UL_PAD_NAND_DATA00__USDHC2_DATA0	0x17059
+			MX6UL_PAD_NAND_DATA01__USDHC2_DATA1	0x17059
+			MX6UL_PAD_NAND_DATA02__USDHC2_DATA2	0x17059
+			MX6UL_PAD_NAND_DATA03__USDHC2_DATA3	0x17059
+			MX6UL_PAD_NAND_DATA04__USDHC2_DATA4	0x17059
+			MX6UL_PAD_NAND_DATA05__USDHC2_DATA5	0x17059
+			MX6UL_PAD_NAND_DATA06__USDHC2_DATA6	0x17059
+			MX6UL_PAD_NAND_DATA07__USDHC2_DATA7	0x17059
+		>;
+	};
+};
+
+&aips2 {
+	crypto: caam@2140000 {
+		compatible = "fsl,imx6ul-caam", "fsl,sec-v4.0";
+		#address-cells = <1>;
+		#size-cells = <1>;
+		reg = <0x2140000 0x3c000>;
+		ranges = <0 0x2140000 0x3c000>;
+		interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
+		clocks = <&clks IMX6UL_CLK_CAAM_IPG>, <&clks IMX6UL_CLK_CAAM_ACLK>,
+			 <&clks IMX6UL_CLK_CAAM_MEM>;
+		clock-names = "ipg", "aclk", "mem";
+
+		sec_jr0: jr0@1000 {
+			compatible = "fsl,sec-v4.0-job-ring";
+			reg = <0x1000 0x1000>;
+			interrupts = <GIC_SPI 105 IRQ_TYPE_LEVEL_HIGH>;
+		};
+
+		sec_jr1: jr1@2000 {
+			compatible = "fsl,sec-v4.0-job-ring";
+			reg = <0x2000 0x1000>;
+			interrupts = <GIC_SPI 106 IRQ_TYPE_LEVEL_HIGH>;
+		};
+		sec_jr2: jr2@3000 {
+			compatible = "fsl,sec-v4.0-job-ring";
+			reg = <0x3000 0x1000>;
+			interrupts = <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>;
+		};
+	};
+};
+
+/ {
+	soc {
+		caam_sm: caam-sm@00100000 {
+			 compatible = "fsl,imx7d-caam-sm", "fsl,imx6q-caam-sm";
+			 reg = <0x00100000 0x3fff>;
+		};
+
+		irq_sec_vio: caam_secvio {
+			     compatible = "fsl,imx7d-caam-secvio", "fsl,imx6q-caam-secvio";
+			     interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>;
+		};
+	};
+
+	caam_keyblob: caam-keyblob {
+		compatible = "fsl,sec-v4.0-keyblob";
+		status = "okay";
+	};
+};
+
+&usbotg1 {
+	dr_mode = "otg";
+	status = "okay";
+};
+
+&usbotg2 {
+	dr_mode = "host";
+	status = "okay";
+};

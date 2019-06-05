@@ -113,8 +113,8 @@ The process results in the following output files:
   * The Device Tree Blob (dtb) file: `output/images/imx53-usbarmory.dtb`
   * The kernel and embedded root filesystem: `output/images/zImage`
 
-The next section illustrates how to install the ouput files on a target microSD
-card.
+The next section illustrates how to install the output files on a target
+microSD card.
 
 Preparing the microSD card for the first time
 =============================================

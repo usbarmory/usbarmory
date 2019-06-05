@@ -90,7 +90,7 @@ Install Buildroot:
 git clone https://github.com/buildroot/buildroot
 # NOTE: you are welcome to try the current branch and report any issues that
 # you may encounter, for the last tested branch checkout the following one:
-# cd buildroot && git checkout 2019.02
+# cd buildroot && git checkout 2019.02.2
 ```
 
 Download the USB armory [repository](https://github.com/inversepath/usbarmory)
@@ -116,8 +116,8 @@ The process results in the following output files:
   * The Device Tree Blob (dtb) file: `output/images/imx53-usbarmory.dtb`
   * The kernel and embedded root filesystem: `output/images/zImage`
 
-The next section illustrates how to install the ouput files on a target microSD
-card.
+The next section illustrates how to install the output files on a target
+microSD card.
 
 Preparing the microSD card for the first time
 =============================================

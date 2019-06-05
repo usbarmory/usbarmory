@@ -1,4 +1,5 @@
 source "$BR2_EXTERNAL_usbarmory_PATH/package/interlock/Config.in"
 source "$BR2_EXTERNAL_usbarmory_PATH/package/mxc-scc2/Config.in"
+source "$BR2_EXTERNAL_usbarmory_PATH/package/mxs-dcp/Config.in"
 source "$BR2_EXTERNAL_usbarmory_PATH/package/caam-keyblob/Config.in"
 source "$BR2_EXTERNAL_usbarmory_PATH/package/qubes-app-linux-split-gpg/Config.in"
