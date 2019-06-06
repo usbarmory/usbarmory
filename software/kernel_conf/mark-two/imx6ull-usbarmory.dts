@@ -83,25 +83,6 @@
 /delete-node/ &uart7;
 /delete-node/ &uart8;
 
-&cpu0 {
-	operating-points = <
-		/* kHz	uV */
-		900000	1275000
-		792000	1225000
-		528000	1175000
-		396000	1025000
-		198000	950000
-	>;
-	fsl,soc-operating-points = <
-		/* KHz	uV */
-		900000	1250000
-		792000	1175000
-		528000	1175000
-		396000	1175000
-		198000	1175000
-	>;
-};
-
 / {
 	model = "F-Secure USB armory Mk II";
 	compatible = "inversepath,imx6ull-usbarmory-mkII", "fsl,imx6ul";
@@ -145,6 +126,25 @@
 			enable-active-high;
 		};
 	};
+};
+
+&cpu0 {
+	operating-points = <
+		/* kHz	uV */
+		900000	1275000
+		792000	1225000
+		528000	1175000
+		396000	1025000
+		198000	950000
+	>;
+	fsl,soc-operating-points = <
+		/* KHz	uV */
+		900000	1250000
+		792000	1175000
+		528000	1175000
+		396000	1175000
+		198000	1175000
+	>;
 };
 
 &uart1 {
@@ -260,7 +260,7 @@
 			rngb: rngb@2284000 {
 				compatible = "fsl,imx25-rngb";
 				reg = <0x02284000 0x4000>;
-				clocks = <&clks IMX6ULL_CLK_DCP_CLK>; // FIXME
+				clocks = <&clks IMX6UL_CLK_IPG>;
 				interrupts = <6>;
 			};
 		};
