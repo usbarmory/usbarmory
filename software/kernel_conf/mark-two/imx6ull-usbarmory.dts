@@ -48,8 +48,8 @@
 
 #include "imx6ull.dtsi"
 
-/* We maintain compatibility with i.MX6ULZ, accounting for older longterm
- * release dts
+/* We maintain compatibility with i.MX6ULZ as well as account for older
+ * longterm releases dts (e.g. 4.14 series).
  */
 
 / {
@@ -82,6 +82,25 @@
 /delete-node/ &uart6;
 /delete-node/ &uart7;
 /delete-node/ &uart8;
+
+&cpu0 {
+	operating-points = <
+		/* kHz	uV */
+		900000	1275000
+		792000	1225000
+		528000	1175000
+		396000	1025000
+		198000	950000
+	>;
+	fsl,soc-operating-points = <
+		/* KHz	uV */
+		900000	1250000
+		792000	1175000
+		528000	1175000
+		396000	1175000
+		198000	1175000
+	>;
+};
 
 / {
 	model = "F-Secure USB armory Mk II";
@@ -228,12 +247,6 @@
 				reg = <0x02200000 0x100000>;
 				ranges;
 
-			rngb: rngb@2284000 {
-				compatible = "fsl,imx25-rngb";
-				reg = <0x02284000 0x4000>;
-				interrupts = <6>;
-			};
-
 			dcp: crypto@2280000 {
 				compatible = "fsl,imx6ull-dcp", "fsl,imx28-dcp";
 					reg = <0x02280000 0x4000>;
@@ -242,6 +255,13 @@
 						     <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
 					clocks = <&clks IMX6ULL_CLK_DCP_CLK>;
 					clock-names = "dcp";
+			};
+
+			rngb: rngb@2284000 {
+				compatible = "fsl,imx25-rngb";
+				reg = <0x02284000 0x4000>;
+				clocks = <&clks IMX6ULL_CLK_DCP_CLK>; // FIXME
+				interrupts = <6>;
 			};
 		};
 	};
