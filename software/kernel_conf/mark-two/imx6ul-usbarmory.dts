@@ -60,6 +60,23 @@
 		reg = <0x80000000 0x20000000>;
 	};
 
+	leds {
+		compatible = "gpio-leds";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_led>;
+
+		led-white {
+			label = "LED_WHITE";
+			gpios = <&gpio4 21 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "heartbeat";
+		};
+
+		led-blue {
+			label = "LED_BLUE";
+			gpios = <&gpio4 22 GPIO_ACTIVE_LOW>;
+		};
+	};
+
 	regulators {
 		compatible = "simple-bus";
 		#address-cells = <1>;
@@ -74,6 +91,12 @@
 			enable-active-high;
 		};
 	};
+};
+
+&uart1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart1>;
+	status = "okay";
 };
 
 &uart2 {
@@ -98,11 +121,39 @@
 	status = "okay";
 };
 
+&i2c1 {
+	pinctrl-0 = <&pinctrl_i2c1>;
+	status = "okay";
+};
+
 &iomuxc {
 	pinctrl_uart2: uart2grp {
 		fsl,pins = <
 			MX6UL_PAD_UART2_TX_DATA__UART2_DCE_TX	0x1b0b1
 			MX6UL_PAD_UART2_RX_DATA__UART2_DCE_RX	0x1b0b1
+		>;
+	};
+
+	pinctrl_uart1: uart1grp {
+		fsl,pins = <
+			MX6UL_PAD_UART1_TX_DATA__UART1_DCE_TX	0x1b0b1
+			MX6UL_PAD_UART1_RX_DATA__UART1_DCE_RX	0x1b0b1
+			MX6UL_PAD_UART1_CTS_B__UART1_DCE_CTS	0x1b0b1
+			MX6UL_PAD_UART1_RTS_B__UART1_DCE_RTS	0x1b0b1
+		>;
+	};
+
+	pinctrl_i2c1: i2c1grp {
+		fsl,pins = <
+			MX6UL_PAD_GPIO1_IO02__I2C1_SCL	0x4001b8b0
+			MX6UL_PAD_GPIO1_IO03__I2C1_SDA	0x4001b8b0
+		>;
+	};
+
+	pinctrl_led: ledgrp {
+		fsl,pins = <
+			MX6UL_PAD_CSI_DATA06__GPIO4_IO27	0x1f020
+			MX6UL_PAD_CSI_DATA07__GPIO4_IO28	0x1f020
 		>;
 	};
 
