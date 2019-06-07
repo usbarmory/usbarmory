@@ -36,7 +36,8 @@ if [ $? == 0 ]; then
 fi
 
 # load mxs-dcp driver and grant INTERLOCK access
-/sbin/modprobe mxs_dcp
+# FIXME: WiP
+# /sbin/modprobe mxs_dcp
 
 # use microSD for generated TLS certs storage
 /bin/mount /dev/mmcblk0p1 /mnt/

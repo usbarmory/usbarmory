@@ -947,7 +947,7 @@ BR2_PACKAGE_CRYPTSETUP=y
 # BR2_PACKAGE_HDPARM is not set
 # BR2_PACKAGE_HWDATA is not set
 # BR2_PACKAGE_HWLOC is not set
-# BR2_PACKAGE_I2C_TOOLS is not set
+BR2_PACKAGE_I2C_TOOLS=y
 # BR2_PACKAGE_INPUT_EVENT_DAEMON is not set
 # BR2_PACKAGE_IOSTAT is not set
 # BR2_PACKAGE_IPMITOOL is not set
@@ -1004,7 +1004,7 @@ BR2_PACKAGE_PARTED=y
 # BR2_PACKAGE_PPS_TOOLS is not set
 # BR2_PACKAGE_PRU_SOFTWARE_SUPPORT is not set
 # BR2_PACKAGE_READ_EDID is not set
-# BR2_PACKAGE_RNG_TOOLS is not set
+BR2_PACKAGE_RNG_TOOLS=y
 
 #
 # rpi-userland needs a toolchain w/ C++, threads, dynamic library
@@ -2269,7 +2269,7 @@ BR2_PACKAGE_POPT=y
 # gqrx needs qt5, gnuradio, fftw's single precision
 #
 # BR2_PACKAGE_GSETTINGS_DESKTOP_SCHEMAS is not set
-BR2_PACKAGE_HAVEGED=y
+# BR2_PACKAGE_HAVEGED is not set
 # BR2_PACKAGE_LINUX_SYSCALL_SUPPORT is not set
 # BR2_PACKAGE_MCRYPT is not set
 # BR2_PACKAGE_MOBILE_BROADBAND_PROVIDER_INFO is not set

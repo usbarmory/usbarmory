@@ -5,4 +5,4 @@ if [ "$1" != "start" ]; then
 fi
 
 echo none > /sys/devices/platform/leds/leds/LED/trigger
-echo 1 > /sys/devices/platform/leds/leds/LED/brightness
+echo 0 > /sys/devices/platform/leds/leds/LED/brightness

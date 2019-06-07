@@ -46,46 +46,11 @@
 
 /dts-v1/;
 
-#include "imx6ull.dtsi"
-
-/* We maintain compatibility with i.MX6ULZ as well as account for older
- * longterm releases dts (e.g. 4.14 series).
- */
-
-/ {
-	aliases {
-		/delete-property/ ethernet0;
-		/delete-property/ ethernet1;
-		/delete-property/ i2c2;
-		/delete-property/ i2c3;
-		/delete-property/ serial4;
-		/delete-property/ serial5;
-		/delete-property/ serial6;
-		/delete-property/ serial7;
-		/delete-property/ spi2;
-		/delete-property/ spi3;
-	};
-};
-
-/delete-node/ &adc1;
-/delete-node/ &ecspi3;
-/delete-node/ &ecspi4;
-/delete-node/ &epit2;
-/delete-node/ &gpt2;
-/delete-node/ &i2c3;
-/delete-node/ &i2c4;
-/delete-node/ &pwm5;
-/delete-node/ &pwm6;
-/delete-node/ &pwm7;
-/delete-node/ &pwm8;
-/delete-node/ &uart5;
-/delete-node/ &uart6;
-/delete-node/ &uart7;
-/delete-node/ &uart8;
+#include "imx6ul.dtsi"
 
 / {
 	model = "F-Secure USB armory Mk II";
-	compatible = "inversepath,imx6ull-usbarmory-mkII", "fsl,imx6ul";
+	compatible = "inversepath,imx6ull-usbarmory-mkII", "fsl,imx6ull";
 
 	chosen {
 		stdout-path = &uart2;
@@ -149,7 +114,7 @@
 
 &uart1 {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_uart1>;
+	pinctrl-0 = <&pinctrl_bluetooth>;
 	status = "okay";
 };
 
@@ -188,12 +153,19 @@
 		>;
 	};
 
-	pinctrl_uart1: uart1grp {
+	pinctrl_bluetooth: uart1grp {
 		fsl,pins = <
-			MX6UL_PAD_UART1_TX_DATA__UART1_DCE_TX	0x1b0b1
-			MX6UL_PAD_UART1_RX_DATA__UART1_DCE_RX	0x1b0b1
-			MX6UL_PAD_UART1_CTS_B__UART1_DCE_CTS	0x1b0b1
-			MX6UL_PAD_UART1_RTS_B__UART1_DCE_RTS	0x1b0b1
+			MX6UL_PAD_UART1_TX_DATA__UART1_DCE_TX	0x1b0b1 /* BT_UART_TX  */
+			MX6UL_PAD_UART1_RX_DATA__UART1_DCE_RX	0x1b0b1 /* BT_UART_RX  */
+			MX6UL_PAD_UART1_CTS_B__UART1_DCE_CTS	0x1b0b1 /* BT_UART_CTS */
+			MX6UL_PAD_UART1_RTS_B__UART1_DCE_RTS	0x1b0b1 /* BT_UART_RTS */
+			MX6UL_PAD_UART3_TX_DATA__GPIO1_IO24	0x1f020 /* BT_UART_DSR */
+			MX6UL_PAD_UART3_RX_DATA__GPIO1_IO25	0x1f020 /* BT_UART_DTR */
+			MX6UL_PAD_GPIO1_IO04__GPIO1_IO04	0x1f020 /* BT_SWDCLK   */
+			MX6UL_PAD_GPIO1_IO05__GPIO1_IO05	0x1f020 /* BT_SWDIO    */
+			MX6UL_PAD_GPIO1_IO09__GPIO1_IO09	0x1f020 /* BT_RESET    */
+			MX6UL_PAD_UART3_RTS_B__GPIO1_IO27	0x1f020 /* BT_SWITCH_1 */
+			MX6UL_PAD_UART3_CTS_B__GPIO1_IO26	0x1f020 /* BT_SWITCH_2 */
 		>;
 	};
 
@@ -240,28 +212,28 @@
 
 / {
 	soc {
-		aips3: aips-bus@2200000 {
+		aips3: aips-bus@02200000 {
 			compatible = "fsl,aips-bus", "simple-bus";
-				#address-cells = <1>;
-				#size-cells = <1>;
-				reg = <0x02200000 0x100000>;
-				ranges;
+			#address-cells = <1>;
+			#size-cells = <1>;
+			reg = <0x02200000 0x100000>;
+			ranges;
 
-			dcp: crypto@2280000 {
-				compatible = "fsl,imx6ull-dcp", "fsl,imx28-dcp";
-					reg = <0x02280000 0x4000>;
-					interrupts = <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>,
-						     <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>,
-						     <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
-					clocks = <&clks IMX6ULL_CLK_DCP_CLK>;
-					clock-names = "dcp";
+			dcp: dcp@02280000 {
+				compatible = "fsl,imx28-dcp";
+				reg = <0x02280000 0x4000>;
+				interrupts = <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>,
+					     <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>,
+					     <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
+				clocks = <&clks IMX6ULL_CLK_DCP_CLK>;
+				clock-names = "dcp";
 			};
 
-			rngb: rngb@2284000 {
-				compatible = "fsl,imx25-rngb";
+			rngb: rngb@02284000 {
+				compatible = "fsl,imx6sl-rng", "fsl,imx25-rngb", "fsl,imx-rng", "imx-rng";
 				reg = <0x02284000 0x4000>;
-				clocks = <&clks IMX6UL_CLK_IPG>;
-				interrupts = <6>;
+				interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
+				clocks = <&clks IMX6UL_CLK_DUMMY>;
 			};
 		};
 	};
@@ -269,10 +241,14 @@
 
 &usbotg1 {
 	dr_mode = "otg";
+	disable-over-current;
+	tpl-support; 
 	status = "okay";
 };
 
 &usbotg2 {
 	dr_mode = "host";
+	disable-over-current;
+	tpl-support; 
 	status = "okay";
 };
