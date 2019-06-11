@@ -220,7 +220,7 @@
 			ranges;
 
 			dcp: dcp@02280000 {
-				compatible = "fsl,imx28-dcp";
+				compatible = "fsl,imx6ull-dcp", "fsl,imx6sl-dcp", "fsl,imx28-dcp";
 				reg = <0x02280000 0x4000>;
 				interrupts = <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>,
 					     <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>,
