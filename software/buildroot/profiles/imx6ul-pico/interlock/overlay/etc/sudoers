@@ -1,3 +1,0 @@
-root ALL=(ALL) ALL
-
-interlock ALL=(root) NOPASSWD: ALL

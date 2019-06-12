@@ -1,7 +1,7 @@
 /dts-v1/;
 
 / {
-	description = "Technexion Pico i.MX6UL Board FIT file";
+	description = "USB armory FIT file";
 	#address-cells = <1>;
 
 	images {
@@ -20,8 +20,8 @@
 			};
 		};
 		fdt@1 {
-			description = "Technexion Pico i.MX6UL Board devicetree blob";
-			data = /incbin/("arch/arm/boot/dts/imx6ul-pico-hobbit-caam.dtb");
+			description = "USB armory devicetree blob";
+			data = /incbin/("arch/arm/boot/dts/imx6ull-usbarmory.dtb");
 			type = "flat_dt";
 			compression = "none";
 			arch = "arm";
@@ -39,7 +39,7 @@
 			fdt = "fdt@1";
 			signature@1 {
 				algo = "sha256,rsa2048";
-				key-name-hint = "pico";
+				key-name-hint = "usbarmory";
 				sign-images = "fdt", "kernel";
 			};
 		};

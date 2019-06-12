@@ -1,0 +1,13 @@
+/dts-v1/;
+
+/ {
+	model = "Inverse Path USB armory - U-Boot public keys";
+	compatible = "inversepath,imx6ull-usbarmory", "fsl,imx6ull";
+	signature {
+		sig@0 {
+			required = "conf";
+			algo = "sha256,rsa2048";
+			key-name-hint = "usbarmory";
+		};
+	};
+};
