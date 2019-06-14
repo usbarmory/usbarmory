@@ -496,7 +496,7 @@ diff -urN u-boot-2019.04/include/configs/usbarmory-mark-two.h u-boot-2019.04-usb
 +#define CONFIG_EXTRA_ENV_SETTINGS				\
 +	MEM_LAYOUT_ENV_SETTINGS					\
 +	"bootargs_default=root=/dev/mmcblk0p1 rootwait rw\0"	\
-+	"fdtfile=imx6ul-usbarmory.dtb\0"			\
++	"fdtfile=imx6ull-usbarmory.dtb\0"			\
 +	"console=ttymxc1,115200\0"				\
 +	BOOTENV
 +
