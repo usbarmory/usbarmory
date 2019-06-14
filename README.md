@@ -13,9 +13,14 @@ armory board please see the [ordering information](https://inversepath.com/usbar
 Authors
 =======
 
-Andrea Barisani <andrea@inversepath.com>  
-Andrej Rosano   <andrej@inversepath.com>  
-Daniele Bianco  <danbia@inversepath.com>  
+Andrea Barisani  
+andrea.barisani@f-secure.com | andrea@inversepath.com  
+
+Andrej Rosano  
+andrej.rosano@f-secure.com   | andrej@inversepath.com  
+
+Daniele Bianco  
+daniele.bianco@f-secure.com   | daniele@inversepath.com  
 
 Documentation
 =============
