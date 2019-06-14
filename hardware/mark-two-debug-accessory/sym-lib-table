@@ -1,0 +1,6 @@
+(sym_lib_table
+  (lib (name armory)(type Legacy)(uri ${KIPRJMOD}/../lib/armory.lib)(options "")(descr ""))
+  (lib (name armory-mkII)(type Legacy)(uri ${KIPRJMOD}/../lib/armory-mkII.lib)(options "")(descr ""))
+  (lib (name snapeda)(type Legacy)(uri ${KIPRJMOD}/../lib/snapeda.lib)(options "")(descr ""))
+  (lib (name accessory-rescue)(type Legacy)(uri ${KIPRJMOD}/accessory-rescue.lib)(options "")(descr ""))
+)
