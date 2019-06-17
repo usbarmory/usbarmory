@@ -101,7 +101,7 @@ make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot interlock_mark-two_defconf
 ```
 
 By default the external microSD card is used as boot media, to use the internal
-MMC card customize the resuting `.config` file by changing the `BR2_TARGET_UBOOT_PATCH`
+MMC card customize the resulting `.config` file by changing the `BR2_TARGET_UBOOT_PATCH`
 to make use of `0001-USB-armory-mark-two-alpha-eMMC.patch`.
 
 The bootloader, kernel and filesystem can be built as follows:
