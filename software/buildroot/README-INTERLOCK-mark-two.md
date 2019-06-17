@@ -86,7 +86,7 @@ Install Buildroot:
 git clone https://github.com/buildroot/buildroot
 # NOTE: you are welcome to try the current branch and report any issues that
 # you may encounter, for the last tested branch checkout the following one:
-# cd buildroot && git checkout 2019.02.2
+# cd buildroot && git checkout 2019.02.3
 ```
 
 Download the USB armory [repository](https://github.com/inversepath/usbarmory)

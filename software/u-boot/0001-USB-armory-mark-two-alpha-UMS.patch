@@ -161,7 +161,7 @@ diff -urN u-boot-2019.04/board/inversepath/usbarmory-mark-two/MAINTAINERS u-boot
 +S:	Maintained
 +F:	board/inversepath/usbarmory-mark-two/
 +F:	include/configs/usbarmory-mark-two.h
-+F:	configs/usbarmory_mark-two_defconfig
++F:	configs/usbarmory-mark-two_defconfig
 diff -urN u-boot-2019.04/board/inversepath/usbarmory-mark-two/Makefile u-boot-2019.04-usbarmory-mark-two-ums/board/inversepath/usbarmory-mark-two/Makefile
 --- u-boot-2019.04/board/inversepath/usbarmory-mark-two/Makefile	1970-01-01 01:00:00.000000000 +0100
 +++ u-boot-2019.04-usbarmory-mark-two-ums/board/inversepath/usbarmory-mark-two/Makefile	2019-06-17 21:25:25.467963531 +0200
@@ -368,9 +368,9 @@ diff -urN u-boot-2019.04/board/inversepath/usbarmory-mark-two/usbarmory-mark-two
 +	return 1;
 +}
 +#endif
-diff -urN u-boot-2019.04/configs/usbarmory_mark-two_defconfig u-boot-2019.04-usbarmory-mark-two-ums/configs/usbarmory_mark-two_defconfig
---- u-boot-2019.04/configs/usbarmory_mark-two_defconfig	1970-01-01 01:00:00.000000000 +0100
-+++ u-boot-2019.04-usbarmory-mark-two-ums/configs/usbarmory_mark-two_defconfig	2019-06-17 21:25:25.467963531 +0200
+diff -urN u-boot-2019.04/configs/usbarmory-mark-two_defconfig u-boot-2019.04-usbarmory-mark-two-ums/configs/usbarmory-mark-two_defconfig
+--- u-boot-2019.04/configs/usbarmory-mark-two_defconfig	1970-01-01 01:00:00.000000000 +0100
++++ u-boot-2019.04-usbarmory-mark-two-ums/configs/usbarmory-mark-two_defconfig	2019-06-17 21:25:25.467963531 +0200
 @@ -0,0 +1,37 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_MX6=y
