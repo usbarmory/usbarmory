@@ -229,7 +229,6 @@ sd 3:0:0:0: [sdX] Mode Sense: 0f 00 00 00
 sd 3:0:0:0: [sdX] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
  sdX: sdX1 sdX2
 sd 3:0:0:0: [sdX] Attached SCSI removable disk
-
 ```
 
 ### Preparing the eMMC for the first time
