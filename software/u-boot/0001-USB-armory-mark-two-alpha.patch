@@ -23,7 +23,7 @@ diff -urN u-boot-2019.04/arch/arm/mach-imx/mx6/Kconfig u-boot-2019.04-usbarmory-
 diff -urN u-boot-2019.04/board/inversepath/usbarmory-mark-two/imximage.cfg u-boot-2019.04-usbarmory-mark-two/board/inversepath/usbarmory-mark-two/imximage.cfg
 --- u-boot-2019.04/board/inversepath/usbarmory-mark-two/imximage.cfg	1970-01-01 01:00:00.000000000 +0100
 +++ u-boot-2019.04-usbarmory-mark-two/board/inversepath/usbarmory-mark-two/imximage.cfg	2019-06-12 21:57:59.919486964 +0200
-@@ -0,0 +1,106 @@
+@@ -0,0 +1,109 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board imximage configuration
@@ -32,6 +32,9 @@ diff -urN u-boot-2019.04/board/inversepath/usbarmory-mark-two/imximage.cfg u-boo
 + * Copyright (C) 2019, F-Secure Corportation
 + * Andrej Rosano <andrej.rosano@f-secure.com>
 + */
++
++#define __ASSEMBLY__
++#include <config.h>
 +
 +IMAGE_VERSION 2
 +BOOT_FROM sd
