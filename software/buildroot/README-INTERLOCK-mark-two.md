@@ -100,6 +100,10 @@ cd buildroot
 make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot interlock_mark-two_defconfig
 ```
 
+By default the external microSD card is used as boot media, to use the internal
+MMC card customize the resuting `.config` file by changing the `BR2_TARGET_UBOOT_PATCH`
+to make use of `0001-USB-armory-mark-two-alpha-eMMC.patch`.
+
 The bootloader, kernel and filesystem can be built as follows:
 
 ```
@@ -175,6 +179,9 @@ access (see Operation section) as the partition is automatically mounted under
 
 ## Using the eMMC as boot media
 
+The eMMC can be used as boot media only if the `BR2_TARGET_UBOOT_PATCH` has
+been modified accordingly, as indicated in the _Compiling_ section.
+
 ### Accessing the USB armory Mk II eMMC as USB storage device
 
 **WARNING**: the following operations will destroy any previous contents on the
@@ -202,13 +209,17 @@ imx_usb output/images/u-boot.imx
 
 On the USB armory Mk II serial console, accessible through the [debug
 accessory](https://github.com/inversepath/usbarmory/tree/master/hardware/mark-two-debug-accessory),
-start the USB storage emulation mode:
+start the USB storage emulation (UMS) mode:
 
 ```
-=> ums 0 mmc 0
+=> ums 0 mmc 1
 ```
 
-The host kernel should detect a USB storage device:
+Alternatively, if external serial console access is not available, a
+[patch](https://github.com/inversepath/usbarmory/tree/master/software/u-boot/0001-USB-armory-mark-two-alpha-UMS.patch)
+to automatically enable UMS mode can be applied to U-Boot 2019.04.
+
+Once in UMS mode, the host kernel should detect a USB storage device:
 
 ```
 scsi 3:0:0:0: Direct-Access     Linux    UMS disk 0       ffff PQ: 0 ANSI: 2
