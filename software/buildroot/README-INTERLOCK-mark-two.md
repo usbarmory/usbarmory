@@ -27,7 +27,7 @@ The USB armory + INTERLOCK Buildroot image operates as follows:
     ones), an encrypted partition is created and configured on volume `armory`
     with default password `usbarmory`.
 
-  * The INTERLOCK application is reachable at address https://10.0.0.1:4430
+  * The INTERLOCK application is reachable at address https://10.0.0.1
     allowing to change default credentials (`armory:usbarmory`) and interaction
     with the encrypted storage.
 

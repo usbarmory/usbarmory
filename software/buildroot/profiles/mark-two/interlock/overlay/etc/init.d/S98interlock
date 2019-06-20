@@ -35,13 +35,13 @@ if [ $? == 0 ]; then
   /usr/sbin/cryptsetup luksClose /dev/mapper/interlockfs
 fi
 
-# load mxs-dcp driver and grant INTERLOCK access
-# FIXME: WiP
-# /sbin/modprobe mxs_dcp
+# load NXP DCP driver
+/sbin/modprobe mxs_dcp
 
 # use microSD for generated TLS certs storage
 /bin/mount /dev/mmcblk0p1 /mnt/
 /bin/mkdir -p /mnt/interlock_certs
 /bin/chown interlock:interlock /mnt/interlock_certs
 
+/sbin/setcap 'cap_net_bind_service=+ep' /usr/bin/interlock
 sudo -u interlock /usr/bin/interlock -c /etc/interlock.conf > /dev/null 2> /dev/null &
