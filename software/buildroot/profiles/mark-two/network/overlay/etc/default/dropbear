@@ -1,4 +1,2 @@
 # disallow root and password logins
-# DROPBEAR_ARGS="-w -s"
-# FIXME: development only, this is still a work in progress
-DROPBEAR_ARGS=""
+DROPBEAR_ARGS="-w -s"
