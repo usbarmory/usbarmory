@@ -120,7 +120,7 @@ The next sections illustrates how to install the output files on a target
 microSD card or the built-in eMMC card, according to user boot media
 preference.
 
-## Using the microSD as boot media
+## Using the external microSD as boot media
 
 ### Preparing the microSD card for the first time
 
@@ -177,12 +177,12 @@ You should now be able to boot the USB armory using the imaged microSD card.
 access (see Operation section) as the partition is automatically mounted under
 `/mnt` and sudo access is available.
 
-## Using the eMMC as boot media
+## Using the internal eMMC as boot media
 
 The eMMC can be used as boot media only if the `BR2_TARGET_UBOOT_PATCH` has
 been modified accordingly, as indicated in the _Compiling_ section.
 
-### Accessing the USB armory Mk II eMMC as USB storage device
+### Accessing the eMMC as USB storage device
 
 **WARNING**: the following operations will destroy any previous contents on the
 target eMMC.
