@@ -190,7 +190,7 @@ class CSFCommand
     unsigned :flg,        8, :default => 0
     unsigned :key,        8, :default => 0
     unsigned :pcl,        8, :default => 0
-    unsigned :eng,        8, :default => HAB_ENG_ANY
+    unsigned :eng,        8, :default => HAB_ENG_SW
     unsigned :cfg,        8, :default => 0
     unsigned :aut_start, 32, :default => 0
     rest     :blks
