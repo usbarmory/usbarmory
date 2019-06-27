@@ -412,7 +412,7 @@ diff -urN u-boot-2019.04/configs/usbarmory-mark-two_defconfig u-boot-2019.04-usb
 diff -urN u-boot-2019.04/include/configs/usbarmory-mark-two.h u-boot-2019.04-usbarmory-mark-two-ums/include/configs/usbarmory-mark-two.h
 --- u-boot-2019.04/include/configs/usbarmory-mark-two.h	1970-01-01 01:00:00.000000000 +0100
 +++ u-boot-2019.04-usbarmory-mark-two-ums/include/configs/usbarmory-mark-two.h	2019-06-17 21:26:09.119962749 +0200
-@@ -0,0 +1,110 @@
+@@ -0,0 +1,112 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board configuration settings
@@ -488,6 +488,8 @@ diff -urN u-boot-2019.04/include/configs/usbarmory-mark-two.h u-boot-2019.04-usb
 +#define MEM_LAYOUT_ENV_SETTINGS			\
 +	"kernel_addr_r=0x80800000\0"		\
 +	"fdt_addr_r=0x82000000\0"		\
++	"fdt_high=0xffffffff\0"			\
++	"initrd_high=0xffffffff\0"		\
 +	"scriptaddr=0x80800000\0"		\
 +	"pxefile_addr_r=0x80800000\0"		\
 +	"ramdisk_addr_r=0x83000000\0"
