@@ -93,6 +93,9 @@
 	};
 };
 
+/* Delete CAAM node in AIPS-2 (i.MX6UL specific) */
+/delete-node/ &crypto;
+
 &cpu0 {
 	operating-points = <
 		/* kHz	uV */
