@@ -1,4 +1,4 @@
-# Embedded INTERLOCK distribution for the USB armory Mk II
+# Embedded INTERLOCK distribution for the USB armory Mk II [![Build Status](https://travis-ci.org/inversepath/usbarmory.svg?branch=master)](https://travis-ci.org/inversepath/usbarmory)
 
 This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling a minimal embedded Linux environment for the
@@ -48,12 +48,12 @@ The USB armory + INTERLOCK Buildroot image operates as follows:
     [Signal support](https://github.com/inversepath/interlock#signal-support),
     [Internet connection sharing](https://github.com/inversepath/usbarmory/wiki/Host-communication#setup--connection-sharing-linux).
 
-  * The driver for the NXP Cryptographic Acceleration and Assurance Module (CAAM)
-    is included as a Linux kernel module, loaded at boot and granted `interlock` user
-    privileges. It is unused by INTERLOCK in its default configuration.
+  * The driver for the NXP Data Co-Processor (DCP) is included as a Linux
+    kernel module and loaded at boot. It is unused by INTERLOCK in its default
+    configuration.
 
     Links:
-    [caam-keyblob driver](https://github.com/inversepath/caam-keyblob)
+    [mxs-dcp driver](https://github.com/inversepath/mxs-dcp)
 
   * A serial console is available through the
     [debug accessory](https://github.com/inversepath/usbarmory/tree/master/hardware/mark-two-debug-accessory),
