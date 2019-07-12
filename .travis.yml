@@ -1,0 +1,14 @@
+language: generic
+sudo: required
+dist: xenial
+install:
+  - sudo apt-get update
+env:
+  - USBARMORY_GIT=${TRAVIS_BUILD_DIR}
+  - BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot
+script:
+- git clone https://github.com/buildroot/buildroot
+- cd buildroot
+- git checkout 2019.02.4
+- make -j2 BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot interlock_mark-two_defconfig
+- make -j2 BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot
