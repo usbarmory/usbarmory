@@ -5,7 +5,14 @@ This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling minimal single-purpose embedded Linux
 environments for the [USB armory](https://inversepath.com/usbarmory).
 
-Available USB armory Mk I profiles:
+USB armory Mk II profiles:
+
+* [INTERLOCK](https://github.com/inversepath/interlock) support for encrypted
+  storage and Signal messaging.
+
+  Documentation: [Embedded INTERLOCK distribution (Mk II)](https://github.com/inversepath/usbarmory/blob/master/software/buildroot/README-INTERLOCK-mark-two.md)
+
+USB armory Mk I profiles:
 
 * [INTERLOCK](https://github.com/inversepath/interlock) support for encrypted
   storage and Signal messaging.
@@ -16,10 +23,3 @@ Available USB armory Mk I profiles:
   isolated Qubes OS GPG server with encrypted storage.
 
   Documentation: [Qubes Split GPG server](https://github.com/inversepath/usbarmory/blob/master/software/buildroot/README-Qubes_Split_GPG.md)
-
-Available USB armory Mk II profiles:
-
-* [INTERLOCK](https://github.com/inversepath/interlock) support for encrypted
-  storage and Signal messaging.
-
-  Documentation: [Embedded INTERLOCK distribution (Mk II)](https://github.com/inversepath/usbarmory/blob/master/software/buildroot/README-INTERLOCK-mark-two.md)
