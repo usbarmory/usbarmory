@@ -1,4 +1,4 @@
-# Embedded INTERLOCK distribution for the USB armory Mk II [![Build Status](https://travis-ci.org/inversepath/usbarmory.svg?branch=master)](https://travis-ci.org/inversepath/usbarmory)
+# Embedded INTERLOCK distribution for the USB armory Mk II
 
 This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling a minimal embedded Linux environment for the
