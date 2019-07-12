@@ -12,4 +12,8 @@ script:
   - cd buildroot
   - git checkout 2019.02.4
   - make -j2 BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot interlock_mark-two_defconfig
-  - travis_wait 120 make -j2 BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot > /dev/null
+  - while true ; do echo "Still building" ; sleep 60 ; done &
+  - echopid=$!
+  - make -j2 BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot > (tee build.log |grep '>>>')
+  - kill ${echopid}
+  - tail -50 build.log
