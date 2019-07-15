@@ -1,0 +1,1227 @@
+From 81e963148344fb9094a5a950bdebdd6e79ef4368 Mon Sep 17 00:00:00 2001
+From: Andrej Rosano <andrej.rosano@f-secure.com>
+Date: Mon, 15 Jul 2019 16:13:57 +0200
+Subject: [PATCH] ARM: mx6: add support for USB armory MkII board
+
+Add support for Inverse Path USB armory MkII board, an open source
+flash-drive sized computer based on Freescale i.MX6ULL SoC.
+
+http://inversepath.com/usbarmory
+
+Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
+---
+ arch/arm/dts/Makefile                         |   3 +-
+ arch/arm/dts/imx6ull-usbarmory.dts            | 236 ++++++++++++++
+ arch/arm/mach-imx/mx6/Kconfig                 |   8 +
+ board/inversepath/usbarmory-mark-two/Kconfig  |  67 ++++
+ .../usbarmory-mark-two/MAINTAINERS            |   6 +
+ board/inversepath/usbarmory-mark-two/Makefile |  10 +
+ .../usbarmory-mark-two/imximage-1gb.cfg       |  91 ++++++
+ .../usbarmory-mark-two/imximage-512mb.cfg     |  91 ++++++
+ .../usbarmory-mark-two/usbarmory-mark-two.c   | 291 ++++++++++++++++++
+ configs/usbarmory-mark-two_defconfig          |  64 ++++
+ include/configs/usbarmory-mark-two.h          | 240 +++++++++++++++
+ 11 files changed, 1106 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm/dts/imx6ull-usbarmory.dts
+ create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
+ create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
+ create mode 100644 board/inversepath/usbarmory-mark-two/Makefile
+ create mode 100644 board/inversepath/usbarmory-mark-two/imximage-1gb.cfg
+ create mode 100644 board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
+ create mode 100644 board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
+ create mode 100644 configs/usbarmory-mark-two_defconfig
+ create mode 100644 include/configs/usbarmory-mark-two.h
+
+diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
+index 20dbc2ff84..3efa735a48 100644
+--- a/arch/arm/dts/Makefile
++++ b/arch/arm/dts/Makefile
+@@ -592,7 +592,8 @@ dtb-$(CONFIG_MX6ULL) += \
+ 	imx6ull-14x14-evk.dtb \
+ 	imx6ull-colibri.dtb \
+ 	imx6ull-phycore-segin.dtb \
+-	imx6ull-dart-6ul.dtb
++	imx6ull-dart-6ul.dtb \
++	imx6ull-usbarmory.dtb
+ 
+ dtb-$(CONFIG_ARCH_MX6) += \
+ 	imx6-apalis.dtb \
+diff --git a/arch/arm/dts/imx6ull-usbarmory.dts b/arch/arm/dts/imx6ull-usbarmory.dts
+new file mode 100644
+index 0000000000..9e047fa46d
+--- /dev/null
++++ b/arch/arm/dts/imx6ull-usbarmory.dts
+@@ -0,0 +1,236 @@
++/*
++ * USB armory Mk II device tree file
++ * https://inversepath.com/usbarmory
++ *
++ * Copyright (C) 2019, F-Secure Corporation
++ * Andrej Rosano <andrej.rosano@f-secure.com>
++ *
++ * This file is dual-licensed: you can use it either under the terms
++ * of the GPL or the X11 license, at your option. Note that this dual
++ * licensing only applies to this file, and not this project as a
++ * whole.
++ *
++ *  a) This file is free software; you can redistribute it and/or
++ *     modify it under the terms of the GNU General Public License as
++ *     published by the Free Software Foundation; either version 2 of the
++ *     License, or (at your option) any later version.
++ *
++ *     This file is distributed in the hope that it will be useful,
++ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ *     GNU General Public License for more details.
++ *
++ * Or, alternatively,
++ *
++ *  b) Permission is hereby granted, free of charge, to any person
++ *     obtaining a copy of this software and associated documentation
++ *     files (the "Software"), to deal in the Software without
++ *     restriction, including without limitation the rights to use,
++ *     copy, modify, merge, publish, distribute, sublicense, and/or
++ *     sell copies of the Software, and to permit persons to whom the
++ *     Software is furnished to do so, subject to the following
++ *     conditions:
++ *
++ *     The above copyright notice and this permission notice shall be
++ *     included in all copies or substantial portions of the Software.
++ *
++ *     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
++ *     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
++ *     OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
++ *     NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
++ *     HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
++ *     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++ *     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ *     OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++/dts-v1/;
++
++#include "imx6ull.dtsi"
++
++/ {
++	model = "F-Secure USB armory Mk II";
++	compatible = "inversepath,imx6ull-usbarmory-mkII", "fsl,imx6ull";
++
++	chosen {
++		stdout-path = &uart2;
++	};
++
++	memory {
++		reg = <0x80000000 0x20000000>;
++	};
++
++	leds {
++		compatible = "gpio-leds";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_led>;
++
++		led-white {
++			label = "LED_WHITE";
++			gpios = <&gpio4 21 GPIO_ACTIVE_LOW>;
++			default-state = "off";
++		};
++
++		led-blue {
++			label = "LED_BLUE";
++			gpios = <&gpio4 22 GPIO_ACTIVE_LOW>;
++			default-state = "on";
++		};
++	};
++
++	regulators {
++		compatible = "simple-bus";
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		reg_sd1_vmmc: sd1_regulator {
++			compatible = "regulator-fixed";
++			regulator-name = "VSD_3V3";
++			regulator-min-microvolt = <3300000>;
++			regulator-max-microvolt = <3300000>;
++			gpio = <&gpio1 9 GPIO_ACTIVE_HIGH>;
++			enable-active-high;
++		};
++	};
++
++	signature {
++		sig@0 {
++			required = "conf";
++			algo = "sha256,rsa2048";
++			key-name-hint = "usbarmory";
++		};
++	};
++};
++
++&cpu0 {
++	operating-points = <
++		/* kHz	uV */
++		900000	1275000
++		792000	1225000
++		528000	1175000
++		396000	1025000
++		198000	950000
++	>;
++	fsl,soc-operating-points = <
++		/* KHz	uV */
++		900000	1250000
++		792000	1175000
++		528000	1175000
++		396000	1175000
++		198000	1175000
++	>;
++};
++
++&uart1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_bluetooth>;
++	uart-has-rtscts;
++	status = "okay";
++};
++
++&uart2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart2>;
++	status = "okay";
++};
++
++&usdhc1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_usdhc1>;
++	no-1-8-v;
++	keep-power-in-suspend;
++	wakeup-source;
++	status = "okay";
++};
++
++&usdhc2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_usdhc2>;
++	non-removable;
++	status = "okay";
++};
++
++&i2c1 {
++	pinctrl-0 = <&pinctrl_i2c1>;
++	status = "okay";
++};
++
++&iomuxc {
++	pinctrl_uart2: uart2grp {
++		fsl,pins = <
++			MX6UL_PAD_UART2_TX_DATA__UART2_DCE_TX	0x1b0b1
++			MX6UL_PAD_UART2_RX_DATA__UART2_DCE_RX	0x1b0b1
++		>;
++	};
++
++	pinctrl_bluetooth: uart1grp {
++		fsl,pins = <
++			MX6UL_PAD_UART1_TX_DATA__UART1_DCE_TX	0x1b0b0 /* BT_UART_TX  */
++			MX6UL_PAD_UART1_RX_DATA__UART1_DCE_RX	0x1b0b0 /* BT_UART_RX  */
++			MX6UL_PAD_UART1_CTS_B__UART1_DCE_CTS	0x1b0b0 /* BT_UART_CTS */
++			MX6UL_PAD_UART1_RTS_B__UART1_DCE_RTS	0x1b0b0 /* BT_UART_RTS */
++			MX6UL_PAD_UART3_TX_DATA__GPIO1_IO24	0x1f020 /* BT_UART_DSR */
++			MX6UL_PAD_UART3_RX_DATA__GPIO1_IO25	0x1f020 /* BT_UART_DTR */
++			MX6UL_PAD_GPIO1_IO04__GPIO1_IO04	0x1f020 /* BT_SWDCLK   */
++			MX6UL_PAD_GPIO1_IO05__GPIO1_IO05	0x1f020 /* BT_SWDIO    */
++			MX6UL_PAD_GPIO1_IO09__GPIO1_IO09	0x1f020 /* BT_RESET    */
++			MX6UL_PAD_UART3_RTS_B__GPIO1_IO27	0x1f020 /* BT_SWITCH_1 */
++			MX6UL_PAD_UART3_CTS_B__GPIO1_IO26	0x1f020 /* BT_SWITCH_2 */
++		>;
++	};
++
++	pinctrl_i2c1: i2c1grp {
++		fsl,pins = <
++			MX6UL_PAD_GPIO1_IO02__I2C1_SCL	0x4001b8b0
++			MX6UL_PAD_GPIO1_IO03__I2C1_SDA	0x4001b8b0
++		>;
++	};
++
++	pinctrl_led: ledgrp {
++		fsl,pins = <
++			MX6UL_PAD_CSI_DATA06__GPIO4_IO27	0x1f020
++			MX6UL_PAD_CSI_DATA07__GPIO4_IO28	0x1f020
++		>;
++	};
++
++	pinctrl_usdhc1: usdhc1grp {
++		fsl,pins = <
++			MX6UL_PAD_SD1_CMD__USDHC1_CMD		0x1f019
++			MX6UL_PAD_SD1_CLK__USDHC1_CLK		0x1f019
++			MX6UL_PAD_SD1_DATA0__USDHC1_DATA0	0x1f019
++			MX6UL_PAD_SD1_DATA1__USDHC1_DATA1	0x1f019
++			MX6UL_PAD_SD1_DATA2__USDHC1_DATA2	0x1f019
++			MX6UL_PAD_SD1_DATA3__USDHC1_DATA3	0x1f019
++			MX6UL_PAD_UART1_RTS_B__USDHC1_CD_B	0x1f019
++		>;
++	};
++
++	pinctrl_usdhc2: usdhc2grp {
++		fsl,pins = <
++			MX6UL_PAD_NAND_RE_B__USDHC2_CLK		0x10071
++			MX6UL_PAD_NAND_WE_B__USDHC2_CMD		0x17059
++			MX6UL_PAD_NAND_DATA00__USDHC2_DATA0	0x17059
++			MX6UL_PAD_NAND_DATA01__USDHC2_DATA1	0x17059
++			MX6UL_PAD_NAND_DATA02__USDHC2_DATA2	0x17059
++			MX6UL_PAD_NAND_DATA03__USDHC2_DATA3	0x17059
++			MX6UL_PAD_NAND_DATA04__USDHC2_DATA4	0x17059
++			MX6UL_PAD_NAND_DATA05__USDHC2_DATA5	0x17059
++			MX6UL_PAD_NAND_DATA06__USDHC2_DATA6	0x17059
++			MX6UL_PAD_NAND_DATA07__USDHC2_DATA7	0x17059
++		>;
++	};
++};
++
++&usbotg1 {
++	dr_mode = "peripheral";
++	disable-over-current;
++	tpl-support;
++	status = "okay";
++};
++
++&usbotg2 {
++	dr_mode = "host";
++	disable-over-current;
++	tpl-support;
++	status = "okay";
++};
+diff --git a/arch/arm/mach-imx/mx6/Kconfig b/arch/arm/mach-imx/mx6/Kconfig
+index fe5991e7c6..0e29413c1e 100644
+--- a/arch/arm/mach-imx/mx6/Kconfig
++++ b/arch/arm/mach-imx/mx6/Kconfig
+@@ -512,6 +512,13 @@ config TARGET_UDOO_NEO
+ 
+ config TARGET_SOFTING_VINING_2000
+ 	bool "Softing VIN|ING 2000"
++
++config TARGET_USBARMORY_MARK_TWO
++	bool "Support USB armory Mk II"
++	select MX6ULL
++
++config TARGET_SAMTEC_VINING_2000
++	bool "samtec VIN|ING 2000"
+ 	select BOARD_LATE_INIT
+ 	select DM
+ 	select DM_THERMAL
+@@ -591,6 +598,7 @@ source "board/phytec/pcm058/Kconfig"
+ source "board/phytec/pfla02/Kconfig"
+ source "board/phytec/pcl063/Kconfig"
+ source "board/gateworks/gw_ventana/Kconfig"
++source "board/inversepath/usbarmory-mark-two/Kconfig"
+ source "board/kosagi/novena/Kconfig"
+ source "board/softing/vining_2000/Kconfig"
+ source "board/liebherr/display5/Kconfig"
+diff --git a/board/inversepath/usbarmory-mark-two/Kconfig b/board/inversepath/usbarmory-mark-two/Kconfig
+new file mode 100644
+index 0000000000..9a1afe8665
+--- /dev/null
++++ b/board/inversepath/usbarmory-mark-two/Kconfig
+@@ -0,0 +1,67 @@
++if TARGET_USBARMORY_MARK_TWO
++
++choice
++	prompt "DDR size"
++	default SYS_DDR_512MB
++
++config SYS_DDR_512MB
++	bool "512 MB"
++
++config SYS_DDR_1GB
++	bool "1 GB"
++
++endchoice
++
++choice
++	prompt "Boot device"
++	default SYS_BOOT_DEV_MICROSD
++
++config SYS_BOOT_DEV_MICROSD
++	bool "micro SD"
++
++config SYS_BOOT_DEV_EMMC
++	bool "eMMC"
++
++endchoice
++
++choice
++	prompt "Boot mode"
++	default SYS_BOOT_MODE_NORMAL
++
++config SYS_BOOT_MODE_NORMAL
++	select DISTRO_DEFAULTS
++	select ENV_IS_IN_MMC
++	bool "Normal"
++
++config SYS_BOOT_MODE_UMS
++	bool "UMS"
++	select ENV_IS_NOWHERE
++
++config SYS_BOOT_MODE_TFTP
++	bool "TFTP"
++	select ENV_IS_NOWHERE
++
++config SYS_BOOT_MODE_VERIFIED_OPEN
++	bool "Verified Boot"
++	select ENV_IS_NOWHERE
++
++config SYS_BOOT_MODE_VERIFIED_LOCKED
++	bool "Verified Boot and console disabled"
++	select ENV_IS_NOWHERE
++
++endchoice
++
++config IMX_CONFIG
++	default "board/inversepath/usbarmory-mark-two/imximage-512mb.cfg" if SYS_DDR_512MB
++	default "board/inversepath/usbarmory-mark-two/imximage-1gb.cfg" if SYS_DDR_1GB
++
++config SYS_BOARD
++	default "usbarmory-mark-two"
++
++config SYS_VENDOR
++	default "inversepath"
++
++config SYS_CONFIG_NAME
++	default "usbarmory-mark-two"
++
++endif
+diff --git a/board/inversepath/usbarmory-mark-two/MAINTAINERS b/board/inversepath/usbarmory-mark-two/MAINTAINERS
+new file mode 100644
+index 0000000000..e5c4e183de
+--- /dev/null
++++ b/board/inversepath/usbarmory-mark-two/MAINTAINERS
+@@ -0,0 +1,6 @@
++USBARMORY MKII BOARD
++M:	Andrej Rosano <andrej.rosano@f-secure.com>
++S:	Maintained
++F:	board/inversepath/usbarmory-mark-two/
++F:	include/configs/usbarmory-mark-two.h
++F:	configs/usbarmory-mark-two_defconfig
+diff --git a/board/inversepath/usbarmory-mark-two/Makefile b/board/inversepath/usbarmory-mark-two/Makefile
+new file mode 100644
+index 0000000000..471735e274
+--- /dev/null
++++ b/board/inversepath/usbarmory-mark-two/Makefile
+@@ -0,0 +1,10 @@
++#
++# USB armory Mk II board Makefile
++# http://inversepath.com/usbarmory
++#
++# Copyright (C) 2019, F-Secure
++# Andrej Rosano <andrej.rosano@f-secure.com>
++#
++# SPDX-License-Identifier:|____GPL-2.0+
++
++obj-y	:= usbarmory-mark-two.o
+diff --git a/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg b/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg
+new file mode 100644
+index 0000000000..dcba4b8fd5
+--- /dev/null
++++ b/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg
+@@ -0,0 +1,91 @@
++/* SPDX-License-Identifier: GPL-2.0+ */
++/*
++ * USB armory Mk II board imximage configuration
++ * http://inversepath.com/usbarmory
++ *
++ * Copyright (C) 2019, F-Secure Corportation
++ * Andrej Rosano <andrej.rosano@f-secure.com>
++ */
++
++#define __ASSEMBLY__
++#include <config.h>
++
++IMAGE_VERSION 2
++BOOT_FROM sd
++
++#ifdef CONFIG_SECURE_BOOT
++CSF CONFIG_CSF_SIZE
++#endif
++
++/* CCM */
++
++DATA 4 0x020c4068 0xffffffff  /* CCM_CCGR0 */
++DATA 4 0x020c406c 0xffffffff  /* CCM_CCGR1 */
++DATA 4 0x020c4070 0xffffffff  /* CCM_CCGR2 */
++DATA 4 0x020c4074 0xffffffff  /* CCM_CCGR3 */
++DATA 4 0x020c4078 0xffffffff  /* CCM_CCGR4 */
++DATA 4 0x020c407c 0xffffffff  /* CCM_CCGR5 */
++DATA 4 0x020c4080 0xffffffff  /* CCM_CCGR6 */
++
++/* IOMUX */
++
++DATA 4 0x020E04B4 0x000C0000  /* GRP_DDR_TYPE     */
++DATA 4 0x020E04AC 0x00000000  /* GRP_DDRPKE       */
++DATA 4 0x020E027C 0x00000030  /* DRAM_SDCLK0_P    */
++DATA 4 0x020E0250 0x00000030  /* DRAM_CAS_B       */
++DATA 4 0x020E024C 0x00000030  /* DRAM_RAS_B       */
++DATA 4 0x020E0490 0x00000030  /* GRP_ADDDS        */
++DATA 4 0x020E0288 0x00000030  /* DRAM_RESET       */
++DATA 4 0x020E0270 0x00000000  /* DRAM_SDBA2       */
++DATA 4 0x020E0260 0x00000030  /* DRAM_ODT0        */
++DATA 4 0x020E0264 0x00000030  /* DRAM_ODT1        */
++DATA 4 0x020E04A0 0x00000030  /* GRP_CTLDS        */
++DATA 4 0x020E0494 0x00020000  /* GRP_DDRMODE_CTL  */
++DATA 4 0x020E0280 0x00000030  /* DRAM_SDQS0_P     */
++DATA 4 0x020E0284 0x00000030  /* DRAM_SDQS1_P     */
++DATA 4 0x020E04B0 0x00020000  /* GRP_DDRMODE      */
++DATA 4 0x020E0498 0x00000030  /* GRP_B0DS         */
++DATA 4 0x020E04A4 0x00000030  /* GRP_B1DS         */
++DATA 4 0x020E0244 0x00000030  /* DRAM_DQM0        */
++DATA 4 0x020E0248 0x00000030  /* DRAM_DQM1        */
++
++/* MMDC */
++
++DATA 4 0x021B001C 0x00008000  /* MMDC_MDSCR       */
++DATA 4 0x021B000C 0x676B52F3  /* MMDC_MDCFG0      */
++DATA 4 0x021B0010 0xB66D0B63  /* MMDC_MDCFG1      */
++DATA 4 0x021B0014 0x01FF00DB  /* MMDC_MDCFG2      */
++DATA 4 0x021B0008 0x1B333030  /* MMDC_MDOTC       */
++DATA 4 0x021B0018 0x00201740  /* MMDC_MDMISC      */
++DATA 4 0x021B002C 0x000026D2  /* MMDC_MDRWD       */
++DATA 4 0x021B0040 0x0000005F  /* MMDC_MDASP       */
++DATA 4 0x021B0030 0x006B1023  /* MMDC_MDOR        */
++DATA 4 0x021B0000 0x85180000  /* MMDC_MDCTL       */
++
++/* Carlibration */
++DATA 4 0x021B0800 0xA1390003  /* MMDC_MPZQSWCTRL  */
++DATA 4 0x021B080C 0x00100014  /* MMDC_MPWLDECTRL0 */
++DATA 4 0x021B083C 0x415C015C  /* MMDC_MPDGCTRL0   */
++DATA 4 0x021B0848 0x40403A40  /* MMDC_MPRDDLCRL   */
++DATA 4 0x021B0850 0x40402626  /* MMDC_MPWRDLCTL   */
++DATA 4 0x021B081C 0x33333333  /* MMDC_MPRRDQBY0DL */
++DATA 4 0x021B0820 0x33333333  /* MMDC_MPRRDQBY1DL */
++DATA 4 0x021B082C 0xf3333333  /* MMDC_MPWRDQBY0DL */
++DATA 4 0x021B0830 0xf3333333  /* MMDC_MPWRDQBY1DL */
++DATA 4 0x021B08C0 0x00921012  /* MMDC_MPDCCR      */
++DATA 4 0x021B08B8 0x00000800  /* MMDC_MPMUR0      */
++
++
++/* JEDEC initialization sequence */
++DATA 4 0x021B001C 0x02008032  /* MMDC_MDSCR       */
++DATA 4 0x021B001C 0x00008033  /* MMDC_MDSCR       */
++DATA 4 0x021B001C 0x00048031  /* MMDC_MDSCR       */
++DATA 4 0x021B001C 0x15208030  /* MMDC_MDSCR       */
++DATA 4 0x021B001C 0x04008040  /* MMDC_MDSCR       */
++
++DATA 4 0x021B0004 0x0002556D  /* MMDC_MDPDC       */
++DATA 4 0x021B0404 0x00011006  /* MMDC_MAPSR       */
++DATA 4 0x021B0020 0x00000800  /* MMDC_MDREF       */
++DATA 4 0x021B0818 0x00000227  /* MMDC_MPODTCTRL   */
++
++DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
+diff --git a/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg b/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
+new file mode 100644
+index 0000000000..9a3584f74e
+--- /dev/null
++++ b/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
+@@ -0,0 +1,91 @@
++/* SPDX-License-Identifier: GPL-2.0+ */
++/*
++ * USB armory Mk II board imximage configuration
++ * http://inversepath.com/usbarmory
++ *
++ * Copyright (C) 2019, F-Secure Corportation
++ * Andrej Rosano <andrej.rosano@f-secure.com>
++ */
++
++#define __ASSEMBLY__
++#include <config.h>
++
++IMAGE_VERSION 2
++BOOT_FROM sd
++
++#ifdef CONFIG_SECURE_BOOT
++CSF CONFIG_CSF_SIZE
++#endif
++
++/* CCM */
++
++DATA 4 0x020c4068 0xffffffff  /* CCM_CCGR0 */
++DATA 4 0x020c406c 0xffffffff  /* CCM_CCGR1 */
++DATA 4 0x020c4070 0xffffffff  /* CCM_CCGR2 */
++DATA 4 0x020c4074 0xffffffff  /* CCM_CCGR3 */
++DATA 4 0x020c4078 0xffffffff  /* CCM_CCGR4 */
++DATA 4 0x020c407c 0xffffffff  /* CCM_CCGR5 */
++DATA 4 0x020c4080 0xffffffff  /* CCM_CCGR6 */
++
++/* IOMUX */
++
++DATA 4 0x020E04B4 0x000C0000  /* GRP_DDR_TYPE     */
++DATA 4 0x020E04AC 0x00000000  /* GRP_DDRPKE       */
++DATA 4 0x020E027C 0x00000030  /* DRAM_SDCLK0_P    */
++DATA 4 0x020E0250 0x00000030  /* DRAM_CAS_B       */
++DATA 4 0x020E024C 0x00000030  /* DRAM_RAS_B       */
++DATA 4 0x020E0490 0x00000030  /* GRP_ADDDS        */
++DATA 4 0x020E0288 0x00000030  /* DRAM_RESET       */
++DATA 4 0x020E0270 0x00000000  /* DRAM_SDBA2       */
++DATA 4 0x020E0260 0x00000030  /* DRAM_ODT0        */
++DATA 4 0x020E0264 0x00000030  /* DRAM_ODT1        */
++DATA 4 0x020E04A0 0x00000030  /* GRP_CTLDS        */
++DATA 4 0x020E0494 0x00020000  /* GRP_DDRMODE_CTL  */
++DATA 4 0x020E0280 0x00000030  /* DRAM_SDQS0_P     */
++DATA 4 0x020E0284 0x00000030  /* DRAM_SDQS1_P     */
++DATA 4 0x020E04B0 0x00020000  /* GRP_DDRMODE      */
++DATA 4 0x020E0498 0x00000030  /* GRP_B0DS         */
++DATA 4 0x020E04A4 0x00000030  /* GRP_B1DS         */
++DATA 4 0x020E0244 0x00000030  /* DRAM_DQM0        */
++DATA 4 0x020E0248 0x00000030  /* DRAM_DQM1        */
++
++/* MMDC */
++
++DATA 4 0x021B001C 0x00008000  /* MMDC_MDSCR       */
++DATA 4 0x021B000C 0x676B52F3  /* MMDC_MDCFG0      */
++DATA 4 0x021B0010 0xB66D0B63  /* MMDC_MDCFG1      */
++DATA 4 0x021B0014 0x01FF00DB  /* MMDC_MDCFG2      */
++DATA 4 0x021B0008 0x1B333030  /* MMDC_MDOTC       */
++DATA 4 0x021B0018 0x00201740  /* MMDC_MDMISC      */
++DATA 4 0x021B002C 0x000026D2  /* MMDC_MDRWD       */
++DATA 4 0x021B0040 0x0000004F  /* MMDC_MDASP       */
++DATA 4 0x021B0030 0x006B1023  /* MMDC_MDOR        */
++DATA 4 0x021B0000 0x84180000  /* MMDC_MDCTL       */
++
++/* Carlibration */
++DATA 4 0x021B0800 0xA1390003  /* MMDC_MPZQSWCTRL  */
++DATA 4 0x021B080C 0x00070000  /* MMDC_MPWLDECTRL0 */
++DATA 4 0x021B083C 0x41600154  /* MMDC_MPDGCTRL0   */
++DATA 4 0x021B0848 0x40405046  /* MMDC_MPRDDLCRL   */
++DATA 4 0x021B0850 0x40405242  /* MMDC_MPWRDLCTL   */
++DATA 4 0x021B081C 0x33333333  /* MMDC_MPRRDQBY0DL */
++DATA 4 0x021B0820 0x33333333  /* MMDC_MPRRDQBY1DL */
++DATA 4 0x021B082C 0xf3333333  /* MMDC_MPWRDQBY0DL */
++DATA 4 0x021B0830 0xf3333333  /* MMDC_MPWRDQBY1DL */
++DATA 4 0x021B08C0 0x00921012  /* MMDC_MPDCCR      */
++DATA 4 0x021B08B8 0x00000800  /* MMDC_MPMUR0      */
++
++
++/* JEDEC initialization sequence */
++DATA 4 0x021B001C 0x02008032  /* MMDC_MDSCR       */
++DATA 4 0x021B001C 0x00008033  /* MMDC_MDSCR       */
++DATA 4 0x021B001C 0x00048031  /* MMDC_MDSCR       */
++DATA 4 0x021B001C 0x15208030  /* MMDC_MDSCR       */
++DATA 4 0x021B001C 0x04008040  /* MMDC_MDSCR       */
++
++DATA 4 0x021B0004 0x0002556D  /* MMDC_MDPDC       */
++DATA 4 0x021B0404 0x00011006  /* MMDC_MAPSR       */
++DATA 4 0x021B0020 0x00000800  /* MMDC_MDREF       */
++DATA 4 0x021B0818 0x00000227  /* MMDC_MPODTCTRL   */
++
++DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
+diff --git a/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
+new file mode 100644
+index 0000000000..ff9ccf29c1
+--- /dev/null
++++ b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
+@@ -0,0 +1,291 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * USB armory Mk II board initialization
++ * http://inversepath.com/usbarmory
++ *
++ * Copyright (C) 2019, F-Secure Corporation
++ * Andrej Rosano <andrej.rosano@f-secure.com>
++ */
++
++#include <common.h>
++#include <asm/io.h>
++#include <asm/arch/imx-regs.h>
++#include <asm/arch/sys_proto.h>
++#include <asm/arch/crm_regs.h>
++#include <asm/arch/clock.h>
++#include <asm/arch/iomux.h>
++#include <asm/arch/mx6-pins.h>
++#include <asm/mach-imx/iomux-v3.h>
++#include <linux/errno.h>
++#include <i2c.h>
++#include <mmc.h>
++#include <fsl_esdhc.h>
++#include <asm/gpio.h>
++
++DECLARE_GLOBAL_DATA_PTR;
++
++#define UART_PAD_CTRL  (PAD_CTL_PKE | PAD_CTL_PUE |		\
++	PAD_CTL_PUS_100K_UP | PAD_CTL_SPEED_MED |		\
++	PAD_CTL_DSE_40ohm   | PAD_CTL_SRE_FAST  | PAD_CTL_HYS)
++#define USDHC_PAD_CTRL (PAD_CTL_PKE | PAD_CTL_PUE |		\
++	PAD_CTL_PUS_22K_UP  | PAD_CTL_SPEED_LOW |		\
++	PAD_CTL_DSE_80ohm   | PAD_CTL_SRE_FAST  | PAD_CTL_HYS)
++#define I2C_PAD_CTRL	(PAD_CTL_PUS_100K_UP |			\
++	PAD_CTL_SPEED_MED | PAD_CTL_DSE_40ohm | PAD_CTL_HYS |	\
++	PAD_CTL_ODE | PAD_CTL_SRE_FAST)
++#define WEAK_PULLUP	(PAD_CTL_PUS_100K_UP ||			\
++	PAD_CTL_SPEED_MED | PAD_CTL_DSE_40ohm | PAD_CTL_HYS ||	\
++	PAD_CTL_SRE_SLOW)
++
++static void setup_iomux_uart(void)
++{
++	static const iomux_v3_cfg_t pads[] = {
++#ifndef CONFIG_SYS_BOOT_MODE_VERIFIED_LOCKED
++		MX6_PAD_UART2_TX_DATA__UART2_DCE_TX | MUX_PAD_CTRL(UART_PAD_CTRL),
++		MX6_PAD_UART2_RX_DATA__UART2_DCE_RX | MUX_PAD_CTRL(UART_PAD_CTRL),
++		MX6_PAD_UART2_CTS_B__UART2_DCE_CTS | MUX_PAD_CTRL(UART_PAD_CTRL),
++		MX6_PAD_UART2_RTS_B__UART2_DCE_RTS | MUX_PAD_CTRL(UART_PAD_CTRL)
++#else
++		MX6_PAD_UART2_TX_DATA__GPIO1_IO20 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_UART2_RX_DATA__GPIO1_IO21 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_UART2_CTS_B__GPIO1_IO22 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_UART2_RTS_B__GPIO1_IO23 | MUX_PAD_CTRL(WEAK_PULLUP)
++#endif
++	};
++
++	imx_iomux_v3_setup_multiple_pads(pads, ARRAY_SIZE(pads));
++}
++
++static void setup_iomux_i2c(void)
++{
++	static const iomux_v3_cfg_t pads[] = {
++		MX6_PAD_GPIO1_IO02__I2C1_SCL | MUX_PAD_CTRL(I2C_PAD_CTRL),
++		MX6_PAD_GPIO1_IO03__I2C1_SDA | MUX_PAD_CTRL(I2C_PAD_CTRL)
++	};
++
++	imx_iomux_v3_setup_multiple_pads(pads, ARRAY_SIZE(pads));
++}
++
++static void setup_iomux_misc(void)
++{
++	static const iomux_v3_cfg_t pads[] = {
++		/* type-c */
++		MX6_PAD_GPIO1_IO00__GPIO1_IO00 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_GPIO1_IO01__GPIO1_IO01 | MUX_PAD_CTRL(WEAK_PULLUP),
++		/* crypto */
++		MX6_PAD_ENET2_TX_DATA1__GPIO2_IO12 | MUX_PAD_CTRL(WEAK_PULLUP),
++		/* pmic */
++		MX6_PAD_ENET1_TX_EN__WDOG2_WDOG_RST_B_DEB | MUX_PAD_CTRL(WEAK_PULLUP),
++		/* usb */
++		MX6_PAD_GPIO1_IO05__ANATOP_OTG2_ID | MUX_PAD_CTRL(WEAK_PULLUP)
++	};
++
++	imx_iomux_v3_setup_multiple_pads(pads, ARRAY_SIZE(pads));
++}
++
++static void setup_iomux_unused_boot(void)
++{
++	static const iomux_v3_cfg_t pads[] = {
++
++		/* pulled-up/pulled-down pads */
++		MX6_PAD_LCD_DATA05__GPIO3_IO10 | MUX_PAD_CTRL(NO_PAD_CTRL),
++		MX6_PAD_LCD_DATA11__GPIO3_IO16 | MUX_PAD_CTRL(NO_PAD_CTRL),
++		MX6_PAD_LCD_DATA14__GPIO3_IO19 | MUX_PAD_CTRL(NO_PAD_CTRL),
++		MX6_PAD_LCD_DATA08__GPIO3_IO13 | MUX_PAD_CTRL(NO_PAD_CTRL),
++
++		/* floating and pulled-up pads */
++		MX6_PAD_LCD_DATA00__GPIO3_IO05 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA01__GPIO3_IO06 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA02__GPIO3_IO07 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA03__GPIO3_IO08 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA04__GPIO3_IO09 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA06__GPIO3_IO11 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA07__GPIO3_IO12 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA09__GPIO3_IO14 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA10__GPIO3_IO15 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA12__GPIO3_IO17 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA13__GPIO3_IO18 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA15__GPIO3_IO20 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA16__GPIO3_IO21 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA17__GPIO3_IO22 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA18__GPIO3_IO23 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA19__GPIO3_IO24 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA20__GPIO3_IO25 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA21__GPIO3_IO26 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA22__GPIO3_IO27 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_DATA23__GPIO3_IO28 | MUX_PAD_CTRL(WEAK_PULLUP)
++	};
++
++	imx_iomux_v3_setup_multiple_pads(pads, ARRAY_SIZE(pads));
++}
++
++static void setup_iomux_unused_nc(void)
++{
++	/* Out of reset values define the pin values before the
++	   ROM is executed so we force all the not connected pins
++	   to a known state */
++	static const iomux_v3_cfg_t pads[] = {
++
++		/* TAMPER pins */
++		MX6_PAD_SNVS_TAMPER0__GPIO5_IO00 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_SNVS_TAMPER1__GPIO5_IO01 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_SNVS_TAMPER2__GPIO5_IO02 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_SNVS_TAMPER3__GPIO5_IO03 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_SNVS_TAMPER4__GPIO5_IO04 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_SNVS_TAMPER5__GPIO5_IO05 | MUX_PAD_CTRL(WEAK_PULLUP),
++		// FIXME: Configuration of one of the following two pads
++		// disables console UART for some reason.
++		//MX6_PAD_SNVS_TAMPER6__GPIO5_IO06 | MUX_PAD_CTRL(WEAK_PULLUP),
++		//MX6_PAD_SNVS_TAMPER7__GPIO5_IO07 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_SNVS_TAMPER8__GPIO5_IO08 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_SNVS_TAMPER9__GPIO5_IO09 | MUX_PAD_CTRL(WEAK_PULLUP),
++
++		/*  ENET block */
++		MX6_PAD_ENET1_RX_DATA0__GPIO2_IO00 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_ENET1_RX_DATA1__GPIO2_IO01 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_ENET1_RX_EN__GPIO2_IO02 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_ENET1_TX_DATA0__GPIO2_IO03 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_ENET1_TX_DATA1__GPIO2_IO04 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_ENET1_TX_CLK__GPIO2_IO06 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_ENET1_RX_ER__GPIO2_IO07 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_ENET2_RX_DATA0__GPIO2_IO08 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_ENET2_RX_DATA1__GPIO2_IO09 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_ENET2_RX_EN__GPIO2_IO10 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_ENET2_TX_DATA0__GPIO2_IO11 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_ENET2_TX_CLK__GPIO2_IO14 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_ENET2_RX_ER__GPIO2_IO15 | MUX_PAD_CTRL(WEAK_PULLUP),
++
++		/*  CSI block */
++		MX6_PAD_CSI_MCLK__GPIO4_IO17   | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_CSI_PIXCLK__GPIO4_IO18 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_CSI_VSYNC__GPIO4_IO19  | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_CSI_HSYNC__GPIO4_IO20  | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_CSI_DATA02__GPIO4_IO23 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_CSI_DATA03__GPIO4_IO24 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_CSI_DATA04__GPIO4_IO25 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_CSI_DATA05__GPIO4_IO26 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_CSI_DATA06__GPIO4_IO27 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_CSI_DATA07__GPIO4_IO28 | MUX_PAD_CTRL(WEAK_PULLUP),
++
++		/*  GPIO block */
++		MX6_PAD_GPIO1_IO08__GPIO1_IO08 | MUX_PAD_CTRL(WEAK_PULLUP),
++
++		/*  NAND block */
++		MX6_PAD_NAND_WP_B__GPIO4_IO11 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_NAND_READY_B__GPIO4_IO12 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_NAND_CE0_B__GPIO4_IO13 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_NAND_CE1_B__GPIO4_IO14 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_NAND_DQS__GPIO4_IO16 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_NAND_CLE__GPIO4_IO15 | MUX_PAD_CTRL(WEAK_PULLUP),
++
++		/*  LCD block */
++		MX6_PAD_LCD_CLK__GPIO3_IO00 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_ENABLE__GPIO3_IO01 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_HSYNC__GPIO3_IO02 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_VSYNC__GPIO3_IO03 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_LCD_RESET__GPIO3_IO04 | MUX_PAD_CTRL(WEAK_PULLUP)
++	};
++
++	imx_iomux_v3_setup_multiple_pads(pads, ARRAY_SIZE(pads));
++}
++
++static struct fsl_esdhc_cfg usdhc_cfg[2] = {
++	{USDHC1_BASE_ADDR},
++	{USDHC2_BASE_ADDR},
++};
++
++int board_mmc_getcd(struct mmc *mmc)
++{
++	return 1;
++}
++
++int board_mmc_init(bd_t *bis)
++{
++	int ret = 0;
++
++	usdhc_cfg[0].sdhc_clk = mxc_get_clock(MXC_ESDHC_CLK);
++	usdhc_cfg[1].sdhc_clk = mxc_get_clock(MXC_ESDHC_CLK);
++	ret = fsl_esdhc_initialize(bis, &usdhc_cfg[0]);
++	ret = fsl_esdhc_initialize(bis, &usdhc_cfg[1]);
++
++	return ret;
++}
++
++int board_eth_init(bd_t *bis)
++{
++	return usb_eth_initialize(bis);
++}
++
++int dram_init(void)
++{
++	gd->ram_size = imx_ddr_size();
++	return 0;
++}
++
++/* Enable FSUSB303 recaptecle Type-C controller */
++int fusb303_init(void)
++{
++	uchar val;
++
++	val = 0xbb;
++	i2c_set_bus_num(0);
++	i2c_write(0x31, 0x5, 1, &val, 1);
++	return 0;
++}
++
++int board_early_init_f(void)
++{
++	// i2c initialization should not be moved in dts as otherwise
++	// the fsusb303_init() does not have effect.
++	setup_iomux_i2c();
++	setup_iomux_uart();
++	setup_iomux_unused_boot();
++	setup_iomux_unused_nc();
++	setup_iomux_misc();
++	return 0;
++}
++
++int board_init(void)
++{
++	fusb303_init();
++	return 0;
++}
++
++int checkboard(void)
++{
++	puts("Board: F-Secure USB armory Mk II\n");
++	return 0;
++}
++
++
++#ifndef CONFIG_CMDLINE
++static char *ext2_argv[] = {
++	"ext2load",
++	"mmc",
++	USBARMORY_BOOT_DEV ":1",
++	USBARMORY_FIT_ADDR,
++	USBARMORY_FIT_PATH,
++	USBARMORY_FIT_SIZE
++};
++
++static char *bootm_argv[] = {
++	"bootm",
++	USBARMORY_FIT_ADDR
++};
++
++int board_run_command(const char *cmdline)
++{
++	printf("%s %s %s %s %s %s\n", ext2_argv[0], ext2_argv[1], ext2_argv[2],
++	       ext2_argv[3], ext2_argv[4], ext2_argv[5]);
++
++	if (do_ext2load(NULL, 0, 5, ext2_argv) != 0) {
++		udelay(5*1000*1000);
++		return 1;
++	}
++
++	printf("%s %s\n", bootm_argv[0], bootm_argv[1]);
++	do_bootm(NULL, 0, 2, bootm_argv);
++
++	return 1;
++}
++#endif
+diff --git a/configs/usbarmory-mark-two_defconfig b/configs/usbarmory-mark-two_defconfig
+new file mode 100644
+index 0000000000..ed0e62e99e
+--- /dev/null
++++ b/configs/usbarmory-mark-two_defconfig
+@@ -0,0 +1,64 @@
++CONFIG_ARM=y
++CONFIG_ARCH_MX6=y
++CONFIG_SYS_TEXT_BASE=0x87800000
++CONFIG_TARGET_USBARMORY_MARK_TWO=y
++
++CONFIG_SYS_DDR_512MB=y
++#CONFIG_SYS_DDR_1GB is not set
++
++# Boot device
++CONFIG_SYS_BOOT_DEV_MICROSD=y
++#CONFIG_SYS_BOOT_DEV_EMMC is not set
++
++# Boot mode
++CONFIG_SYS_BOOT_MODE_NORMAL=y
++#CONFIG_SYS_BOOT_MODE_UMS is not set
++#CONFIG_SYS_BOOT_MODE_TFTP is not set
++#CONFIG_SYS_BOOT_MODE_VERIFIED_OPEN is not set
++#CONFIG_SYS_BOOT_MODE_VERIFIED_LOCKED is not set
++
++CONFIG_NR_DRAM_BANKS=1
++CONFIG_USE_BOOTCOMMAND=y
++CONFIG_DOS_PARTITION=y
++
++# Commands
++CONFIG_CMD_DHCP=y
++CONFIG_CMD_EXT2=y
++CONFIG_CMD_FUSE=y
++CONFIG_CMD_I2C=y
++CONFIG_CMD_MEMTEST=y
++CONFIG_CMD_MMC=y
++CONFIG_CMD_PING=y
++CONFIG_CMD_USB=y
++
++# Device model support
++CONFIG_DM=y
++CONFIG_DM_MMC=y
++CONFIG_DM_USB=y
++CONFIG_BLK=y
++CONFIG_OF_LIBFDT=y
++CONFIG_OF_CONTROL=y
++CONFIG_OF_SEPARATE=y
++CONFIG_DEFAULT_DEVICE_TREE="imx6ull-usbarmory"
++
++# Secure/Verified boot
++CONFIG_SECURE_BOOT=y
++CONFIG_FIT=y
++CONFIG_FIT_SIGNATURE=y
++CONFIG_RSA=y
++
++# USB gadgets
++CONFIG_USB=y
++CONFIG_CI_UDC=y
++CONFIG_USB_GADGET=y
++CONFIG_USB_GADGET_MANUFACTURER="FSL"
++CONFIG_USB_GADGET_VENDOR_NUM=0x0525
++CONFIG_USB_GADGET_PRODUCT_NUM=0xa4a5
++
++# UMS gadget
++CONFIG_USB_GADGET_DOWNLOAD=y
++CONFIG_CMD_USB_MASS_STORAGE=y
++
++# Ethernet gadget
++CONFIG_USB_ETHER=y
++CONFIG_USB_ETH_CDC=y
+diff --git a/include/configs/usbarmory-mark-two.h b/include/configs/usbarmory-mark-two.h
+new file mode 100644
+index 0000000000..69f369c193
+--- /dev/null
++++ b/include/configs/usbarmory-mark-two.h
+@@ -0,0 +1,240 @@
++/* SPDX-License-Identifier: GPL-2.0+ */
++/*
++ * USB armory Mk II board configuration settings
++ * http://inversepath.com/usbarmory
++ *
++ * Copyright (C) 2019, F-Secure Corporation
++ * Andrej Rosano <andrej.rosano@f-secure.com>
++ */
++
++#ifndef __CONFIG_H
++#define __CONFIG_H
++
++#include <asm/arch/imx-regs.h>
++#include "mx6_common.h"
++
++/* Environment */
++#define CONFIG_ENV_OFFSET	(1 * SZ_1M)
++#define CONFIG_ENV_SIZE		(8 * SZ_1K)
++
++/* */
++#define CONFIG_BOARD_EARLY_INIT_F
++#define CONFIG_FSL_ESDHC
++#define CONFIG_FSL_CAAM
++
++/* UART */
++#define CONFIG_MXC_UART
++#define CONFIG_MXC_UART_BASE	UART2_BASE
++
++/* USB */
++#define CONFIG_MXC_USB_PORTSC	(PORT_PTS_UTMI | PORT_PTS_PTW)
++#define CONFIG_USBD_HS
++
++/* I2C */
++#define CONFIG_SYS_I2C
++#define CONFIG_SYS_I2C_MXC
++#define CONFIG_SYS_I2C_SPEED 100000
++#define CONFIG_SYS_I2C_MXC_I2C1
++
++/* U-Boot memory offsets */
++#define CONFIG_SYS_LOAD_ADDR	CONFIG_LOADADDR
++
++/* Boot parameters */
++#define USBARMORY_FIT_PATH	"/boot/usbarmory.itb"
++#define USBARMORY_FIT_ADDR	"0x80800000"
++#define USBARMORY_FIT_SIZE	"0x4000000"
++
++#ifdef CONFIG_SYS_BOOT_DEV_MICROSD
++#define CONFIG_SYS_MMC_ENV_DEV	0
++#define USBARMORY_BOOT_DEV	"0"
++#elif CONFIG_SYS_BOOT_DEV_EMMC
++#define CONFIG_SYS_MMC_ENV_DEV	1
++#define USBARMORY_BOOT_DEV	"1"
++#endif
++
++/* Bootargs */
++
++#define CONFIG_USE_BOOTARGS
++#define CONFIG_BOOTARGS "console=ttymxc1,115200 root=/dev/mmcblk" USBARMORY_BOOT_DEV "p1 rootwait rw"
++
++#define CONFIG_HOSTNAME		"usbarmory"
++#define BOOT_TARGET_DEVICES(func) func(MMC, mmc, 0)
++#define CONFIG_SYS_MEMTEST_START	0x80000000
++#define CONFIG_SYS_CBSIZE	512
++
++/* DDR size config */
++
++#ifdef CONFIG_SYS_DDR_1GB
++#define CONFIG_SYS_MEMTEST_END		CONFIG_SYS_MEMTEST_START + SZ_1G
++#define BOOTENV_DDR_1GB		\
++	"fdt_high=0xffffffff\0"	\
++	"initrd_high=0xffffffff\0"
++#else
++#define CONFIG_SYS_MEMTEST_END		CONFIG_SYS_MEMTEST_START + SZ_512M
++#define BOOTENV_DDR_1GB
++#endif
++
++/* scripts */
++
++#define BOOTENV_CHECK_SILICON_REVISION \
++	"check_silicon_revision="								\
++		"echo *** Checking Silicon Revision *** ; "					\
++		"setexpr USB_ANALOG_DIGPROG *0x20c8260 ; "					\
++		"setexpr imx6_family $USB_ANALOG_DIGPROG '/' 0x10000 ; "			\
++		"setexpr silicon_revision $USB_ANALOG_DIGPROG '&' 0xffff ; "			\
++		"if itest $imx6_family == 0x64; then "						\
++			"if itest $silicon_revision < 0x0002; then "				\
++				"echo ; "							\
++				"echo \"***********************************************\" ; "	\
++				"echo \"* WARNING                                     *\" ; "	\
++				"echo \"* i.MX6UltraLight with Silicon Revision < 1.2 *\" ; "	\
++				"echo \"* Important security fixes are missing        *\" ; "	\
++				"echo \"***********************************************\" ; "	\
++				"echo ; "							\
++			"fi ; "									\
++		"fi ; "										\
++		"if itest $imx6_family == 0x65; then "						\
++			"if itest $silicon_revision < 0x0001; then "				\
++				"echo ; "							\
++				"echo \"********************************************\" ; "	\
++				"echo \"* WARNING                                  *\" ; "	\
++				"echo \"* i.MX6ULL/ULZ with Silicon Revision < 1.1 *\" ; "	\
++				"echo \"* Important security fixes are missing     *\" ; "	\
++				"echo \"********************************************\" ; "	\
++				"echo ; "							\
++			"fi ; "									\
++		"fi\0"										\
++
++#define BOOTENV_CHECK_OTPMK \
++	"check_otpmk="							\
++		"echo *** Checking OTPMK *** ; "			\
++		"env set check_otpmk_var 0 ; "				\
++		"setexpr SNVS_HPSR *0x020cc014 ; "			\
++		"setexpr test $SNVS_HPSR '&' 0x08000000 ; "		\
++		"if itest $test != 0; then "				\
++			"env set check_otpmk_var 1 ; "			\
++			"echo ; "					\
++			"echo \"**************************\" ; "	\
++			"echo \"* WARNING: OTPMK is zero *\" ; "	\
++			"echo \"**************************\" ; "	\
++			"echo ; "					\
++		"fi ; "							\
++		"setexpr test $SNVS_HPSR '&' 0x01FF0000 ; "		\
++		"if itest $test != 0; then "				\
++			"env set check_otpmk_var 1 ; "			\
++			"echo ; "					\
++			"echo \"******************************************\" ; "	\
++			"echo \"* WARNING: OTPMK_SYNDROME error detected *\" ; "	\
++			"echo \"******************************************\" ; "	\
++			"echo ; "					\
++		"fi ; "							\
++		"setexpr test $SNVS_HPSR '&' 0xF00 ; "			\
++		"if itest $test != 0xD00; then "			\
++			"env set check_otpmk_var 1 ; "			\
++			"echo ; "					\
++			"echo \"***************************************\" ; "	\
++			"echo \"* WARNING: Device not in TRUSTED mode *\" ; "	\
++			"echo \"***************************************\" ; "	\
++			"echo ; "					\
++		"fi ; "							\
++		"if itest $check_otpmk_var != 0; then "			\
++			"echo *** Unable to continue. Resetting in 60s *** ; "	\
++			"sleep 60 ; "						\
++			"reset ; "						\
++		"fi\0"
++
++#define BOOTENV_UMS \
++	"start_ums="			\
++		"ums 0 mmc ${mmcdev}\0"	\
++
++#define BOOTENV_TFTP \
++	"start_tftp="							\
++		"dhcp ${kernel_addr_r} ${serverip}:${bootfile} ; "	\
++		"dhcp ${fdt_addr_r} ${serverip}:${fdtfile} ; "		\
++		"bootm ${kernel_addr_r} - ${fdt_addr_r}\0"		\
++
++#define BOOTENV_VERIFIED_OPEN												\
++	"start_verified_open="												\
++		"ext2load mmc ${mmcdev}:1 " USBARMORY_FIT_ADDR " " USBARMORY_FIT_PATH " " USBARMORY_FIT_SIZE " ; "	\
++		"bootm " USBARMORY_FIT_ADDR
++
++#define BOOTENV_NORMAL								\
++	"start_normal=run distro_bootcmd ; "					\
++		"ext2load mmc ${mmcdev}:1 ${kernel_addr_r} /boot/${bootfile} ; "\
++		"ext2load mmc ${mmcdev}:1 ${fdt_addr_r} /boot/${fdtfile} ; "	\
++		"bootz ${kernel_addr_r} - ${fdt_addr_r}\0"
++
++
++/* Boot modes */
++
++#ifdef CONFIG_SYS_BOOT_MODE_UMS
++
++#undef CONFIG_BOOTCOMMAND
++#define CONFIG_BOOTCOMMAND	"run start_ums"
++
++#elif CONFIG_SYS_BOOT_MODE_VERIFIED_OPEN
++
++#undef CONFIG_BOOTCOMMAND
++#define CONFIG_BOOTCOMMAND	"run start_verified_open"
++
++#elif CONFIG_SYS_BOOT_MODE_TFTP
++
++#undef CONFIG_BOOTCOMMAND
++#define CONFIG_BOOTCOMMAND	"run start_tftp"
++
++#elif CONFIG_SYS_BOOT_MODE_NORMAL
++
++#include <config_distro_bootcmd.h>
++#undef CONFIG_BOOTCOMMAND
++#define CONFIG_BOOTCOMMAND	"run start_normal"
++
++#elif CONFIG_SYS_BOOT_MODE_VERIFIED_LOCKED
++
++#undef CONFIG_CMDLINE
++#undef CONFIG_BOOTDELAY
++#define CONFIG_BOOTDELAY -2
++
++#endif
++
++/* Custom environment variables */
++
++#ifndef BOOTENV
++#define BOOTENV
++#endif
++
++#define CONFIG_EXTRA_ENV_SETTINGS		\
++	"kernel_addr_r=0x80800000\0"		\
++	"fdt_addr_r=0x82000000\0"		\
++	"scriptaddr=0x80800000\0"		\
++	"ramdisk_addr_r=0x83000000\0"		\
++	"bootfile=zImage\0"			\
++	"fdtfile=imx6ull-usbarmory.dtb\0"	\
++	"mmcdev=" USBARMORY_BOOT_DEV "\0"	\
++	"ethact=usb_ether\0"			\
++	"cdc_connect_timeout=60\0"		\
++	"usbnet_devaddr=1a:55:89:a2:69:52\0"	\
++	"usbnet_hostaddr=1a:55:89:a2:69:51\0"	\
++	BOOTENV_CHECK_SILICON_REVISION		\
++	BOOTENV_CHECK_OTPMK			\
++	BOOTENV_NORMAL				\
++	BOOTENV_TFTP				\
++	BOOTENV_UMS				\
++	BOOTENV_VERIFIED_OPEN			\
++	BOOTENV_DDR_1GB				\
++	BOOTENV
++
++/* Physical Memory Map */
++#define PHYS_SDRAM			MMDC0_ARB_BASE_ADDR
++
++#define CONFIG_SYS_SDRAM_BASE		PHYS_SDRAM
++#define CONFIG_SYS_INIT_RAM_ADDR	IRAM_BASE_ADDR
++#define CONFIG_SYS_INIT_RAM_SIZE	IRAM_SIZE
++
++#define CONFIG_SYS_INIT_SP_OFFSET \
++	(CONFIG_SYS_INIT_RAM_SIZE - GENERATED_GBL_DATA_SIZE)
++#define CONFIG_SYS_INIT_SP_ADDR \
++	(CONFIG_SYS_INIT_RAM_ADDR + CONFIG_SYS_INIT_SP_OFFSET)
++
++#define CONFIG_SYS_MALLOC_LEN		(10 * SZ_1M)
++
++#endif	/* __CONFIG_H */
+-- 
+2.22.0
+
