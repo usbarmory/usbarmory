@@ -51,7 +51,7 @@ new file mode 100644
 index 0000000000..9e047fa46d
 --- /dev/null
 +++ b/arch/arm/dts/imx6ull-usbarmory.dts
-@@ -0,0 +1,236 @@
+@@ -0,0 +1,237 @@
 +/*
 + * USB armory Mk II device tree file
 + * https://inversepath.com/usbarmory
@@ -194,6 +194,7 @@ index 0000000000..9e047fa46d
 +	no-1-8-v;
 +	keep-power-in-suspend;
 +	wakeup-source;
++	non-removable; // FIXME: card detect not yet working despite MX6UL_PAD_UART1_RTS_B__USDHC1_CD_B being defined
 +	status = "okay";
 +};
 +
