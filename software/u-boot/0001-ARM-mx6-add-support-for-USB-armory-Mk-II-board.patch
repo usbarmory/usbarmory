@@ -1,4 +1,4 @@
-From 81e963148344fb9094a5a950bdebdd6e79ef4368 Mon Sep 17 00:00:00 2001
+From 7ee43f4b7b03dbff12ac932438be041fabc9d362 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Mon, 15 Jul 2019 16:13:57 +0200
 Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
@@ -16,12 +16,12 @@ Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
  board/inversepath/usbarmory-mark-two/Kconfig  |  67 ++++
  .../usbarmory-mark-two/MAINTAINERS            |   6 +
  board/inversepath/usbarmory-mark-two/Makefile |  10 +
- .../usbarmory-mark-two/imximage-1gb.cfg       |  91 ++++++
- .../usbarmory-mark-two/imximage-512mb.cfg     |  91 ++++++
- .../usbarmory-mark-two/usbarmory-mark-two.c   | 291 ++++++++++++++++++
+ .../usbarmory-mark-two/imximage-1gb.cfg       |  90 ++++++
+ .../usbarmory-mark-two/imximage-512mb.cfg     |  90 ++++++
+ .../usbarmory-mark-two/usbarmory-mark-two.c   | 290 ++++++++++++++++++
  configs/usbarmory-mark-two_defconfig          |  64 ++++
- include/configs/usbarmory-mark-two.h          | 240 +++++++++++++++
- 11 files changed, 1106 insertions(+), 1 deletion(-)
+ include/configs/usbarmory-mark-two.h          | 239 +++++++++++++++
+ 11 files changed, 1102 insertions(+), 1 deletion(-)
  create mode 100644 arch/arm/dts/imx6ull-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
  create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
@@ -389,7 +389,7 @@ index 0000000000..9a1afe8665
 +endif
 diff --git a/board/inversepath/usbarmory-mark-two/MAINTAINERS b/board/inversepath/usbarmory-mark-two/MAINTAINERS
 new file mode 100644
-index 0000000000..e5c4e183de
+index 0000000000..89b68ae866
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/MAINTAINERS
 @@ -0,0 +1,6 @@
@@ -417,7 +417,7 @@ index 0000000000..471735e274
 +obj-y	:= usbarmory-mark-two.o
 diff --git a/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg b/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg
 new file mode 100644
-index 0000000000..dcba4b8fd5
+index 0000000000..4c65b1dc87
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg
 @@ -0,0 +1,90 @@
@@ -513,7 +513,7 @@ index 0000000000..dcba4b8fd5
 +DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
 diff --git a/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg b/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
 new file mode 100644
-index 0000000000..9a3584f74e
+index 0000000000..c62bcde01a
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
 @@ -0,0 +1,90 @@
@@ -609,7 +609,7 @@ index 0000000000..9a3584f74e
 +DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
 diff --git a/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
 new file mode 100644
-index 0000000000..ff9ccf29c1
+index 0000000000..c6d15fff05
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
 @@ -0,0 +1,290 @@
@@ -975,7 +975,7 @@ index 0000000000..ed0e62e99e
 +CONFIG_USB_ETH_CDC=y
 diff --git a/include/configs/usbarmory-mark-two.h b/include/configs/usbarmory-mark-two.h
 new file mode 100644
-index 0000000000..69f369c193
+index 0000000000..76f3ed3105
 --- /dev/null
 +++ b/include/configs/usbarmory-mark-two.h
 @@ -0,0 +1,239 @@
@@ -1039,7 +1039,7 @@ index 0000000000..69f369c193
 +#define CONFIG_BOOTARGS "console=ttymxc1,115200 root=/dev/mmcblk" USBARMORY_BOOT_DEV "p1 rootwait rw"
 +
 +#define CONFIG_HOSTNAME		"usbarmory"
-+#define BOOT_TARGET_DEVICES(func) func(MMC, mmc, 0)
++#define BOOT_TARGET_DEVICES(func) func(MMC, mmc, 0) func(MMC, mmc, 1)
 +#define CONFIG_SYS_MEMTEST_START	0x80000000
 +#define CONFIG_SYS_CBSIZE	512
 +
