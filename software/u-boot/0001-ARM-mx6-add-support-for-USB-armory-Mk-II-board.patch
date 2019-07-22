@@ -194,7 +194,7 @@ index 0000000000..9e047fa46d
 +	no-1-8-v;
 +	keep-power-in-suspend;
 +	wakeup-source;
-+	non-removable; // FIXME: card detect not yet working despite MX6UL_PAD_UART1_RTS_B__USDHC1_CD_B being defined
++	non-removable; // FIXME: CD works on i.MX6ULL but not i.MX6ULZ
 +	status = "okay";
 +};
 +
