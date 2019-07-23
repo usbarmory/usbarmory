@@ -1,7 +1,7 @@
-From 7ee43f4b7b03dbff12ac932438be041fabc9d362 Mon Sep 17 00:00:00 2001
+From f14e4fa8cd5176a6fb15adc43bf0730a2365b4c3 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Mon, 15 Jul 2019 16:13:57 +0200
-Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
+Subject: [PATCH 1/2] ARM: mx6: add support for USB armory Mk II board
 
 Add support for Inverse Path USB armory Mk II board, an open source
 flash-drive sized computer based on Freescale i.MX6ULL SoC.
@@ -11,7 +11,7 @@ http://inversepath.com/usbarmory
 Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
 ---
  arch/arm/dts/Makefile                         |   3 +-
- arch/arm/dts/imx6ull-usbarmory.dts            | 236 ++++++++++++++
+ arch/arm/dts/imx6ull-usbarmory.dts            | 237 ++++++++++++++
  arch/arm/mach-imx/mx6/Kconfig                 |   8 +
  board/inversepath/usbarmory-mark-two/Kconfig  |  67 ++++
  .../usbarmory-mark-two/MAINTAINERS            |   6 +
@@ -20,8 +20,8 @@ Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
  .../usbarmory-mark-two/imximage-512mb.cfg     |  90 ++++++
  .../usbarmory-mark-two/usbarmory-mark-two.c   | 290 ++++++++++++++++++
  configs/usbarmory-mark-two_defconfig          |  64 ++++
- include/configs/usbarmory-mark-two.h          | 239 +++++++++++++++
- 11 files changed, 1102 insertions(+), 1 deletion(-)
+ include/configs/usbarmory-mark-two.h          | 242 +++++++++++++++
+ 11 files changed, 1106 insertions(+), 1 deletion(-)
  create mode 100644 arch/arm/dts/imx6ull-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
  create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
@@ -48,7 +48,7 @@ index 20dbc2ff84..3efa735a48 100644
  	imx6-apalis.dtb \
 diff --git a/arch/arm/dts/imx6ull-usbarmory.dts b/arch/arm/dts/imx6ull-usbarmory.dts
 new file mode 100644
-index 0000000000..9e047fa46d
+index 0000000000..029680f14d
 --- /dev/null
 +++ b/arch/arm/dts/imx6ull-usbarmory.dts
 @@ -0,0 +1,237 @@
@@ -976,10 +976,10 @@ index 0000000000..ed0e62e99e
 +CONFIG_USB_ETH_CDC=y
 diff --git a/include/configs/usbarmory-mark-two.h b/include/configs/usbarmory-mark-two.h
 new file mode 100644
-index 0000000000..76f3ed3105
+index 0000000000..ae5851d3e5
 --- /dev/null
 +++ b/include/configs/usbarmory-mark-two.h
-@@ -0,0 +1,239 @@
+@@ -0,0 +1,242 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board configuration settings
@@ -1174,6 +1174,9 @@ index 0000000000..76f3ed3105
 +#undef CONFIG_CMDLINE
 +#undef CONFIG_BOOTDELAY
 +#define CONFIG_BOOTDELAY -2
++
++#undef CONFIG_BOOTCOMMAND
++#define CONFIG_BOOTCOMMAND "dummy"
 +
 +#endif
 +
