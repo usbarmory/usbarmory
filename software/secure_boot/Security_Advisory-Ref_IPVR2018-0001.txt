@@ -260,10 +260,12 @@ using this command on environments that require trusted boot.
 Affected version
 ----------------
 
-All released U-Boot versions, at the time of this advisory release, are
-believed to be vulnerable.
-
 All tests have been performed against U-Boot version 2018.09-rc1.
+
+CVE-2018-18439 fixed in commit a156c47e39ad7d007c88919103ee0ee131c6203b
+CVE-2018-18440 fixed in commit aa3c609e2be5a837e7b81e308d47f55b67666bd6
+
+Both fixes are included in U-Boot v2019.04.
 
 
 Credit
@@ -298,6 +300,8 @@ Timeline
 2018-10-17: CVE IDs requested to MITRE and assigned.
 
 2018-11-02: advisory release.
+
+2019-04-09: U-Boot v2019.04 is released.
 
 
 References
