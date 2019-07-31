@@ -100,10 +100,6 @@ cd buildroot
 make BR2_EXTERNAL=${USBARMORY_GIT}/software/buildroot interlock_mark-two_defconfig
 ```
 
-By default the external microSD card is used as boot media, to use the internal
-MMC card customize the resulting `.config` file by changing the `BR2_TARGET_UBOOT_PATCH`
-to make use of `0001-USB-armory-mark-two-alpha-eMMC.patch`.
-
 The bootloader, kernel and filesystem can be built as follows:
 
 ```
@@ -115,6 +111,12 @@ The process results in the following output files:
   * The bootloader: `output/images/u-boot.imx`
   * The Device Tree Blob (dtb) file: `output/images/imx6ull-usbarmory.dtb`
   * The kernel and embedded root filesystem: `output/images/zImage`
+
+By default the external microSD card is used as boot media, to use the internal
+MMC card the U-Boot configuration must be changed to disable
+`CONFIG_SYS_BOOT_DEV_MICROSD` and enable `CONFIG_SYS_BOOT_DEV_EMMC` in
+`output/build/uboot-<version>/.config`, then recompile with `make
+uboot-rebuild`.
 
 The next sections illustrates how to install the output files on a target
 microSD card or the built-in eMMC card, according to user boot media
