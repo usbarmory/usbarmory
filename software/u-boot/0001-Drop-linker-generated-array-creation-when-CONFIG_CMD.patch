@@ -1,0 +1,44 @@
+From 933a7140aa1f1312b172114d4ac05084305c77cc Mon Sep 17 00:00:00 2001
+From: Andrej Rosano <andrej.rosano@f-secure.com>
+Date: Wed, 24 Jul 2019 11:18:32 +0200
+Subject: [PATCH] Drop linker-generated array creation when CONFIG_CMDLINE is
+ disabled
+
+Linker generated array entry is not needed when the command line is
+disabled. Remove this code in that case.
+
+This is required as the commit 80a48dd47e3bf3ede676fae5a630cb6c80de3e69
+breaks the linking stage when CONFIG_CMDLINE=n:
+
+..
+  LDS     u-boot.lds
+  LD      u-boot
+u-boot contains unexpected relocations: R_ARM_NONE
+R_ARM_RELATIVE
+make: *** [Makefile:1775: checkarmreloc] Error 1
+
+Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
+---
+ cmd/help.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/cmd/help.c b/cmd/help.c
+index fa2010c67e..a1a0b99b6f 100644
+--- a/cmd/help.c
++++ b/cmd/help.c
+@@ -27,6 +27,7 @@ U_BOOT_CMD(
+ 	"	- print detailed usage of 'command'"
+ );
+ 
++#ifdef CONFIG_CMDLINE
+ /* This does not use the U_BOOT_CMD macro as ? can't be used in symbol names */
+ ll_entry_declare(cmd_tbl_t, question_mark, cmd) = {
+ 	"?",	CONFIG_SYS_MAXARGS, cmd_always_repeatable,	do_help,
+@@ -35,3 +36,4 @@ ll_entry_declare(cmd_tbl_t, question_mark, cmd) = {
+ 	""
+ #endif /* CONFIG_SYS_LONGHELP */
+ };
++#endif
+-- 
+2.22.0
+
