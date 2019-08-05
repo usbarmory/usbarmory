@@ -1058,7 +1058,7 @@ index 0000000000..ae5851d3e5
 +
 +/* scripts */
 +
-+#define BOOTENV_CHECK_SILICON_REVISION \
++#define BOOTENV_CHECK_SILICON_REVISION								\
 +	"check_silicon_revision="								\
 +		"echo *** Checking Silicon Revision *** ; "					\
 +		"setexpr USB_ANALOG_DIGPROG *0x20c8260 ; "					\
@@ -1085,9 +1085,9 @@ index 0000000000..ae5851d3e5
 +				"echo \"********************************************\" ; "	\
 +				"echo ; "							\
 +			"fi ; "									\
-+		"fi\0"										\
++		"fi\0"
 +
-+#define BOOTENV_CHECK_OTPMK \
++#define BOOTENV_CHECK_OTPMK						\
 +	"check_otpmk="							\
 +		"echo *** Checking OTPMK *** ; "			\
 +		"env set check_otpmk_var 0 ; "				\
@@ -1125,20 +1125,20 @@ index 0000000000..ae5851d3e5
 +			"reset ; "						\
 +		"fi\0"
 +
-+#define BOOTENV_UMS \
++#define BOOTENV_UMS			\
 +	"start_ums="			\
-+		"ums 0 mmc ${mmcdev}\0"	\
++		"ums 0 mmc ${mmcdev}\0"
 +
-+#define BOOTENV_TFTP \
++#define BOOTENV_TFTP							\
 +	"start_tftp="							\
 +		"dhcp ${kernel_addr_r} ${serverip}:${bootfile} ; "	\
 +		"dhcp ${fdt_addr_r} ${serverip}:${fdtfile} ; "		\
-+		"bootm ${kernel_addr_r} - ${fdt_addr_r}\0"		\
++		"bootm ${kernel_addr_r} - ${fdt_addr_r}\0"
 +
 +#define BOOTENV_VERIFIED_OPEN												\
 +	"start_verified_open="												\
 +		"ext2load mmc ${mmcdev}:1 " USBARMORY_FIT_ADDR " " USBARMORY_FIT_PATH " " USBARMORY_FIT_SIZE " ; "	\
-+		"bootm " USBARMORY_FIT_ADDR
++		"bootm " USBARMORY_FIT_ADDR "\0"
 +
 +#define BOOTENV_NORMAL								\
 +	"start_normal=run distro_bootcmd ; "					\
