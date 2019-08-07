@@ -223,7 +223,7 @@ index 0000000000..029680f14d
 +			MX6UL_PAD_UART1_TX_DATA__UART1_DCE_TX	0x1b0b0 /* BT_UART_TX  */
 +			MX6UL_PAD_UART1_RX_DATA__UART1_DCE_RX	0x1b0b0 /* BT_UART_RX  */
 +			MX6UL_PAD_UART1_CTS_B__UART1_DCE_CTS	0x1b0b0 /* BT_UART_CTS */
-+			MX6UL_PAD_UART1_RTS_B__UART1_DCE_RTS	0x1b0b0 /* BT_UART_RTS */
++			MX6UL_PAD_GPIO1_IO07__UART1_DCE_RTS	0x1b0b0 /* BT_UART_RTS */
 +			MX6UL_PAD_UART3_TX_DATA__GPIO1_IO24	0x1f020 /* BT_UART_DSR */
 +			MX6UL_PAD_UART3_RX_DATA__GPIO1_IO25	0x1f020 /* BT_UART_DTR */
 +			MX6UL_PAD_GPIO1_IO04__GPIO1_IO04	0x1f020 /* BT_SWDCLK   */
@@ -487,13 +487,13 @@ index 0000000000..4c65b1dc87
 +DATA 4 0x021B0000 0x85180000  /* MMDC_MDCTL       */
 +
 +/* Calibration */
-+DATA 4 0x021B0800 0xA1390003  /* MMDC_MPZQSWCTRL  */
++DATA 4 0x021B0800 0xA1390003  /* MMDC_MPZQHWCTRL  */
 +DATA 4 0x021B080C 0x00100014  /* MMDC_MPWLDECTRL0 */
 +DATA 4 0x021B083C 0x415C015C  /* MMDC_MPDGCTRL0   */
-+DATA 4 0x021B0848 0x40403A40  /* MMDC_MPRDDLCRL   */
++DATA 4 0x021B0848 0x40403A40  /* MMDC_MPRDDLCTL   */
 +DATA 4 0x021B0850 0x40402626  /* MMDC_MPWRDLCTL   */
-+DATA 4 0x021B081C 0x33333333  /* MMDC_MPRRDQBY0DL */
-+DATA 4 0x021B0820 0x33333333  /* MMDC_MPRRDQBY1DL */
++DATA 4 0x021B081C 0x33333333  /* MMDC_MPRDDQBY0DL */
++DATA 4 0x021B0820 0x33333333  /* MMDC_MPRDDQBY1DL */
 +DATA 4 0x021B082C 0xf3333333  /* MMDC_MPWRDQBY0DL */
 +DATA 4 0x021B0830 0xf3333333  /* MMDC_MPWRDQBY1DL */
 +DATA 4 0x021B08C0 0x00921012  /* MMDC_MPDCCR      */
@@ -1060,7 +1060,7 @@ index 0000000000..ae5851d3e5
 +
 +/* scripts */
 +
-+#define BOOTENV_CHECK_SILICON_REVISION \
++#define BOOTENV_CHECK_SILICON_REVISION								\
 +	"check_silicon_revision="								\
 +		"echo *** Checking Silicon Revision *** ; "					\
 +		"setexpr USB_ANALOG_DIGPROG *0x20c8260 ; "					\
@@ -1087,9 +1087,9 @@ index 0000000000..ae5851d3e5
 +				"echo \"********************************************\" ; "	\
 +				"echo ; "							\
 +			"fi ; "									\
-+		"fi\0"										\
++		"fi\0"
 +
-+#define BOOTENV_CHECK_OTPMK \
++#define BOOTENV_CHECK_OTPMK						\
 +	"check_otpmk="							\
 +		"echo *** Checking OTPMK *** ; "			\
 +		"env set check_otpmk_var 0 ; "				\
@@ -1127,20 +1127,20 @@ index 0000000000..ae5851d3e5
 +			"reset ; "						\
 +		"fi\0"
 +
-+#define BOOTENV_UMS \
++#define BOOTENV_UMS			\
 +	"start_ums="			\
-+		"ums 0 mmc ${mmcdev}\0"	\
++		"ums 0 mmc ${mmcdev}\0"
 +
-+#define BOOTENV_TFTP \
++#define BOOTENV_TFTP							\
 +	"start_tftp="							\
 +		"dhcp ${kernel_addr_r} ${serverip}:${bootfile} ; "	\
 +		"dhcp ${fdt_addr_r} ${serverip}:${fdtfile} ; "		\
-+		"bootm ${kernel_addr_r} - ${fdt_addr_r}\0"		\
++		"bootm ${kernel_addr_r} - ${fdt_addr_r}\0"
 +
 +#define BOOTENV_VERIFIED_OPEN												\
 +	"start_verified_open="												\
 +		"ext2load mmc ${mmcdev}:1 " USBARMORY_FIT_ADDR " " USBARMORY_FIT_PATH " " USBARMORY_FIT_SIZE " ; "	\
-+		"bootm " USBARMORY_FIT_ADDR
++		"bootm " USBARMORY_FIT_ADDR "\0"
 +
 +#define BOOTENV_NORMAL								\
 +	"start_normal=run distro_bootcmd ; "					\
