@@ -49,6 +49,10 @@ Smallest final hole (plated):   0.150 mm
 USB armory Mk II debug I/Os
 ===========================
 
+*NOTE*: the connection between the debug accessory and the target is supported
+only with the same orientation for both top layers (side with components for
+the accessory, side with LEDs for the USB armory).
+
 The following table summarizes the available configurations on the USB armory
 Mk II through debug accessory mode, which are exposed on its Type-C receptacle
 port.
