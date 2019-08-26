@@ -3,9 +3,14 @@
 # USB armory - Secure Boot tool - Super Root Key (SRK) hash generation
 #   https://github.com/inversepath/usbarmory/wiki/Secure-boot
 #
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation under version 3 of the License.
+#
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+# details.
 
 # required gems can be installed with `gem install <name>` if missing
 require 'bit-struct'
