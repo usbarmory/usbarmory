@@ -1,6 +1,6 @@
 (export (version D)
   (design
-    (source /home/andrej/ipath/repo/armory/hw/armory-mark-one/armory.sch)
+    (source armory.sch)
     (date "Tue Nov 18 17:57:01 2014")
     (tool "eeschema (2014-jan-25)-product"))
   (components
