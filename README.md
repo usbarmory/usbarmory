@@ -31,7 +31,7 @@ The main documentation can be found on the
 Board revisions
 ===============
 
-* [USB armory Mk II](https://github.com/inversepath/usbarmory/wiki/Mk-II-Introduction).
+* [USB armory Mk II](https://github.com/inversepath/usbarmory/wiki/Mk-II-Introduction)
 
 ![Mk II Top](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-top.png)
 ![Mk II Bottom](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-bottom.png)
