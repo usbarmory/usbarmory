@@ -1,4 +1,4 @@
-From f14e4fa8cd5176a6fb15adc43bf0730a2365b4c3 Mon Sep 17 00:00:00 2001
+From a29206be5f42dcb133c69624fa1dc1d93d178e07 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Mon, 15 Jul 2019 16:13:57 +0200
 Subject: [PATCH 1/2] ARM: mx6: add support for USB armory Mk II board
@@ -11,17 +11,17 @@ https://github.com/inversepath/usbarmory
 Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
 ---
  arch/arm/dts/Makefile                         |   3 +-
- arch/arm/dts/imx6ull-usbarmory.dts            | 237 ++++++++++++++
+ arch/arm/dts/imx6ull-usbarmory.dts            | 208 +++++++++++
  arch/arm/mach-imx/mx6/Kconfig                 |   8 +
  board/inversepath/usbarmory-mark-two/Kconfig  |  67 ++++
  .../usbarmory-mark-two/MAINTAINERS            |   6 +
  board/inversepath/usbarmory-mark-two/Makefile |  10 +
- .../usbarmory-mark-two/imximage-1gb.cfg       |  90 ++++++
- .../usbarmory-mark-two/imximage-512mb.cfg     |  90 ++++++
- .../usbarmory-mark-two/usbarmory-mark-two.c   | 290 ++++++++++++++++++
+ .../usbarmory-mark-two/imximage-1gb.cfg       |  90 +++++
+ .../usbarmory-mark-two/imximage-512mb.cfg     |  92 +++++
+ .../usbarmory-mark-two/usbarmory-mark-two.c   | 351 ++++++++++++++++++
  configs/usbarmory-mark-two_defconfig          |  64 ++++
- include/configs/usbarmory-mark-two.h          | 242 +++++++++++++++
- 11 files changed, 1106 insertions(+), 1 deletion(-)
+ include/configs/usbarmory-mark-two.h          | 242 ++++++++++++
+ 11 files changed, 1140 insertions(+), 1 deletion(-)
  create mode 100644 arch/arm/dts/imx6ull-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
  create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
@@ -48,10 +48,10 @@ index 20dbc2ff84..3efa735a48 100644
  	imx6-apalis.dtb \
 diff --git a/arch/arm/dts/imx6ull-usbarmory.dts b/arch/arm/dts/imx6ull-usbarmory.dts
 new file mode 100644
-index 0000000000..029680f14d
+index 0000000000..37b8d00a2b
 --- /dev/null
 +++ b/arch/arm/dts/imx6ull-usbarmory.dts
-@@ -0,0 +1,237 @@
+@@ -0,0 +1,208 @@
 +/*
 + * USB armory Mk II device tree file
 + * https://github.com/inversepath/usbarmory
@@ -190,7 +190,6 @@ index 0000000000..029680f14d
 +
 +&usdhc1 {
 +	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_usdhc1>;
 +	no-1-8-v;
 +	keep-power-in-suspend;
 +	wakeup-source;
@@ -200,7 +199,6 @@ index 0000000000..029680f14d
 +
 +&usdhc2 {
 +	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_usdhc2>;
 +	non-removable;
 +	status = "okay";
 +};
@@ -245,33 +243,6 @@ index 0000000000..029680f14d
 +		fsl,pins = <
 +			MX6UL_PAD_CSI_DATA06__GPIO4_IO27	0x1f020
 +			MX6UL_PAD_CSI_DATA07__GPIO4_IO28	0x1f020
-+		>;
-+	};
-+
-+	pinctrl_usdhc1: usdhc1grp {
-+		fsl,pins = <
-+			MX6UL_PAD_SD1_CMD__USDHC1_CMD		0x1f019
-+			MX6UL_PAD_SD1_CLK__USDHC1_CLK		0x1f019
-+			MX6UL_PAD_SD1_DATA0__USDHC1_DATA0	0x1f019
-+			MX6UL_PAD_SD1_DATA1__USDHC1_DATA1	0x1f019
-+			MX6UL_PAD_SD1_DATA2__USDHC1_DATA2	0x1f019
-+			MX6UL_PAD_SD1_DATA3__USDHC1_DATA3	0x1f019
-+			MX6UL_PAD_UART1_RTS_B__USDHC1_CD_B	0x1f019
-+		>;
-+	};
-+
-+	pinctrl_usdhc2: usdhc2grp {
-+		fsl,pins = <
-+			MX6UL_PAD_NAND_RE_B__USDHC2_CLK		0x10071
-+			MX6UL_PAD_NAND_WE_B__USDHC2_CMD		0x17059
-+			MX6UL_PAD_NAND_DATA00__USDHC2_DATA0	0x17059
-+			MX6UL_PAD_NAND_DATA01__USDHC2_DATA1	0x17059
-+			MX6UL_PAD_NAND_DATA02__USDHC2_DATA2	0x17059
-+			MX6UL_PAD_NAND_DATA03__USDHC2_DATA3	0x17059
-+			MX6UL_PAD_NAND_DATA04__USDHC2_DATA4	0x17059
-+			MX6UL_PAD_NAND_DATA05__USDHC2_DATA5	0x17059
-+			MX6UL_PAD_NAND_DATA06__USDHC2_DATA6	0x17059
-+			MX6UL_PAD_NAND_DATA07__USDHC2_DATA7	0x17059
 +		>;
 +	};
 +};
@@ -418,7 +389,7 @@ index 0000000000..471735e274
 +obj-y	:= usbarmory-mark-two.o
 diff --git a/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg b/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg
 new file mode 100644
-index 0000000000..4c65b1dc87
+index 0000000000..878fc25868
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg
 @@ -0,0 +1,90 @@
@@ -514,7 +485,7 @@ index 0000000000..4c65b1dc87
 +DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
 diff --git a/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg b/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
 new file mode 100644
-index 0000000000..c62bcde01a
+index 0000000000..953309f8f9
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
 @@ -0,0 +1,92 @@
@@ -612,10 +583,10 @@ index 0000000000..c62bcde01a
 +DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
 diff --git a/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
 new file mode 100644
-index 0000000000..c6d15fff05
+index 0000000000..05e0c8da31
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
-@@ -0,0 +1,290 @@
+@@ -0,0 +1,351 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 + * USB armory Mk II board initialization
@@ -654,6 +625,15 @@ index 0000000000..c6d15fff05
 +#define WEAK_PULLUP	(PAD_CTL_PUS_100K_UP ||			\
 +	PAD_CTL_SPEED_MED | PAD_CTL_DSE_40ohm | PAD_CTL_HYS ||	\
 +	PAD_CTL_SRE_SLOW)
++#define USDHC_PAD_CTRL (PAD_CTL_PKE | PAD_CTL_PUE |		\
++	PAD_CTL_PUS_22K_UP  | PAD_CTL_SPEED_LOW |		\
++	PAD_CTL_DSE_80ohm   | PAD_CTL_SRE_FAST  | PAD_CTL_HYS)
++#define PAD_JTAG (PAD_CTL_PKE | PAD_CTL_PUE |		\
++	PAD_CTL_PUS_47K_UP | PAD_CTL_DSE_60ohm)
++#define PAD_JTAG_TDO (PAD_CTL_PKE |		\
++	PAD_CTL_PUS_100K_UP | PAD_CTL_DSE_60ohm | PAD_CTL_SRE_FAST)
++#define PAD_JTAG_MOD (PAD_CTL_PKE | PAD_CTL_PUE |		\
++	PAD_CTL_PUS_100K_UP | PAD_CTL_DSE_60ohm)
 +
 +static void setup_iomux_uart(void)
 +{
@@ -684,6 +664,33 @@ index 0000000000..c6d15fff05
 +	imx_iomux_v3_setup_multiple_pads(pads, ARRAY_SIZE(pads));
 +}
 +
++static void setup_iomux_mmc(void)
++{
++	static const iomux_v3_cfg_t pads[] = {
++		/* microSD */
++		MX6_PAD_SD1_CLK__USDHC1_CLK | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_SD1_CMD__USDHC1_CMD | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_SD1_DATA0__USDHC1_DATA0 | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_SD1_DATA1__USDHC1_DATA1 | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_SD1_DATA2__USDHC1_DATA2 | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_SD1_DATA3__USDHC1_DATA3 | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_UART1_RTS_B__USDHC1_CD_B | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		/* eMMC */
++		MX6_PAD_NAND_RE_B__USDHC2_CLK | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_NAND_WE_B__USDHC2_CMD | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_NAND_DATA00__USDHC2_DATA0 | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_NAND_DATA01__USDHC2_DATA1 | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_NAND_DATA02__USDHC2_DATA2 | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_NAND_DATA03__USDHC2_DATA3 | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_NAND_DATA04__USDHC2_DATA4 | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_NAND_DATA05__USDHC2_DATA5 | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_NAND_DATA06__USDHC2_DATA6 | MUX_PAD_CTRL(USDHC_PAD_CTRL),
++		MX6_PAD_NAND_DATA07__USDHC2_DATA7 | MUX_PAD_CTRL(USDHC_PAD_CTRL)
++	};
++
++	imx_iomux_v3_setup_multiple_pads(pads, ARRAY_SIZE(pads));
++}
++
 +static void setup_iomux_misc(void)
 +{
 +	static const iomux_v3_cfg_t pads[] = {
@@ -696,6 +703,29 @@ index 0000000000..c6d15fff05
 +		MX6_PAD_ENET1_TX_EN__WDOG2_WDOG_RST_B_DEB | MUX_PAD_CTRL(WEAK_PULLUP),
 +		/* usb */
 +		MX6_PAD_GPIO1_IO05__ANATOP_OTG2_ID | MUX_PAD_CTRL(WEAK_PULLUP)
++	};
++
++	imx_iomux_v3_setup_multiple_pads(pads, ARRAY_SIZE(pads));
++}
++
++static void setup_iomux_jtag(void)
++{
++	static const iomux_v3_cfg_t pads[] = {
++#ifndef CONFIG_SYS_BOOT_MODE_VERIFIED_LOCKED
++		MX6_PAD_JTAG_TMS__SJC_TMS | MUX_PAD_CTRL(PAD_JTAG),
++		MX6_PAD_JTAG_TRST_B__SJC_TRSTB | MUX_PAD_CTRL(PAD_JTAG),
++		MX6_PAD_JTAG_TDI__SJC_TDI | MUX_PAD_CTRL(PAD_JTAG),
++		MX6_PAD_JTAG_TDO__SJC_TDO | MUX_PAD_CTRL(PAD_JTAG_TDO),
++		MX6_PAD_JTAG_TCK__SJC_TCK | MUX_PAD_CTRL(PAD_JTAG),
++		MX6_PAD_JTAG_MOD__SJC_MOD | MUX_PAD_CTRL(PAD_JTAG_MOD),
++#else
++		MX6_PAD_JTAG_TMS__GPIO1_IO11 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_JTAG_TRST_B__GPIO1_IO15 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_JTAG_TDI__GPIO1_IO13 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_JTAG_TDO__GPIO1_IO12 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_JTAG_TCK__GPIO1_IO14 | MUX_PAD_CTRL(WEAK_PULLUP),
++		MX6_PAD_JTAG_MOD__GPIO1_IO10 | MUX_PAD_CTRL(WEAK_PULLUP),
++#endif
 +	};
 +
 +	imx_iomux_v3_setup_multiple_pads(pads, ARRAY_SIZE(pads));
@@ -857,9 +887,11 @@ index 0000000000..c6d15fff05
 +	// the fsusb303_init() does not have effect.
 +	setup_iomux_i2c();
 +	setup_iomux_uart();
++	setup_iomux_mmc();
 +	setup_iomux_unused_boot();
 +	setup_iomux_unused_nc();
 +	setup_iomux_misc();
++	setup_iomux_jtag();
 +	return 0;
 +}
 +
@@ -908,7 +940,7 @@ index 0000000000..c6d15fff05
 +#endif
 diff --git a/configs/usbarmory-mark-two_defconfig b/configs/usbarmory-mark-two_defconfig
 new file mode 100644
-index 0000000000..ed0e62e99e
+index 0000000000..40981a66da
 --- /dev/null
 +++ b/configs/usbarmory-mark-two_defconfig
 @@ -0,0 +1,64 @@
@@ -978,7 +1010,7 @@ index 0000000000..ed0e62e99e
 +CONFIG_USB_ETH_CDC=y
 diff --git a/include/configs/usbarmory-mark-two.h b/include/configs/usbarmory-mark-two.h
 new file mode 100644
-index 0000000000..ae5851d3e5
+index 0000000000..647823ec86
 --- /dev/null
 +++ b/include/configs/usbarmory-mark-two.h
 @@ -0,0 +1,242 @@
@@ -1225,5 +1257,5 @@ index 0000000000..ae5851d3e5
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.22.0
+2.23.0
 

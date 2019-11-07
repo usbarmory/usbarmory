@@ -87,8 +87,6 @@
 			regulator-name = "VSD_3V3";
 			regulator-min-microvolt = <3300000>;
 			regulator-max-microvolt = <3300000>;
-			gpio = <&gpio1 9 GPIO_ACTIVE_HIGH>;
-			enable-active-high;
 		};
 	};
 };
@@ -243,7 +241,7 @@
 };
 
 &usbotg1 {
-	dr_mode = "otg";
+	dr_mode = "peripheral";
 	disable-over-current;
 	tpl-support;
 	status = "okay";
