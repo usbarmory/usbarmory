@@ -1,14 +1,14 @@
 Introduction
 ============
 
-USB armory | https://inversepath.com/usbarmory  
+USB armory | https://github.com/inversepath/usbarmory  
 Copyright (c) F-Secure Corporation
 
-The USB armory from [Inverse Path](https://inversepath.com) is an open source
-hardware design, implementing a flash drive sized computer.
+The USB armory from [F-Secure Foundry](https://foundry.f-secure.com) is an open
+source hardware design, implementing a flash drive sized computer.
 
 This repository is aimed towards developers, if you wish to purchase a USB
-armory board please see the [ordering information](https://inversepath.com/usbarmory#ordering).
+armory board please see the [USB armory project page](https://www.f-secure.com/en/consulting/foundry/usb-armory).
 
 Authors
 =======
@@ -31,7 +31,7 @@ The main documentation can be found on the
 Board revisions
 ===============
 
-* USB armory Mk II: [under development](https://github.com/inversepath/usbarmory/wiki/Mk-II-Roadmap).
+* [USB armory Mk II](https://github.com/inversepath/usbarmory/wiki/Mk-II-Introduction).
 
 ![Mk II Top](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-top.png)
 ![Mk II Bottom](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-bottom.png)
@@ -43,7 +43,7 @@ Board revisions
 License
 =======
 
-USB armory | https://inversepath.com/usbarmory  
+USB armory | https://github.com/inversepath/usbarmory  
 Copyright (c) F-Secure Corporation
 
 This is an open hardware design licensed under the terms of the CERN Open

@@ -1,6 +1,6 @@
 (export (version D)
   (design
-    (source /mnt/cm/git/armory/hw/mark-two-debug-accessory/accessory.sch)
+    (source accessory.sch)
     (date "Fri Jun 14 16:39:25 2019")
     (tool "Eeschema 5.1.0")
     (sheet (number 1) (name /) (tstamps /)
@@ -907,9 +907,9 @@
     (library (logical Regulator_Linear)
       (uri /usr/share/kicad/library//Regulator_Linear.lib))
     (library (logical armory-mkII)
-      (uri /mnt/cm/git/armory/hw/mark-two-debug-accessory/../lib/armory-mkII.lib))
+      (uri ../lib/armory-mkII.lib))
     (library (logical snapeda)
-      (uri /mnt/cm/git/armory/hw/mark-two-debug-accessory/../lib/snapeda.lib)))
+      (uri ../lib/snapeda.lib)))
   (nets
     (net (code 1) (name "Net-(J1-PadA6)")
       (node (ref J1) (pin A6)))

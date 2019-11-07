@@ -27,7 +27,7 @@ diff -urN u-boot-2019.04/board/inversepath/usbarmory-mark-two/imximage.cfg u-boo
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board imximage configuration
-+ * http://inversepath.com/usbarmory
++ * https://github.com/inversepath/usbarmory
 + *
 + * Copyright (C) 2019, F-Secure Corportation
 + * Andrej Rosano <andrej.rosano@f-secure.com>
@@ -168,7 +168,7 @@ diff -urN u-boot-2019.04/board/inversepath/usbarmory-mark-two/Makefile u-boot-20
 @@ -0,0 +1,10 @@
 +#
 +# USB armory Mk II board Makefile
-+# http://inversepath.com/usbarmory
++# https://github.com/inversepath/usbarmory
 +#
 +# Copyright (C) 2019, F-Secure
 +# Andrej Rosano <andrej.rosano@f-secure.com>
@@ -183,7 +183,7 @@ diff -urN u-boot-2019.04/board/inversepath/usbarmory-mark-two/usbarmory-mark-two
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 + * USB armory Mk II board initialization
-+ * http://inversepath.com/usbarmory
++ * https://github.com/inversepath/usbarmory
 + *
 + * Copyright (C) 2019, F-Secure Corporation
 + * Andrej Rosano <andrej.rosano@f-secure.com>
@@ -416,7 +416,7 @@ diff -urN u-boot-2019.04/include/configs/usbarmory-mark-two.h u-boot-2019.04-usb
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board configuration settings
-+ * http://inversepath.com/usbarmory
++ * https://github.com/inversepath/usbarmory
 + *
 + * Copyright (C) 2019, F-Secure Corporation
 + * Andrej Rosano <andrej.rosano@f-secure.com>

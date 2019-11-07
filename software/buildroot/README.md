@@ -3,7 +3,7 @@ Embedded Buildroot distributions for the USB armory
 
 This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling minimal single-purpose embedded Linux
-environments for the [USB armory](https://inversepath.com/usbarmory).
+environments for the [USB armory](https://github.com/inversepath/usbarmory).
 
 USB armory Mk II profiles:
 

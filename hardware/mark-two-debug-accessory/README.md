@@ -1,12 +1,11 @@
 USB armory Mk II debug accessory
 ================================
 
-USB armory | https://inversepath.com/usbarmory  
+USB armory | https://github.com/inversepath/usbarmory  
 Copyright (c) F-Secure Corporation
 
-The USB armory from [F-Secure](https://www.f-secure.com) and
-[Inverse Path](https://inversepath.com) is an open source hardware design,
-implementing a flash drive sized computer.
+The USB armory from [F-Secure Foundry](https://foundry.f-secure.com) is an open
+source hardware design, implementing a flash drive sized computer.
 
 The USB armory Mk II exposes a USB Type-C receptacle, which allows through the
 so called USB-C 'debug accessory mode' to route analog/debug signals over its
@@ -21,7 +20,7 @@ using only USB cables. All other interfaces can be accessed through dedicated
 breakout through holes.
 
 This repository is aimed towards developers, if you wish to purchase a USB
-armory, or the debug accessory, board please see the [ordering information](https://inversepath.com/usbarmory#ordering).
+armory board please see the [USB armory project page](https://www.f-secure.com/en/consulting/foundry/usb-armory).
 
 ![Mk II debug accessory](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-debug-accessory.png)
 
@@ -163,7 +162,7 @@ Pin assignment: UART5
 License
 =======
 
-USB armory | https://inversepath.com/usbarmory  
+USB armory | https://github.com/inversepath/usbarmory  
 Copyright (c) F-Secure Corporation
 
 This is an open hardware design licensed under the terms of the CERN Open

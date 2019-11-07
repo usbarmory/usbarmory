@@ -1,0 +1,53 @@
+(module X2SON-4 (layer F.Cu) (tedit 5C93982A)
+  (attr smd)
+  (fp_text reference U* (at 0 -0.75) (layer F.SilkS)
+    (effects (font (size 0.240956 0.240956) (thickness 0.060239)))
+  )
+  (fp_text value X2SON-4 (at 0 0.75) (layer F.SilkS) hide
+    (effects (font (size 0.240916 0.240916) (thickness 0.05)))
+  )
+  (fp_line (start 0.425 -0.425) (end 0.425 0.425) (layer F.SilkS) (width 0.02))
+  (fp_line (start 0.425 0.425) (end -0.425 0.425) (layer F.SilkS) (width 0.02))
+  (fp_line (start -0.425 0.425) (end -0.425 -0.425) (layer F.SilkS) (width 0.02))
+  (fp_line (start -0.425 -0.425) (end 0.425 -0.425) (layer F.SilkS) (width 0.02))
+  (fp_line (start -0.425 -0.4) (end -0.4 -0.425) (layer F.SilkS) (width 0.02))
+  (fp_line (start -0.425 -0.375) (end -0.375 -0.425) (layer F.SilkS) (width 0.02))
+  (pad 5 smd custom (at 0.39 -0.24) (size 0.1 0.1) (layers F.Cu F.Paste F.Mask)
+    (zone_connect 0)
+    (options (clearance outline) (anchor rect))
+    (primitives
+      (gr_poly (pts
+         (xy -0.21 -0.11) (xy 0.21 -0.11) (xy 0.21 0.11) (xy -0.05 0.11) (xy -0.21 -0.05)
+) (width 0))
+    ))
+  (pad 2 smd custom (at -0.39 0.24 180) (size 0.1 0.1) (layers F.Cu F.Paste F.Mask)
+    (zone_connect 0)
+    (options (clearance outline) (anchor rect))
+    (primitives
+      (gr_poly (pts
+         (xy -0.21 -0.11) (xy 0.21 -0.11) (xy 0.21 0.11) (xy -0.05 0.11) (xy -0.21 -0.05)
+) (width 0))
+    ))
+  (pad 4 smd custom (at 0.39 0.24 180) (size 0.1 0.1) (layers F.Cu F.Paste F.Mask)
+    (zone_connect 0)
+    (options (clearance outline) (anchor rect))
+    (primitives
+      (gr_poly (pts
+         (xy -0.21 -0.11) (xy 0.21 -0.11) (xy 0.21 -0.05) (xy 0.05 0.11) (xy -0.21 0.11)
+) (width 0))
+    ))
+  (pad 3 smd rect (at 0 0 315) (size 0.25 0.25) (layers F.Cu F.Paste F.Mask))
+  (pad 1 smd custom (at -0.39 -0.24) (size 0.1 0.1) (layers F.Cu F.Paste F.Mask)
+    (zone_connect 0)
+    (options (clearance outline) (anchor rect))
+    (primitives
+      (gr_poly (pts
+         (xy -0.21 -0.11) (xy 0.21 -0.11) (xy 0.21 -0.05) (xy 0.05 0.11) (xy -0.21 0.11)
+) (width 0))
+    ))
+  (model /${KIPRJMOD}/../lib.3d/X2SON-DWP5.stp
+    (at (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
+)

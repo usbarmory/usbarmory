@@ -6,7 +6,7 @@ Subject: [PATCH 1/2] ARM: mx6: add support for USB armory Mk II board
 Add support for Inverse Path USB armory Mk II board, an open source
 flash-drive sized computer based on Freescale i.MX6ULL SoC.
 
-http://inversepath.com/usbarmory
+https://github.com/inversepath/usbarmory
 
 Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
 ---
@@ -54,7 +54,7 @@ index 0000000000..029680f14d
 @@ -0,0 +1,237 @@
 +/*
 + * USB armory Mk II device tree file
-+ * https://inversepath.com/usbarmory
++ * https://github.com/inversepath/usbarmory
 + *
 + * Copyright (C) 2019, F-Secure Corporation
 + * Andrej Rosano <andrej.rosano@f-secure.com>
@@ -408,7 +408,7 @@ index 0000000000..471735e274
 @@ -0,0 +1,10 @@
 +#
 +# USB armory Mk II board Makefile
-+# http://inversepath.com/usbarmory
++# https://github.com/inversepath/usbarmory
 +#
 +# Copyright (C) 2019, F-Secure
 +# Andrej Rosano <andrej.rosano@f-secure.com>
@@ -425,7 +425,7 @@ index 0000000000..4c65b1dc87
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board imximage configuration
-+ * http://inversepath.com/usbarmory
++ * https://github.com/inversepath/usbarmory
 + *
 + * Copyright (C) 2019, F-Secure Corportation
 + * Andrej Rosano <andrej.rosano@f-secure.com>
@@ -521,7 +521,7 @@ index 0000000000..c62bcde01a
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board imximage configuration
-+ * http://inversepath.com/usbarmory
++ * https://github.com/inversepath/usbarmory
 + *
 + * Copyright (C) 2019, F-Secure Corportation
 + * Andrej Rosano <andrej.rosano@f-secure.com>
@@ -619,7 +619,7 @@ index 0000000000..c6d15fff05
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 + * USB armory Mk II board initialization
-+ * http://inversepath.com/usbarmory
++ * https://github.com/inversepath/usbarmory
 + *
 + * Copyright (C) 2019, F-Secure Corporation
 + * Andrej Rosano <andrej.rosano@f-secure.com>
@@ -985,7 +985,7 @@ index 0000000000..ae5851d3e5
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board configuration settings
-+ * http://inversepath.com/usbarmory
++ * https://github.com/inversepath/usbarmory
 + *
 + * Copyright (C) 2019, F-Secure Corporation
 + * Andrej Rosano <andrej.rosano@f-secure.com>
