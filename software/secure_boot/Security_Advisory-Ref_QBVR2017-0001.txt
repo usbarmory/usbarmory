@@ -152,26 +152,13 @@ affected by the X.509 parsing error and SDP protection bypass.
 Given that the internal boot ROM cannot be updated, only a new silicon revision
 by NXP, with an adequately patched boot ROM, can address the vulnerabilities.
 
-NXP has yet to provide publicly available part numbers addressing reported
-vulnerabilities as it has informed us that, at this time, more information can
-only be provided by NXP to their customers under NDA.
-
-If and when NXP will release a new i.MX53 silicon revision, addressing the
-findings, Inverse Path plans to evaluate sourcing of updated components for a
-new production batch of the USB armory Mk I board.
-
 The list of affected NXP application processors can be found in the i.MX
 Community post titled "i.MX & Vybrid Security Vulnerability Errata" [10].
 
-Contact
-=======
-
-Inverse Path has been working with the few customers that employ affected use
-cases to successfully implement mitigations.
-
-Any customer relying on Secure Boot on the USB armory product is welcome to
-contact <support@inversepath.com> for assistance in evaluating the potential
-impact and applicable mitigations.
+NXP is not releasing new i.MX53 revisions, therefore USB armory Mk I Secure
+Boot feature is deprecated. However the USB armory Mk II is produced with
+i.MX6UL parts with Silicon Revision 1.2 or greater, implemented on Part Numbers
+(P/N) with revision "AB" or greater, which address both issues.
 
 Credit
 ======
@@ -199,6 +186,7 @@ Timeline
 2017-07-19: Quarkslab public release of findings [4].
 2017-07-19: Inverse Path release of full advisory and i.MX53 PoC [6].
 2017-07-27: added link to i.MX Community post that lists affected P/Ns.
+2019-11-08: added fixed P/Ns information for the USB armory Mk II.
 
 References
 ==========
