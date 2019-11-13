@@ -35,6 +35,8 @@ Inner layers   1 oz base copper foil
 width (X) 45.65 mm, height (Y) 25.90 mm  
 Red soldermask, white component legend
 
+[Bill of materials](https://inversepath.github.io/BOM/usbarmory-mark-two-debug-accessory.html)
+
 DRC information
 ---------------
 
