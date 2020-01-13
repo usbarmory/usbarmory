@@ -1,7 +1,7 @@
 USB armory Mk II debug accessory
 ================================
 
-USB armory | https://github.com/inversepath/usbarmory  
+USB armory | https://github.com/f-secure-foundry/usbarmory  
 Copyright (c) F-Secure Corporation
 
 The USB armory from [F-Secure Foundry](https://foundry.f-secure.com) is an open
@@ -22,12 +22,12 @@ breakout through holes.
 This repository is aimed towards developers, if you wish to purchase a USB
 armory board please see the [USB armory project page](https://www.f-secure.com/en/consulting/foundry/usb-armory).
 
-![Mk II debug accessory](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-debug-accessory.png)
+![Mk II debug accessory](https://github.com/f-secure-foundry/usbarmory/wiki/images/armory-mark-two-debug-accessory.png)
 
 PCB Information
 ===============
 
-![Mk II debug accessory](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-debug-accessory.svg?sanitize=true)
+![Mk II debug accessory](https://github.com/f-secure-foundry/usbarmory/wiki/images/armory-mark-two-debug-accessory.svg?sanitize=true)
 
 2 layers, 0.80mm thickness, top only components  
 Outer layers 0.5 oz base copper foil  
@@ -35,7 +35,7 @@ Inner layers   1 oz base copper foil
 width (X) 45.65 mm, height (Y) 25.90 mm  
 Red soldermask, white component legend
 
-[Bill of materials](https://inversepath.github.io/BOM/usbarmory-mark-two-debug-accessory.html)
+[Bill of materials](https://f-secure-foundry.github.io/BOM/usbarmory-mark-two-debug-accessory.html)
 
 DRC information
 ---------------
@@ -164,7 +164,7 @@ Pin assignment: UART5
 License
 =======
 
-USB armory | https://github.com/inversepath/usbarmory  
+USB armory | https://github.com/f-secure-foundry/usbarmory  
 Copyright (c) F-Secure Corporation
 
 This is an open hardware design licensed under the terms of the CERN Open

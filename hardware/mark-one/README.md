@@ -1,14 +1,14 @@
 Introduction
 ============
 
-USB armory | https://inversepath.com/usbarmory  
+USB armory | https://github.com/f-secure-foundry/usbarmory  
 Copyright (c) F-Secure Corporation
 
-The USB armory from [Inverse Path](https://inversepath.com) is an open source
-hardware design, implementing a flash drive sized computer.
+The USB armory from [F-Secure Foundry](https://foundry.f-secure.com) is an open
+source hardware design, implementing a flash drive sized computer.
 
 This repository is aimed towards developers, if you wish to purchase a USB
-armory board please see the [ordering information](https://inversepath.com/usbarmory#ordering).
+armory board please see the [ordering information](https://github.com/f-secure-foundry/usbarmory/wiki#purchasing).
 
 Revision information
 ====================
@@ -22,8 +22,8 @@ Current schematics and layout files have been designed in KiCad (`release
 PCB information
 ===============
 
-![Mk I Top](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-one-top.svg?sanitize=true)
-![Mk I Bottom](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-one-bottom.svg?sanitize=true)
+![Mk I Top](https://github.com/f-secure-foundry/usbarmory/wiki/images/armory-mark-one-top.svg?sanitize=true)
+![Mk I Bottom](https://github.com/f-secure-foundry/usbarmory/wiki/images/armory-mark-one-bottom.svg?sanitize=true)
 
 6 layers, 2.00mm thickness  
 Outer layers 0.5 oz base copper foil  
@@ -99,7 +99,7 @@ loads, mind its temperature while handling it.
 License
 =======
 
-USB armory | https://inversepath.com/usbarmory  
+USB armory | https://f-secure-foundry.com/usbarmory  
 Copyright (c) F-Secure Corporation
 
 This is an open hardware design licensed under the terms of the CERN Open

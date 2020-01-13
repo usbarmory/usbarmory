@@ -3,14 +3,14 @@ Embedded INTERLOCK distribution for the USB armory Mk I
 
 This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling a minimal embedded Linux environment for the
-[USB armory](https://github.com/inversepath/usbarmory) Mk I with
-[INTERLOCK](https://github.com/inversepath/interlock) support.
+[USB armory](https://github.com/f-secure-foundry/usbarmory) Mk I with
+[INTERLOCK](https://github.com/f-secure-foundry/interlock) support.
 
 Once installed on a microSD card for the USB armory, the Buildroot image allows
 quick and easy access to the INTERLOCK web application, exposing advanced
 interaction with an encrypted storage.
 
-![INTERLOCK screenshot](https://inversepath.com/images/interlock.png)
+![INTERLOCK screenshot](https://github.com/f-secure-foundry/interlock/wiki/images/interlock.png)
 
 Operation
 =========
@@ -47,22 +47,22 @@ The USB armory + INTERLOCK Buildroot image operates as follows:
     the host computer to share its Internet connection.
 
     Links:
-    [Signal support](https://github.com/inversepath/interlock#signal-support),
-    [Internet connection sharing](https://github.com/inversepath/usbarmory/wiki/Host-communication#setup--connection-sharing-linux).
+    [Signal support](https://github.com/f-secure-foundry/interlock#signal-support),
+    [Internet connection sharing](https://github.com/f-secure-foundry/usbarmory/wiki/Host-communication#setup--connection-sharing-linux).
 
   * The driver for the USB armory SoC Security Controller (SCCv2) is included
     as a Linux kernel module, loaded at boot and granted `interlock` user
     privileges. It is unused by INTERLOCK in its default configuration.
 
     Links:
-    [mxc-scc2 driver](https://github.com/inversepath/mxc-scc2)
+    [mxc-scc2 driver](https://github.com/f-secure-foundry/mxc-scc2)
 
   * A serial console is available on the
-    [breakout header](https://github.com/inversepath/usbarmory/wiki/GPIOs),
+    [breakout header](https://github.com/f-secure-foundry/usbarmory/wiki/GPIOs),
     default root password is `usbarmory`.
 
 The full list of features and capabilities of INTERLOCK is detailed in its
-[documentation](https://github.com/inversepath/interlock/blob/master/README.md).
+[documentation](https://github.com/f-secure-foundry/interlock/blob/master/README.md).
 
 Binary releases
 ===============
@@ -70,17 +70,17 @@ Binary releases
 Users that do not desire to manually compile and install the
 image can find binary releases at the following URL:
 
-https://github.com/inversepath/interlock/releases
+https://github.com/f-secure-foundry/interlock/releases
 
 Compiling
 =========
 
 The [Buildroot requirements](http://buildroot.uclibc.org/downloads/manual/manual.html#requirement)
-and [INTERLOCK requirements](https://github.com/inversepath/interlock#compiling)
+and [INTERLOCK requirements](https://github.com/f-secure-foundry/interlock#compiling)
 must be satisfied before starting the compilation process.
 
 INTERLOCK Signal support is enabled by default in the Buildroot configuration,
-therefore its [dependencies](https://github.com/inversepath/interlock#signal-support)
+therefore its [dependencies](https://github.com/f-secure-foundry/interlock#signal-support)
 are also required. The feature can be disabled in Buildroot `.config` file if
 desired.
 
@@ -93,7 +93,7 @@ git clone https://github.com/buildroot/buildroot
 # cd buildroot && git checkout 2019.02.4
 ```
 
-Download the USB armory [repository](https://github.com/inversepath/usbarmory)
+Download the USB armory [repository](https://github.com/f-secure-foundry/usbarmory)
 and configure Buildroot by passing the directory holding this README file with
 the `BR2_EXTERNAL` environment variable. This generates a `.config` file that
 can be optionally customized if required:

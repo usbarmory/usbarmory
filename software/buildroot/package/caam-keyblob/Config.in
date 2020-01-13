@@ -5,4 +5,4 @@ config BR2_PACKAGE_CAAM_KEYBLOB
           hardware module that implements secure RAM and a dedicated AES cryptographic
           engine for encryption/decryption operations.
 
-          https://github.com/inversepath/caam-keyblob
+          https://github.com/f-secure-foundry/caam-keyblob

@@ -314,4 +314,4 @@ References
 Permalink
 ---------
 
-https://github.com/inversepath/usbarmory/blob/master/software/secure_boot/Security_Advisory-Ref_IPVR2018-0001.txt
+https://github.com/f-secure-foundry/usbarmory/blob/master/software/secure_boot/Security_Advisory-Ref_IPVR2018-0001.txt

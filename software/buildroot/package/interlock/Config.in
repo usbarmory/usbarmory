@@ -3,9 +3,9 @@ config BR2_PACKAGE_INTERLOCK
         depends on BR2_PACKAGE_CRYPTSETUP
         help
           The INTERLOCK application is a file encryption front-end developed, but not
-          limited to, usage with the USB armory(https://github.com/inversepath/usbarmory).
+          limited to, usage with the USB armory(https://github.com/f-secure-foundry/usbarmory).
 
-          https://github.com/inversepath/interlock
+          https://github.com/f-secure-foundry/interlock
 
 if BR2_PACKAGE_INTERLOCK
 

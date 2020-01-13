@@ -1,7 +1,7 @@
 Introduction
 ============
 
-USB armory | https://github.com/inversepath/usbarmory  
+USB armory | https://github.com/f-secure-foundry/usbarmory  
 Copyright (c) F-Secure Corporation
 
 The USB armory from [F-Secure Foundry](https://foundry.f-secure.com) is an open
@@ -26,24 +26,24 @@ Documentation
 =============
 
 The main documentation can be found on the
-[project wiki](https://github.com/inversepath/usbarmory/wiki).
+[project wiki](https://github.com/f-secure-foundry/usbarmory/wiki).
 
 Board revisions
 ===============
 
-* [USB armory Mk II](https://github.com/inversepath/usbarmory/wiki/Mk-II-Introduction)
+* [USB armory Mk II](https://github.com/f-secure-foundry/usbarmory/wiki/Mk-II-Introduction)
 
-![Mk II Top](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-top.png)
-![Mk II Bottom](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-bottom.png)
+![Mk II Top](https://github.com/f-secure-foundry/usbarmory/wiki/images/armory-mark-two-top.png)
+![Mk II Bottom](https://github.com/f-secure-foundry/usbarmory/wiki/images/armory-mark-two-bottom.png)
 
 * USB armory Mk I: first production release.
 
-![USB armory Mk I](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-one.png)
+![USB armory Mk I](https://github.com/f-secure-foundry/usbarmory/wiki/images/armory-mark-one.png)
 
 License
 =======
 
-USB armory | https://github.com/inversepath/usbarmory  
+USB armory | https://github.com/f-secure-foundry/usbarmory  
 Copyright (c) F-Secure Corporation
 
 This is an open hardware design licensed under the terms of the CERN Open

@@ -1,7 +1,7 @@
 Introduction
 ============
 
-USB armory | https://github.com/inversepath/usbarmory  
+USB armory | https://github.com/f-secure-foundry/usbarmory  
 Copyright (c) F-Secure Corporation
 
 The USB armory from [F-Secure Foundry](https://foundry.f-secure.com) is an open
@@ -21,8 +21,8 @@ Current schematics and layout files have been designed in KiCad 5.1.4.
 PCB Information
 ===============
 
-![Mk II Top](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-top.svg?sanitize=true)
-![Mk II Bottom](https://github.com/inversepath/usbarmory/wiki/images/armory-mark-two-bottom.svg?sanitize=true)
+![Mk II Top](https://github.com/f-secure-foundry/usbarmory/wiki/images/armory-mark-two-top.svg?sanitize=true)
+![Mk II Bottom](https://github.com/f-secure-foundry/usbarmory/wiki/images/armory-mark-two-bottom.svg?sanitize=true)
 
 6 layers, 0.8mm thickness  
 Outer layers 0.5 oz base copper foil  
@@ -93,12 +93,12 @@ static-free surface.
 The board can become hot, like any fan-less design, during continuous high CPU
 loads, mind its temperature while handling it.
 
-* [Compliance information](https://github.com/inversepath/usbarmory/wiki/Compliance-information)
+* [Compliance information](https://github.com/f-secure-foundry/usbarmory/wiki/Compliance-information)
 
 License
 =======
 
-USB armory | https://github.com/inversepath/usbarmory  
+USB armory | https://github.com/f-secure-foundry/usbarmory  
 Copyright (c) F-Secure Corporation
 
 This is an open hardware design licensed under the terms of the CERN Open

@@ -3,14 +3,14 @@ Qubes Split GPG server for the USB armory Mk I
 
 This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling a minimal embedded Linux environment for the
-[USB armory](https://github.com/inversepath/usbarmory) Mk I with
+[USB armory](https://github.com/f-secure-foundry/usbarmory) Mk I with
 [Qubes Split GPG](https://www.qubes-os.org/doc/split-gpg/) support.
 
 Once installed on a microSD card for the USB armory, the Buildroot image
 results in a minimal GPG installation, protected by encrypted storage, that can
 act as gpg-server for Qubes Split GPG clients.
 
-![Qubes Split GPG with USB armory](https://cdn.rawgit.com/inversepath/qubes-qrexec-to-tcp/master/images/qrexec-to-tcp.svg)
+![Qubes Split GPG with USB armory](https://raw.githubusercontent.com/f-secure-foundry/qubes-qrexec-to-tcp/master/images/qrexec-to-tcp.svg?sanitize=true)
 
 Operation
 =========
@@ -45,13 +45,13 @@ The USB armory + Qubes Split GPG Buildroot image operates as follows:
     operations.
 
   * A serial console is available on the
-    [breakout header](https://github.com/inversepath/usbarmory/wiki/GPIOs),
+    [breakout header](https://github.com/f-secure-foundry/usbarmory/wiki/GPIOs),
     default root password is `usbarmory`.
 
 Qubes OS setup and operation
 ============================
 
-See repository [qubes-qrexec-to-tcp](https://github.com/inversepath/qubes-qrexec-to-tcp)
+See repository [qubes-qrexec-to-tcp](https://github.com/f-secure-foundry/qubes-qrexec-to-tcp)
 for configuration files and instructions.
 
 Compiling
@@ -69,7 +69,7 @@ Install Buildroot:
 git clone https://github.com/buildroot/buildroot
 ```
 
-Download the USB armory [repository](https://github.com/inversepath/usbarmory)
+Download the USB armory [repository](https://github.com/f-secure-foundry/usbarmory)
 and configure Buildroot by passing the directory holding this README file with
 the `BR2_EXTERNAL` environment variable. This generates a `.config` file that
 can be optionally customized if required:
