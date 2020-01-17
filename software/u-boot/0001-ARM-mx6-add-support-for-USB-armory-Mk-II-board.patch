@@ -870,7 +870,7 @@ index 0000000000..05e0c8da31
 +	return 0;
 +}
 +
-+/* Enable FSUSB303 recaptecle Type-C controller */
++/* Enable FSUSB303 receptacle Type-C controller */
 +int fusb303_init(void)
 +{
 +	uchar val;
