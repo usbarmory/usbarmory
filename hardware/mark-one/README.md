@@ -99,7 +99,7 @@ loads, mind its temperature while handling it.
 License
 =======
 
-USB armory | https://f-secure-foundry.com/usbarmory  
+USB armory | https://foundry.f-secure.com/usbarmory  
 Copyright (c) F-Secure Corporation
 
 This is an open hardware design licensed under the terms of the CERN Open
