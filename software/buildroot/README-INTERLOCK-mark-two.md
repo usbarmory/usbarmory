@@ -41,13 +41,6 @@ The USB armory + INTERLOCK Buildroot image operates as follows:
     with INTERLOCK to have SSH access for debugging or upgrading (see Upgrading
     section).
 
-  * INTERLOCK Signal support is enabled, its registration and operation require
-    the host computer to share its Internet connection.
-
-    Links:
-    [Signal support](https://github.com/f-secure-foundry/interlock#signal-support),
-    [Internet connection sharing](https://github.com/f-secure-foundry/usbarmory/wiki/Host-communication#setup--connection-sharing-linux).
-
   * The driver for the NXP Data Co-Processor (DCP) is included as a Linux
     kernel module and loaded at boot. It is unused by INTERLOCK in its default
     configuration.
@@ -75,18 +68,13 @@ The [Buildroot requirements](http://buildroot.uclibc.org/downloads/manual/manual
 and [INTERLOCK requirements](https://github.com/f-secure-foundry/interlock#compiling)
 must be satisfied before starting the compilation process.
 
-INTERLOCK Signal support is enabled by default in the Buildroot configuration,
-therefore its [dependencies](https://github.com/f-secure-foundry/interlock#signal-support)
-are also required. The feature can be disabled in Buildroot `.config` file if
-desired.
-
 Install Buildroot:
 
 ```
 git clone https://github.com/buildroot/buildroot
 # NOTE: you are welcome to try the current branch and report any issues that
 # you may encounter, for the last tested branch checkout the following one:
-# cd buildroot && git checkout 2019.02.4
+# cd buildroot && git checkout 2019.02.9
 ```
 
 Download the USB armory [repository](https://github.com/f-secure-foundry/usbarmory)

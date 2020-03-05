@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-CAAM_KEYBLOB_VERSION = 6500c585bd81dac71c09627167b657cf66999f4d
+CAAM_KEYBLOB_VERSION = 96debce62ac102d3f79cba185e4ea629cf1c14e5
 CAAM_KEYBLOB_SITE = $(call github,f-secure-foundry,caam-keyblob,$(CAAM_KEYBLOB_VERSION))
 
 CAAM_KEYBLOB_LICENSE = GPLv3

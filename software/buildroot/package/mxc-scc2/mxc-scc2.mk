@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MXC_SCC2_VERSION = 258a0a55294d9c63347061fb238c2d99036a05cf
+MXC_SCC2_VERSION = 4bfa5252c2847c0c494491fcd8e79d8966726ad5
 MXC_SCC2_SITE = $(call github,f-secure-foundry,mxc-scc2,$(MXC_SCC2_VERSION))
 MXC_SCC2_REPO = https://github.com/f-secure-foundry/mxc-scc2
 

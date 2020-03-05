@@ -6,13 +6,3 @@ config BR2_PACKAGE_INTERLOCK
           limited to, usage with the USB armory(https://github.com/f-secure-foundry/usbarmory).
 
           https://github.com/f-secure-foundry/interlock
-
-if BR2_PACKAGE_INTERLOCK
-
-config BR2_PACKAGE_INTERLOCK_SIGNAL
-        bool "interlock_signal"
-        depends on BR2_PACKAGE_INTERLOCK
-        help
-          Enable INTERLOCK Signal support.
-
-endif

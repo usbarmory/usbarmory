@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-INTERLOCK_VERSION = 007684d06a9a2dab76a8d7859d32f6ed5f081719
+INTERLOCK_VERSION = dc0b87c6044ba4180b61892f4a58156de530df78
 INTERLOCK_SITE = $(call github,f-secure-foundry,interlock,$(INTERLOCK_VERSION))
 INTERLOCK_REPO = https://github.com/f-secure-foundry/interlock
 
@@ -24,11 +24,7 @@ define INTERLOCK_EXTRACT_CMDS
 	touch $(@D)/.stamp_downloaded
 endef
 
-ifeq ($(BR2_PACKAGE_INTERLOCK_SIGNAL),y)
-INTERLOCK_MAKE_TARGET="with_signal"
-else
 INTERLOCK_MAKE_TARGET="build"
-endif
 
 define INTERLOCK_INSTALL_TARGET_CMDS
 	$(TARGET_MAKE_ENV) $(MAKE) $(INTERLOCK_MAKE_TARGET) GOARCH=arm CC=$(TARGET_CC) CGO_ENABLED=1 -C $(@D)

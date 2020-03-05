@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MXS_DCP_VERSION = 9280f2b3e7a66d9bac277cb21e6896b82505a4df
+MXS_DCP_VERSION = 4f11eaf0b8c0d80b181a559cc13b1582bec8f171
 MXS_DCP_SITE = $(call github,f-secure-foundry,mxs-dcp,$(MXS_DCP_VERSION))
 MXS_DCP_REPO = https://github.com/f-secure-foundry/mxs-dcp
 

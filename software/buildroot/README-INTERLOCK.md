@@ -43,13 +43,6 @@ The USB armory + INTERLOCK Buildroot image operates as follows:
     with INTERLOCK to have SSH access for debugging or upgrading (see Upgrading
     section).
 
-  * INTERLOCK Signal support is enabled, its registration and operation require
-    the host computer to share its Internet connection.
-
-    Links:
-    [Signal support](https://github.com/f-secure-foundry/interlock#signal-support),
-    [Internet connection sharing](https://github.com/f-secure-foundry/usbarmory/wiki/Host-communication#setup--connection-sharing-linux).
-
   * The driver for the USB armory SoC Security Controller (SCCv2) is included
     as a Linux kernel module, loaded at boot and granted `interlock` user
     privileges. It is unused by INTERLOCK in its default configuration.
@@ -78,11 +71,6 @@ Compiling
 The [Buildroot requirements](http://buildroot.uclibc.org/downloads/manual/manual.html#requirement)
 and [INTERLOCK requirements](https://github.com/f-secure-foundry/interlock#compiling)
 must be satisfied before starting the compilation process.
-
-INTERLOCK Signal support is enabled by default in the Buildroot configuration,
-therefore its [dependencies](https://github.com/f-secure-foundry/interlock#signal-support)
-are also required. The feature can be disabled in Buildroot `.config` file if
-desired.
 
 Install Buildroot:
 

@@ -8,14 +8,14 @@ environments for the [USB armory](https://github.com/f-secure-foundry/usbarmory)
 USB armory Mk II profiles:
 
 * [INTERLOCK](https://github.com/f-secure-foundry/interlock) support for encrypted
-  storage and Signal messaging.
+  storage.
 
   Documentation: [Embedded INTERLOCK distribution (Mk II)](https://github.com/f-secure-foundry/usbarmory/blob/master/software/buildroot/README-INTERLOCK-mark-two.md)
 
 USB armory Mk I profiles:
 
 * [INTERLOCK](https://github.com/f-secure-foundry/interlock) support for encrypted
-  storage and Signal messaging.
+  storage.
 
   Documentation: [Embedded INTERLOCK distribution (Mk I)](https://github.com/f-secure-foundry/usbarmory/blob/master/software/buildroot/README-INTERLOCK.md)
 

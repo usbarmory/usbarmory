@@ -10,7 +10,7 @@ echo "Starting INTERLOCK"
 # one to have valid TLS certificate generation. The system date will be
 # overridden at first successful INTERLOCK login by the client via set_time
 # feature.
-/bin/date -s '2019-06-01 15:00:00'
+/bin/date -s '2020-01-01 15:00:00'
 
 while [ $(cat /proc/sys/kernel/random/entropy_avail) -lt 256 ]; do
   sleep 1;
