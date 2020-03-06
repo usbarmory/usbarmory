@@ -11,6 +11,10 @@ interaction with an encrypted storage.
 
 ![INTERLOCK screenshot](https://github.com/f-secure-foundry/interlock/wiki/images/interlock.png)
 
+## Default credentials
+
+* volume: `armory` - password: `usbarmory`
+
 ## Operation
 
 The USB armory + INTERLOCK Buildroot image operates as follows:
@@ -21,7 +25,8 @@ The USB armory + INTERLOCK Buildroot image operates as follows:
   * At boot a DHCP server is started to automatically expose the USB armory
     default IP address (10.0.0.1) to the host, which typically requires no
     explicit configuration as most OSes automatically point a DHCP client to
-    the emulated Ethernet over USB interface.
+    the emulated Ethernet over USB interface
+    (see [Host communication](https://github.com/f-secure-foundry/usbarmory/wiki/Host-communication)).
 
   * Only at the very first boot (which therefore takes longer than subsequent
     ones), an encrypted partition is created and configured on volume `armory`
