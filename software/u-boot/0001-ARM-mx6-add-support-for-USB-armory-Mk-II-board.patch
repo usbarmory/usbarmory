@@ -919,7 +919,7 @@ index 0000000000..05e0c8da31
 +
 +static char *bootm_argv[] = {
 +	"bootm",
-+	USBARMORY_FIT_ADDR
++	USBARMORY_FIT_ADDR "#" USBARMORY_FIT_CONF
 +};
 +
 +int board_run_command(const char *cmdline)
@@ -1013,7 +1013,7 @@ new file mode 100644
 index 0000000000..647823ec86
 --- /dev/null
 +++ b/include/configs/usbarmory-mark-two.h
-@@ -0,0 +1,242 @@
+@@ -0,0 +1,243 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board configuration settings
@@ -1058,6 +1058,7 @@ index 0000000000..647823ec86
 +/* Boot parameters */
 +#define USBARMORY_FIT_PATH	"/boot/usbarmory.itb"
 +#define USBARMORY_FIT_ADDR	"0x80800000"
++#define USBARMORY_FIT_CONF	"conf@1"
 +#define USBARMORY_FIT_SIZE	"0x4000000"
 +
 +#ifdef CONFIG_SYS_BOOT_DEV_MICROSD
@@ -1172,7 +1173,7 @@ index 0000000000..647823ec86
 +#define BOOTENV_VERIFIED_OPEN												\
 +	"start_verified_open="												\
 +		"ext2load mmc ${mmcdev}:1 " USBARMORY_FIT_ADDR " " USBARMORY_FIT_PATH " " USBARMORY_FIT_SIZE " ; "	\
-+		"bootm " USBARMORY_FIT_ADDR "\0"
++		"bootm " USBARMORY_FIT_ADDR "#" USBARMORY_FIT_CONF "\0"
 +
 +#define BOOTENV_NORMAL								\
 +	"start_normal=run distro_bootcmd ; "					\
