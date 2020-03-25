@@ -927,7 +927,7 @@ index 0000000000..05e0c8da31
 +	printf("%s %s %s %s %s %s\n", ext2_argv[0], ext2_argv[1], ext2_argv[2],
 +	       ext2_argv[3], ext2_argv[4], ext2_argv[5]);
 +
-+	if (do_ext2load(NULL, 0, 5, ext2_argv) != 0) {
++	if (do_ext2load(NULL, 0, 6, ext2_argv) != 0) {
 +		udelay(5*1000*1000);
 +		return 1;
 +	}
