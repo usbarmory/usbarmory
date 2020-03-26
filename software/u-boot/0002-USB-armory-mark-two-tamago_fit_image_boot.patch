@@ -1,0 +1,69 @@
+--- u-boot-2019.07/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c	2020-03-25 17:01:23.786665209 +0100
++++ u-boot-2019.07-tamago/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c	2020-03-26 12:28:50.153184832 +0100
+@@ -21,6 +21,8 @@
+ #include <mmc.h>
+ #include <fsl_esdhc.h>
+ #include <asm/gpio.h>
++#include <bootm.h>
++#include <mapmem.h>
+ 
+ DECLARE_GLOBAL_DATA_PTR;
+ 
+@@ -328,19 +330,52 @@
+ 	USBARMORY_FIT_SIZE
+ };
+ 
+-static char *bootm_argv[] = {
+-	"bootm",
++static char *bootm_start_argv[] = {
+ 	USBARMORY_FIT_ADDR "#" USBARMORY_FIT_CONF
+ };
+ 
++static char *bootelf_argv[] = {
++	"bootelf",
++	"-p",
++	""
++};
++
+ int board_run_command(const char *cmdline)
+ {
+-	if (do_ext2load(NULL, 0, 6, ext2_argv) != 0) {
++	int ret;
++	size_t size;
++	const void *data;
++
++	ret = do_ext2load(NULL, 0, 6, ext2_argv);
++
++	if (ret) {
++		printf("ext2load error (%d)", ret);
++		hang();
++	}
++
++	ret = do_bootm_states(NULL, 0, 1, bootm_start_argv, BOOTM_STATE_START |  BOOTM_STATE_FINDOS | BOOTM_STATE_FINDOTHER, &images, 0);
++
++	if (ret) {
++		printf("bootm error (%d)", ret);
+ 		hang();
+ 	}
+ 
+-	do_bootm(NULL, 0, 2, bootm_argv);
+-	hang();
++	ret = fit_image_get_data_and_size((void *)0x80800000, images.fit_noffset_os, &data, &size);
++
++	if (ret) {
++		printf("fit_image_get_data_and_size error (%d)\n", ret);
++		hang();
++	}
++
++	void *vdata = (void *)data;
++	sprintf(bootelf_argv[2], "0x%08lx", (ulong)map_to_sysmem(vdata));
++
++	ret = do_bootelf(NULL, 0, 3, bootelf_argv);
++
++	if (ret) {
++		printf("bootelf error (%d)\n", ret);
++		hang();
++	}
+ 
+ 	return 1;
+ }

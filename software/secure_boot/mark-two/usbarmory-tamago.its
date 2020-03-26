@@ -1,0 +1,34 @@
+/dts-v1/;
+
+/ {
+	description = "USB armory FIT file";
+	#address-cells = <1>;
+
+	images {
+		kernel@1 {
+			description = "Go unikernel";
+			data = /incbin/("tamago.elf");
+			type = "firmware";
+			os = "u-boot";
+			arch = "arm";
+			compression = "none";
+			load = <0x90000000>;
+			entry = <0x90000000>;
+			hash@1 {
+				algo = "sha256";
+			};
+		};
+	};
+
+	configurations {
+		default = "conf@1";
+		conf@1 {
+			kernel = "kernel@1";
+			signature@1 {
+				algo = "sha256,rsa2048";
+				key-name-hint = "usbarmory";
+				sign-images = "kernel";
+			};
+		};
+	};
+};

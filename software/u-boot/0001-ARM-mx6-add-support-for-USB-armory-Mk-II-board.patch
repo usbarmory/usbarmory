@@ -586,7 +586,7 @@ new file mode 100644
 index 0000000000..05e0c8da31
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
-@@ -0,0 +1,351 @@
+@@ -0,0 +1,347 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 + * USB armory Mk II board initialization
@@ -924,16 +924,12 @@ index 0000000000..05e0c8da31
 +
 +int board_run_command(const char *cmdline)
 +{
-+	printf("%s %s %s %s %s %s\n", ext2_argv[0], ext2_argv[1], ext2_argv[2],
-+	       ext2_argv[3], ext2_argv[4], ext2_argv[5]);
-+
 +	if (do_ext2load(NULL, 0, 6, ext2_argv) != 0) {
-+		udelay(5*1000*1000);
-+		return 1;
++		hang();
 +	}
 +
-+	printf("%s %s\n", bootm_argv[0], bootm_argv[1]);
 +	do_bootm(NULL, 0, 2, bootm_argv);
++	hang();
 +
 +	return 1;
 +}
