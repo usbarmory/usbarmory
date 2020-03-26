@@ -72,6 +72,17 @@ port.
 ¹ Only on USB armory Mk II boards mounting i.MX6UL SoC, not available on
   versions mounting the i.MX6ULZ.
 
+Serial console
+--------------
+
+When running the [USB armory Debian base image](https://github.com/f-secure-foundry/usbarmory-debian-base_image/releases)
+the serial console can be accessed, with the debug accessory jumper set to UART
+position, as follows (example on Linux host with picocom):
+
+```
+picocom -b 115200 -eb /dev/ttyUSB2 --imap lfcrlf
+```
+
 Debug accessory jumper settings
 ===============================
 
