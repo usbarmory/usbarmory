@@ -12,8 +12,8 @@
 			os = "u-boot";
 			arch = "arm";
 			compression = "none";
-			load = <0x90000000>;
-			entry = <0x90000000>;
+			load = <0>;
+			entry = <0>;
 			hash@1 {
 				algo = "sha256";
 			};

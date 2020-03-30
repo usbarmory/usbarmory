@@ -1,5 +1,16 @@
---- u-boot-2019.07/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c	2020-03-25 17:01:23.786665209 +0100
-+++ u-boot-2019.07-tamago/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c	2020-03-26 12:28:50.153184832 +0100
+From 18312d4fab91fbc8f3be36190806c0eb63ece554 Mon Sep 17 00:00:00 2001
+From: Andrea Barisani <andrea.barisani@f-secure.com>
+Date: Fri, 27 Mar 2020 09:33:09 +0100
+Subject: [PATCH] Add USB armory mark two tamago fit image boot
+
+---
+ .../usbarmory-mark-two/usbarmory-mark-two.c   | 45 ++++++++++++++++---
+ 1 file changed, 40 insertions(+), 5 deletions(-)
+
+diff --git a/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
+index 2be0c28b64..1fd1a79e7a 100644
+--- a/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
++++ b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
 @@ -21,6 +21,8 @@
  #include <mmc.h>
  #include <fsl_esdhc.h>
@@ -9,7 +20,7 @@
  
  DECLARE_GLOBAL_DATA_PTR;
  
-@@ -328,19 +330,52 @@
+@@ -328,19 +330,52 @@ static char *ext2_argv[] = {
  	USBARMORY_FIT_SIZE
  };
  
@@ -67,3 +78,6 @@
  
  	return 1;
  }
+-- 
+2.25.2
+
