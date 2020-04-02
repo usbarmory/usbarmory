@@ -1,7 +1,7 @@
-From a29206be5f42dcb133c69624fa1dc1d93d178e07 Mon Sep 17 00:00:00 2001
+From a0fbbf18c029ed58791cd40402b8f9d79362e897 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Mon, 15 Jul 2019 16:13:57 +0200
-Subject: [PATCH 1/2] ARM: mx6: add support for USB armory Mk II board
+Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
 
 Add support for Inverse Path USB armory Mk II board, an open source
 flash-drive sized computer based on Freescale i.MX6ULL SoC.
@@ -18,10 +18,10 @@ Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
  board/inversepath/usbarmory-mark-two/Makefile |  10 +
  .../usbarmory-mark-two/imximage-1gb.cfg       |  90 +++++
  .../usbarmory-mark-two/imximage-512mb.cfg     |  92 +++++
- .../usbarmory-mark-two/usbarmory-mark-two.c   | 351 ++++++++++++++++++
+ .../usbarmory-mark-two/usbarmory-mark-two.c   | 347 ++++++++++++++++++
  configs/usbarmory-mark-two_defconfig          |  64 ++++
- include/configs/usbarmory-mark-two.h          | 242 ++++++++++++
- 11 files changed, 1140 insertions(+), 1 deletion(-)
+ include/configs/usbarmory-mark-two.h          | 244 ++++++++++++
+ 11 files changed, 1138 insertions(+), 1 deletion(-)
  create mode 100644 arch/arm/dts/imx6ull-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
  create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
@@ -48,7 +48,7 @@ index 20dbc2ff84..3efa735a48 100644
  	imx6-apalis.dtb \
 diff --git a/arch/arm/dts/imx6ull-usbarmory.dts b/arch/arm/dts/imx6ull-usbarmory.dts
 new file mode 100644
-index 0000000000..37b8d00a2b
+index 0000000000..b4fe940101
 --- /dev/null
 +++ b/arch/arm/dts/imx6ull-usbarmory.dts
 @@ -0,0 +1,208 @@
@@ -373,7 +373,7 @@ index 0000000000..89b68ae866
 +F:	configs/usbarmory-mark-two_defconfig
 diff --git a/board/inversepath/usbarmory-mark-two/Makefile b/board/inversepath/usbarmory-mark-two/Makefile
 new file mode 100644
-index 0000000000..471735e274
+index 0000000000..bf84d05bfd
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/Makefile
 @@ -0,0 +1,10 @@
@@ -389,7 +389,7 @@ index 0000000000..471735e274
 +obj-y	:= usbarmory-mark-two.o
 diff --git a/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg b/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg
 new file mode 100644
-index 0000000000..878fc25868
+index 0000000000..36738908cc
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg
 @@ -0,0 +1,90 @@
@@ -485,7 +485,7 @@ index 0000000000..878fc25868
 +DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
 diff --git a/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg b/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
 new file mode 100644
-index 0000000000..953309f8f9
+index 0000000000..4ac94007da
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
 @@ -0,0 +1,92 @@
@@ -583,7 +583,7 @@ index 0000000000..953309f8f9
 +DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
 diff --git a/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
 new file mode 100644
-index 0000000000..05e0c8da31
+index 0000000000..2be0c28b64
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
 @@ -0,0 +1,347 @@
@@ -1006,10 +1006,10 @@ index 0000000000..40981a66da
 +CONFIG_USB_ETH_CDC=y
 diff --git a/include/configs/usbarmory-mark-two.h b/include/configs/usbarmory-mark-two.h
 new file mode 100644
-index 0000000000..647823ec86
+index 0000000000..eea69a765a
 --- /dev/null
 +++ b/include/configs/usbarmory-mark-two.h
-@@ -0,0 +1,243 @@
+@@ -0,0 +1,244 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board configuration settings
@@ -1060,9 +1060,11 @@ index 0000000000..647823ec86
 +#ifdef CONFIG_SYS_BOOT_DEV_MICROSD
 +#define CONFIG_SYS_MMC_ENV_DEV	0
 +#define USBARMORY_BOOT_DEV	"0"
++#define BOOT_TARGET_DEVICES(func) func(MMC, mmc, 0)
 +#elif CONFIG_SYS_BOOT_DEV_EMMC
 +#define CONFIG_SYS_MMC_ENV_DEV	1
 +#define USBARMORY_BOOT_DEV	"1"
++#define BOOT_TARGET_DEVICES(func) func(MMC, mmc, 1)
 +#endif
 +
 +/* Bootargs */
@@ -1071,7 +1073,6 @@ index 0000000000..647823ec86
 +#define CONFIG_BOOTARGS "console=ttymxc1,115200 root=/dev/mmcblk" USBARMORY_BOOT_DEV "p1 rootwait rw"
 +
 +#define CONFIG_HOSTNAME		"usbarmory"
-+#define BOOT_TARGET_DEVICES(func) func(MMC, mmc, 0) func(MMC, mmc, 1)
 +#define CONFIG_SYS_MEMTEST_START	0x80000000
 +#define CONFIG_SYS_CBSIZE	512
 +
@@ -1254,5 +1255,5 @@ index 0000000000..647823ec86
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.23.0
+2.26.0
 
