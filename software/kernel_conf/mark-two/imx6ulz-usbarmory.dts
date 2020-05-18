@@ -52,6 +52,36 @@
 	model = "F-Secure USB armory Mk II";
 	compatible = "inversepath,imx6ulz-usbarmory-mkII", "fsl,imx6ulz", "fsl,imx6ull";
 
+	cpu0_opp_table: opp-table {
+		compatible = "operating-points-v2";
+
+		opp-900000000 {
+			opp-hz = /bits/ 64 <900000000>;
+			opp-microvolt = <1275000>;
+		};
+
+		opp-792000000 {
+			opp-hz = /bits/ 64 <792000000>;
+			opp-microvolt = <1225000>;
+		};
+
+		opp-528000000 {
+			opp-hz = /bits/ 64 <528000000>;
+			opp-microvolt = <1175000>;
+		};
+
+		opp-396000000 {
+			opp-hz = /bits/ 64 <396000000>;
+			opp-microvolt = <1025000>;
+		};
+
+		opp-198000000 {
+			opp-hz = /bits/ 64 <198000000>;
+			opp-microvolt = <950000>;
+		};
+	};
+
+
 	chosen {
 		stdout-path = &uart2;
 	};
@@ -89,6 +119,12 @@
 			regulator-max-microvolt = <3300000>;
 		};
 	};
+
+};
+
+&cpu0 {
+	/delete-property/ operating-points;
+	operating-points-v2 = <&cpu0_opp_table>;
 };
 
 &uart1 {
