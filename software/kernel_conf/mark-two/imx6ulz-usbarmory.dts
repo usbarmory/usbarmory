@@ -50,7 +50,7 @@
 
 / {
 	model = "F-Secure USB armory Mk II";
-	compatible = "inversepath,imx6ulz-usbarmory-mkII", "fsl,imx6ulz", "fsl,imx6ull";
+	compatible = "inversepath,imx6ulz-usbarmory-mkII", "fsl,imx6ull";
 
 	chosen {
 		stdout-path = &uart2;
