@@ -196,35 +196,15 @@ usb 1-1: Manufacturer: Freescale SemiConductor Inc
 hid-generic 0003:15A2:0080.0003: hiddev96,hidraw1: USB HID v1.10 Device [Freescale SemiConductor Inc  SE Blank 6ULL] on usb-0000:00:14.0-1/input0
 ```
 
-Load the bootloader using the [imx_loader](https://github.com/boundarydevices/imx_usb_loader) utility:
+Load the [armory-ums](https://github.com/f-secure-foundry/armory-ums/releases)
+firmware using the [imx_loader](https://github.com/boundarydevices/imx_usb_loader) utility:
 
 ```
-imx_usb output/images/u-boot.imx
+imx_usb armory-ums.imx
 ```
 
-On the USB armory Mk II serial console, accessible through the [debug
-accessory](https://github.com/f-secure-foundry/usbarmory/tree/master/hardware/mark-two-debug-accessory),
-start the USB storage emulation (UMS) mode:
-
-```
-=> ums 0 mmc 1
-```
-
-Alternatively, if external serial console access is not available, a
-[patch](https://github.com/f-secure-foundry/usbarmory/tree/master/software/u-boot/0001-USB-armory-mark-two-alpha-UMS.patch)
-to automatically enable UMS mode can be applied to U-Boot 2019.04.
-
-Once in UMS mode, the host kernel should detect a USB storage device:
-
-```
-scsi 3:0:0:0: Direct-Access     Linux    UMS disk 0       ffff PQ: 0 ANSI: 2
-sd 3:0:0:0: [sdX] 7471104 512-byte logical blocks: (3.83 GB/3.56 GiB)
-sd 3:0:0:0: [sdX] Write Protect is off
-sd 3:0:0:0: [sdX] Mode Sense: 0f 00 00 00
-sd 3:0:0:0: [sdX] Write cache: enabled, read cache: enabled, doesn't support DPO or FUA
- sdX: sdX1 sdX2
-sd 3:0:0:0: [sdX] Attached SCSI removable disk
-```
+Once loaded, the host kernel should detect a USB storage device, corresponding
+to the internal eMMC.
 
 ### Preparing the eMMC for the first time
 
