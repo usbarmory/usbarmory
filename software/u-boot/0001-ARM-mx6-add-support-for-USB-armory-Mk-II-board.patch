@@ -1,4 +1,4 @@
-From 7d695f9b0fa9bd16f0692284939f721bc55290c6 Mon Sep 17 00:00:00 2001
+From e40417f5f70a26575e3248ada9322d57aadf310a Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Fri, 12 Jun 2020 08:56:09 +0200
 Subject: [PATCH] ARM mx6 add support for USB armory Mk II board
@@ -10,12 +10,12 @@ Subject: [PATCH] ARM mx6 add support for USB armory Mk II board
  board/inversepath/usbarmory-mark-two/Kconfig  |  67 ++++
  .../usbarmory-mark-two/MAINTAINERS            |   6 +
  board/inversepath/usbarmory-mark-two/Makefile |  10 +
- .../usbarmory-mark-two/imximage-1gb.cfg       |  90 +++++
- .../usbarmory-mark-two/imximage-512mb.cfg     |  92 +++++
+ .../usbarmory-mark-two/imximage-1gb.cfg       |  87 +++++
+ .../usbarmory-mark-two/imximage-512mb.cfg     |  89 +++++
  .../usbarmory-mark-two/usbarmory-mark-two.c   | 347 ++++++++++++++++++
- configs/usbarmory-mark-two_defconfig          |  69 ++++
+ configs/usbarmory-mark-two_defconfig          |  70 ++++
  include/configs/usbarmory-mark-two.h          | 237 ++++++++++++
- 11 files changed, 1135 insertions(+)
+ 11 files changed, 1130 insertions(+)
  create mode 100644 arch/arm/dts/imx6ull-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
  create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
@@ -381,10 +381,10 @@ index 0000000000..bf84d05bfd
 +obj-y	:= usbarmory-mark-two.o
 diff --git a/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg b/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg
 new file mode 100644
-index 0000000000..36738908cc
+index 0000000000..47bd4830f7
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg
-@@ -0,0 +1,90 @@
+@@ -0,0 +1,87 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board imximage configuration
@@ -399,10 +399,7 @@ index 0000000000..36738908cc
 +
 +IMAGE_VERSION 2
 +BOOT_FROM sd
-+
-+#ifdef CONFIG_SECURE_BOOT
 +CSF CONFIG_CSF_SIZE
-+#endif
 +
 +/* CCM */
 +
@@ -477,10 +474,10 @@ index 0000000000..36738908cc
 +DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
 diff --git a/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg b/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
 new file mode 100644
-index 0000000000..4ac94007da
+index 0000000000..b856481b08
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
-@@ -0,0 +1,92 @@
+@@ -0,0 +1,89 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board imximage configuration
@@ -495,10 +492,7 @@ index 0000000000..4ac94007da
 +
 +IMAGE_VERSION 2
 +BOOT_FROM sd
-+
-+#ifdef CONFIG_SECURE_BOOT
 +CSF CONFIG_CSF_SIZE
-+#endif
 +
 +/* CCM */
 +
@@ -928,10 +922,10 @@ index 0000000000..c62805963d
 +#endif
 diff --git a/configs/usbarmory-mark-two_defconfig b/configs/usbarmory-mark-two_defconfig
 new file mode 100644
-index 0000000000..2221e969e3
+index 0000000000..40c62172a1
 --- /dev/null
 +++ b/configs/usbarmory-mark-two_defconfig
-@@ -0,0 +1,69 @@
+@@ -0,0 +1,70 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_MX6=y
 +CONFIG_SYS_TEXT_BASE=0x87800000
@@ -981,7 +975,8 @@ index 0000000000..2221e969e3
 +CONFIG_DEFAULT_DEVICE_TREE="imx6ull-usbarmory"
 +
 +# Secure/Verified boot
-+CONFIG_SECURE_BOOT=y
++CONFIG_FSL_CAAM=y
++CONFIG_IMX_HAB=y
 +CONFIG_FIT=y
 +CONFIG_FIT_SIGNATURE=y
 +CONFIG_RSA=y
