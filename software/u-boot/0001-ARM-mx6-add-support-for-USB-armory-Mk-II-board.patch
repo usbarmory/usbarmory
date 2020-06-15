@@ -1,11 +1,11 @@
-From e40417f5f70a26575e3248ada9322d57aadf310a Mon Sep 17 00:00:00 2001
+From c9afcff1a3f27cf3055cb2f5e5d3ec369b0e0695 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Fri, 12 Jun 2020 08:56:09 +0200
 Subject: [PATCH] ARM mx6 add support for USB armory Mk II board
 
 ---
  arch/arm/dts/Makefile                         |   1 +
- arch/arm/dts/imx6ull-usbarmory.dts            | 208 +++++++++++
+ arch/arm/dts/imx6ull-usbarmory.dts            | 200 ++++++++++
  arch/arm/mach-imx/mx6/Kconfig                 |   8 +
  board/inversepath/usbarmory-mark-two/Kconfig  |  67 ++++
  .../usbarmory-mark-two/MAINTAINERS            |   6 +
@@ -15,7 +15,7 @@ Subject: [PATCH] ARM mx6 add support for USB armory Mk II board
  .../usbarmory-mark-two/usbarmory-mark-two.c   | 347 ++++++++++++++++++
  configs/usbarmory-mark-two_defconfig          |  70 ++++
  include/configs/usbarmory-mark-two.h          | 237 ++++++++++++
- 11 files changed, 1130 insertions(+)
+ 11 files changed, 1122 insertions(+)
  create mode 100644 arch/arm/dts/imx6ull-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
  create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
@@ -40,10 +40,10 @@ index 820ee9733a..be12560090 100644
  
 diff --git a/arch/arm/dts/imx6ull-usbarmory.dts b/arch/arm/dts/imx6ull-usbarmory.dts
 new file mode 100644
-index 0000000000..b4fe940101
+index 0000000000..d5a616f703
 --- /dev/null
 +++ b/arch/arm/dts/imx6ull-usbarmory.dts
-@@ -0,0 +1,208 @@
+@@ -0,0 +1,200 @@
 +/*
 + * USB armory Mk II device tree file
 + * https://github.com/inversepath/usbarmory
@@ -136,14 +136,6 @@ index 0000000000..b4fe940101
 +			regulator-max-microvolt = <3300000>;
 +			gpio = <&gpio1 9 GPIO_ACTIVE_HIGH>;
 +			enable-active-high;
-+		};
-+	};
-+
-+	signature {
-+		sig@0 {
-+			required = "conf";
-+			algo = "sha256,rsa2048";
-+			key-name-hint = "usbarmory";
 +		};
 +	};
 +};
@@ -1039,7 +1031,7 @@ index 0000000000..38b50e0c67
 +/* Boot parameters */
 +#define USBARMORY_FIT_PATH	"/boot/usbarmory.itb"
 +#define USBARMORY_FIT_ADDR	"0x80800000"
-+#define USBARMORY_FIT_CONF	"conf@1"
++#define USBARMORY_FIT_CONF	"conf-1"
 +#define USBARMORY_FIT_SIZE	"0x4000000"
 +
 +#ifdef CONFIG_SYS_BOOT_DEV_MICROSD
