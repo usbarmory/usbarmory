@@ -149,12 +149,14 @@ Pin assignment: GPIO
 Pin assignment: UART2
 =====================
 
-|  USB-C pin   | i.MX6UL pin | FTDI pin | FTDI MPSSE |
-|:-------------|-------------|----------|------------|
-| SSTXp1 (A2)  | UART2_TX    | CDBUS1   | #C RXD     |
-| SSTXn1 (A3)  | UART2_RX    | CDBUS0   | #C TXD     |
-| SSRXp1 (B11) | UART2_RTS_B | CDBUS3   | #C CTS     |
-| SSRXn1 (B10) | UART2_CTS_B | CDBUS2   | #C RTS     |
+|  USB-C pin   | i.MX6UL pin  | FTDI pin | FTDI MPSSE |
+|:-------------|--------------|----------|------------|
+| SSTXp1 (A2)  | UART2_TX     | CDBUS1   | #C RXD     |
+| SSTXn1 (A3)  | UART2_RX     | CDBUS0   | #C TXD     |
+| SSRXp1 (B11) | UART2_RTS_B¹ | CDBUS3   | #C CTS     |
+| SSRXn1 (B10) | UART2_CTS_B¹ | CDBUS2   | #C RTS     |
+
+¹ On USB armory Mk II rev. β see the [related errata](https://github.com/f-secure-foundry/usbarmory/wiki/Errata-(Mk-II)#errata-inverted-uart-rtscts-signals-resolved-with-workaround).
 
 Pin assignment: UART4
 =====================
