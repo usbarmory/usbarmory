@@ -195,6 +195,8 @@ class CSFCommand
     unsigned :flg,        8, :default => 0
     unsigned :key,        8, :default => 0
     unsigned :pcl,        8, :default => 0
+    # HAB_ENG_SW used due to ERR010449, if BT_MMU_DISABLE fuse is blown then
+    # hardware engines can also be used.
     unsigned :eng,        8, :default => HAB_ENG_SW
     unsigned :cfg,        8, :default => 0
     unsigned :aut_start, 32, :default => 0
