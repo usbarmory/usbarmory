@@ -305,7 +305,7 @@ opts = GetoptLong.new(
   ['--index',   '-x', GetoptLong::REQUIRED_ARGUMENT],
   ['--image',   '-i', GetoptLong::REQUIRED_ARGUMENT],
   ['--output',  '-o', GetoptLong::REQUIRED_ARGUMENT],
-  ['--engine',  '-e', GetoptLong::NO_ARGUMENT],
+  ['--engine',  '-e', GetoptLong::OPTIONAL_ARGUMENT],
   ['--serial',  '-s', GetoptLong::NO_ARGUMENT],
   ['--dcd',     '-S', GetoptLong::REQUIRED_ARGUMENT],
   ['--help',    '-h', GetoptLong::NO_ARGUMENT],
@@ -331,7 +331,7 @@ begin
     when '--image'   then image_file = arg
     when '--output'  then output_file = arg
     when '--debug'   then @debug = true
-    when '--engine'  then engine = arg
+    when '--engine'  then engine = arg.to_i(16)
     when '--serial'  then serial_mode = true
     when '--dcd'     then serial_dcd = arg.hex
     when '--hab_poc' then hab_bypass = true
@@ -414,7 +414,7 @@ begin
   authenticate_csf.flg = HAB_CMD_AUT_DAT_CLR
   authenticate_csf.key = 1
   authenticate_csf.pcl = HAB_PCL_CMS
-  authenticate_csf.eng = engine.to_i(16)
+  authenticate_csf.eng = engine
   authenticate_csf.len = authenticate_csf.length
   csf.len += authenticate_csf.len
 
@@ -431,7 +431,7 @@ begin
   authenticate_data.flg = HAB_CMD_AUT_DAT_CLR
   authenticate_data.key = 2 # Verification Index = 2
   authenticate_data.pcl = HAB_PCL_CMS
-  authenticate_data.eng  = engine.to_i(16)
+  authenticate_data.eng  = engine
   blk = CSFCommand::AuthenticateData::Blk.new
   blk.blk_start = img_start
   blk.blk_bytes = img_bytes
@@ -452,7 +452,7 @@ begin
     authenticate_dcd.flg = HAB_CMD_AUT_DAT_CLR
     authenticate_dcd.key = 2 # Verification Index = 2
     authenticate_dcd.pcl = HAB_PCL_CMS
-    authenticate_dcd.eng  = engine.to_i(16)
+    authenticate_dcd.eng  = engine
     blk_dcd = CSFCommand::AuthenticateData::Blk.new
     blk_dcd.blk_start = serial_dcd  # DCD location in ocram in Serial download mode
     blk_dcd.blk_bytes = dcd_len
