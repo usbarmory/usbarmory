@@ -257,8 +257,7 @@ Install the bootloader:
 dd if=output/images/u-boot.imx of=$TARGET_DEV bs=512 seek=2 conv=fsync
 ```
 
-On the bootloader console press CTRL+C to stop the usb storage emulation mode.
-Then disconnect the Type-C USB interface and restore eMMC boot mode.
+Disconnect the Type-C USB interface and restore eMMC boot mode.
 
 **NOTE**: upgrading can also be performed live on the running image using SSH
 access (see Operation section) as the partition is automatically mounted under
