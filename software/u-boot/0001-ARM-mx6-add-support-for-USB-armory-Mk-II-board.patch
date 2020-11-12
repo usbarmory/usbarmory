@@ -1,4 +1,4 @@
-From c9afcff1a3f27cf3055cb2f5e5d3ec369b0e0695 Mon Sep 17 00:00:00 2001
+From 95be43676d203a0edc0e4efa42059d51dd1eb712 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Fri, 12 Jun 2020 08:56:09 +0200
 Subject: [PATCH] ARM mx6 add support for USB armory Mk II board
@@ -6,15 +6,15 @@ Subject: [PATCH] ARM mx6 add support for USB armory Mk II board
 ---
  arch/arm/dts/Makefile                         |   1 +
  arch/arm/dts/imx6ull-usbarmory.dts            | 200 ++++++++++
- arch/arm/mach-imx/mx6/Kconfig                 |   8 +
- board/inversepath/usbarmory-mark-two/Kconfig  |  67 ++++
+ arch/arm/mach-imx/mx6/Kconfig                 |   5 +
+ board/inversepath/usbarmory-mark-two/Kconfig  |  71 ++++
  .../usbarmory-mark-two/MAINTAINERS            |   6 +
  board/inversepath/usbarmory-mark-two/Makefile |  10 +
  .../usbarmory-mark-two/imximage-1gb.cfg       |  87 +++++
  .../usbarmory-mark-two/imximage-512mb.cfg     |  89 +++++
  .../usbarmory-mark-two/usbarmory-mark-two.c   | 347 ++++++++++++++++++
- configs/usbarmory-mark-two_defconfig          |  70 ++++
- include/configs/usbarmory-mark-two.h          | 237 ++++++++++++
+ configs/usbarmory-mark-two_defconfig          |  72 ++++
+ include/configs/usbarmory-mark-two.h          | 234 ++++++++++++
  11 files changed, 1122 insertions(+)
  create mode 100644 arch/arm/dts/imx6ull-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
@@ -27,11 +27,11 @@ Subject: [PATCH] ARM mx6 add support for USB armory Mk II board
  create mode 100644 include/configs/usbarmory-mark-two.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index 820ee9733a..be12560090 100644
+index f8f529435b..d297dba6c0 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -688,6 +688,7 @@ dtb-$(CONFIG_MX6ULL) += \
- 	imx6ull-colibri.dtb \
+@@ -729,6 +729,7 @@ dtb-$(CONFIG_MX6ULL) += \
+ 	imx6ull-myir-mys-6ulx-eval.dtb \
  	imx6ull-phytec-segin-ff-rdk-emmc.dtb \
  	imx6ull-dart-6ul.dtb \
 +	imx6ull-usbarmory.dtb \
@@ -245,24 +245,21 @@ index 0000000000..d5a616f703
 +	status = "okay";
 +};
 diff --git a/arch/arm/mach-imx/mx6/Kconfig b/arch/arm/mach-imx/mx6/Kconfig
-index f9f576d403..badebcec60 100644
+index 3d72517fa1..36b5d46c4b 100644
 --- a/arch/arm/mach-imx/mx6/Kconfig
 +++ b/arch/arm/mach-imx/mx6/Kconfig
-@@ -609,6 +609,13 @@ config TARGET_UDOO_NEO
+@@ -644,6 +644,10 @@ config TARGET_UDOO_NEO
+ 	select SUPPORT_SPL
+ 	imply CMD_DM
  
- config TARGET_SOFTING_VINING_2000
- 	bool "Softing VIN|ING 2000"
-+
 +config TARGET_USBARMORY_MARK_TWO
 +	bool "Support USB armory Mk II"
-+	select MX6ULL
++	depends on MX6ULL
 +
-+config TARGET_SAMTEC_VINING_2000
-+	bool "samtec VIN|ING 2000"
- 	select BOARD_LATE_INIT
- 	select DM
- 	select DM_THERMAL
-@@ -707,6 +714,7 @@ source "board/phytec/pcm058/Kconfig"
+ config TARGET_SOFTING_VINING_2000
+ 	bool "Softing VIN|ING 2000"
+ 	depends on MX6SX
+@@ -744,6 +748,7 @@ source "board/phytec/pcm058/Kconfig"
  source "board/phytec/pfla02/Kconfig"
  source "board/phytec/pcl063/Kconfig"
  source "board/gateworks/gw_ventana/Kconfig"
@@ -272,10 +269,10 @@ index f9f576d403..badebcec60 100644
  source "board/liebherr/display5/Kconfig"
 diff --git a/board/inversepath/usbarmory-mark-two/Kconfig b/board/inversepath/usbarmory-mark-two/Kconfig
 new file mode 100644
-index 0000000000..9a1afe8665
+index 0000000000..e13290b9a1
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/Kconfig
-@@ -0,0 +1,67 @@
+@@ -0,0 +1,71 @@
 +if TARGET_USBARMORY_MARK_TWO
 +
 +choice
@@ -332,6 +329,10 @@ index 0000000000..9a1afe8665
 +config IMX_CONFIG
 +	default "board/inversepath/usbarmory-mark-two/imximage-512mb.cfg" if SYS_DDR_512MB
 +	default "board/inversepath/usbarmory-mark-two/imximage-1gb.cfg" if SYS_DDR_1GB
++
++config SYS_MEMTEST_END
++	default 0xa0000000 if SYS_DDR_512MB
++	default 0xc0000000 if SYS_DDR_1G
 +
 +config SYS_BOARD
 +	default "usbarmory-mark-two"
@@ -561,7 +562,7 @@ index 0000000000..b856481b08
 +DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
 diff --git a/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
 new file mode 100644
-index 0000000000..c62805963d
+index 0000000000..97723992ba
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
 @@ -0,0 +1,347 @@
@@ -825,7 +826,7 @@ index 0000000000..c62805963d
 +	return 1;
 +}
 +
-+int board_mmc_init(bd_t *bis)
++int board_mmc_init(struct bd_info *bis)
 +{
 +	int ret = 0;
 +
@@ -837,7 +838,7 @@ index 0000000000..c62805963d
 +	return ret;
 +}
 +
-+int board_eth_init(bd_t *bis)
++int board_eth_init(struct bd_info *bis)
 +{
 +	return usb_eth_initialize(bis);
 +}
@@ -848,7 +849,7 @@ index 0000000000..c62805963d
 +	return 0;
 +}
 +
-+/* Enable FSUSB303 receptacle Type-C controller */
++/* Enable FUSB303 receptacle Type-C controller */
 +int fusb303_init(void)
 +{
 +	uchar val;
@@ -914,14 +915,15 @@ index 0000000000..c62805963d
 +#endif
 diff --git a/configs/usbarmory-mark-two_defconfig b/configs/usbarmory-mark-two_defconfig
 new file mode 100644
-index 0000000000..40c62172a1
+index 0000000000..85600f86ff
 --- /dev/null
 +++ b/configs/usbarmory-mark-two_defconfig
-@@ -0,0 +1,70 @@
+@@ -0,0 +1,72 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_MX6=y
 +CONFIG_SYS_TEXT_BASE=0x87800000
 +CONFIG_TARGET_USBARMORY_MARK_TWO=y
++CONFIG_MX6ULL=y
 +
 +CONFIG_SYS_DDR_512MB=y
 +# CONFIG_SYS_DDR_1GB is not set
@@ -945,6 +947,7 @@ index 0000000000..40c62172a1
 +CONFIG_USE_BOOTCOMMAND=y
 +CONFIG_DOS_PARTITION=y
 +CONFIG_FSL_USDHC=y
++CONFIG_SYS_MEMTEST_START=0x80000000
 +
 +# Commands
 +CONFIG_CMD_DHCP=y
@@ -990,10 +993,10 @@ index 0000000000..40c62172a1
 +CONFIG_USB_ETH_CDC=y
 diff --git a/include/configs/usbarmory-mark-two.h b/include/configs/usbarmory-mark-two.h
 new file mode 100644
-index 0000000000..38b50e0c67
+index 0000000000..4ad19fa8f5
 --- /dev/null
 +++ b/include/configs/usbarmory-mark-two.h
-@@ -0,0 +1,237 @@
+@@ -0,0 +1,234 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board configuration settings
@@ -1050,18 +1053,15 @@ index 0000000000..38b50e0c67
 +#define CONFIG_BOOTARGS "console=ttymxc1,115200 root=/dev/mmcblk" USBARMORY_BOOT_DEV "p1 rootwait rw"
 +
 +#define CONFIG_HOSTNAME		"usbarmory"
-+#define CONFIG_SYS_MEMTEST_START	0x80000000
 +#define CONFIG_SYS_CBSIZE	512
 +
 +/* DDR size config */
 +
 +#ifdef CONFIG_SYS_DDR_1GB
-+#define CONFIG_SYS_MEMTEST_END		CONFIG_SYS_MEMTEST_START + SZ_1G
 +#define BOOTENV_DDR_1GB		\
 +	"fdt_high=0xffffffff\0"	\
 +	"initrd_high=0xffffffff\0"
 +#else
-+#define CONFIG_SYS_MEMTEST_END		CONFIG_SYS_MEMTEST_START + SZ_512M
 +#define BOOTENV_DDR_1GB
 +#endif
 +
@@ -1232,5 +1232,5 @@ index 0000000000..38b50e0c67
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.27.0
+2.28.0
 
