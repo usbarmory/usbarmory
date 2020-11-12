@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-INTERLOCK_VERSION = dc0b87c6044ba4180b61892f4a58156de530df78
+INTERLOCK_VERSION = a0a1ade0d8da155190eb5f91da73b59fee9c8b8a
 INTERLOCK_SITE = $(call github,f-secure-foundry,interlock,$(INTERLOCK_VERSION))
 INTERLOCK_REPO = https://github.com/f-secure-foundry/interlock
 
