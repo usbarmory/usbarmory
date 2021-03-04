@@ -95,7 +95,6 @@
 &uart1 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_bluetooth>;
-	uart-has-rtscts;
 	status = "okay";
 };
 
