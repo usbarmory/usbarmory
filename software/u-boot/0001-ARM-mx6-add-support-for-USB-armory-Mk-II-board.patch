@@ -1,7 +1,7 @@
-From 5b0931a42a59f85b43d07ef0ff6cee161cab1baf Mon Sep 17 00:00:00 2001
+From ac926d690b82ddc27c9efb2f41cfa5c5051634d5 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
-Date: Fri, 12 Jun 2020 08:56:09 +0200
-Subject: [PATCH] ARM mx6 add support for USB armory Mk II board
+Date: Wed, 10 Mar 2021 15:49:12 +0100
+Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
 
 ---
  arch/arm/dts/Makefile                         |   1 +
@@ -27,10 +27,10 @@ Subject: [PATCH] ARM mx6 add support for USB armory Mk II board
  create mode 100644 include/configs/usbarmory-mark-two.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index f8f529435b..d297dba6c0 100644
+index fd47e408f8..2faf072a19 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -729,6 +729,7 @@ dtb-$(CONFIG_MX6ULL) += \
+@@ -739,6 +739,7 @@ dtb-$(CONFIG_MX6ULL) += \
  	imx6ull-myir-mys-6ulx-eval.dtb \
  	imx6ull-phytec-segin-ff-rdk-emmc.dtb \
  	imx6ull-dart-6ul.dtb \
@@ -245,10 +245,10 @@ index 0000000000..d5a616f703
 +	status = "okay";
 +};
 diff --git a/arch/arm/mach-imx/mx6/Kconfig b/arch/arm/mach-imx/mx6/Kconfig
-index 3d72517fa1..36b5d46c4b 100644
+index 513d007ce7..bfbc135fe4 100644
 --- a/arch/arm/mach-imx/mx6/Kconfig
 +++ b/arch/arm/mach-imx/mx6/Kconfig
-@@ -644,6 +644,10 @@ config TARGET_UDOO_NEO
+@@ -630,6 +630,10 @@ config TARGET_UDOO_NEO
  	select SUPPORT_SPL
  	imply CMD_DM
  
@@ -259,7 +259,7 @@ index 3d72517fa1..36b5d46c4b 100644
  config TARGET_SOFTING_VINING_2000
  	bool "Softing VIN|ING 2000"
  	depends on MX6SX
-@@ -744,6 +748,7 @@ source "board/phytec/pcm058/Kconfig"
+@@ -731,6 +735,7 @@ source "board/phytec/pcm058/Kconfig"
  source "board/phytec/pfla02/Kconfig"
  source "board/phytec/pcl063/Kconfig"
  source "board/gateworks/gw_ventana/Kconfig"
@@ -1229,5 +1229,5 @@ index 0000000000..55d069d538
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.30.1
+2.30.2
 
