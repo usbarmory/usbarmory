@@ -1,4 +1,4 @@
-From 95be43676d203a0edc0e4efa42059d51dd1eb712 Mon Sep 17 00:00:00 2001
+From 5b0931a42a59f85b43d07ef0ff6cee161cab1baf Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Fri, 12 Jun 2020 08:56:09 +0200
 Subject: [PATCH] ARM mx6 add support for USB armory Mk II board
@@ -13,9 +13,9 @@ Subject: [PATCH] ARM mx6 add support for USB armory Mk II board
  .../usbarmory-mark-two/imximage-1gb.cfg       |  87 +++++
  .../usbarmory-mark-two/imximage-512mb.cfg     |  89 +++++
  .../usbarmory-mark-two/usbarmory-mark-two.c   | 347 ++++++++++++++++++
- configs/usbarmory-mark-two_defconfig          |  72 ++++
- include/configs/usbarmory-mark-two.h          | 234 ++++++++++++
- 11 files changed, 1122 insertions(+)
+ configs/usbarmory-mark-two_defconfig          |  78 ++++
+ include/configs/usbarmory-mark-two.h          | 225 ++++++++++++
+ 11 files changed, 1119 insertions(+)
  create mode 100644 arch/arm/dts/imx6ull-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
  create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
@@ -915,10 +915,10 @@ index 0000000000..97723992ba
 +#endif
 diff --git a/configs/usbarmory-mark-two_defconfig b/configs/usbarmory-mark-two_defconfig
 new file mode 100644
-index 0000000000..85600f86ff
+index 0000000000..6edb83859c
 --- /dev/null
 +++ b/configs/usbarmory-mark-two_defconfig
-@@ -0,0 +1,72 @@
+@@ -0,0 +1,78 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_MX6=y
 +CONFIG_SYS_TEXT_BASE=0x87800000
@@ -991,12 +991,18 @@ index 0000000000..85600f86ff
 +# Ethernet gadget
 +CONFIG_USB_ETHER=y
 +CONFIG_USB_ETH_CDC=y
++
++# TEE support
++CONFIG_TEE=y
++CONFIG_OPTEE=y
++CONFIG_BOOTM_OPTEE=y
++CONFIG_LEGACY_IMAGE_FORMAT=y
 diff --git a/include/configs/usbarmory-mark-two.h b/include/configs/usbarmory-mark-two.h
 new file mode 100644
-index 0000000000..4ad19fa8f5
+index 0000000000..55d069d538
 --- /dev/null
 +++ b/include/configs/usbarmory-mark-two.h
-@@ -0,0 +1,234 @@
+@@ -0,0 +1,225 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board configuration settings
@@ -1054,16 +1060,6 @@ index 0000000000..4ad19fa8f5
 +
 +#define CONFIG_HOSTNAME		"usbarmory"
 +#define CONFIG_SYS_CBSIZE	512
-+
-+/* DDR size config */
-+
-+#ifdef CONFIG_SYS_DDR_1GB
-+#define BOOTENV_DDR_1GB		\
-+	"fdt_high=0xffffffff\0"	\
-+	"initrd_high=0xffffffff\0"
-+#else
-+#define BOOTENV_DDR_1GB
-+#endif
 +
 +/* scripts */
 +
@@ -1200,6 +1196,8 @@ index 0000000000..4ad19fa8f5
 +	"fdt_addr_r=0x82000000\0"		\
 +	"scriptaddr=0x80800000\0"		\
 +	"ramdisk_addr_r=0x83000000\0"		\
++	"fdt_high=0xffffffff\0"			\
++	"initrd_high=0xffffffff\0"		\
 +	"bootfile=zImage\0"			\
 +	"fdtfile=imx6ull-usbarmory.dtb\0"	\
 +	"mmcdev=" USBARMORY_BOOT_DEV "\0"	\
@@ -1213,7 +1211,6 @@ index 0000000000..4ad19fa8f5
 +	BOOTENV_TFTP				\
 +	BOOTENV_UMS				\
 +	BOOTENV_VERIFIED_OPEN			\
-+	BOOTENV_DDR_1GB				\
 +	BOOTENV
 +
 +/* Physical Memory Map */
@@ -1232,5 +1229,5 @@ index 0000000000..4ad19fa8f5
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.28.0
+2.30.1
 
