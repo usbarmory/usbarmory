@@ -1,4 +1,4 @@
-From ac926d690b82ddc27c9efb2f41cfa5c5051634d5 Mon Sep 17 00:00:00 2001
+From f8a3239e85920eee5f8ce47cc1f1b1fbe0bbe620 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Wed, 10 Mar 2021 15:49:12 +0100
 Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
@@ -14,8 +14,8 @@ Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
  .../usbarmory-mark-two/imximage-512mb.cfg     |  89 +++++
  .../usbarmory-mark-two/usbarmory-mark-two.c   | 347 ++++++++++++++++++
  configs/usbarmory-mark-two_defconfig          |  78 ++++
- include/configs/usbarmory-mark-two.h          | 225 ++++++++++++
- 11 files changed, 1119 insertions(+)
+ include/configs/usbarmory-mark-two.h          | 235 ++++++++++++
+ 11 files changed, 1129 insertions(+)
  create mode 100644 arch/arm/dts/imx6ull-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
  create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
@@ -999,10 +999,10 @@ index 0000000000..6edb83859c
 +CONFIG_LEGACY_IMAGE_FORMAT=y
 diff --git a/include/configs/usbarmory-mark-two.h b/include/configs/usbarmory-mark-two.h
 new file mode 100644
-index 0000000000..55d069d538
+index 0000000000..9ce638aeb1
 --- /dev/null
 +++ b/include/configs/usbarmory-mark-two.h
-@@ -0,0 +1,225 @@
+@@ -0,0 +1,235 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board configuration settings
@@ -1151,6 +1151,13 @@ index 0000000000..55d069d538
 +		"ext2load mmc ${mmcdev}:1 ${fdt_addr_r} /boot/${fdtfile} ; "	\
 +		"bootz ${kernel_addr_r} - ${fdt_addr_r}\0"
 +
++#define BOOTENV_OPTEE								\
++	"start_optee="					\
++		"ext2load mmc ${mmcdev}:1 ${optee_addr_r} /boot/${opteefile} ; "\
++		"ext2load mmc ${mmcdev}:1 ${kernel_addr_r} /boot/${bootfile} ; "\
++		"ext2load mmc ${mmcdev}:1 ${fdt_addr_r} /boot/${fdtfile} ; "	\
++		"bootm ${optee_addr_r} - ${fdt_addr_r}\0"
++
 +/* Boot modes */
 +
 +#ifdef CONFIG_SYS_BOOT_MODE_UMS
@@ -1196,9 +1203,11 @@ index 0000000000..55d069d538
 +	"fdt_addr_r=0x82000000\0"		\
 +	"scriptaddr=0x80800000\0"		\
 +	"ramdisk_addr_r=0x83000000\0"		\
++	"optee_addr_r=0x83000000\0"		\
 +	"fdt_high=0xffffffff\0"			\
 +	"initrd_high=0xffffffff\0"		\
 +	"bootfile=zImage\0"			\
++	"opteefile=uTee\0"			\
 +	"fdtfile=imx6ull-usbarmory.dtb\0"	\
 +	"mmcdev=" USBARMORY_BOOT_DEV "\0"	\
 +	"ethact=usb_ether\0"			\
@@ -1208,6 +1217,7 @@ index 0000000000..55d069d538
 +	BOOTENV_CHECK_SILICON_REVISION		\
 +	BOOTENV_CHECK_OTPMK			\
 +	BOOTENV_NORMAL				\
++	BOOTENV_OPTEE				\
 +	BOOTENV_TFTP				\
 +	BOOTENV_UMS				\
 +	BOOTENV_VERIFIED_OPEN			\
