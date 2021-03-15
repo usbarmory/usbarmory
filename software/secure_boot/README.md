@@ -1,7 +1,7 @@
 ### NXP HABv4 Secure Boot utility
 
-This directory includes two Ruby scripts that can be used to create NXP HABv4
-secure boot tables and signed images.
+This directory includes scripts that can be used to create NXP HABv4 secure
+boot keys, tables and signed images.
 
 Please note that our [crucible](https://github.com/f-secure-foundry/crucible)
 package provides a more modern replacement with the
