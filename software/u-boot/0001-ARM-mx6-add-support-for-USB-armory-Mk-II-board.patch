@@ -1,7 +1,7 @@
-From 95be43676d203a0edc0e4efa42059d51dd1eb712 Mon Sep 17 00:00:00 2001
+From f8a3239e85920eee5f8ce47cc1f1b1fbe0bbe620 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
-Date: Fri, 12 Jun 2020 08:56:09 +0200
-Subject: [PATCH] ARM mx6 add support for USB armory Mk II board
+Date: Wed, 10 Mar 2021 15:49:12 +0100
+Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
 
 ---
  arch/arm/dts/Makefile                         |   1 +
@@ -13,9 +13,9 @@ Subject: [PATCH] ARM mx6 add support for USB armory Mk II board
  .../usbarmory-mark-two/imximage-1gb.cfg       |  87 +++++
  .../usbarmory-mark-two/imximage-512mb.cfg     |  89 +++++
  .../usbarmory-mark-two/usbarmory-mark-two.c   | 347 ++++++++++++++++++
- configs/usbarmory-mark-two_defconfig          |  72 ++++
- include/configs/usbarmory-mark-two.h          | 234 ++++++++++++
- 11 files changed, 1122 insertions(+)
+ configs/usbarmory-mark-two_defconfig          |  78 ++++
+ include/configs/usbarmory-mark-two.h          | 235 ++++++++++++
+ 11 files changed, 1129 insertions(+)
  create mode 100644 arch/arm/dts/imx6ull-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
  create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
@@ -27,10 +27,10 @@ Subject: [PATCH] ARM mx6 add support for USB armory Mk II board
  create mode 100644 include/configs/usbarmory-mark-two.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index f8f529435b..d297dba6c0 100644
+index fd47e408f8..2faf072a19 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -729,6 +729,7 @@ dtb-$(CONFIG_MX6ULL) += \
+@@ -739,6 +739,7 @@ dtb-$(CONFIG_MX6ULL) += \
  	imx6ull-myir-mys-6ulx-eval.dtb \
  	imx6ull-phytec-segin-ff-rdk-emmc.dtb \
  	imx6ull-dart-6ul.dtb \
@@ -245,10 +245,10 @@ index 0000000000..d5a616f703
 +	status = "okay";
 +};
 diff --git a/arch/arm/mach-imx/mx6/Kconfig b/arch/arm/mach-imx/mx6/Kconfig
-index 3d72517fa1..36b5d46c4b 100644
+index 513d007ce7..bfbc135fe4 100644
 --- a/arch/arm/mach-imx/mx6/Kconfig
 +++ b/arch/arm/mach-imx/mx6/Kconfig
-@@ -644,6 +644,10 @@ config TARGET_UDOO_NEO
+@@ -630,6 +630,10 @@ config TARGET_UDOO_NEO
  	select SUPPORT_SPL
  	imply CMD_DM
  
@@ -259,7 +259,7 @@ index 3d72517fa1..36b5d46c4b 100644
  config TARGET_SOFTING_VINING_2000
  	bool "Softing VIN|ING 2000"
  	depends on MX6SX
-@@ -744,6 +748,7 @@ source "board/phytec/pcm058/Kconfig"
+@@ -731,6 +735,7 @@ source "board/phytec/pcm058/Kconfig"
  source "board/phytec/pfla02/Kconfig"
  source "board/phytec/pcl063/Kconfig"
  source "board/gateworks/gw_ventana/Kconfig"
@@ -915,10 +915,10 @@ index 0000000000..97723992ba
 +#endif
 diff --git a/configs/usbarmory-mark-two_defconfig b/configs/usbarmory-mark-two_defconfig
 new file mode 100644
-index 0000000000..85600f86ff
+index 0000000000..6edb83859c
 --- /dev/null
 +++ b/configs/usbarmory-mark-two_defconfig
-@@ -0,0 +1,72 @@
+@@ -0,0 +1,78 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_MX6=y
 +CONFIG_SYS_TEXT_BASE=0x87800000
@@ -991,12 +991,18 @@ index 0000000000..85600f86ff
 +# Ethernet gadget
 +CONFIG_USB_ETHER=y
 +CONFIG_USB_ETH_CDC=y
++
++# TEE support
++CONFIG_TEE=y
++CONFIG_OPTEE=y
++CONFIG_BOOTM_OPTEE=y
++CONFIG_LEGACY_IMAGE_FORMAT=y
 diff --git a/include/configs/usbarmory-mark-two.h b/include/configs/usbarmory-mark-two.h
 new file mode 100644
-index 0000000000..4ad19fa8f5
+index 0000000000..9ce638aeb1
 --- /dev/null
 +++ b/include/configs/usbarmory-mark-two.h
-@@ -0,0 +1,234 @@
+@@ -0,0 +1,235 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board configuration settings
@@ -1054,16 +1060,6 @@ index 0000000000..4ad19fa8f5
 +
 +#define CONFIG_HOSTNAME		"usbarmory"
 +#define CONFIG_SYS_CBSIZE	512
-+
-+/* DDR size config */
-+
-+#ifdef CONFIG_SYS_DDR_1GB
-+#define BOOTENV_DDR_1GB		\
-+	"fdt_high=0xffffffff\0"	\
-+	"initrd_high=0xffffffff\0"
-+#else
-+#define BOOTENV_DDR_1GB
-+#endif
 +
 +/* scripts */
 +
@@ -1155,6 +1151,13 @@ index 0000000000..4ad19fa8f5
 +		"ext2load mmc ${mmcdev}:1 ${fdt_addr_r} /boot/${fdtfile} ; "	\
 +		"bootz ${kernel_addr_r} - ${fdt_addr_r}\0"
 +
++#define BOOTENV_OPTEE								\
++	"start_optee="					\
++		"ext2load mmc ${mmcdev}:1 ${optee_addr_r} /boot/${opteefile} ; "\
++		"ext2load mmc ${mmcdev}:1 ${kernel_addr_r} /boot/${bootfile} ; "\
++		"ext2load mmc ${mmcdev}:1 ${fdt_addr_r} /boot/${fdtfile} ; "	\
++		"bootm ${optee_addr_r} - ${fdt_addr_r}\0"
++
 +/* Boot modes */
 +
 +#ifdef CONFIG_SYS_BOOT_MODE_UMS
@@ -1200,7 +1203,11 @@ index 0000000000..4ad19fa8f5
 +	"fdt_addr_r=0x82000000\0"		\
 +	"scriptaddr=0x80800000\0"		\
 +	"ramdisk_addr_r=0x83000000\0"		\
++	"optee_addr_r=0x83000000\0"		\
++	"fdt_high=0xffffffff\0"			\
++	"initrd_high=0xffffffff\0"		\
 +	"bootfile=zImage\0"			\
++	"opteefile=uTee\0"			\
 +	"fdtfile=imx6ull-usbarmory.dtb\0"	\
 +	"mmcdev=" USBARMORY_BOOT_DEV "\0"	\
 +	"ethact=usb_ether\0"			\
@@ -1210,10 +1217,10 @@ index 0000000000..4ad19fa8f5
 +	BOOTENV_CHECK_SILICON_REVISION		\
 +	BOOTENV_CHECK_OTPMK			\
 +	BOOTENV_NORMAL				\
++	BOOTENV_OPTEE				\
 +	BOOTENV_TFTP				\
 +	BOOTENV_UMS				\
 +	BOOTENV_VERIFIED_OPEN			\
-+	BOOTENV_DDR_1GB				\
 +	BOOTENV
 +
 +/* Physical Memory Map */
@@ -1232,5 +1239,5 @@ index 0000000000..4ad19fa8f5
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.28.0
+2.30.2
 
