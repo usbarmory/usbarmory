@@ -17,10 +17,10 @@ Andrea Barisani
 andrea.barisani@f-secure.com | andrea@inversepath.com  
 
 Andrej Rosano  
-andrej.rosano@f-secure.com   | andrej@inversepath.com  
+andrej.rosano@f-secure.com | andrej@inversepath.com  
 
 Daniele Bianco  
-daniele.bianco@f-secure.com   | daniele@inversepath.com  
+daniele.bianco@f-secure.com | daniele@inversepath.com  
 
 Documentation
 =============
@@ -47,10 +47,9 @@ USB armory | https://github.com/f-secure-foundry/usbarmory
 Copyright (c) F-Secure Corporation
 
 This is an open hardware design licensed under the terms of the CERN Open
-Hardware Licence (OHL) v1.2.
+Hardware Licence, see board revisions for applicable versions.
 
-You may redistribute and modify this documentation under the terms of the CERN
-OHL v.1.2 (http://ohwr.org/cernohl). This documentation is distributed WITHOUT
-ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING OF MERCHANTABILITY, SATISFACTORY
-QUALITY AND FITNESS FOR A PARTICULAR PURPOSE. Please see the CERN OHL v.1.2 for
-applicable conditions.
+This source is distributed WITHOUT ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING
+OF MERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
+Please see LICENSE files in each source subdirectory for applicable conditions.
