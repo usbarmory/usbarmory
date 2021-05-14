@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-INTERLOCK_VERSION = a0a1ade0d8da155190eb5f91da73b59fee9c8b8a
+INTERLOCK_VERSION = fb4251db69cf9df8ab213adb3402decb55afe4d8
 INTERLOCK_SITE = $(call github,f-secure-foundry,interlock,$(INTERLOCK_VERSION))
 INTERLOCK_REPO = https://github.com/f-secure-foundry/interlock
 
@@ -28,8 +28,6 @@ INTERLOCK_MAKE_TARGET="build"
 
 define INTERLOCK_INSTALL_TARGET_CMDS
 	$(TARGET_MAKE_ENV) $(MAKE) $(INTERLOCK_MAKE_TARGET) GOARCH=arm CC=$(TARGET_CC) CGO_ENABLED=1 -C $(@D)
-	mkdir -p $(TARGET_DIR)/usr/share/interlock
-	cp -r $(@D)/static $(TARGET_DIR)/usr/share/interlock
 	$(INSTALL) -m 0755 -D $(@D)/interlock $(TARGET_DIR)/usr/bin/interlock
 endef
 
