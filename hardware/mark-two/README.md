@@ -8,13 +8,12 @@ The USB armory from [F-Secure Foundry](https://foundry.f-secure.com) is an open
 source hardware design, implementing a flash drive sized computer.
 
 This repository is aimed towards developers, if you wish to purchase a USB
-armory board please see the [USB armory project page](https://www.f-secure.com/en/consulting/foundry/usb-armory).
+armory board please see the [ordering information](https://github.com/f-secure-foundry/usbarmory/wiki/Ordering-information).
 
 Revision information
 ====================
 
-This directory contains the hardware design for the USB armory board, second
-revision (Mark II).
+This directory contains the hardware design for the USB armory Mk II rev. β.
 
 Current schematics and layout files have been designed in KiCad 5.1.4.
 

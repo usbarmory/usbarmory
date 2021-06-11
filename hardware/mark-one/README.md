@@ -8,7 +8,7 @@ The USB armory from [F-Secure Foundry](https://foundry.f-secure.com) is an open
 source hardware design, implementing a flash drive sized computer.
 
 This repository is aimed towards developers, if you wish to purchase a USB
-armory board please see the [ordering information](https://github.com/f-secure-foundry/usbarmory/wiki#purchasing).
+armory board please see the [ordering information](https://github.com/f-secure-foundry/usbarmory/wiki/Ordering-information).
 
 Revision information
 ====================
