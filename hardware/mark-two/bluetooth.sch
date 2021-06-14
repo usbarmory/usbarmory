@@ -1,17 +1,16 @@
 EESchema Schematic File Version 4
-LIBS:armory-cache
 EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 9 13
-Title "USB ARMORY"
-Date "2019-06-25"
-Rev "MARK II"
+Title "USB armory Mk II"
+Date "2021-02-18"
+Rev "γ"
 Comp "F-Secure"
-Comment1 "Copyright © 2019 F-Secure"
-Comment2 "License: CERN OHL v1.2"
-Comment3 "https://github.com/inversepath/usbarmory"
+Comment1 "Copyright © F-Secure Corporation"
+Comment2 "License: CERN-OHL-S"
+Comment3 "https://github.com/f-secure-foundry/usbarmory"
 Comment4 ""
 $EndDescr
 $Comp
@@ -27,6 +26,7 @@ F 5 "ANNA-B112-01B" H 7900 3550 50  0001 C CNN "Mfg PN"
 F 6 "BLE interface" H 7900 3550 50  0001 C CNN "Desc"
 F 7 "-" H 7900 3550 50  0001 C CNN "Supplier"
 F 8 "-" H 7900 3550 50  0001 C CNN "Supplier PN"
+F 9 "ANNA-B112-00B" H 7900 3550 50  0001 C CNN "Alternative PN"
 	1    7900 3550
 	1    0    0    -1  
 $EndComp
@@ -134,27 +134,27 @@ Connection ~ 9100 6650
 Wire Wire Line
 	9100 6650 9100 6850
 Text GLabel 5400 3750 0    50   Input ~ 0
-BT_3V3
+DCDC_3V3
 Text Label 6400 3750 0    50   ~ 0
-BT_3V3
+DCDC_3V3
 Text GLabel 5400 6450 0    50   Input ~ 0
 BT_UART_TX
 Text GLabel 5400 6350 0    50   Output ~ 0
 BT_UART_RX
 Text GLabel 5400 6550 0    50   Output ~ 0
-BT_UART_CTS
-Text GLabel 5400 6650 0    50   Input ~ 0
 BT_UART_RTS
+Text GLabel 5400 6650 0    50   Input ~ 0
+BT_UART_CTS
 Text Label 6400 5200 0    50   ~ 0
 SWD_IO
 Text Label 6400 5300 0    50   ~ 0
 SWD_CLK
-Text Notes 9600 4850 0    50   ~ 0
-XL1 and XL2: floating as manufacturer advises to keep unconnected when using the internal oscillator ([1] pg 9)\nHowever this results in faulty behavior, see errata at\nhttps://github.com/inversepath/usbarmory/wiki/Errata-(Mk-II)
+Text Notes 9600 4700 0    50   ~ 0
+When using internal oscillator XL1 and XL2 should be connected to ground ([1] pg 11).
 Text Notes 9600 4150 0    50   ~ 0
 Use internal antenna.
 Text Notes 1050 10750 0    50   ~ 0
-[1] ANNA-B112 - System Integration Manual (UBX-18009821-R04)
+[1] ANNA-B112 - System Integration Manual (UBX-18009821-R07)
 $Comp
 L power:GND #PWR?
 U 1 1 5C0C4735
@@ -189,8 +189,6 @@ Text GLabel 5400 5400 0    50   Input ~ 0
 BT_RESET_B
 NoConn ~ 8900 4350
 NoConn ~ 8900 4450
-NoConn ~ 8900 4650
-NoConn ~ 8900 4750
 NoConn ~ 6900 4450
 NoConn ~ 6900 4550
 NoConn ~ 6900 4650
@@ -227,9 +225,9 @@ BT_UART_RX
 Text Label 6400 6450 0    50   ~ 0
 BT_UART_TX
 Text Label 6400 6550 0    50   ~ 0
-BT_UART_CTS
-Text Label 6400 6650 0    50   ~ 0
 BT_UART_RTS
+Text Label 6400 6650 0    50   ~ 0
+BT_UART_CTS
 Text GLabel 5400 5750 0    50   Input ~ 0
 BT_SWITCH_1
 Text GLabel 5400 5950 0    50   Input ~ 0
@@ -336,4 +334,14 @@ Wire Wire Line
 	5400 6450 5750 6450
 Text Notes 2750 7975 0    50   ~ 0
 It has been witnessed that the ANNA-B112 can be back-powered via\nUART pins. To turn completelly off the module all the interfaces pins\nshould be kept low.
+Wire Wire Line
+	8900 4750 9100 4750
+Wire Wire Line
+	9100 4750 9100 4950
+Connection ~ 9100 4950
+Wire Wire Line
+	8900 4650 9100 4650
+Wire Wire Line
+	9100 4650 9100 4750
+Connection ~ 9100 4750
 $EndSCHEMATC

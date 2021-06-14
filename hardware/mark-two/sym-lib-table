@@ -2,4 +2,5 @@
   (lib (name armory)(type Legacy)(uri ${KIPRJMOD}/../lib/armory.lib)(options "")(descr ""))
   (lib (name armory-mkII)(type Legacy)(uri ${KIPRJMOD}/../lib/armory-mkII.lib)(options "")(descr ""))
   (lib (name snapeda)(type Legacy)(uri ${KIPRJMOD}/../lib/snapeda.lib)(options "")(descr ""))
+  (lib (name armory-rescue)(type Legacy)(uri ${KIPRJMOD}/armory-rescue.lib)(options "")(descr ""))
 )

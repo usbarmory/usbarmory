@@ -1,17 +1,16 @@
 EESchema Schematic File Version 4
-LIBS:armory-cache
 EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 2 13
-Title "USB ARMORY"
-Date "2019-06-25"
-Rev "MARK II"
+Title "USB armory Mk II"
+Date "2021-02-18"
+Rev "γ"
 Comp "F-Secure"
-Comment1 "Copyright © 2019 F-Secure"
-Comment2 "License: CERN OHL v1.2"
-Comment3 "https://github.com/inversepath/usbarmory"
+Comment1 "Copyright © F-Secure Corporation"
+Comment2 "License: CERN-OHL-S"
+Comment3 "https://github.com/f-secure-foundry/usbarmory"
 Comment4 ""
 $EndDescr
 $Comp
@@ -22,6 +21,7 @@ F 0 "U2" H 7175 2875 70  0000 C CNN
 F 1 "MX6UL-VM" H 7175 -2025 60  0000 C CNN
 F 2 "armory-kicad:SOT1534-2" H 7685 1665 60  0001 C CNN
 F 3 "https://www.nxp.com/docs/en/data-sheet/IMX6ULCEC.pdf" H 7685 1665 60  0001 C CNN
+F 4 "MCIMX6Z0DVM09AB" H 7175 2825 50  0001 C CNN "Mfg PN"
 	11   7175 2825
 	1    0    0    -1  
 $EndComp
@@ -79,6 +79,7 @@ F 5 "CM7V-T1A-32.768kHz-12.5pF-20PPM-TA-QC" H 4475 6675 50  0001 C CNN "Mfg PN"
 F 6 "12.5pF" H 4475 6475 30  0001 C CNN "Desc"
 F 7 "Mouser" H 4475 6675 50  0001 C CNN "Supplier"
 F 8 "428-200458-MG01" H 4475 6675 50  0001 C CNN "Supplier PN"
+F 9 "CM7V-T1A-32.768kHz-12.5pF-20PPM-TA-QA" H 4475 6675 50  0001 C CNN "Alternative PN"
 	1    4475 6675
 	1    0    0    -1  
 $EndComp
@@ -136,6 +137,7 @@ F 7 "Digikey" H 4225 7075 50  0001 C CNN "Supplier"
 F 8 "490-6117-2-ND" H 4225 7075 50  0001 C CNN "Supplier PN"
 F 9 "0201" H 4225 7075 30  0000 C CNN "FP"
 F 10 "50V/5%" H 4325 6925 30  0000 C CNN "Rating"
+F 11 "GRM0335C1H180GA01D" H 4225 7075 50  0001 C CNN "Alternative PN"
 	1    4225 7075
 	1    0    0    -1  
 $EndComp
@@ -157,7 +159,7 @@ Text GLabel 10125 5325 2    50   Output ~ 0
 BT_UART_TX
 Text GLabel 10125 5425 2    50   Input ~ 0
 BT_UART_RX
-Text GLabel 10125 5625 2    50   Input ~ 0
+Text GLabel 10125 5625 2    50   Output ~ 0
 BT_UART_CTS
 Wire Wire Line
 	10075 6325 8475 6325
@@ -346,6 +348,7 @@ F 7 "Digikey" H 4725 7075 50  0001 C CNN "Supplier"
 F 8 "490-6117-2-ND" H 4725 7075 50  0001 C CNN "Supplier PN"
 F 9 "0201" H 4725 7075 30  0000 C CNN "FP"
 F 10 "50V/5%" H 4825 6925 30  0000 C CNN "Rating"
+F 11 "GRM0335C1H180GA01D" H 4725 7075 50  0001 C CNN "Alternative PN"
 	1    4725 7075
 	1    0    0    -1  
 $EndComp
@@ -691,6 +694,7 @@ F 5 "TSX-3225 24.0000MF15X-AC3" H 3375 5725 50  0001 C CNN "Mfg PN"
 F 6 "9 pF" H 3375 5725 50  0001 C CNN "Desc"
 F 7 "Digikey" H 3375 5725 50  0001 C CNN "Supplier"
 F 8 "SER3635TR-ND" H 3375 5725 50  0001 C CNN "Supplier PN"
+F 9 "TSX-3225 24.0000MF15X-AC6" H 3375 5725 50  0001 C CNN "Alternative PN"
 	1    3375 5725
 	-1   0    0    1   
 $EndComp
@@ -720,9 +724,9 @@ Wire Notes Line
 Wire Notes Line
 	12025 5675 12025 7375
 Text Notes 12725 7275 0    30   ~ 0
-ULZ pad name: I2C2_SDA -> ECSPI2_MISO [ALT8] / I2C2_SDA [ALT2] / GPIO1_IO31 [ALT5]
+ULZ pad name: I2C2_SDA -> ECSPI2_SDI [ALT8] / I2C2_SDA [ALT2] / GPIO1_IO31 [ALT5]
 Text Notes 12725 7175 0    30   ~ 0
-ULZ pad name: I2C2_SCL -> ECSPI2_MOSI [ALT8] / I2C2_SCL [ALT2] / GPIO1_IO30 [ALT5]
+ULZ pad name: I2C2_SCL -> ECSPI2_SDO [ALT8] / I2C2_SCL [ALT2] / GPIO1_IO30 [ALT5]
 Text Notes 12725 6875 0    50   ~ 0
 UART4_TX [ALT0] / ECSPI2_SCLK [ALT8] / I2C1_SCL [ALT2] / GPIO1_IO28 [ALT5]
 Text Notes 12725 6175 0    30   ~ 0
@@ -733,36 +737,36 @@ Text Notes 12725 5975 0    30   ~ 0
 ULZ: UART2_RX [ALT0] / GPIO1_IO21 [ALT5]
 Text Notes 12050 5650 0    50   ~ 0
 Type-C Debug Mode interface
-Text GLabel 12125 7125 2    50   BiDi ~ 0
+Text GLabel 12125 7125 2    50   Output ~ 0
 UART5_TX
-Text GLabel 12125 7225 2    50   BiDi ~ 0
+Text GLabel 12125 7225 2    50   Input ~ 0
 UART5_RX
-Text GLabel 12125 6925 2    50   BiDi ~ 0
+Text GLabel 12125 6925 2    50   Input ~ 0
 UART4_RX
-Text GLabel 12125 6825 2    50   BiDi ~ 0
+Text GLabel 12125 6825 2    50   Output ~ 0
 UART4_TX
-Text GLabel 12125 6025 2    50   BiDi ~ 0
+Text GLabel 12125 6025 2    50   Input ~ 0
 UART2_RTS
-Text GLabel 12125 6125 2    50   BiDi ~ 0
+Text GLabel 12125 6125 2    50   Output ~ 0
 UART2_CTS
-Text GLabel 12125 5925 2    50   BiDi ~ 0
+Text GLabel 12125 5925 2    50   Input ~ 0
 UART2_RX
-Text GLabel 12125 5825 2    50   BiDi ~ 0
+Text GLabel 12125 5825 2    50   Output ~ 0
 UART2_TX
 Text Notes 12725 7225 0    30   ~ 0
-UART5_RX [ALT0] / ECSPI2_MISO [ALT8] / I2C2_SDA [ALT2] / GPIO1_IO31 [ALT5]
+UART5_RX [ALT0] / ECSPI2_SDI [ALT8] / I2C2_SDA [ALT2] / GPIO1_IO31 [ALT5]
 Text Notes 12725 7125 0    30   ~ 0
-UART5_TX [ALT0] / ECSPI2_MOSI [ALT8] / I2C2_SCL [ALT2] / GPIO1_IO30 [ALT5]
+UART5_TX [ALT0] / ECSPI2_SDO [ALT8] / I2C2_SCL [ALT2] / GPIO1_IO30 [ALT5]
 Text Notes 12725 6975 0    50   ~ 0
-UART4_RX [ALT0] / ECSPI2_SS0 [ALT8] / I2C1_SDA [ALT2] / GPIO1_IO29 [ALT5]
+UART4_RX [ALT0] / ECSPI2_CS0 [ALT8] / I2C1_SDA [ALT2] / GPIO1_IO29 [ALT5]
 Text Notes 12725 6025 0    30   ~ 0
-UART2_RTS_B [ALT0] / ECSPI3_MISO [ALT8] / FLEXCAN2_RX [ALT2] / GPIO1_IO23 [ALT5]
+UART2_RTS_B [ALT0] / ECSPI3_SDI [ALT8] / FLEXCAN2_RX [ALT2] / GPIO1_IO23 [ALT5]
 Text Notes 12725 6125 0    30   ~ 0
-UART2_CTS_B [ALT0] / ECSPI3_MOSI [ALT8] / FLEXCAN2_TX [ALT2] / GPIO1_IO22 [ALT5]
+UART2_CTS_B [ALT0] / ECSPI3_SDO [ALT8] / FLEXCAN2_TX [ALT2] / GPIO1_IO22 [ALT5]
 Text Notes 12725 5925 0    30   ~ 0
 UART2_RX [ALT0] / ECSPI3_SCLK [ALT8] / I2C4_SDA [ALT2] / GPIO1_IO21 [ALT5]
 Text Notes 12725 5825 0    30   ~ 0
-UART2_TX [ALT0] / ECSPI3_SS0 [ALT8] / I2C4_SCL [ALT2] / GPIO1_IO20 [ALT5]
+UART2_TX [ALT0] / ECSPI3_CS0 [ALT8] / I2C4_SCL [ALT2] / GPIO1_IO20 [ALT5]
 Wire Wire Line
 	12125 6025 8475 6025
 Wire Wire Line

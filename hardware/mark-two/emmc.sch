@@ -1,17 +1,16 @@
 EESchema Schematic File Version 4
-LIBS:armory-cache
 EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 3 13
-Title "USB ARMORY"
-Date "2019-06-25"
-Rev "MARK II"
+Title "USB armory Mk II"
+Date "2021-02-18"
+Rev "γ"
 Comp "F-Secure"
-Comment1 "Copyright © 2019 F-Secure"
-Comment2 "License: CERN OHL v1.2"
-Comment3 "https://github.com/inversepath/usbarmory"
+Comment1 "Copyright © F-Secure Corporation"
+Comment2 "License: CERN-OHL-S"
+Comment3 "https://github.com/f-secure-foundry/usbarmory"
 Comment4 ""
 $EndDescr
 $Comp
@@ -29,6 +28,7 @@ F 5 "EMMC16G-TB29-PZ90" H 12350 4650 50  0001 C CNN "Mfg PN"
 F 6 "eMMC 16GB" H 12350 4650 50  0001 C CNN "Desc"
 F 7 "Avnet" H 12350 4650 50  0001 C CNN "Supplier"
 F 8 "-" H 12350 4650 50  0001 C CNN "Supplier PN"
+F 9 "FEMDNN016G-58A43, FEMDRM016G-58A43 " H 12350 4650 50  0001 C CNN "Alternative PN"
 	1    12350 4650
 	1    0    0    -1  
 $EndComp
@@ -121,7 +121,6 @@ NoConn ~ 4400 8000
 NoConn ~ 4400 8100
 NoConn ~ 4400 8200
 NoConn ~ 4400 8300
-NoConn ~ 4400 8500
 NoConn ~ 4400 8600
 NoConn ~ 4400 8700
 NoConn ~ 4400 8800
@@ -187,6 +186,7 @@ F 0 "U2" H 3450 900 70  0000 C CNN
 F 1 "MX6UL-VM" H 3450 -1750 60  0000 C CNN
 F 2 "armory-kicad:SOT1534-2" H 3960 -310 60  0001 C CNN
 F 3 "https://www.nxp.com/docs/en/data-sheet/IMX6ULCEC.pdf" H 3960 -310 60  0001 C CNN
+F 4 "MCIMX6Z0DVM09AB" H 3450 850 50  0001 C CNN "Mfg PN"
 	3    3450 850 
 	1    0    0    -1  
 $EndComp
@@ -221,6 +221,8 @@ F 0 "U3" H 3500 4200 50  0000 C CNN
 F 1 "EMMC16G" H 3500 -2300 50  0000 C CNN
 F 2 "snapeda:FBGA-153" H 3850 4150 50  0001 C CNN
 F 3 "https://media.kingston.com/pdfs/emmc/eMMC_Product_flyer.pdf" H 3850 4150 50  0001 C CNN
+F 4 "FEMDNN016G-58A43, FEMDRM016G-58A43 " H 3500 4150 50  0001 C CNN "Alternative PN"
+F 5 "EMMC16G-TB29-PZ90" H 3500 4150 50  0001 C CNN "Mfg PN"
 	2    3500 4150
 	1    0    0    -1  
 $EndComp
@@ -363,9 +365,9 @@ Wire Wire Line
 Wire Wire Line
 	13450 6250 14100 6250
 Text GLabel 1700 1350 0    50   Input ~ 0
-DCDC_3V3
+EMMC_1V8
 Text Label 1750 1350 0    50   ~ 0
-DCDC_3V3
+EMMC_1V8
 $Comp
 L Device:C C?
 U 1 1 5C74096A
@@ -498,15 +500,15 @@ $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5CE566A8
-P 4800 8450
+P 5250 8450
 AR Path="/5BEA6694/5CE566A8" Ref="#PWR?"  Part="1" 
 AR Path="/53722D05/5CE566A8" Ref="#PWR0103"  Part="1" 
 AR Path="/5C0717D2/5CE566A8" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0103" H 4800 8200 50  0001 C CNN
-F 1 "GND" H 4805 8277 50  0000 C CNN
-F 2 "" H 4800 8450 50  0001 C CNN
-F 3 "" H 4800 8450 50  0001 C CNN
-	1    4800 8450
+F 0 "#PWR0103" H 5250 8200 50  0001 C CNN
+F 1 "GND" H 5255 8277 50  0000 C CNN
+F 2 "" H 5250 8450 50  0001 C CNN
+F 3 "" H 5250 8450 50  0001 C CNN
+	1    5250 8450
 	1    0    0    -1  
 $EndComp
 Text Notes 2750 10850 0    50   ~ 0
@@ -524,7 +526,7 @@ SD2_DATA5
 Wire Wire Line
 	2200 7600 2600 7600
 Text Label 7450 4350 0    50   ~ 0
-DCDC_3V3
+EMMC_1V8
 Text Label 10900 2550 0    50   ~ 0
 DCDC_3V3
 Text Label 13600 5000 0    50   ~ 0
@@ -533,10 +535,6 @@ Wire Wire Line
 	2200 7800 2600 7800
 Wire Wire Line
 	2200 7800 2200 7850
-Wire Wire Line
-	4800 8450 4800 8400
-Wire Wire Line
-	4400 8400 4800 8400
 $Comp
 L Device:C C?
 U 1 1 5D389A76
@@ -799,10 +797,6 @@ Connection ~ 13500 5950
 Wire Wire Line
 	13500 5950 13500 5850
 Wire Wire Line
-	13500 5450 13500 5650
-Connection ~ 13500 5450
-Connection ~ 13500 5650
-Wire Wire Line
 	13500 5650 13500 5750
 Wire Wire Line
 	13500 5150 13500 5000
@@ -1048,6 +1042,21 @@ Wire Wire Line
 Connection ~ 2000 1350
 Wire Wire Line
 	2000 1350 2150 1350
-Text Notes 10950 8600 0    100  ~ 0
- 4GB: Kingston EMMC04G-M627-X02U\n 8GB: Kingston EMMC08G-M325-X01U\n16GB: Kingston EMMC16G-TB29-PZ90
+Text Label 13600 5500 0    50   ~ 0
+EMMC_1V8
+Wire Wire Line
+	13500 5500 14000 5500
+Wire Wire Line
+	13500 5500 13500 5650
+Connection ~ 13500 5650
+Text GLabel 10900 2550 0    50   Input ~ 0
+DCDC_3V3
+Wire Wire Line
+	4400 8500 5000 8500
+Text Label 4600 8500 0    50   ~ 0
+EMMC_1V8
+Wire Wire Line
+	5250 8400 5250 8450
+Wire Wire Line
+	4400 8400 5250 8400
 $EndSCHEMATC

@@ -1,17 +1,16 @@
 EESchema Schematic File Version 4
-LIBS:armory-cache
 EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 13
-Title "USB ARMORY"
-Date "2019-06-25"
-Rev "MARK II"
+Title "USB armory Mk II"
+Date "2021-02-18"
+Rev "γ"
 Comp "F-Secure"
-Comment1 "Copyright © 2019 F-Secure"
-Comment2 "License: CERN OHL v1.2"
-Comment3 "https://github.com/inversepath/usbarmory"
+Comment1 "Copyright © F-Secure Corporation"
+Comment2 "License: CERN-OHL-S"
+Comment3 "https://github.com/f-secure-foundry/usbarmory"
 Comment4 ""
 $EndDescr
 $Sheet
@@ -79,7 +78,7 @@ microSD
 Text Notes 1600 6800 0    150  ~ 0
 DDR3L RAM 512MB/1GB
 Text Notes 1600 7550 0    150  ~ 0
-eMMC 4GB/8GB/16GB
+eMMC
 Text Notes 1600 9800 0    150  ~ 0
 Secure elements
 Text Notes 1600 10550 0    150  ~ 0
@@ -87,7 +86,7 @@ Bluetooth module
 Text Notes 1600 6050 0    150  ~ 0
 Boot configuration
 Text Notes 1600 9050 0    150  ~ 0
-LEDs and I2C
+GPIOs and I2C
 Text Notes 1650 4550 0    150  ~ 0
 i.MX6UL power
 Text Notes 1600 3800 0    150  ~ 0
@@ -95,7 +94,7 @@ USB 2.0 Type-C interfaces
 Text Notes 1600 5300 0    150  ~ 0
 Crystals and UARTs
 Text Notes 11150 3200 0    60   ~ 0
-ESD AND OVERVOLTAGE PROTECTIONS\n\nType-C VBUS overvoltage (20V) protections:\n- All ICs behind ON semiconductor FPF2286 OVP, that can withstand DC inputs up to 28V.\n\nType-C short-to-VBUS protections:\n- USB1 CC/VBUS: unprotected, TUSB320 can withstand only DC inputs from 0 to 6V.\n- USB2 CC1/CC2/VBUS: FUSB303 can withstand DC inputs from 0 to 28V.\n- USB1 and USB2 D+/D- unprotected: short-to-VBUS unlikely (1 pin distance from VBUS pin)\n- Type-C DEBUG pins unprotected: unlikely to connect a power USB device to receptacle;\n   The event should demage the FSA1208 only, keeping the SoC safe.\n\nExposed connectors ESD protections:\n- USB1 CC/D+/D- and USB2 CC1/CC2/D+/D-: TPD4E10\n   (IEC 61000-4-2 Level 4: 12kV Contact Discharge + 15kV Air-Gap Discharge)\n- USB1 and USB2 VBUS: TPD1E10\n   (IEC 61000-4-5 Level 4: 30kV Contact Discharge + 30kV Air-Gap Discharge)\n- USB2 DEBUG pins: TPD8E003\n   (IEC 61000-4-2 Level 4: 12kV Contact Discharge + 15kV Air-Gap Discharge)\n- microSD lines: TPD6F003\n   (IEC 61000-4-2 Level 4: 12kV Contact Discharge + 20kV Air-Gap Discharge)\n- microSD CD: TPD1E10\n   (IEC 61000-4-5 Level 4: 30kV Contact Discharge + 30kV Air-Gap Discharge)\n- microSD Vdd: TPD1E10\n   (IEC 61000-4-5 Level 4: 30kV Contact Discharge + 30kV Air-Gap Discharge)
+ESD AND OVERVOLTAGE PROTECTIONS\n\nType-C VBUS overvoltage (20V) protections:\n- All ICs behind ON semiconductor FPF2286 OVP, that can withstand DC inputs up to 28V.\n\nType-C short-to-VBUS protections:\n- USB1 CC/VBUS: unprotected, TUSB320 can withstand only DC inputs from 0 to 6V.\n- USB2 CC1/CC2/VBUS: FUSB303 can withstand DC inputs from 0 to 28V.\n- USB1 and USB2 D+/D- unprotected: short-to-VBUS unlikely (1 pin distance from VBUS pin)\n- Type-C DEBUG pins unprotected: unlikely to connect a power USB device to receptacle;\n   The event should demage the FSA1208 only, keeping the SoC safe.\n\nExposed connectors ESD protections:\n- USB1 CC/D+/D- and USB2 CC1/CC2/D+/D-: TPD4E10\n   (IEC 61000-4-2 Level 4: 12kV Contact Discharge + 15kV Air-Gap Discharge)\n- USB1 and USB2 VBUS: TPD1E10\n   (IEC 61000-4-5 Level 4: 30kV Contact Discharge + 30kV Air-Gap Discharge)\n- USB2 DEBUG pins: TPD8E003\n   (IEC 61000-4-2 Level 4: 12kV Contact Discharge + 15kV Air-Gap Discharge)\n- microSD lines: TPD6E05U06\n   (IEC 61000-4-2 Level 4: 12kV Contact Discharge + 15kV Air-Gap Discharge)\n- microSD CD: TPD1E10\n   (IEC 61000-4-5 Level 4: 30kV Contact Discharge + 30kV Air-Gap Discharge)\n- microSD Vdd: TPD1E10\n   (IEC 61000-4-5 Level 4: 30kV Contact Discharge + 30kV Air-Gap Discharge)
 Wire Notes Line
 	11050 3250 15750 3250
 Wire Notes Line
@@ -190,4 +189,16 @@ Text Notes 1600 1550 0    150  ~ 0
 COVER PAGE
 Wire Notes Line
 	11050 750  11050 3250
+Text Notes 11125 5375 0    60   ~ 0
+REVISIONS (see https://github.com/f-secure-foundry/usbarmory/wiki/Errata-(Mk-II))\n\n- beta (2019-06-25):\n\n  - First public release.\n\n- gamma (2021-02-18):\n\n  - connect XL1 and XL2 of U11 to GND.\n  - Invert UART1 RTS/CTS lines connected to BLE module.\n  - Invert UART2 RTS/CTS lines connected to USB-C receptacle.\n  - Move BLE module power supply from VLDO3 to SW3.\n  - Use VLDO1 (1.8V) to power eMMC bus interface: NVCC_NAND, eMMC VCCQ and eMMC pull-ups.\n  - Use VLDO3 (3.3V/1.8V) to power microSD bus interfece: NVCC_SD and SD pull-ups.\n  - Replace NXP AT71CH secure element with NXP SE050.\n  - Replace Type-C plug J2 part number.\n  - Lower LED luminosity by increasing the LED resistors R19 and R20 values.\n  - Update U13 p/n with ATECC608B-MAHDA. Do not place on retail units. \n  - Replace U12 p/n with PUSB3TB6AZ.
+Wire Notes Line
+	15750 3500 11050 3500
+Wire Notes Line
+	11050 3700 15750 3700
+Wire Notes Line
+	11050 5525 15750 5525
+Wire Notes Line
+	15750 3500 15750 5525
+Wire Notes Line
+	11050 3500 11050 5525
 $EndSCHEMATC

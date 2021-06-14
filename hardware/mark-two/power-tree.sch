@@ -1,17 +1,16 @@
 EESchema Schematic File Version 4
-LIBS:armory-cache
 EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 12 13
-Title "USB ARMORY"
-Date "2019-06-25"
-Rev "MARK II"
+Title "USB armory Mk II"
+Date "2021-02-18"
+Rev "γ"
 Comp "F-Secure"
-Comment1 "Copyright © 2019 F-Secure"
-Comment2 "License: CERN OHL v1.2"
-Comment3 "https://github.com/inversepath/usbarmory"
+Comment1 "Copyright © F-Secure Corporation"
+Comment2 "License: CERN-OHL-S"
+Comment3 "https://github.com/f-secure-foundry/usbarmory"
 Comment4 ""
 $EndDescr
 Text Notes 1800 1250 0    100  Italic 0
@@ -78,15 +77,15 @@ Text Notes 11600 5950 0    80   ~ 0
 Type-C debug switch
 Text Notes 11900 5650 0    100  ~ 20
 FSA1208
-Text Notes 14400 4150 0    80   ~ 0
+Text Notes 14325 4050 0    80   ~ 0
 push-push slot
-Text Notes 14500 3850 0    100  ~ 20
+Text Notes 14500 3900 0    100  ~ 20
 microSD
 Wire Notes Line width 20 style solid rgb(0, 0, 0)
 	14100 3600 15600 3600
 Wire Notes Line width 20 style solid rgb(0, 0, 0)
 	15600 4300 15600 3600
-Text Notes 14200 5050 0    80   ~ 0
+Text Notes 14150 4950 0    80   ~ 0
 4GB/8GB/16GB eMMC
 Text Notes 14600 4750 0    100  ~ 20
 eMMC
@@ -542,20 +541,12 @@ Wire Notes Line width 20 style solid rgb(0, 132, 132)
 	5600 4750 7400 4750
 Wire Notes Line width 20 style solid rgb(194, 0, 194)
 	7950 4500 8100 4500
-Wire Notes Line width 20 style solid rgb(0, 132, 132)
-	7400 5500 8100 5500
 Text Notes 5700 4700 0    100  Italic 0
 DCDC_3V3
-Wire Notes Line width 20 style solid rgb(194, 0, 0)
-	5600 4500 7100 4500
 Text Notes 5700 4450 0    100  Italic 0
 DDR_1V35
-Wire Notes Line width 20 style solid rgb(194, 0, 0)
-	7100 6900 8100 6900
 Wire Notes Line width 20 style solid rgb(194, 0, 194)
 	5600 5250 7950 5250
-Wire Notes Line width 20 style solid rgb(194, 0, 194)
-	7950 4500 7950 5250
 Wire Notes Line width 20 style solid rgb(194, 0, 194)
 	7950 4750 8100 4750
 Text Notes 5700 5200 0    100  Italic 0
@@ -569,8 +560,6 @@ Wire Notes Line width 20 style solid rgb(0, 132, 132)
 Wire Notes Line width 20 style solid rgb(0, 132, 132)
 	7400 5950 8100 5950
 Wire Notes Line width 20 style solid rgb(0, 132, 132)
-	7400 6100 8100 6100
-Wire Notes Line width 20 style solid rgb(0, 132, 132)
 	7400 6250 8100 6250
 Wire Notes Line width 20 style solid rgb(0, 132, 132)
 	7400 6400 8100 6400
@@ -578,8 +567,6 @@ Wire Notes Line width 20 style solid rgb(194, 0, 0)
 	3200 2350 3200 7500
 Wire Notes Line width 20 style solid rgb(194, 0, 0)
 	7800 7650 7800 7500
-Text Notes 5600 5000 0    50   Italic 0
-unused
 Text Notes 5600 6250 0    50   Italic 0
 unused
 Text Notes 5600 6000 0    50   Italic 0
@@ -587,7 +574,7 @@ unused
 Text Notes 5600 5750 0    50   Italic 0
 unused
 Text Notes 14550 6850 0    80   ~ 0
-NXP A71CH
+NXP SE050
 Text Notes 14150 6550 0    100  ~ 20
 Secure Element 2
 Text Notes 9050 6700 0    100  ~ 0
@@ -621,17 +608,7 @@ Wire Notes Line width 20 style solid rgb(0, 0, 0)
 Wire Notes Line width 20 style solid rgb(0, 0, 0)
 	8150 5000 8250 5000
 Wire Notes Line width 20 style solid rgb(194, 0, 0)
-	7100 4500 7100 8450
-Wire Notes Line width 20 style solid rgb(194, 0, 0)
-	7100 8450 8100 8450
-Wire Notes Line width 20 style solid
-	5600 5500 6600 5500
-Wire Notes Line width 20 style solid
-	6600 5500 6600 9500
-Wire Notes Line width 20 style solid
-	6600 9500 8100 9500
-Text Notes 5700 5450 0    100  Italic 0
-BT_3V3
+	7200 4500 7200 8450
 Wire Notes Line width 20 style solid rgb(132, 132, 132)
 	10350 6650 10600 6650
 Wire Notes Line width 20 style solid rgb(132, 132, 132)
@@ -645,21 +622,15 @@ VDD_HIGH_CAP
 Wire Notes Line width 20 style solid rgb(0, 0, 0)
 	8150 3600 8150 7800
 Wire Notes Line width 20 style solid rgb(0, 132, 132)
-	7400 2900 7400 6400
-Wire Notes Line width 20 style solid rgb(0, 132, 132)
-	7400 2900 13900 2900
-Wire Notes Line width 20 style solid rgb(0, 132, 132)
-	13900 2900 13900 6650
+	7400 2850 13900 2850
 Wire Notes Line width 20 style solid rgb(0, 132, 132)
 	13900 6650 14050 6650
 Wire Notes Line width 20 style solid rgb(0, 132, 132)
 	13900 5750 14050 5750
 Wire Notes Line width 20 style solid rgb(0, 132, 132)
-	13900 4850 14050 4850
+	13900 4600 14050 4600
 Wire Notes Line width 20 style solid rgb(0, 132, 132)
-	13900 3950 14050 3950
-Wire Notes Line width 20 style solid rgb(0, 132, 132)
-	11300 2900 11300 6650
+	13900 3700 14050 3700
 Wire Notes Line width 20 style solid rgb(0, 132, 132)
 	11300 6650 11450 6650
 Wire Notes Line width 20 style solid rgb(0, 132, 132)
@@ -681,9 +652,7 @@ Wire Notes Line width 20 style solid rgb(0, 0, 0)
 Wire Notes Line width 20 style solid rgb(0, 0, 0)
 	14100 5750 14200 5750
 Wire Notes Line width 20 style solid rgb(0, 0, 0)
-	14100 4850 14200 4850
-Wire Notes Line width 20 style solid rgb(0, 0, 0)
-	14100 3950 14200 3950
+	14100 4600 14200 4600
 Wire Notes Line width 20 style solid rgb(0, 0, 0)
 	8150 9500 8250 9500
 Wire Notes Line width 20 style solid rgb(0, 0, 0)
@@ -747,11 +716,7 @@ Wire Notes Line width 20 style solid rgb(0, 0, 0)
 Wire Notes Line width 20 style solid rgb(0, 0, 0)
 	9100 10500 9100 10800
 Wire Notes Line width 20 style solid rgb(194, 0, 194)
-	6850 10250 8100 10250
-Wire Notes Line width 20 style solid rgb(194, 0, 194)
-	6850 10650 8100 10650
-Wire Notes Line width 20 style solid rgb(194, 0, 194)
-	6850 5250 6850 10650
+	7000 5250 7000 10650
 Wire Notes Line width 20 style solid rgb(0, 194, 0)
 	5450 4500 5550 4500
 Wire Notes Line width 20 style solid rgb(0, 194, 0)
@@ -810,4 +775,66 @@ Text Notes 2810 1330 0    40   ~ 0
 D3
 Text Notes 5010 1330 0    40   ~ 0
 D4
+Text Notes 5700 4950 0    100  Italic 0
+EMMC_1V8
+Wire Notes Line width 20 style solid rgb(0, 0, 0)
+	14100 5100 14200 5100
+Text Notes 14225 4625 0    60   ~ 0
+VCC
+Text Notes 14225 5125 0    60   ~ 0
+VCCQ
+Wire Notes Line width 20 style solid rgb(0, 255, 0)
+	13500 3250 13500 5100
+Wire Notes Line width 20 style solid rgb(0, 255, 0)
+	7800 3250 7800 6100
+Wire Notes Line width 20 style solid rgb(0, 132, 132)
+	7400 9500 8100 9500
+Wire Notes Line width 20 style solid rgb(194, 194, 0)
+	5600 5500 8125 5500
+Wire Notes Line width 20 style solid rgb(0, 0, 0)
+	14100 3700 14200 3700
+Text Notes 14225 3725 0    60   ~ 0
+VCC
+Wire Notes Line width 20 style solid rgb(0, 0, 0)
+	14100 4200 14200 4200
+Text Notes 14225 4225 0    60   ~ 0
+VCCQ
+Wire Notes Line width 20 style solid rgb(194, 194, 0)
+	13700 4200 13700 3050
+Wire Notes Line width 20 style solid rgb(194, 194, 0)
+	7600 3050 7600 5500
+Text Notes 5700 5475 0    100  Italic 0
+SD_3V3_1V8
+Wire Notes Line width 20 style solid rgb(0, 132, 132)
+	13900 2850 13900 6650
+Wire Notes Line width 20 style solid rgb(0, 132, 132)
+	11300 2850 11300 6650
+Wire Notes Line width 20 style solid rgb(0, 132, 132)
+	7400 2850 7400 9500
+Wire Notes Line width 20 style solid rgb(0, 255, 0)
+	7800 6100 8100 6100
+Wire Notes Line width 20 style solid rgb(0, 255, 0)
+	5600 5000 7800 5000
+Wire Notes Line width 20 style solid rgb(194, 194, 0)
+	13700 3050 7600 3050
+Wire Notes Line width 20 style solid rgb(194, 194, 0)
+	13700 4200 14075 4200
+Wire Notes Line width 20 style solid rgb(0, 255, 0)
+	13500 5100 14075 5100
+Wire Notes Line width 20 style solid rgb(0, 255, 0)
+	13500 3250 7800 3250
+Wire Notes Line width 20 style solid rgb(194, 0, 194)
+	7000 10250 8100 10250
+Wire Notes Line width 20 style solid rgb(194, 0, 194)
+	7000 10650 8100 10650
+Wire Notes Line width 20 style solid rgb(194, 0, 0)
+	7200 4500 5600 4500
+Wire Notes Line
+	5600 4500 5600 4475
+Wire Notes Line width 20 style solid rgb(194, 0, 0)
+	7200 8450 8100 8450
+Wire Notes Line width 20 style solid rgb(194, 0, 0)
+	7200 6900 8100 6900
+Wire Notes Line width 20 style solid rgb(194, 0, 194)
+	7950 4500 7950 5250
 $EndSCHEMATC

@@ -1,17 +1,16 @@
 EESchema Schematic File Version 4
-LIBS:armory-cache
 EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 13 13
-Title "USB ARMORY"
-Date "2019-06-25"
-Rev "MARK II"
+Title "USB armory Mk II"
+Date "2021-02-18"
+Rev "γ"
 Comp "F-Secure"
-Comment1 "Copyright © 2019 F-Secure"
-Comment2 "License: CERN OHL v1.2"
-Comment3 "https://github.com/inversepath/usbarmory"
+Comment1 "Copyright © F-Secure Corporation"
+Comment2 "License: CERN-OHL-S"
+Comment3 "https://github.com/f-secure-foundry/usbarmory"
 Comment4 ""
 $EndDescr
 $Comp
@@ -143,7 +142,7 @@ Connection ~ 2350 4800
 Text Label 13150 4600 2    50   ~ 0
 LDO2_3V3
 Text Label 13150 5000 2    50   ~ 0
-LDO3_3V3
+LDO3_3V3_1V8
 $Comp
 L power:GND #PWR?
 U 1 1 5C09322A
@@ -282,17 +281,17 @@ DCDC_3V3
 $Comp
 L power:GND #PWR?
 U 1 1 5C23D7E7
-P 9750 4150
+P 9750 4275
 AR Path="/5BEA6694/5C23D7E7" Ref="#PWR?"  Part="1" 
 AR Path="/53722D05/5C23D7E7" Ref="#PWR?"  Part="1" 
 AR Path="/5335DA0B/5C23D7E7" Ref="#PWR016"  Part="1" 
 AR Path="/5C6BBC6A/5C23D7E7" Ref="#PWR?"  Part="1" 
 AR Path="/5D0EEC79/5C23D7E7" Ref="#PWR?"  Part="1" 
-F 0 "#PWR016" H 9750 3900 50  0001 C CNN
-F 1 "GND" H 9755 3977 50  0000 C CNN
-F 2 "" H 9750 4150 50  0001 C CNN
-F 3 "" H 9750 4150 50  0001 C CNN
-	1    9750 4150
+F 0 "#PWR016" H 9750 4025 50  0001 C CNN
+F 1 "GND" H 9755 4102 50  0000 C CNN
+F 2 "" H 9750 4275 50  0001 C CNN
+F 3 "" H 9750 4275 50  0001 C CNN
+	1    9750 4275
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -303,21 +302,21 @@ Wire Wire Line
 	10150 4000 9750 4000
 Connection ~ 9750 4000
 Wire Wire Line
-	9750 4000 9750 4150
+	9750 4000 9750 4275
 $Comp
 L power:GND #PWR?
 U 1 1 5C2BD78A
-P 10600 4150
+P 10600 4275
 AR Path="/5BEA6694/5C2BD78A" Ref="#PWR?"  Part="1" 
 AR Path="/53722D05/5C2BD78A" Ref="#PWR?"  Part="1" 
 AR Path="/5335DA0B/5C2BD78A" Ref="#PWR018"  Part="1" 
 AR Path="/5C6BBC6A/5C2BD78A" Ref="#PWR?"  Part="1" 
 AR Path="/5D0EEC79/5C2BD78A" Ref="#PWR?"  Part="1" 
-F 0 "#PWR018" H 10600 3900 50  0001 C CNN
-F 1 "GND" H 10605 3977 50  0000 C CNN
-F 2 "" H 10600 4150 50  0001 C CNN
-F 3 "" H 10600 4150 50  0001 C CNN
-	1    10600 4150
+F 0 "#PWR018" H 10600 4025 50  0001 C CNN
+F 1 "GND" H 10605 4102 50  0000 C CNN
+F 2 "" H 10600 4275 50  0001 C CNN
+F 3 "" H 10600 4275 50  0001 C CNN
+	1    10600 4275
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -328,23 +327,23 @@ Wire Wire Line
 	11000 4000 10600 4000
 Connection ~ 10600 4000
 Wire Wire Line
-	10600 4000 10600 4150
+	10600 4000 10600 4275
 Wire Wire Line
 	10600 3600 10600 3500
 $Comp
 L power:GND #PWR?
 U 1 1 5C2FA4BD
-P 11450 4150
+P 11450 4275
 AR Path="/5BEA6694/5C2FA4BD" Ref="#PWR?"  Part="1" 
 AR Path="/53722D05/5C2FA4BD" Ref="#PWR?"  Part="1" 
 AR Path="/5335DA0B/5C2FA4BD" Ref="#PWR021"  Part="1" 
 AR Path="/5C6BBC6A/5C2FA4BD" Ref="#PWR?"  Part="1" 
 AR Path="/5D0EEC79/5C2FA4BD" Ref="#PWR?"  Part="1" 
-F 0 "#PWR021" H 11450 3900 50  0001 C CNN
-F 1 "GND" H 11455 3977 50  0000 C CNN
-F 2 "" H 11450 4150 50  0001 C CNN
-F 3 "" H 11450 4150 50  0001 C CNN
-	1    11450 4150
+F 0 "#PWR021" H 11450 4025 50  0001 C CNN
+F 1 "GND" H 11455 4102 50  0000 C CNN
+F 2 "" H 11450 4275 50  0001 C CNN
+F 3 "" H 11450 4275 50  0001 C CNN
+	1    11450 4275
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -355,7 +354,7 @@ Wire Wire Line
 	11850 4000 11450 4000
 Connection ~ 11450 4000
 Wire Wire Line
-	11450 4000 11450 4150
+	11450 4000 11450 4275
 Wire Wire Line
 	11450 3600 11450 3500
 $Comp
@@ -401,7 +400,7 @@ DCDC_3V3
 Text GLabel 14050 4600 2    50   Output ~ 0
 LDO2_3V3
 Text GLabel 14050 5000 2    50   Output ~ 0
-BT_3V3
+SD_3V3_1V8
 Text GLabel 4550 7200 0    50   Input ~ 0
 I2C1_SCL
 Text GLabel 4550 6800 0    50   Input ~ 0
@@ -424,6 +423,7 @@ F 5 "MC34PF1510A6EP" H 7100 1000 50  0001 C CNN "Mfg PN"
 F 6 "PMIC" H 7100 1000 50  0001 C CNN "Desc"
 F 7 "Digikey" H 7100 1000 50  0001 C CNN "Supplier"
 F 8 "568-14653-1-ND" H 7100 1000 50  0001 C CNN "Supplier PN"
+F 9 "MC32PF1510A6EP" H 7100 1000 50  0001 C CNN "Alternative PN"
 	1    7100 1000
 	1    0    0    -1  
 $EndComp
@@ -589,7 +589,6 @@ Wire Wire Line
 	8350 5800 11850 5800
 Wire Wire Line
 	11000 5000 11000 5950
-NoConn ~ 8350 4200
 Text Label 9750 7000 2    50   ~ 0
 VSYS
 Wire Wire Line
@@ -644,8 +643,6 @@ Wire Wire Line
 	8650 6400 8350 6400
 Text Label 9750 6400 2    50   ~ 0
 VSNVS_3V
-Wire Wire Line
-	10600 5950 10600 4600
 Wire Wire Line
 	8350 4600 10600 4600
 $Comp
@@ -808,6 +805,7 @@ F 7 "Digikey" H 1900 4550 50  0001 C CNN "Supplier"
 F 8 "490-13226-2-ND" H 1900 4550 50  0001 C CNN "Supplier PN"
 F 9 "0201" H 1900 4550 30  0000 C CNN "FP"
 F 10 "10V/20%" H 2050 4400 30  0000 C CNN "Rating"
+F 11 "CL03A105KP3NSNC" H 1900 4550 50  0001 C CNN "Alternative PN"
 	1    1900 4550
 	1    0    0    -1  
 $EndComp
@@ -832,6 +830,7 @@ F 7 "Digikey" H 2350 4550 50  0001 C CNN "Supplier"
 F 8 "490-13226-2-ND" H 2350 4550 50  0001 C CNN "Supplier PN"
 F 9 "0201" H 2350 4550 30  0000 C CNN "FP"
 F 10 "10V/20%" H 2500 4400 30  0000 C CNN "Rating"
+F 11 "CL03A105KP3NSNC" H 2350 4550 50  0001 C CNN "Alternative PN"
 	1    2350 4550
 	1    0    0    -1  
 $EndComp
@@ -856,6 +855,7 @@ F 7 "Digikey" H 2800 4550 50  0001 C CNN "Supplier"
 F 8 "490-13226-2-ND" H 2800 4550 50  0001 C CNN "Supplier PN"
 F 9 "0201" H 2800 4550 30  0000 C CNN "FP"
 F 10 "10V/20%" H 2950 4400 30  0000 C CNN "Rating"
+F 11 "CL03A105KP3NSNC" H 2800 4550 50  0001 C CNN "Alternative PN"
 	1    2800 4550
 	1    0    0    -1  
 $EndComp
@@ -928,6 +928,7 @@ F 7 "Digikey" H 5200 9050 50  0001 C CNN "Supplier"
 F 8 "490-13226-2-ND" H 5200 9050 50  0001 C CNN "Supplier PN"
 F 9 "0201" H 5200 9050 30  0000 C CNN "FP"
 F 10 "10V/20%" H 5350 8900 30  0000 C CNN "Rating"
+F 11 "CL03A105KP3NSNC" H 5200 9050 50  0001 C CNN "Alternative PN"
 	1    5200 9050
 	1    0    0    -1  
 $EndComp
@@ -952,6 +953,7 @@ F 7 "Digikey" H 5650 9050 50  0001 C CNN "Supplier"
 F 8 "490-13226-2-ND" H 5650 9050 50  0001 C CNN "Supplier PN"
 F 9 "0201" H 5650 9050 30  0000 C CNN "FP"
 F 10 "10V/20%" H 5800 8900 30  0000 C CNN "Rating"
+F 11 "CL03A105KP3NSNC" H 5650 9050 50  0001 C CNN "Alternative PN"
 	1    5650 9050
 	1    0    0    -1  
 $EndComp
@@ -1031,6 +1033,7 @@ F 7 "Digikey" H 11450 6100 50  0001 C CNN "Supplier"
 F 8 "490-13226-2-ND" H 11450 6100 50  0001 C CNN "Supplier PN"
 F 9 "0201" H 11450 6100 30  0000 C CNN "FP"
 F 10 "10V/20%" H 11600 5950 30  0000 C CNN "Rating"
+F 11 "CL03A105KP3NSNC" H 11450 6100 50  0001 C CNN "Alternative PN"
 	1    11450 6100
 	1    0    0    -1  
 $EndComp
@@ -1228,6 +1231,7 @@ F 7 "Digikey" H 5200 1450 50  0001 C CNN "Supplier"
 F 8 "490-10457-1-ND" H 5200 1450 50  0001 C CNN "Supplier PN"
 F 9 "0402" H 5200 1450 30  0000 C CNN "FP"
 F 10 "25V/20%" H 5350 1300 30  0000 C CNN "Rating"
+F 11 "GRT155R61E225KE13D" H 5200 1450 50  0001 C CNN "Alternative PN"
 	1    5200 1450
 	1    0    0    -1  
 $EndComp
@@ -1369,6 +1373,7 @@ F 7 "Digikey" H 9750 1450 50  0001 C CNN "Supplier"
 F 8 "490-13247-1-ND" H 9750 1450 50  0001 C CNN "Supplier PN"
 F 9 "0603" H 9750 1450 30  0000 C CNN "FP"
 F 10 "6.3V/20%" H 9900 1300 30  0000 C CNN "Rating"
+F 11 "06036D476MAT2A" H 9750 1450 50  0001 C CNN "Alternative PN"
 	1    9750 1450
 	1    0    0    -1  
 $EndComp
@@ -1412,6 +1417,7 @@ F 7 "Digikey" H 4250 6000 50  0001 C CNN "Supplier"
 F 8 "490-13226-2-ND" H 4250 6000 50  0001 C CNN "Supplier PN"
 F 9 "0201" H 4250 6000 30  0000 C CNN "FP"
 F 10 "10V/20%" H 4400 5850 30  0000 C CNN "Rating"
+F 11 "CL03A105KP3NSNC" H 4250 6000 50  0001 C CNN "Alternative PN"
 	1    4250 6000
 	1    0    0    -1  
 $EndComp
@@ -1482,4 +1488,59 @@ Wire Wire Line
 	2200 6150 2200 6350
 Text Notes 5725 10000 0    100  ~ 0
 ULL/ULZ: NXP MC34PF1510A6EP\n      UL: NXP MC32PF1510A3EP
+Wire Wire Line
+	10600 5950 10600 4600
+Text GLabel 14050 4200 2    50   Output ~ 0
+EMMC_1V8
+Text Notes 14050 4350 0    50   ~ 0
+300 mA
+$Comp
+L power:GND #PWR?
+U 1 1 5F1896E1
+P 10175 6300
+AR Path="/5BEA6694/5F1896E1" Ref="#PWR?"  Part="1" 
+AR Path="/53722D05/5F1896E1" Ref="#PWR?"  Part="1" 
+AR Path="/5335DA0B/5F1896E1" Ref="#PWR0130"  Part="1" 
+AR Path="/5C6BBC6A/5F1896E1" Ref="#PWR?"  Part="1" 
+AR Path="/5D0EEC79/5F1896E1" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0130" H 10175 6050 50  0001 C CNN
+F 1 "GND" H 10180 6127 50  0000 C CNN
+F 2 "" H 10175 6300 50  0001 C CNN
+F 3 "" H 10175 6300 50  0001 C CNN
+	1    10175 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10175 6250 10175 6300
+$Comp
+L Device:C C?
+U 1 1 5F1896F3
+P 10175 6100
+AR Path="/5BEA6694/5F1896F3" Ref="C?"  Part="1" 
+AR Path="/5335DA0B/5F1896F3" Ref="C32"  Part="1" 
+AR Path="/53722D05/5F1896F3" Ref="C?"  Part="1" 
+AR Path="/5D0EEC79/5F1896F3" Ref="C?"  Part="1" 
+F 0 "C32" H 10275 6150 50  0000 L CNN
+F 1 "10uF" H 10275 6050 50  0000 L CNN
+F 2 "armory-kicad:SM0402" H 10213 5950 50  0001 C CNN
+F 3 "~" H 10175 6100 50  0001 C CNN
+F 4 "Samsung Electro-Mechanics" H 10175 6100 50  0001 C CNN "Mfg"
+F 5 "CL05A106MP8NUB8" H 10175 6100 50  0001 C CNN "Mfg PN"
+F 6 "X5R, 20%, 10V" H 10175 6100 50  0001 C CNN "Desc"
+F 7 "Digikey" H 10175 6100 50  0001 C CNN "Supplier"
+F 8 "1276-6830-1-ND" H 10175 6100 50  0001 C CNN "Supplier PN"
+F 9 "0402" H 10175 6100 30  0000 C CNN "FP"
+F 10 "10V/20%" H 10325 5950 30  0000 C CNN "Rating"
+	1    10175 6100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10175 5950 10175 4200
+Wire Wire Line
+	8350 4200 10175 4200
+Text Label 13150 4200 2    50   ~ 0
+LDO1_1V8
+Connection ~ 10175 4200
+Wire Wire Line
+	10175 4200 14050 4200
 $EndSCHEMATC

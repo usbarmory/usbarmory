@@ -1,17 +1,16 @@
 EESchema Schematic File Version 4
-LIBS:armory-cache
 EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 4 13
-Title "USB ARMORY"
-Date "2019-06-25"
-Rev "MARK II"
+Title "USB armory Mk II"
+Date "2021-02-18"
+Rev "γ"
 Comp "F-Secure"
-Comment1 "Copyright © 2019 F-Secure"
-Comment2 "License: CERN OHL v1.2"
-Comment3 "https://github.com/inversepath/usbarmory"
+Comment1 "Copyright © F-Secure Corporation"
+Comment2 "License: CERN-OHL-S"
+Comment3 "https://github.com/f-secure-foundry/usbarmory"
 Comment4 ""
 $EndDescr
 $Comp
@@ -22,6 +21,7 @@ F 0 "U2" H 4950 1550 70  0000 L CNN
 F 1 "MX6UL-VM" H 4800 -50 60  0000 L CNN
 F 2 "armory-kicad:SOT1534-2" H 5510 340 60  0001 C CNN
 F 3 "https://www.nxp.com/docs/en/data-sheet/IMX6ULCEC.pdf" H 5510 340 60  0001 C CNN
+F 4 "MCIMX6Z0DVM09AB" H 5000 1500 50  0001 C CNN "Mfg PN"
 	10   5000 1500
 	1    0    0    -1  
 $EndComp
@@ -39,6 +39,7 @@ F 0 "U2" H 3000 4550 70  0000 C CNN
 F 1 "MX6UL-VM" H 3000 2100 60  0000 C CNN
 F 2 "armory-kicad:SOT1534-2" H 3510 3340 60  0001 C CNN
 F 3 "https://www.nxp.com/docs/en/data-sheet/IMX6ULCEC.pdf" H 3510 3340 60  0001 C CNN
+F 4 "MCIMX6Z0DVM09AB" H 3000 4500 50  0001 C CNN "Mfg PN"
 	6    3000 4500
 	1    0    0    -1  
 $EndComp
@@ -64,6 +65,7 @@ F 0 "U2" H 9100 6150 70  0000 C CNN
 F 1 "MX6UL-VM" H 9100 4200 60  0000 C CNN
 F 2 "armory-kicad:SOT1534-2" H 9610 4940 60  0001 C CNN
 F 3 "https://www.nxp.com/docs/en/data-sheet/IMX6ULCEC.pdf" H 9610 4940 60  0001 C CNN
+F 4 "MCIMX6Z0DVM09AB" H 9100 6100 50  0001 C CNN "Mfg PN"
 	5    9100 6100
 	1    0    0    -1  
 $EndComp
@@ -75,6 +77,7 @@ F 0 "U2" H 9500 1550 70  0000 C CNN
 F 1 "MX6UL-VM" H 9500 -750 60  0000 C CNN
 F 2 "armory-kicad:SOT1534-2" H 10010 340 60  0001 C CNN
 F 3 "https://www.nxp.com/docs/en/data-sheet/IMX6ULCEC.pdf" H 10010 340 60  0001 C CNN
+F 4 "MCIMX6Z0DVM09AB" H 9500 1500 50  0001 C CNN "Mfg PN"
 	4    9500 1500
 	1    0    0    -1  
 $EndComp
@@ -185,7 +188,7 @@ Connection ~ 10700 6800
 Wire Wire Line
 	10700 6800 11400 6800
 Text Notes 13350 7350 0    50   ~ 0
-I2C1 ADDRESSES (8bit address / 7 bit address)\n\n0x10 / 0x08: PMIC (400 kHz)\n0xC0 / 0x60: Microchip SECURE ELEMENT (1 MHz)\n0x90 / 0x48: NXP SECURE ELEMENT (400 kHz)\n0xC2 / 0x61: TUSB320 USB1 (Type-C plug) (400 kHz)\n0x62 / 0x31: FUSB303 USB2 (Type-C receptacle) (400 kHz)
+I2C1 ADDRESSES (8bit address / 7 bit address)\n\n0x10 / 0x08: PMIC (400 kHz)\n0xC0 / 0x60: Microchip SECURE ELEMENT ATECC608A (1 MHz)\n0x90 / 0x48: NXP SECURE ELEMENT SE050 (1.7 MHz)\n0xC2 / 0x61: TUSB320 USB1 (Type-C plug) (400 kHz)\n0x62 / 0x31: FUSB303 USB2 (Type-C receptacle) (400 kHz)
 Text GLabel 11400 6600 2    50   Input ~ 0
 USB1_INT_B
 Text GLabel 11400 6700 2    50   Input ~ 0
@@ -281,6 +284,7 @@ F 7 "Digikey" H 2700 2250 50  0001 C CNN "Supplier"
 F 8 "490-13226-2-ND" H 2700 2250 50  0001 C CNN "Supplier PN"
 F 9 "0201" H 2700 2250 30  0000 C CNN "FP"
 F 10 "10V/20%" H 2850 2100 30  0000 C CNN "Rating"
+F 11 "CL03A105KP3NSNC" H 2700 2250 50  0001 C CNN "Alternative PN"
 	1    2700 2250
 	1    0    0    -1  
 $EndComp
@@ -430,14 +434,14 @@ AR Path="/53722D05/5C8E0E0A" Ref="R?"  Part="1"
 AR Path="/5C0717D2/5C8E0E0A" Ref="R?"  Part="1" 
 AR Path="/53834030/5C8E0E0A" Ref="R19"  Part="1" 
 F 0 "R19" H 11550 2350 50  0000 L CNN
-F 1 "698R" H 11550 2250 50  0000 L CNN
+F 1 "1K8" H 11550 2250 50  0000 L CNN
 F 2 "armory-kicad:SM0201" V 11430 2300 50  0001 C CNN
 F 3 "~" H 11500 2300 50  0001 C CNN
 F 4 "Panasonic Electronic Components" H 11500 2300 50  0001 C CNN "Mfg"
-F 5 "ERJ-1GEF6980C" H 11500 2300 50  0001 C CNN "Mfg PN"
+F 5 "ERJ-1GNF1801C" H 11500 2300 50  0001 C CNN "Mfg PN"
 F 6 "1%, 50mW" H 11500 2300 50  0001 C CNN "Desc"
 F 7 "Digikey" H 11500 2300 50  0001 C CNN "Supplier"
-F 8 "P698ABTR-ND" H 11500 2300 50  0001 C CNN "Supplier PN"
+F 8 "P122788CT-ND" H 11500 2300 50  0001 C CNN "Supplier PN"
 F 9 "50mW/1%" H 11650 2150 30  0000 C CNN "Rating"
 F 10 "0201" H 0   0   50  0001 C CNN "FP"
 	1    11500 2300
@@ -451,14 +455,14 @@ AR Path="/53722D05/5C8E1BA1" Ref="R?"  Part="1"
 AR Path="/5C0717D2/5C8E1BA1" Ref="R?"  Part="1" 
 AR Path="/53834030/5C8E1BA1" Ref="R20"  Part="1" 
 F 0 "R20" H 12100 2350 50  0000 L CNN
-F 1 "91R" H 12100 2250 50  0000 L CNN
+F 1 "680R" H 12100 2250 50  0000 L CNN
 F 2 "armory-kicad:SM0201" V 11980 2300 50  0001 C CNN
 F 3 "~" H 12050 2300 50  0001 C CNN
 F 4 "Panasonic Electronic Components" H 12050 2300 50  0001 C CNN "Mfg"
-F 5 "ERJ-1GNF91R0C" H 12050 2300 50  0001 C CNN "Mfg PN"
+F 5 "ERJ-1GNF6800C" H 12050 2300 50  0001 C CNN "Mfg PN"
 F 6 "1%, 50mW" H 12050 2300 50  0001 C CNN "Desc"
 F 7 "Digikey" H 12050 2300 50  0001 C CNN "Supplier"
-F 8 "P123203TR-ND" H 12050 2300 50  0001 C CNN "Supplier PN"
+F 8 "P123124CT-ND" H 12050 2300 50  0001 C CNN "Supplier PN"
 F 9 "50mW/1%" H 12200 2150 30  0000 C CNN "Rating"
 F 10 "0201" H 0   0   50  0001 C CNN "FP"
 	1    12050 2300
@@ -529,7 +533,7 @@ Wire Wire Line
 	7600 6700 7600 6600
 Wire Wire Line
 	7600 7000 7600 7050
-Text GLabel 11400 7300 2    50   Output ~ 0
+Text GLabel 11400 7300 2    50   Input ~ 0
 BT_UART_RTS
 Wire Wire Line
 	10400 7300 11400 7300
@@ -547,7 +551,7 @@ ULZ: VDD_HIGH_IN
 Text Notes 4000 2500 0    50   ~ 0
 ULZ: VDD_HIGH_IN
 Text GLabel 4800 6000 2    50   Output ~ 0
-A71CH_RESET
+SE050_ENA
 Wire Wire Line
 	4800 6000 4300 6000
 Text Label 2350 2000 0    50   ~ 0

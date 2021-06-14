@@ -1,17 +1,16 @@
 EESchema Schematic File Version 4
-LIBS:armory-cache
 EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 6 13
-Title "USB ARMORY"
-Date "2019-06-25"
-Rev "MARK II"
+Title "USB armory Mk II"
+Date "2021-02-18"
+Rev "γ"
 Comp "F-Secure"
-Comment1 "Copyright © 2019 F-Secure"
-Comment2 "License: CERN OHL v1.2"
-Comment3 "https://github.com/inversepath/usbarmory"
+Comment1 "Copyright © F-Secure Corporation"
+Comment2 "License: CERN-OHL-S"
+Comment3 "https://github.com/f-secure-foundry/usbarmory"
 Comment4 ""
 $EndDescr
 $Comp
@@ -22,6 +21,7 @@ F 0 "U2" H 4450 4300 70  0000 C CNN
 F 1 "MX6UL-VM" H 4450 350 60  0000 C CNN
 F 2 "armory-kicad:SOT1534-2" H 4960 3090 60  0001 C CNN
 F 3 "https://www.nxp.com/docs/en/data-sheet/IMX6ULCEC.pdf" H 4960 3090 60  0001 C CNN
+F 4 "MCIMX6Z0DVM09AB" H 4450 4250 50  0001 C CNN "Mfg PN"
 	7    4450 4250
 	1    0    0    -1  
 $EndComp

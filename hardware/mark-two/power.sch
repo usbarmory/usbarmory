@@ -1,17 +1,16 @@
 EESchema Schematic File Version 4
-LIBS:armory-cache
 EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 8 13
-Title "USB ARMORY"
-Date "2019-06-25"
-Rev "MARK II"
+Title "USB armory Mk II"
+Date "2021-02-18"
+Rev "γ"
 Comp "F-Secure"
-Comment1 "Copyright © 2019 F-Secure"
-Comment2 "License: CERN OHL v1.2"
-Comment3 "https://github.com/inversepath/usbarmory"
+Comment1 "Copyright © F-Secure Corporation"
+Comment2 "License: CERN-OHL-S"
+Comment3 "https://github.com/f-secure-foundry/usbarmory"
 Comment4 ""
 $EndDescr
 $Comp
@@ -619,6 +618,7 @@ F 7 "Digikey" H 4700 3800 50  0001 C CNN "Supplier"
 F 8 "1276-7090-2-ND" H 4700 3800 50  0001 C CNN "Supplier PN"
 F 9 "0402" H 4700 3800 30  0000 C CNN "FP"
 F 10 "6.3V/20%" H 4850 3650 30  0000 C CNN "Rating"
+F 11 "CL05A226MQ6ZUN8" H 4700 3800 50  0001 C CNN "Alternative PN"
 	1    4700 3800
 	1    0    0    -1  
 $EndComp
@@ -797,6 +797,7 @@ F 7 "Digikey" H 13100 4150 50  0001 C CNN "Supplier"
 F 8 "1276-7090-2-ND" H 13100 4150 50  0001 C CNN "Supplier PN"
 F 9 "0402" H 13100 4150 30  0000 C CNN "FP"
 F 10 "6.3V/20%" H 13250 4000 30  0000 C CNN "Rating"
+F 11 "CL05A226MQ6ZUN8" H 13100 4150 50  0001 C CNN "Alternative PN"
 	1    13100 4150
 	1    0    0    -1  
 $EndComp
@@ -890,6 +891,7 @@ F 7 "Digikey" H 11600 4150 50  0001 C CNN "Supplier"
 F 8 "1276-7090-2-ND" H 11600 4150 50  0001 C CNN "Supplier PN"
 F 9 "0402" H 11600 4150 30  0000 C CNN "FP"
 F 10 "6.3V/20%" H 11750 4000 30  0000 C CNN "Rating"
+F 11 "CL05A226MQ6ZUN8" H 11600 4150 50  0001 C CNN "Alternative PN"
 	1    11600 4150
 	1    0    0    -1  
 $EndComp

@@ -1,17 +1,16 @@
 EESchema Schematic File Version 4
-LIBS:armory-cache
 EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 5 13
-Title "USB ARMORY"
-Date "2019-06-25"
-Rev "MARK II"
+Title "USB armory Mk II"
+Date "2021-02-18"
+Rev "γ"
 Comp "F-Secure"
-Comment1 "Copyright © 2019 F-Secure"
-Comment2 "License: CERN OHL v1.2"
-Comment3 "https://github.com/inversepath/usbarmory"
+Comment1 "Copyright © F-Secure Corporation"
+Comment2 "License: CERN-OHL-S"
+Comment3 "https://github.com/f-secure-foundry/usbarmory"
 Comment4 ""
 $EndDescr
 $Comp
@@ -24,6 +23,7 @@ F 0 "U2" H 2950 1450 70  0000 C CNN
 F 1 "MX6UL-VM" H 2950 -550 60  0000 C CNN
 F 2 "armory-kicad:SOT1534-2" H 3460 240 60  0001 C CNN
 F 3 "https://www.nxp.com/docs/en/data-sheet/IMX6ULCEC.pdf" H 3460 240 60  0001 C CNN
+F 4 "MCIMX6Z0DVM09AB" H 2950 1400 50  0001 C CNN "Mfg PN"
 	8    2950 1400
 	1    0    0    -1  
 $EndComp
@@ -78,7 +78,7 @@ L armory-mkII:TPD4E05U06-Q1 U7
 U 1 1 5C74DBE4
 P 1950 9350
 F 0 "U7" H 1950 9400 50  0000 C CNN
-F 1 "TPD4E05U06-Q1" H 1950 8700 50  0000 C CNN
+F 1 "TPD4E05U06" H 1950 8700 50  0000 C CNN
 F 2 "armory-kicad:DQA-USON-10" H 1950 9350 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/tpd6e05u06.pdf" H 1950 9350 50  0001 C CNN
 F 4 "Texas Instruments" H 1950 9350 50  0001 C CNN "Mfg"
@@ -86,6 +86,7 @@ F 5 "TPD4E05U06DQAR" H 1950 9350 50  0001 C CNN "Mfg PN"
 F 6 "ESD protection" H 1950 9350 50  0001 C CNN "Desc"
 F 7 "Digikey" H 1950 9350 50  0001 C CNN "Supplier"
 F 8 "296-35765-2-ND" H 1950 9350 50  0001 C CNN "Supplier PN"
+F 9 "TPD4E05U06QDQARQ1" H 1950 9350 50  0001 C CNN "Alternative PN"
 	1    1950 9350
 	1    0    0    -1  
 $EndComp
@@ -430,6 +431,7 @@ F 5 "TPD1E10B06DPYR" H 1950 9050 50  0001 C CNN "Mfg PN"
 F 6 "ESD protection" H 1950 9050 50  0001 C CNN "Desc"
 F 7 "Digikey" H 1950 9050 50  0001 C CNN "Supplier"
 F 8 "296-30406-1-ND" H 1950 9050 50  0001 C CNN "Supplier PN"
+F 9 "TPD1E10B06-Q1, TPD1E10B09, TPD1E10B09-Q1" H 1950 9050 50  0001 C CNN "Alternative PN"
 	1    1950 9050
 	1    0    0    1   
 $EndComp
@@ -457,6 +459,7 @@ F 5 "TPD1E10B06DPYR" H 4900 9050 50  0001 C CNN "Mfg PN"
 F 6 "ESD protection" H 4900 9050 50  0001 C CNN "Desc"
 F 7 "Digikey" H 4900 9050 50  0001 C CNN "Supplier"
 F 8 "296-30406-1-ND" H 4900 9050 50  0001 C CNN "Supplier PN"
+F 9 "TPD1E10B06-Q1, TPD1E10B09, TPD1E10B09-Q1" H 4900 9050 50  0001 C CNN "Alternative PN"
 	1    4900 9050
 	1    0    0    1   
 $EndComp
@@ -675,21 +678,21 @@ $EndComp
 Wire Wire Line
 	13500 3200 13450 3200
 NoConn ~ 14400 3200
-Text GLabel 14550 1600 2    50   BiDi ~ 0
+Text GLabel 14550 1600 2    50   Input ~ 0
 UART2_TX
-Text GLabel 14550 1800 2    50   BiDi ~ 0
+Text GLabel 14550 1800 2    50   Output ~ 0
 UART2_RX
-Text GLabel 14550 2200 2    50   BiDi ~ 0
-UART2_CTS
-Text GLabel 14550 2000 2    50   BiDi ~ 0
+Text GLabel 14550 2200 2    50   Output ~ 0
 UART2_RTS
-Text GLabel 14550 2600 2    50   BiDi ~ 0
+Text GLabel 14550 2000 2    50   Input ~ 0
+UART2_CTS
+Text GLabel 14550 2600 2    50   Input ~ 0
 UART4_TX
-Text GLabel 14550 2800 2    50   BiDi ~ 0
+Text GLabel 14550 2800 2    50   Output ~ 0
 UART4_RX
-Text GLabel 14550 3000 2    50   BiDi ~ 0
+Text GLabel 14550 3000 2    50   Output ~ 0
 UART5_RX
-Text GLabel 14550 2400 2    50   BiDi ~ 0
+Text GLabel 14550 2400 2    50   Input ~ 0
 UART5_TX
 Wire Wire Line
 	1400 4900 850  4900
@@ -1069,6 +1072,7 @@ F 7 "Digikey" H 1550 2150 50  0001 C CNN "Supplier"
 F 8 "490-13226-2-ND" H 1550 2150 50  0001 C CNN "Supplier PN"
 F 9 "0201" H 1550 2150 30  0000 C CNN "FP"
 F 10 "10V/20%" H 1700 2000 30  0000 C CNN "Rating"
+F 11 "CL03A105KP3NSNC" H 1550 2150 50  0001 C CNN "Alternative PN"
 	1    1550 2150
 	1    0    0    -1  
 $EndComp
@@ -1093,6 +1097,7 @@ F 7 "Digikey" H 1550 3050 50  0001 C CNN "Supplier"
 F 8 "490-13226-2-ND" H 1550 3050 50  0001 C CNN "Supplier PN"
 F 9 "0201" H 1550 3050 30  0000 C CNN "FP"
 F 10 "10V/20%" H 1700 2900 30  0000 C CNN "Rating"
+F 11 "CL03A105KP3NSNC" H 1550 3050 50  0001 C CNN "Alternative PN"
 	1    1550 3050
 	1    0    0    -1  
 $EndComp
@@ -1589,7 +1594,7 @@ L armory-mkII:TPD4E05U06-Q1 U6
 U 1 1 5C8D3660
 P 4900 9800
 F 0 "U6" H 4900 9850 50  0000 C CNN
-F 1 "TPD4E05U06-Q1" H 4900 9150 50  0000 C CNN
+F 1 "TPD4E05U06" H 4900 9150 50  0000 C CNN
 F 2 "armory-kicad:DQA-USON-10" H 4900 9800 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/tpd6e05u06.pdf" H 4900 9800 50  0001 C CNN
 F 4 "Texas Instruments" H 4900 9800 50  0001 C CNN "Mfg"
@@ -1597,6 +1602,7 @@ F 5 "TPD4E05U06DQAR" H 4900 9800 50  0001 C CNN "Mfg PN"
 F 6 "ESD protection" H 4900 9800 50  0001 C CNN "Desc"
 F 7 "Digikey" H 4900 9800 50  0001 C CNN "Supplier"
 F 8 "296-35765-2-ND" H 4900 9800 50  0001 C CNN "Supplier PN"
+F 9 "TPD4E05U06QDQARQ1" H 4900 9800 50  0001 C CNN "Alternative PN"
 	1    4900 9800
 	1    0    0    -1  
 $EndComp
@@ -1636,6 +1642,7 @@ F 5 "FPF2286UCX" H 9700 1725 50  0001 C CNN "Mfg PN"
 F 6 "OVP" H 9700 1725 50  0001 C CNN "Desc"
 F 7 "Digikey" H 9700 1725 50  0001 C CNN "Supplier"
 F 8 "FPF2286UCXOSCT-ND" H 9700 1725 50  0001 C CNN "Supplier PN"
+F 9 "KTS1670EUN-TR, KTS1671EUN-TR" H 9700 1725 50  0001 C CNN "Alternative PN"
 	1    9700 1725
 	1    0    0    -1  
 $EndComp
@@ -1719,7 +1726,7 @@ F 1 "0.1uF" H 8900 2225 50  0000 L CNN
 F 2 "armory-kicad:SM0201" H 8838 2125 50  0001 C CNN
 F 3 "~" H 8800 2275 50  0001 C CNN
 F 4 "Murata Electronics North America" H 8800 2275 50  0001 C CNN "Mfg"
-F 5 "GRM033R6YA104KE14D" H 8800 2275 50  0001 C CNN "Mfg PN"
+F 5 "GRM033R61A104ME15D" H 8800 2275 50  0001 C CNN "Mfg PN"
 F 6 "X5R, 10%, 35V" H 8800 2275 50  0001 C CNN "Desc"
 F 7 "Digikey" H 8800 2275 50  0001 C CNN "Supplier"
 F 8 "490-10430-2-ND" H 8800 2275 50  0001 C CNN "Supplier PN"
@@ -1937,24 +1944,6 @@ Wire Notes Line
 	15950 8350 15950 4100
 Text Label 3050 4900 2    50   ~ 0
 TYPEC_B11
-$Comp
-L armory-mkII:USBC-PLUG J2
-U 1 1 5C7F9A68
-P 4850 4600
-AR Path="/5C7F9A68" Ref="J2"  Part="1" 
-AR Path="/538352BD/5C7F9A68" Ref="J2"  Part="1" 
-F 0 "J2" H 4850 4650 50  0000 C CNN
-F 1 "USBC-PLUG" H 4850 1950 50  0000 C CNN
-F 2 "armory-kicad:WURTH_632712000011" H 4800 4600 50  0001 C CNN
-F 3 "https://katalog.we-online.de/em/datasheet/632712000011.pdf" H 4800 4600 50  0001 C CNN
-F 4 "Würth Elektronik " H 4850 4600 50  0001 C CNN "Mfg"
-F 5 "632712000011" H 4850 4600 50  0001 C CNN "Mfg PN"
-F 6 "Type-C plug" H 4850 4600 50  0001 C CNN "Desc"
-F 7 "Digikey" H 4850 4600 50  0001 C CNN "Supplier"
-F 8 "732-9616-2-ND" H 4850 4600 50  0001 C CNN "Supplier PN"
-	1    4850 4600
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	5450 6900 5450 7200
 $Comp
@@ -2056,6 +2045,7 @@ F 5 "TUSB320IRWBR" H 9700 6000 50  0001 C CNN "Mfg PN"
 F 6 "Type-C port controller" H 9700 6000 50  0001 C CNN "Desc"
 F 7 "Digikey" H 9700 6000 50  0001 C CNN "Supplier"
 F 8 "296-42175-1-ND" H 9700 6000 50  0001 C CNN "Supplier PN"
+F 9 "TUSB320RWBR" H 9700 6000 50  0001 C CNN "Alternative PN"
 	1    9700 6000
 	1    0    0    -1  
 $EndComp
@@ -2123,4 +2113,22 @@ Wire Wire Line
 	8850 6700 8950 6700
 Wire Wire Line
 	8850 7100 8850 7300
+$Comp
+L armory-mkII:USBC-PLUG_24_PIN J2
+U 1 1 5FB03100
+P 4850 4600
+F 0 "J2" H 4850 4650 50  0000 C CNN
+F 1 "USBC-PLUG_24_PIN" H 4850 1950 50  0000 C CNN
+F 2 "armory-kicad:WURTH_632712000112" H 4800 4600 50  0001 C CNN
+F 3 "https://www.we-online.de/katalog/datasheet/632712000112.pdf" H 4800 4600 50  0001 C CNN
+F 4 "Würth Elektronik" H 4850 4600 50  0001 C CNN "Mfg"
+F 5 "632712000112" H 4850 4600 50  0001 C CNN "Mfg PN"
+F 6 "Type-C plug" H 4850 4600 50  0001 C CNN "Desc"
+F 7 "Digikey" H 4850 4600 50  0001 C CNN "Supplier"
+F 8 " 732-13725-ND" H 4850 4600 50  0001 C CNN "Supplier PN"
+	1    4850 4600
+	1    0    0    -1  
+$EndComp
+NoConn ~ 5400 5700
+NoConn ~ 5400 5900
 $EndSCHEMATC

@@ -1,4 +1,4 @@
-71477804762951
+78299705540951
 armory-kicad
 8L_SOIC_Narrow_3_90_SN_C04-057C
 
@@ -168,6 +168,13 @@ SOT-223
 4
 4
 armory-kicad
+SOT1358-1
+
+
+0
+7
+7
+armory-kicad
 SOT1369-4
 
 
@@ -188,6 +195,13 @@ SOT1534-2
 0
 289
 289
+armory-kicad
+SOT1969-1
+
+
+0
+24
+21
 armory-kicad
 SOT1999-1
 
@@ -258,6 +272,13 @@ WURTH_632712000011
 0
 26
 23
+armory-kicad
+WURTH_632712000112
+
+
+0
+28
+25
 armory-kicad
 X1SON-2
 

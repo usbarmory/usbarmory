@@ -1,17 +1,16 @@
 EESchema Schematic File Version 4
-LIBS:armory-cache
 EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 7 13
-Title "USB ARMORY"
-Date "2019-06-25"
-Rev "MARK II"
+Title "USB armory Mk II"
+Date "2021-02-18"
+Rev "γ"
 Comp "F-Secure"
-Comment1 "Copyright © 2019 F-Secure"
-Comment2 "License: CERN OHL v1.2"
-Comment3 "https://github.com/inversepath/usbarmory"
+Comment1 "Copyright © F-Secure Corporation"
+Comment2 "License: CERN-OHL-S"
+Comment3 "https://github.com/f-secure-foundry/usbarmory"
 Comment4 ""
 $EndDescr
 Text Label 9150 3850 0    60   ~ 0
@@ -489,6 +488,7 @@ F 0 "U2" H 4650 850 70  0000 C CNN
 F 1 "MX6UL-VM" H 4650 -3750 60  0000 C CNN
 F 2 "armory-kicad:SOT1534-2" H 5160 -360 60  0001 C CNN
 F 3 "https://www.nxp.com/docs/en/data-sheet/IMX6ULCEC.pdf" H 5160 -360 60  0001 C CNN
+F 4 "MCIMX6Z0DVM09AB" H 4650 800 50  0001 C CNN "Mfg PN"
 	2    4650 800 
 	1    0    0    -1  
 $EndComp
@@ -620,6 +620,7 @@ F 7 "Digikey" H 9800 1350 50  0001 C CNN "Supplier"
 F 8 "1276-7090-2-ND" H 9800 1350 50  0001 C CNN "Supplier PN"
 F 9 "0402" H 9800 1350 30  0000 C CNN "FP"
 F 10 "6.3V/20%" H 9950 1200 30  0000 C CNN "Rating"
+F 11 "CL05A226MQ6ZUN8" H 9800 1350 50  0001 C CNN "Alternative PN"
 	1    9800 1350
 	1    0    0    -1  
 $EndComp
@@ -814,6 +815,7 @@ F 5 "MT41K256M16TW-107:P" H 11900 5850 50  0001 C CNN "Mfg PN"
 F 6 "DDR RAM" H 11900 5850 50  0001 C CNN "Desc"
 F 7 "Digikey" H 11900 5850 50  0001 C CNN "Supplier"
 F 8 "557-1792-ND" H 11900 5850 50  0001 C CNN "Supplier PN"
+F 9 "MT41K256M16LY" H 11900 5850 50  0001 C CNN "Alternative PN"
 	1    11900 5850
 	1    0    0    -1  
 $EndComp
@@ -1698,6 +1700,7 @@ F 7 "Digikey" H 3600 6650 50  0001 C CNN "Supplier"
 F 8 "1276-7090-2-ND" H 3600 6650 50  0001 C CNN "Supplier PN"
 F 9 "0402" H 3600 6650 30  0000 C CNN "FP"
 F 10 "6.3V/20%" H 3750 6500 30  0000 C CNN "Rating"
+F 11 "CL05A226MQ6ZUN8" H 3600 6650 50  0001 C CNN "Alternative PN"
 	1    3600 6650
 	1    0    0    -1  
 $EndComp

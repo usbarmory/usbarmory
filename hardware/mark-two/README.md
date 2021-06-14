@@ -13,9 +13,9 @@ armory board please see the [ordering information](https://github.com/f-secure-f
 Revision information
 ====================
 
-This directory contains the hardware design for the USB armory Mk II rev. β.
+This directory contains the hardware design for the USB armory Mk II rev. γ.
 
-Current schematics and layout files have been designed in KiCad 5.1.4.
+Current schematics and layout files have been designed in KiCad 5.1.10.
 
 PCB Information
 ===============
@@ -100,14 +100,18 @@ License
 USB armory | https://github.com/f-secure-foundry/usbarmory  
 Copyright (c) F-Secure Corporation
 
-This is an open hardware design licensed under the terms of the CERN Open
-Hardware Licence (OHL) v1.2.
+This source describes Open Hardware and is licensed under the CERN-OHL-S v2.
 
-You may redistribute and modify this documentation under the terms of the CERN
-OHL v.1.2 (http://ohwr.org/cernohl). This documentation is distributed WITHOUT
-ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING OF MERCHANTABILITY, SATISFACTORY
-QUALITY AND FITNESS FOR A PARTICULAR PURPOSE. Please see the CERN OHL v.1.2 for
-applicable conditions.
+You may redistribute and modify this source and make products using it under
+the terms of the CERN-OHL-S v2 (https://ohwr.org/cern_ohl_s_v2.txt).
+
+This source is distributed WITHOUT ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING
+OF MERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A PARTICULAR PURPOSE.
+Please see the CERN-OHL-S v2 for applicable conditions.
+
+As per CERN-OHL-S v2 section 4, should You produce hardware based on this
+source, You must where practicable maintain the Source Location visible on the
+external case of the USB armory or other products you make using this source.
 
 The following exceptions apply:
 
