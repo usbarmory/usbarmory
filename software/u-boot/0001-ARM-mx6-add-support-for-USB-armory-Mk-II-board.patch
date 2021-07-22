@@ -1,4 +1,4 @@
-From f8a3239e85920eee5f8ce47cc1f1b1fbe0bbe620 Mon Sep 17 00:00:00 2001
+From 7441a2cc8e8dd7f0e72a860b5f65838ada9df6a7 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Wed, 10 Mar 2021 15:49:12 +0100
 Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
@@ -27,11 +27,11 @@ Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
  create mode 100644 include/configs/usbarmory-mark-two.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index fd47e408f8..2faf072a19 100644
+index 9fb38682e6..5244a0aa4b 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -739,6 +739,7 @@ dtb-$(CONFIG_MX6ULL) += \
- 	imx6ull-myir-mys-6ulx-eval.dtb \
+@@ -814,6 +814,7 @@ dtb-$(CONFIG_MX6ULL) += \
+ 	imx6ull-seeed-npi-imx6ull-dev-board.dtb \
  	imx6ull-phytec-segin-ff-rdk-emmc.dtb \
  	imx6ull-dart-6ul.dtb \
 +	imx6ull-usbarmory.dtb \
@@ -245,10 +245,10 @@ index 0000000000..d5a616f703
 +	status = "okay";
 +};
 diff --git a/arch/arm/mach-imx/mx6/Kconfig b/arch/arm/mach-imx/mx6/Kconfig
-index 513d007ce7..bfbc135fe4 100644
+index 23cab3932b..59843a7f08 100644
 --- a/arch/arm/mach-imx/mx6/Kconfig
 +++ b/arch/arm/mach-imx/mx6/Kconfig
-@@ -630,6 +630,10 @@ config TARGET_UDOO_NEO
+@@ -592,6 +592,10 @@ config TARGET_UDOO_NEO
  	select SUPPORT_SPL
  	imply CMD_DM
  
@@ -259,14 +259,14 @@ index 513d007ce7..bfbc135fe4 100644
  config TARGET_SOFTING_VINING_2000
  	bool "Softing VIN|ING 2000"
  	depends on MX6SX
-@@ -731,6 +735,7 @@ source "board/phytec/pcm058/Kconfig"
- source "board/phytec/pfla02/Kconfig"
+@@ -668,6 +672,7 @@ source "board/freescale/mx6sxsabreauto/Kconfig"
+ source "board/freescale/mx6ul_14x14_evk/Kconfig"
+ source "board/freescale/mx6ullevk/Kconfig"
+ source "board/grinn/liteboard/Kconfig"
++source "board/inversepath/usbarmory-mark-two/Kconfig"
+ source "board/phytec/pcm058/Kconfig"
  source "board/phytec/pcl063/Kconfig"
  source "board/gateworks/gw_ventana/Kconfig"
-+source "board/inversepath/usbarmory-mark-two/Kconfig"
- source "board/kosagi/novena/Kconfig"
- source "board/softing/vining_2000/Kconfig"
- source "board/liebherr/display5/Kconfig"
 diff --git a/board/inversepath/usbarmory-mark-two/Kconfig b/board/inversepath/usbarmory-mark-two/Kconfig
 new file mode 100644
 index 0000000000..e13290b9a1
@@ -1239,5 +1239,5 @@ index 0000000000..9ce638aeb1
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.30.2
+2.32.0
 
