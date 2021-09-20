@@ -60,10 +60,10 @@ port.
 
 |  USB-C pin   | MUX mode ALT0 | MUX mode ALT8 | MUX mode ALT2 | MUX mode ALT5 |
 |:-------------|---------------|---------------|---------------|---------------|
-| SSTXp1 (A2)  | UART2_TX      | ECSPI3_SSO    | I2C4_SCL¹     | GPIO1_IO20   |
-| SSTXn1 (A3)  | UART2_RX      | ECSPI3_SCLK   | I2C4_SDA¹     | GPIO1_IO21    |
-| SSRXp1 (B11) | UART2_RTS_B   | ECSPI3_MISO   | FLEXCAN2_RX¹  | GPIO1_IO23    |
-| SSRXn1 (B10) | UART2_CTS_B   | ECSPI3_MOSI   | FLEXCAN2_TX¹  | GPIO1_IO22    |
+| SSTXp1 (A2)  | UART2_TX      | ECSPI3_SSO¹   | I2C4_SCL¹     | GPIO1_IO20    |
+| SSTXn1 (A3)  | UART2_RX      | ECSPI3_SCLK¹  | I2C4_SDA¹     | GPIO1_IO21    |
+| SSRXp1 (B11) | UART2_RTS_B   | ECSPI3_MISO¹  | FLEXCAN2_RX¹  | GPIO1_IO23    |
+| SSRXn1 (B10) | UART2_CTS_B   | ECSPI3_MOSI¹  | FLEXCAN2_TX¹  | GPIO1_IO22    |
 | SSRXp2 (A11) | UART4_TX      | ECSPI2_SCLK   | I2C1_SCL      | GPIO1_IO28    |
 | SSTXn2 (B3)  | UART4_RX      | ECSPI2_SSO    | I2C1_SDA      | GPIO1_IO29    |
 | SSRXn2 (A10) | UART5_TX~     | ECSPI2_MOSI   | I2C2_SCL      | GPIO1_IO30    |
