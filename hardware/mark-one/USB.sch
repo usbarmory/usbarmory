@@ -42,7 +42,7 @@ Rev "MARK I"
 Comp "Inverse Path"
 Comment1 "Copyright © F-Secure Corporation"
 Comment2 "License: CERN OHL v1.2"
-Comment3 "http://inversepath.com/usbarmory"
+Comment3 "https://github.com/f-secure-foundry/usbarmory"
 Comment4 ""
 $EndDescr
 Text GLabel 3400 4450 0    60   Input ~ 0
