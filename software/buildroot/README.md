@@ -2,8 +2,8 @@ Embedded Buildroot distributions for the USB armory
 ===================================================
 
 > :warning: these Buildroot profiles are no longer maintained, the following
-> [TamaGo](https://github.com/f-secure-foundry/tamago) unikernels are now
-> recommended to embed similar single-purpose applications on a USB armory:
+> [TamaGo](https://github.com/f-secure-foundry/tamago) unikernels are
+> recommended to embed similar single-purpose applications on the USB armory:
 >
 >  * [Armory Drive](https://github.com/f-secure-foundry/armory-drive)
 >  * [GoKey](https://github.com/f-secure-foundry/GoKey)

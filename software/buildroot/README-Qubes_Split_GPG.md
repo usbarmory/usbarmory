@@ -1,7 +1,11 @@
 Qubes Split GPG server for the USB armory Mk I
 ==============================================
 
-> :warning: this Buildroot profile is no longer maintained
+> :warning: this Buildroot profile is no longer maintained, the following
+> [TamaGo](https://github.com/f-secure-foundry/tamago) unikernel is recommended
+> to embed a similar single-purpose application on the USB armory:
+>
+>  * [GoKey](https://github.com/f-secure-foundry/GoKey)
 
 This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling a minimal embedded Linux environment for the
