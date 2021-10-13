@@ -1,6 +1,8 @@
 Embedded INTERLOCK distribution for the USB armory Mk I
 =======================================================
 
+> :warning: this Buildroot profile is no longer maintained
+
 This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling a minimal embedded Linux environment for the
 [USB armory](https://github.com/f-secure-foundry/usbarmory) Mk I with
