@@ -1,22 +1,22 @@
-From 7441a2cc8e8dd7f0e72a860b5f65838ada9df6a7 Mon Sep 17 00:00:00 2001
+From ac7958098ed1605d65fd22598e349a1059433f9c Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Wed, 10 Mar 2021 15:49:12 +0100
 Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
 
 ---
- arch/arm/dts/Makefile                         |   1 +
- arch/arm/dts/imx6ull-usbarmory.dts            | 200 ++++++++++
+ arch/arm/dts/Makefile                         |   3 +-
+ arch/arm/dts/imx6ulz-usbarmory.dts            | 200 ++++++++++
  arch/arm/mach-imx/mx6/Kconfig                 |   5 +
  board/inversepath/usbarmory-mark-two/Kconfig  |  71 ++++
  .../usbarmory-mark-two/MAINTAINERS            |   6 +
  board/inversepath/usbarmory-mark-two/Makefile |  10 +
  .../usbarmory-mark-two/imximage-1gb.cfg       |  87 +++++
  .../usbarmory-mark-two/imximage-512mb.cfg     |  89 +++++
- .../usbarmory-mark-two/usbarmory-mark-two.c   | 347 ++++++++++++++++++
- configs/usbarmory-mark-two_defconfig          |  78 ++++
- include/configs/usbarmory-mark-two.h          | 235 ++++++++++++
- 11 files changed, 1129 insertions(+)
- create mode 100644 arch/arm/dts/imx6ull-usbarmory.dts
+ .../usbarmory-mark-two/usbarmory-mark-two.c   | 352 ++++++++++++++++++
+ configs/usbarmory-mark-two_defconfig          |  81 ++++
+ include/configs/usbarmory-mark-two.h          | 233 ++++++++++++
+ 11 files changed, 1136 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm/dts/imx6ulz-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
  create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
  create mode 100644 board/inversepath/usbarmory-mark-two/Makefile
@@ -27,22 +27,24 @@ Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
  create mode 100644 include/configs/usbarmory-mark-two.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index 9fb38682e6..5244a0aa4b 100644
+index fc16a57e60..b8efbe6094 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -814,6 +814,7 @@ dtb-$(CONFIG_MX6ULL) += \
- 	imx6ull-seeed-npi-imx6ull-dev-board.dtb \
+@@ -825,7 +825,8 @@ dtb-$(CONFIG_MX6ULL) += \
  	imx6ull-phytec-segin-ff-rdk-emmc.dtb \
  	imx6ull-dart-6ul.dtb \
-+	imx6ull-usbarmory.dtb \
  	imx6ull-somlabs-visionsom.dtb \
- 	imx6ulz-14x14-evk.dtb
+-	imx6ulz-14x14-evk.dtb
++	imx6ulz-14x14-evk.dtb \
++	imx6ulz-usbarmory.dtb
  
-diff --git a/arch/arm/dts/imx6ull-usbarmory.dts b/arch/arm/dts/imx6ull-usbarmory.dts
+ dtb-$(CONFIG_ARCH_MX6) += \
+ 	imx6-apalis.dtb \
+diff --git a/arch/arm/dts/imx6ulz-usbarmory.dts b/arch/arm/dts/imx6ulz-usbarmory.dts
 new file mode 100644
-index 0000000000..d5a616f703
+index 0000000000..dca100f63f
 --- /dev/null
-+++ b/arch/arm/dts/imx6ull-usbarmory.dts
++++ b/arch/arm/dts/imx6ulz-usbarmory.dts
 @@ -0,0 +1,200 @@
 +/*
 + * USB armory Mk II device tree file
@@ -92,11 +94,11 @@ index 0000000000..d5a616f703
 +
 +/dts-v1/;
 +
-+#include "imx6ull.dtsi"
++#include "imx6ulz.dtsi"
 +
 +/ {
 +	model = "F-Secure USB armory Mk II";
-+	compatible = "inversepath,imx6ull-usbarmory-mkII", "fsl,imx6ull";
++	compatible = "inversepath,imx6ulz-usbarmory-mkII", "fsl,imx6ulz", "fsl,imx6ull";
 +
 +	chosen {
 +		stdout-path = &uart2;
@@ -245,10 +247,10 @@ index 0000000000..d5a616f703
 +	status = "okay";
 +};
 diff --git a/arch/arm/mach-imx/mx6/Kconfig b/arch/arm/mach-imx/mx6/Kconfig
-index 23cab3932b..59843a7f08 100644
+index 515c3020fa..77c19da302 100644
 --- a/arch/arm/mach-imx/mx6/Kconfig
 +++ b/arch/arm/mach-imx/mx6/Kconfig
-@@ -592,6 +592,10 @@ config TARGET_UDOO_NEO
+@@ -590,6 +590,10 @@ config TARGET_UDOO_NEO
  	select SUPPORT_SPL
  	imply CMD_DM
  
@@ -259,7 +261,7 @@ index 23cab3932b..59843a7f08 100644
  config TARGET_SOFTING_VINING_2000
  	bool "Softing VIN|ING 2000"
  	depends on MX6SX
-@@ -668,6 +672,7 @@ source "board/freescale/mx6sxsabreauto/Kconfig"
+@@ -666,6 +670,7 @@ source "board/freescale/mx6sxsabreauto/Kconfig"
  source "board/freescale/mx6ul_14x14_evk/Kconfig"
  source "board/freescale/mx6ullevk/Kconfig"
  source "board/grinn/liteboard/Kconfig"
@@ -562,10 +564,10 @@ index 0000000000..b856481b08
 +DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
 diff --git a/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
 new file mode 100644
-index 0000000000..97723992ba
+index 0000000000..4607b10366
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
-@@ -0,0 +1,347 @@
+@@ -0,0 +1,352 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 + * USB armory Mk II board initialization
@@ -584,6 +586,7 @@ index 0000000000..97723992ba
 +#include <asm/arch/iomux.h>
 +#include <asm/arch/mx6-pins.h>
 +#include <asm/mach-imx/iomux-v3.h>
++#include <asm/mach-imx/mxc_i2c.h>
 +#include <linux/errno.h>
 +#include <i2c.h>
 +#include <mmc.h>
@@ -852,11 +855,15 @@ index 0000000000..97723992ba
 +/* Enable FUSB303 receptacle Type-C controller */
 +int fusb303_init(void)
 +{
++	int rc;
++	struct udevice *dev = NULL;
 +	uchar val;
 +
++	rc = i2c_get_chip_for_busnum(0, 0x31, 1, &dev);
++
 +	val = 0xbb;
-+	i2c_set_bus_num(0);
-+	i2c_write(0x31, 0x5, 1, &val, 1);
++	dm_i2c_write(dev, 0x5, &val, 1);
++
 +	return 0;
 +}
 +
@@ -915,10 +922,10 @@ index 0000000000..97723992ba
 +#endif
 diff --git a/configs/usbarmory-mark-two_defconfig b/configs/usbarmory-mark-two_defconfig
 new file mode 100644
-index 0000000000..6edb83859c
+index 0000000000..e0628f23b9
 --- /dev/null
 +++ b/configs/usbarmory-mark-two_defconfig
-@@ -0,0 +1,78 @@
+@@ -0,0 +1,81 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_MX6=y
 +CONFIG_SYS_TEXT_BASE=0x87800000
@@ -963,11 +970,14 @@ index 0000000000..6edb83859c
 +CONFIG_DM=y
 +CONFIG_DM_MMC=y
 +CONFIG_DM_USB=y
++CONFIG_DM_I2C=y
++CONFIG_DM_GPIO=y
++CONFIG_SYS_I2C_MXC=y
 +CONFIG_BLK=y
 +CONFIG_OF_LIBFDT=y
 +CONFIG_OF_CONTROL=y
 +CONFIG_OF_SEPARATE=y
-+CONFIG_DEFAULT_DEVICE_TREE="imx6ull-usbarmory"
++CONFIG_DEFAULT_DEVICE_TREE="imx6ulz-usbarmory"
 +
 +# Secure/Verified boot
 +CONFIG_FSL_CAAM=y
@@ -999,10 +1009,10 @@ index 0000000000..6edb83859c
 +CONFIG_LEGACY_IMAGE_FORMAT=y
 diff --git a/include/configs/usbarmory-mark-two.h b/include/configs/usbarmory-mark-two.h
 new file mode 100644
-index 0000000000..9ce638aeb1
+index 0000000000..948d48a570
 --- /dev/null
 +++ b/include/configs/usbarmory-mark-two.h
-@@ -0,0 +1,235 @@
+@@ -0,0 +1,233 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board configuration settings
@@ -1029,8 +1039,6 @@ index 0000000000..9ce638aeb1
 +#define CONFIG_USBD_HS
 +
 +/* I2C */
-+#define CONFIG_SYS_I2C
-+#define CONFIG_SYS_I2C_MXC
 +#define CONFIG_SYS_I2C_SPEED 100000
 +#define CONFIG_SYS_I2C_MXC_I2C1
 +
@@ -1208,7 +1216,7 @@ index 0000000000..9ce638aeb1
 +	"initrd_high=0xffffffff\0"		\
 +	"bootfile=zImage\0"			\
 +	"opteefile=uTee\0"			\
-+	"fdtfile=imx6ull-usbarmory.dtb\0"	\
++	"fdtfile=imx6ulz-usbarmory.dtb\0"	\
 +	"mmcdev=" USBARMORY_BOOT_DEV "\0"	\
 +	"ethact=usb_ether\0"			\
 +	"cdc_connect_timeout=60\0"		\
@@ -1239,5 +1247,5 @@ index 0000000000..9ce638aeb1
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.32.0
+2.33.1
 
