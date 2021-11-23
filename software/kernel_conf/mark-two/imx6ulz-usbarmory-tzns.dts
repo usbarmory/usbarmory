@@ -53,6 +53,14 @@
 		device_type = "memory";
 			reg = <0x80000000 0x18000000>;
 	};
+
+	// This node is required by optee driver.
+	firmware {
+		optee {
+			method = "smc";
+			compatible = "linaro,optee-tz";
+		};
+	};
 };
 
 // DCP assigned to Secure world to protect OTPMK
