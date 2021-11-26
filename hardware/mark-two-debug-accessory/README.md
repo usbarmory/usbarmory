@@ -47,6 +47,12 @@ Outer layer isolation distance: 0.127 mm
 Outer layer annular ring:       0.100 mm  
 Smallest final hole (plated):   0.150 mm
 
+Errata
+------
+
+The silkscreen labels for `3.3V` and `5V` are inverted on all rev v1 PCBs, see
+this [issue](https://github.com/f-secure-foundry/usbarmory/issues/68).
+
 USB armory Mk II debug I/Os
 ===========================
 
