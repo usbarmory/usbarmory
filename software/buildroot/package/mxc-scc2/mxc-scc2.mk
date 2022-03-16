@@ -6,7 +6,7 @@
 
 MXC_SCC2_VERSION = 4bfa5252c2847c0c494491fcd8e79d8966726ad5
 MXC_SCC2_SITE = $(call github,f-secure-foundry,mxc-scc2,$(MXC_SCC2_VERSION))
-MXC_SCC2_REPO = https://github.com/f-secure-foundry/mxc-scc2
+MXC_SCC2_REPO = https://github.com/usbarmory/mxc-scc2
 
 MXC_SCC2_LICENSE = GPLv3
 MXC_SCC2_LICENSE_FILES = LICENSE

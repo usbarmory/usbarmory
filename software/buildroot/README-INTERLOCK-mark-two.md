@@ -4,14 +4,14 @@
 
 This directory contains [Buildroot](http://buildroot.uclibc.org/)
 customizations for cross-compiling a minimal embedded Linux environment for the
-[USB armory](https://github.com/f-secure-foundry/usbarmory) Mk II with
-[INTERLOCK](https://github.com/f-secure-foundry/interlock) support.
+[USB armory](https://github.com/usbarmory/usbarmory) Mk II with
+[INTERLOCK](https://github.com/usbarmory/interlock) support.
 
 Once installed on a microSD card for the USB armory, the Buildroot image allows
 quick and easy access to the INTERLOCK web application, exposing advanced
 interaction with an encrypted storage.
 
-![INTERLOCK screenshot](https://github.com/f-secure-foundry/interlock/wiki/images/interlock.png)
+![INTERLOCK screenshot](https://github.com/usbarmory/interlock/wiki/images/interlock.png)
 
 ## Default credentials
 
@@ -28,7 +28,7 @@ The USB armory + INTERLOCK Buildroot image operates as follows:
     default IP address (10.0.0.1) to the host, which typically requires no
     explicit configuration as most OSes automatically point a DHCP client to
     the emulated Ethernet over USB interface
-    (see [Host communication](https://github.com/f-secure-foundry/usbarmory/wiki/Host-communication)).
+    (see [Host communication](https://github.com/usbarmory/usbarmory/wiki/Host-communication)).
 
   * Only at the very first boot (which therefore takes longer than subsequent
     ones), an encrypted partition is created and configured on volume `armory`
@@ -53,26 +53,26 @@ The USB armory + INTERLOCK Buildroot image operates as follows:
     configuration.
 
     Links:
-    [mxs-dcp driver](https://github.com/f-secure-foundry/mxs-dcp)
+    [mxs-dcp driver](https://github.com/usbarmory/mxs-dcp)
 
   * A serial console is available through the
-    [debug accessory](https://github.com/f-secure-foundry/usbarmory/tree/master/hardware/mark-two-debug-accessory),
+    [debug accessory](https://github.com/usbarmory/usbarmory/tree/master/hardware/mark-two-debug-accessory),
     default root password is `usbarmory`.
 
 The full list of features and capabilities of INTERLOCK is detailed in its
-[documentation](https://github.com/f-secure-foundry/interlock/blob/master/README.md).
+[documentation](https://github.com/usbarmory/interlock/blob/master/README.md).
 
 ## Binary releases
 
 Users that do not desire to manually compile and install the
 image can find binary releases at the following URL:
 
-https://github.com/f-secure-foundry/interlock/releases
+https://github.com/usbarmory/interlock/releases
 
 ## Compiling
 
 The [Buildroot requirements](http://buildroot.uclibc.org/downloads/manual/manual.html#requirement)
-and [INTERLOCK requirements](https://github.com/f-secure-foundry/interlock#compiling)
+and [INTERLOCK requirements](https://github.com/usbarmory/interlock#compiling)
 must be satisfied before starting the compilation process.
 
 Install Buildroot:
@@ -84,7 +84,7 @@ git clone https://github.com/buildroot/buildroot
 # cd buildroot && git checkout 2021.02.2
 ```
 
-Download the USB armory [repository](https://github.com/f-secure-foundry/usbarmory)
+Download the USB armory [repository](https://github.com/usbarmory/usbarmory)
 and configure Buildroot by passing the directory holding this README file with
 the `BR2_EXTERNAL` environment variable. This generates a `.config` file that
 can be optionally customized if required:
@@ -198,7 +198,7 @@ usb 1-1: Manufacturer: Freescale SemiConductor Inc
 hid-generic 0003:15A2:0080.0003: hiddev96,hidraw1: USB HID v1.10 Device [Freescale SemiConductor Inc  SE Blank 6ULL] on usb-0000:00:14.0-1/input0
 ```
 
-Load the [armory-ums](https://github.com/f-secure-foundry/armory-ums/releases)
+Load the [armory-ums](https://github.com/usbarmory/armory-ums/releases)
 firmware using the [imx_loader](https://github.com/boundarydevices/imx_usb_loader) utility:
 
 ```

@@ -8,4 +8,4 @@ config BR2_PACKAGE_MXS_DCP
           This driver is a customized version of the mainline Linux kernel
           driver, patched to allow use of the OTPMK released by the SNVS.
 
-          https://github.com/f-secure-foundry/mxs-dcp
+          https://github.com/usbarmory/mxs-dcp

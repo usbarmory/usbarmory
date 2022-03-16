@@ -1,7 +1,7 @@
 USB armory Mk II debug accessory
 ================================
 
-USB armory | https://github.com/f-secure-foundry/usbarmory  
+USB armory | https://github.com/usbarmory/usbarmory  
 Copyright (c) F-Secure Corporation
 
 The USB armory from [F-Secure Foundry](https://foundry.f-secure.com) is an open
@@ -22,12 +22,12 @@ breakout through holes.
 This repository is aimed towards developers, if you wish to purchase a USB
 armory board please see the [USB armory project page](https://www.f-secure.com/en/consulting/foundry/usb-armory).
 
-![Mk II debug accessory](https://github.com/f-secure-foundry/usbarmory/wiki/images/armory-mark-two-debug-accessory.png)
+![Mk II debug accessory](https://github.com/usbarmory/usbarmory/wiki/images/armory-mark-two-debug-accessory.png)
 
 PCB Information
 ===============
 
-![Mk II debug accessory](https://github.com/f-secure-foundry/usbarmory/wiki/images/armory-mark-two-debug-accessory.svg?sanitize=true)
+![Mk II debug accessory](https://github.com/usbarmory/usbarmory/wiki/images/armory-mark-two-debug-accessory.svg?sanitize=true)
 
 2 layers, 0.80mm thickness, top only components  
 Outer layers 0.5 oz base copper foil  
@@ -51,7 +51,7 @@ Errata
 ------
 
 The silkscreen labels for `3.3V` and `5V` are inverted on all rev v1 PCBs, see
-this [issue](https://github.com/f-secure-foundry/usbarmory/issues/68).
+this [issue](https://github.com/usbarmory/usbarmory/issues/68).
 
 USB armory Mk II debug I/Os
 ===========================
@@ -81,7 +81,7 @@ port.
 Serial console
 --------------
 
-When running the [USB armory Debian base image](https://github.com/f-secure-foundry/usbarmory-debian-base_image/releases)
+When running the [USB armory Debian base image](https://github.com/usbarmory/usbarmory-debian-base_image/releases)
 the serial console can be accessed, with the debug accessory jumper set to UART
 position, as follows (example on Linux host with picocom):
 
@@ -162,7 +162,7 @@ Pin assignment: UART2
 | SSRXp1 (B11) | UART2_RTS_B¹ | CDBUS3   | #C CTS     |
 | SSRXn1 (B10) | UART2_CTS_B¹ | CDBUS2   | #C RTS     |
 
-¹ On USB armory Mk II rev. β see the [related errata](https://github.com/f-secure-foundry/usbarmory/wiki/Errata-(Mk-II)#errata-inverted-uart-rtscts-signals-resolved-with-workaround).
+¹ On USB armory Mk II rev. β see the [related errata](https://github.com/usbarmory/usbarmory/wiki/Errata-(Mk-II)#errata-inverted-uart-rtscts-signals-resolved-with-workaround).
 
 Pin assignment: UART4
 =====================
@@ -183,7 +183,7 @@ Pin assignment: UART5
 License
 =======
 
-USB armory | https://github.com/f-secure-foundry/usbarmory  
+USB armory | https://github.com/usbarmory/usbarmory  
 Copyright (c) F-Secure Corporation
 
 This is an open hardware design licensed under the terms of the CERN Open

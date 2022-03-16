@@ -10,7 +10,7 @@ Rev "γ"
 Comp "F-Secure"
 Comment1 "Copyright © F-Secure Corporation"
 Comment2 "License: CERN-OHL-S"
-Comment3 "https://github.com/f-secure-foundry/usbarmory"
+Comment3 "https://github.com/usbarmory/usbarmory"
 Comment4 ""
 $EndDescr
 Text Notes 1800 1250 0    100  Italic 0

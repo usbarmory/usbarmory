@@ -12,7 +12,7 @@
         (source armory.sch)
         (comment (number 1) (value "Copyright © 2021 F-Secure"))
         (comment (number 2) (value "License: CERN OHL v1.2"))
-        (comment (number 3) (value https://github.com/f-secure-foundry/usbarmory))
+        (comment (number 3) (value https://github.com/usbarmory/usbarmory))
         (comment (number 4) (value ""))))
     (sheet (number 2) (name /Crystals/) (tstamps /533C7F27/)
       (title_block
@@ -23,7 +23,7 @@
         (source crystals.sch)
         (comment (number 1) (value "Copyright © 2021 F-Secure"))
         (comment (number 2) (value "License: CERN OHL v1.2"))
-        (comment (number 3) (value https://github.com/f-secure-foundry/usbarmory))
+        (comment (number 3) (value https://github.com/usbarmory/usbarmory))
         (comment (number 4) (value ""))))
     (sheet (number 3) (name /eMMC/) (tstamps /53722D05/)
       (title_block
@@ -34,7 +34,7 @@
         (source emmc.sch)
         (comment (number 1) (value "Copyright © 2021 F-Secure"))
         (comment (number 2) (value "License: CERN OHL v1.2"))
-        (comment (number 3) (value https://github.com/f-secure-foundry/usbarmory))
+        (comment (number 3) (value https://github.com/usbarmory/usbarmory))
         (comment (number 4) (value ""))))
     (sheet (number 4) (name /MISC/) (tstamps /53834030/)
       (title_block
@@ -45,7 +45,7 @@
         (source misc.sch)
         (comment (number 1) (value "Copyright © 2021 F-Secure"))
         (comment (number 2) (value "License: CERN OHL v1.2"))
-        (comment (number 3) (value https://github.com/f-secure-foundry/usbarmory))
+        (comment (number 3) (value https://github.com/usbarmory/usbarmory))
         (comment (number 4) (value ""))))
     (sheet (number 5) (name /USB/) (tstamps /538352BD/)
       (title_block
@@ -56,7 +56,7 @@
         (source usb.sch)
         (comment (number 1) (value "Copyright © 2021 F-Secure"))
         (comment (number 2) (value "License: CERN OHL v1.2"))
-        (comment (number 3) (value https://github.com/f-secure-foundry/usbarmory))
+        (comment (number 3) (value https://github.com/usbarmory/usbarmory))
         (comment (number 4) (value ""))))
     (sheet (number 6) (name /Boot/) (tstamps /53C623ED/)
       (title_block
@@ -67,7 +67,7 @@
         (source boot.sch)
         (comment (number 1) (value "Copyright © 2021 F-Secure"))
         (comment (number 2) (value "License: CERN OHL v1.2"))
-        (comment (number 3) (value https://github.com/f-secure-foundry/usbarmory))
+        (comment (number 3) (value https://github.com/usbarmory/usbarmory))
         (comment (number 4) (value ""))))
     (sheet (number 7) (name /DDR/) (tstamps /53834A3C/)
       (title_block
@@ -78,7 +78,7 @@
         (source ddr.sch)
         (comment (number 1) (value "Copyright © 2021 F-Secure"))
         (comment (number 2) (value "License: CERN OHL v1.2"))
-        (comment (number 3) (value https://github.com/f-secure-foundry/usbarmory))
+        (comment (number 3) (value https://github.com/usbarmory/usbarmory))
         (comment (number 4) (value ""))))
     (sheet (number 8) (name /Power/) (tstamps /5BEA6694/)
       (title_block
@@ -89,7 +89,7 @@
         (source power.sch)
         (comment (number 1) (value "Copyright © 2021 F-Secure"))
         (comment (number 2) (value "License: CERN OHL v1.2"))
-        (comment (number 3) (value https://github.com/f-secure-foundry/usbarmory))
+        (comment (number 3) (value https://github.com/usbarmory/usbarmory))
         (comment (number 4) (value ""))))
     (sheet (number 9) (name /Bluetooth/) (tstamps /5CEA53B1/)
       (title_block
@@ -100,7 +100,7 @@
         (source bluetooth.sch)
         (comment (number 1) (value "Copyright © 2021 F-Secure"))
         (comment (number 2) (value "License: CERN OHL v1.2"))
-        (comment (number 3) (value https://github.com/f-secure-foundry/usbarmory))
+        (comment (number 3) (value https://github.com/usbarmory/usbarmory))
         (comment (number 4) (value ""))))
     (sheet (number 10) (name /microSD/) (tstamps /5C0717D2/)
       (title_block
@@ -111,7 +111,7 @@
         (source microsd.sch)
         (comment (number 1) (value "Copyright © 2021 F-Secure"))
         (comment (number 2) (value "License: CERN OHL v1.2"))
-        (comment (number 3) (value https://github.com/f-secure-foundry/usbarmory))
+        (comment (number 3) (value https://github.com/usbarmory/usbarmory))
         (comment (number 4) (value ""))))
     (sheet (number 11) (name "/Secure elements/") (tstamps /5C1535D2/)
       (title_block
@@ -122,7 +122,7 @@
         (source secure-element.sch)
         (comment (number 1) (value "Copyright © 2021 F-Secure"))
         (comment (number 2) (value "License: CERN OHL v1.2"))
-        (comment (number 3) (value https://github.com/f-secure-foundry/usbarmory))
+        (comment (number 3) (value https://github.com/usbarmory/usbarmory))
         (comment (number 4) (value ""))))
     (sheet (number 12) (name "/Power tree/") (tstamps /5C940EBF/)
       (title_block
@@ -133,7 +133,7 @@
         (source power-tree.sch)
         (comment (number 1) (value "Copyright © 2021 F-Secure"))
         (comment (number 2) (value "License: CERN OHL v1.2"))
-        (comment (number 3) (value https://github.com/f-secure-foundry/usbarmory))
+        (comment (number 3) (value https://github.com/usbarmory/usbarmory))
         (comment (number 4) (value ""))))
     (sheet (number 13) (name /PMIC/) (tstamps /5335DA0B/)
       (title_block
@@ -144,7 +144,7 @@
         (source pmic.sch)
         (comment (number 1) (value "Copyright © 2021 F-Secure"))
         (comment (number 2) (value "License: CERN OHL v1.2"))
-        (comment (number 3) (value https://github.com/f-secure-foundry/usbarmory))
+        (comment (number 3) (value https://github.com/usbarmory/usbarmory))
         (comment (number 4) (value "")))))
   (components
     (comp (ref U2)

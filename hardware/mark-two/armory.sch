@@ -10,7 +10,7 @@ Rev "γ"
 Comp "F-Secure"
 Comment1 "Copyright © F-Secure Corporation"
 Comment2 "License: CERN-OHL-S"
-Comment3 "https://github.com/f-secure-foundry/usbarmory"
+Comment3 "https://github.com/usbarmory/usbarmory"
 Comment4 ""
 $EndDescr
 $Sheet
@@ -190,7 +190,7 @@ COVER PAGE
 Wire Notes Line
 	11050 750  11050 3250
 Text Notes 11125 5375 0    60   ~ 0
-REVISIONS (see https://github.com/f-secure-foundry/usbarmory/wiki/Errata-(Mk-II))\n\n- beta (2019-06-25):\n\n  - First public release.\n\n- gamma (2021-02-18):\n\n  - connect XL1 and XL2 of U11 to GND.\n  - Invert UART1 RTS/CTS lines connected to BLE module.\n  - Invert UART2 RTS/CTS lines connected to USB-C receptacle.\n  - Move BLE module power supply from VLDO3 to SW3.\n  - Use VLDO1 (1.8V) to power eMMC bus interface: NVCC_NAND, eMMC VCCQ and eMMC pull-ups.\n  - Use VLDO3 (3.3V/1.8V) to power microSD bus interfece: NVCC_SD and SD pull-ups.\n  - Replace NXP AT71CH secure element with NXP SE050.\n  - Replace Type-C plug J2 part number.\n  - Lower LED luminosity by increasing the LED resistors R19 and R20 values.\n  - Update U13 p/n with ATECC608B-MAHDA. Do not place on retail units. \n  - Replace U12 p/n with PUSB3TB6AZ.
+REVISIONS (see https://github.com/usbarmory/usbarmory/wiki/Errata-(Mk-II))\n\n- beta (2019-06-25):\n\n  - First public release.\n\n- gamma (2021-02-18):\n\n  - connect XL1 and XL2 of U11 to GND.\n  - Invert UART1 RTS/CTS lines connected to BLE module.\n  - Invert UART2 RTS/CTS lines connected to USB-C receptacle.\n  - Move BLE module power supply from VLDO3 to SW3.\n  - Use VLDO1 (1.8V) to power eMMC bus interface: NVCC_NAND, eMMC VCCQ and eMMC pull-ups.\n  - Use VLDO3 (3.3V/1.8V) to power microSD bus interfece: NVCC_SD and SD pull-ups.\n  - Replace NXP AT71CH secure element with NXP SE050.\n  - Replace Type-C plug J2 part number.\n  - Lower LED luminosity by increasing the LED resistors R19 and R20 values.\n  - Update U13 p/n with ATECC608B-MAHDA. Do not place on retail units. \n  - Replace U12 p/n with PUSB3TB6AZ.
 Wire Notes Line
 	15750 3500 11050 3500
 Wire Notes Line

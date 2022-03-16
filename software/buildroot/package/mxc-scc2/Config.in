@@ -8,4 +8,4 @@ config BR2_PACKAGE_MXC_SCC2
           3.x, with assorted bugfixes and the addition of the new character device
           driver.
 
-          https://github.com/f-secure-foundry/mxc-scc2
+          https://github.com/usbarmory/mxc-scc2

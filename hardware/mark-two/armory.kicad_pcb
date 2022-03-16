@@ -17,7 +17,7 @@
     (company F-Secure)
     (comment 1 "Copyright © F-Secure Corporation")
     (comment 2 "License: CERN-OHL-S")
-    (comment 3 https://github.com/f-secure-foundry/usbarmory)
+    (comment 3 https://github.com/usbarmory/usbarmory)
   )
 
   (layers
