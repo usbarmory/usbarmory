@@ -2,10 +2,10 @@ USB armory Mk II debug accessory
 ================================
 
 USB armory | https://github.com/usbarmory/usbarmory  
-Copyright (c) F-Secure Corporation
+Copyright (c) WithSecure Corporation
 
-The USB armory from [F-Secure Foundry](https://foundry.f-secure.com) is an open
-source hardware design, implementing a flash drive sized computer.
+The USB armory from [WithSecure Foundry](https://foundry.withsecure.com) is an
+open source hardware design, implementing a flash drive sized computer.
 
 The USB armory Mk II exposes a USB Type-C receptacle, which allows through the
 so called USB-C 'debug accessory mode' to route analog/debug signals over its
@@ -20,7 +20,7 @@ using only USB cables. All other interfaces can be accessed through dedicated
 breakout through holes.
 
 This repository is aimed towards developers, if you wish to purchase a USB
-armory board please see the [USB armory project page](https://www.f-secure.com/en/consulting/foundry/usb-armory).
+armory board please see the [USB armory documentation](https://github.com/usbarmory/usbarmory/wiki).
 
 ![Mk II debug accessory](https://github.com/usbarmory/usbarmory/wiki/images/armory-mark-two-debug-accessory.png)
 
@@ -35,7 +35,7 @@ Inner layers   1 oz base copper foil
 width (X) 45.65 mm, height (Y) 25.90 mm  
 Red soldermask, white component legend
 
-[Bill of materials](https://f-secure-foundry.github.io/BOM/usbarmory-mark-two-debug-accessory.html)
+[Bill of materials](https://usbarmory.github.io/BOM/usbarmory-mark-two-debug-accessory.html)
 
 DRC information
 ---------------
@@ -184,7 +184,7 @@ License
 =======
 
 USB armory | https://github.com/usbarmory/usbarmory  
-Copyright (c) F-Secure Corporation
+Copyright (c) WithSecure Corporation
 
 This is an open hardware design licensed under the terms of the CERN Open
 Hardware Licence (OHL) v1.2.
