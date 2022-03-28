@@ -16,7 +16,7 @@ Once installed on a microSD card for the USB armory, the Buildroot image
 results in a minimal GPG installation, protected by encrypted storage, that can
 act as gpg-server for Qubes Split GPG clients.
 
-![Qubes Split GPG with USB armory](https://raw.githubusercontent.com/f-secure-foundry/qubes-qrexec-to-tcp/master/images/qrexec-to-tcp.svg?sanitize=true)
+![Qubes Split GPG with USB armory](https://raw.githubusercontent.com/usbarmory/qubes-qrexec-to-tcp/master/images/qrexec-to-tcp.svg?sanitize=true)
 
 Operation
 =========

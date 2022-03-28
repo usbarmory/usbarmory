@@ -5,7 +5,7 @@
 ################################################################################
 
 MXS_DCP_VERSION = 4f11eaf0b8c0d80b181a559cc13b1582bec8f171
-MXS_DCP_SITE = $(call github,f-secure-foundry,mxs-dcp,$(MXS_DCP_VERSION))
+MXS_DCP_SITE = $(call github,usbarmory,mxs-dcp,$(MXS_DCP_VERSION))
 MXS_DCP_REPO = https://github.com/usbarmory/mxs-dcp
 
 MXS_DCP_LICENSE = GPLv3

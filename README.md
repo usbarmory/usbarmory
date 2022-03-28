@@ -2,7 +2,7 @@ Introduction
 ============
 
 USB armory | https://github.com/usbarmory/usbarmory  
-Copyright (c) F-Secure Corporation
+Copyright (c) WithSecure Corporation
 
 The USB armory from [F-Secure Foundry](https://foundry.f-secure.com) is an open
 source hardware design, implementing a flash drive sized computer.
@@ -14,13 +14,13 @@ Authors
 =======
 
 Andrea Barisani  
-andrea.barisani@f-secure.com | andrea@inversepath.com  
+andrea.barisani@withsecure.com | andrea@inversepath.com  
 
 Andrej Rosano  
-andrej.rosano@f-secure.com | andrej@inversepath.com  
+andrej.rosano@withsecure.com | andrej@inversepath.com  
 
 Daniele Bianco  
-daniele.bianco@f-secure.com | daniele@inversepath.com  
+daniele.bianco@withsecure.com | daniele@inversepath.com  
 
 Documentation
 =============
@@ -44,7 +44,7 @@ License
 =======
 
 USB armory | https://github.com/usbarmory/usbarmory  
-Copyright (c) F-Secure Corporation
+Copyright (c) WithSecure Corporation
 
 This is an open hardware design licensed under the terms of the CERN Open
 Hardware Licence, see board revisions for applicable versions.

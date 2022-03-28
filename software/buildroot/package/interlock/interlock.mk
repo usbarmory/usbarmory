@@ -5,7 +5,7 @@
 ################################################################################
 
 INTERLOCK_VERSION = fb4251db69cf9df8ab213adb3402decb55afe4d8
-INTERLOCK_SITE = $(call github,f-secure-foundry,interlock,$(INTERLOCK_VERSION))
+INTERLOCK_SITE = $(call github,usbarmory,interlock,$(INTERLOCK_VERSION))
 INTERLOCK_REPO = https://github.com/usbarmory/interlock
 
 INTERLOCK_LICENSE = GPLv3
