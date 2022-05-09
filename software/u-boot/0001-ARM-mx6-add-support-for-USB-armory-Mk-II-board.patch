@@ -1,5 +1,5 @@
-From af1fa032ae67c7480bf40d7c017939a639b0d6e8 Mon Sep 17 00:00:00 2001
-From: Andrej Rosano <andrej.rosano@withsecure.com>
+From 8040df0d0819c165d30e0c80946def7ca47ebb05 Mon Sep 17 00:00:00 2001
+From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Wed, 10 Mar 2021 15:49:12 +0100
 Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
 
@@ -11,11 +11,11 @@ Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
  .../usbarmory-mark-two/MAINTAINERS            |   6 +
  board/inversepath/usbarmory-mark-two/Makefile |  10 +
  .../usbarmory-mark-two/imximage-1gb.cfg       |  87 +++++
- .../usbarmory-mark-two/imximage-512mb.cfg     |  89 +++++
+ .../usbarmory-mark-two/imximage-512mb.cfg     |  88 +++++
  .../usbarmory-mark-two/usbarmory-mark-two.c   | 353 ++++++++++++++++++
  configs/usbarmory-mark-two_defconfig          |  81 ++++
  include/configs/usbarmory-mark-two.h          | 224 +++++++++++
- 11 files changed, 1132 insertions(+), 1 deletion(-)
+ 11 files changed, 1131 insertions(+), 1 deletion(-)
  create mode 100644 arch/arm/dts/imx6ulz-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
  create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
@@ -27,10 +27,10 @@ Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
  create mode 100644 include/configs/usbarmory-mark-two.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index b3e2a9c9d7..4e1064e6cd 100644
+index 644ba961a2..d75bc5564a 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -845,7 +845,8 @@ dtb-$(CONFIG_MX6ULL) += \
+@@ -855,7 +855,8 @@ dtb-$(CONFIG_MX6ULL) += \
  	imx6ull-phytec-segin-ff-rdk-emmc.dtb \
  	imx6ull-dart-6ul.dtb \
  	imx6ull-somlabs-visionsom.dtb \
@@ -473,10 +473,10 @@ index 0000000000..f287d530d2
 +DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
 diff --git a/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg b/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
 new file mode 100644
-index 0000000000..12746ca9eb
+index 0000000000..cf52134e27
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
-@@ -0,0 +1,89 @@
+@@ -0,0 +1,88 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board imximage configuration
@@ -486,7 +486,6 @@ index 0000000000..12746ca9eb
 + * Andrej Rosano <andrej.rosano@withsecure.com>
 + */
 +
-+#define __ASSEMBLY__
 +#include <config.h>
 +
 +IMAGE_VERSION 2
@@ -1243,5 +1242,5 @@ index 0000000000..ab7ca396c4
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.35.1
+2.36.1
 
