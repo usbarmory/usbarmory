@@ -1,4 +1,4 @@
-From 8040df0d0819c165d30e0c80946def7ca47ebb05 Mon Sep 17 00:00:00 2001
+From ba0ce09d63e11e38fc7e68437f0373ceece40567 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Wed, 10 Mar 2021 15:49:12 +0100
 Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
@@ -13,9 +13,9 @@ Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
  .../usbarmory-mark-two/imximage-1gb.cfg       |  87 +++++
  .../usbarmory-mark-two/imximage-512mb.cfg     |  88 +++++
  .../usbarmory-mark-two/usbarmory-mark-two.c   | 353 ++++++++++++++++++
- configs/usbarmory-mark-two_defconfig          |  81 ++++
+ configs/usbarmory-mark-two_defconfig          |  83 ++++
  include/configs/usbarmory-mark-two.h          | 224 +++++++++++
- 11 files changed, 1131 insertions(+), 1 deletion(-)
+ 11 files changed, 1133 insertions(+), 1 deletion(-)
  create mode 100644 arch/arm/dts/imx6ulz-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
  create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
@@ -926,10 +926,10 @@ index 0000000000..c63f362460
 +#endif
 diff --git a/configs/usbarmory-mark-two_defconfig b/configs/usbarmory-mark-two_defconfig
 new file mode 100644
-index 0000000000..fbd415dc6a
+index 0000000000..8cd2fecf61
 --- /dev/null
 +++ b/configs/usbarmory-mark-two_defconfig
-@@ -0,0 +1,81 @@
+@@ -0,0 +1,83 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_MX6=y
 +CONFIG_SYS_TEXT_BASE=0x87800000
@@ -973,10 +973,12 @@ index 0000000000..fbd415dc6a
 +
 +# Device model support
 +CONFIG_DM=y
++CONFIG_DM_ETH=y
 +CONFIG_DM_MMC=y
 +CONFIG_DM_USB=y
 +CONFIG_DM_I2C=y
 +CONFIG_DM_GPIO=y
++CONFIG_DM_SERIAL=y
 +CONFIG_SYS_I2C_MXC=y
 +CONFIG_BLK=y
 +CONFIG_OF_LIBFDT=y
