@@ -48,7 +48,10 @@
 
 / {
 	soc {
-		aips@60000000 {
+		bus@60000000 {
+			#address-cells = <1>;
+			#size-cells = <1>;
+
 			scc2: scc2@63fb4000 {
 				compatible = "fsl,imx53-scc2";
 				reg = <0x63fb4000 0x4000>,
