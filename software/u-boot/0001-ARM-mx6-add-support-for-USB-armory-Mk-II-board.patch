@@ -1,4 +1,4 @@
-From ba0ce09d63e11e38fc7e68437f0373ceece40567 Mon Sep 17 00:00:00 2001
+From 73f4f90196143c23e0e47f958acd4aa193cae451 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Wed, 10 Mar 2021 15:49:12 +0100
 Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
@@ -27,10 +27,10 @@ Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
  create mode 100644 include/configs/usbarmory-mark-two.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index 644ba961a2..d75bc5564a 100644
+index a7e0d9f6c0..d871b1be65 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -855,7 +855,8 @@ dtb-$(CONFIG_MX6ULL) += \
+@@ -888,7 +888,8 @@ dtb-$(CONFIG_MX6ULL) += \
  	imx6ull-phytec-segin-ff-rdk-emmc.dtb \
  	imx6ull-dart-6ul.dtb \
  	imx6ull-somlabs-visionsom.dtb \
@@ -247,10 +247,10 @@ index 0000000000..65856bf03c
 +	status = "okay";
 +};
 diff --git a/arch/arm/mach-imx/mx6/Kconfig b/arch/arm/mach-imx/mx6/Kconfig
-index 98df4d4e42..a122bf8dc9 100644
+index eceb730856..c4b951677f 100644
 --- a/arch/arm/mach-imx/mx6/Kconfig
 +++ b/arch/arm/mach-imx/mx6/Kconfig
-@@ -599,6 +599,10 @@ config TARGET_UDOO_NEO
+@@ -625,6 +625,10 @@ config TARGET_UDOO_NEO
  	select SUPPORT_SPL
  	imply CMD_DM
  
@@ -261,9 +261,9 @@ index 98df4d4e42..a122bf8dc9 100644
  config TARGET_SOFTING_VINING_2000
  	bool "Softing VIN|ING 2000"
  	depends on MX6SX
-@@ -675,6 +679,7 @@ source "board/freescale/mx6sxsabreauto/Kconfig"
- source "board/freescale/mx6ul_14x14_evk/Kconfig"
+@@ -702,6 +706,7 @@ source "board/freescale/mx6ul_14x14_evk/Kconfig"
  source "board/freescale/mx6ullevk/Kconfig"
+ source "board/bosch/acc/Kconfig"
  source "board/grinn/liteboard/Kconfig"
 +source "board/inversepath/usbarmory-mark-two/Kconfig"
  source "board/phytec/pcm058/Kconfig"
@@ -1244,5 +1244,5 @@ index 0000000000..ab7ca396c4
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.36.1
+2.37.1
 
