@@ -4,7 +4,7 @@ Introduction
 USB armory | https://github.com/usbarmory/usbarmory  
 Copyright (c) WithSecure Corporation
 
-The USB armory from [F-Secure Foundry](https://foundry.f-secure.com) is an open
+The USB armory from [WithSecure Foundry](https://foundry.withsecure.com) is an open
 source hardware design, implementing a flash drive sized computer.
 
 This repository is aimed towards developers, if you wish to purchase a USB
