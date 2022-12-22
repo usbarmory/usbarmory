@@ -75,7 +75,7 @@
   (pad "" thru_hole oval (at 2.225 -3) (size 1.05 1.25) (drill oval 0.65 0.85) (layers *.Cu *.Mask))
   (pad "" thru_hole oval (at -4.175 0) (size 1 1.9) (drill oval 0.6 1.3) (layers *.Cu *.Mask))
   (pad "" thru_hole oval (at 4.175 0) (size 1 1.9) (drill oval 0.6 1.3) (layers *.Cu *.Mask))
-  (model /mnt/git/armory/hw/lib.3d/475890001.stp
+  (model /${KIPRJMOD}/../lib.3d/475890001.stp
     (offset (xyz 0 11.4 2.1))
     (scale (xyz 1 1 1))
     (rotate (xyz 90 0 0))
