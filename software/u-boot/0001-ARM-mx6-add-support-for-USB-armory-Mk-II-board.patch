@@ -1,4 +1,4 @@
-From 7343b39a602988516ddfc0f951a0a0977a417308 Mon Sep 17 00:00:00 2001
+From e59c7d4366a6149e58bdee094b1c66c9be00c25d Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Wed, 10 Mar 2021 15:49:12 +0100
 Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
@@ -27,10 +27,10 @@ Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
  create mode 100644 include/configs/usbarmory-mark-two.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index 965895bc2a..92a3db38ad 100644
+index 43951a7731..662b3885dd 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -896,7 +896,8 @@ dtb-$(CONFIG_MX6ULL) += \
+@@ -905,7 +905,8 @@ dtb-$(CONFIG_MX6ULL) += \
  	imx6ull-dart-6ul.dtb \
  	imx6ull-somlabs-visionsom.dtb \
  	imx6ulz-bsh-smm-m2.dtb \
@@ -247,7 +247,7 @@ index 0000000000..65856bf03c
 +	status = "okay";
 +};
 diff --git a/arch/arm/mach-imx/mx6/Kconfig b/arch/arm/mach-imx/mx6/Kconfig
-index c7a03e5042..9e1414be38 100644
+index 752c57f52d..558c42b7af 100644
 --- a/arch/arm/mach-imx/mx6/Kconfig
 +++ b/arch/arm/mach-imx/mx6/Kconfig
 @@ -636,6 +636,10 @@ config TARGET_UDOO_NEO
@@ -926,13 +926,13 @@ index 0000000000..c63f362460
 +#endif
 diff --git a/configs/usbarmory-mark-two_defconfig b/configs/usbarmory-mark-two_defconfig
 new file mode 100644
-index 0000000000..8cd2fecf61
+index 0000000000..6b56f5ab8b
 --- /dev/null
 +++ b/configs/usbarmory-mark-two_defconfig
 @@ -0,0 +1,83 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_MX6=y
-+CONFIG_SYS_TEXT_BASE=0x87800000
++CONFIG_TEXT_BASE=0x87800000
 +CONFIG_TARGET_USBARMORY_MARK_TWO=y
 +CONFIG_MX6ULL=y
 +
@@ -1242,5 +1242,5 @@ index 0000000000..bf97b552fc
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.38.1
+2.40.0
 
