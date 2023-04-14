@@ -65,3 +65,6 @@
 
 // DCP assigned to Secure world to protect OTPMK
 /delete-node/ &dcp;
+
+// WDOG2 assigned to Secure world to prevent Normal world starvation
+/delete-node/ &wdog2;
