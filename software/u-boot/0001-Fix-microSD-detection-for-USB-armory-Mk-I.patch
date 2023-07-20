@@ -1,0 +1,24 @@
+From 9513fe63905c9fc88b8e803c19ef40c997e59f85 Mon Sep 17 00:00:00 2001
+From: Andrej Rosano <andrej.rosano@f-secure.com>
+Date: Tue, 7 Sep 2021 11:38:59 +0200
+Subject: [PATCH] Fix microSD detection for USB armory Mk I
+
+---
+ arch/arm/dts/imx53-usbarmory.dts | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/dts/imx53-usbarmory.dts b/arch/arm/dts/imx53-usbarmory.dts
+index f34993a490..433b62e736 100644
+--- a/arch/arm/dts/imx53-usbarmory.dts
++++ b/arch/arm/dts/imx53-usbarmory.dts
+@@ -91,6 +91,7 @@
+ &esdhc1 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_esdhc1>;
++	broken-cd;
+ 	status = "okay";
+ };
+ 
+-- 
+2.41.0
+
