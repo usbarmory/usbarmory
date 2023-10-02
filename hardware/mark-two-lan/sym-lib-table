@@ -1,0 +1,9 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "armory-mkII")(type "KiCad")(uri "/home/andrej/work/git/armory/hw/lib/armory-mkII.kicad_sym")(options "")(descr ""))
+  (lib (name "Device")(type "KiCad")(uri "${KICAD7_SYMBOL_DIR}/Device.kicad_sym")(options "")(descr ""))
+  (lib (name "Power")(type "KiCad")(uri "${KICAD7_SYMBOL_DIR}/power.kicad_sym")(options "")(descr ""))
+  (lib (name "BJT")(type "KiCad")(uri "${KICAD7_SYMBOL_DIR}/Transistor_BJT.kicad_sym")(options "")(descr ""))
+  (lib (name "Connector")(type "KiCad")(uri "${KICAD7_SYMBOL_DIR}/Connector.kicad_sym")(options "")(descr ""))
+  (lib (name "Switch")(type "KiCad")(uri "${KICAD7_SYMBOL_DIR}/Switch.kicad_sym")(options "")(descr ""))
+)

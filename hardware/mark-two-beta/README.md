@@ -10,6 +10,12 @@ source hardware design, implementing a flash drive sized computer.
 This repository is aimed towards developers, if you wish to purchase a USB
 armory board please see the [ordering information](https://github.com/usbarmory/usbarmory/wiki/Ordering-information).
 
+Documentation
+=============
+
+The main documentation can be found on the
+[project wiki](https://github.com/usbarmory/usbarmory/wiki).
+
 Revision information
 ====================
 

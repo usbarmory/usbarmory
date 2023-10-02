@@ -31,12 +31,17 @@ The main documentation can be found on the
 Board models
 ============
 
+* [USB armory Mk II LAN](https://github.com/usbarmory/usbarmory/wiki/Mk-II-LAN)
+
+![Mk II LAN Top](https://github.com/usbarmory/usbarmory/wiki/images/armory-mark-two-lan-top.png)
+![Mk II LAN PoE](https://github.com/usbarmory/usbarmory/wiki/images/armory-mark-two-lan-poe.png)
+
 * [USB armory Mk II](https://github.com/usbarmory/usbarmory/wiki/Mk-II-Introduction)
 
 ![Mk II Top](https://github.com/usbarmory/usbarmory/wiki/images/armory-mark-two-top.png)
 ![Mk II Bottom](https://github.com/usbarmory/usbarmory/wiki/images/armory-mark-two-bottom.png)
 
-* USB armory Mk I: first production release.
+* USB armory Mk I
 
 ![USB armory Mk I](https://github.com/usbarmory/usbarmory/wiki/images/armory-mark-one.png)
 
