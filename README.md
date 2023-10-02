@@ -34,7 +34,7 @@ Board models
 * [USB armory Mk II LAN](https://github.com/usbarmory/usbarmory/wiki/Mk-II-LAN)
 
 ![Mk II LAN Top](https://github.com/usbarmory/usbarmory/wiki/images/armory-mark-two-lan-top.png)
-![Mk II LAN PoE](https://github.com/usbarmory/usbarmory/wiki/images/armory-mark-two-lan-poe.png)
+![Mk II LAN PoE](https://github.com/usbarmory/usbarmory/wiki/images/armory-mark-two-lan-poe-1.png)
 
 * [USB armory Mk II](https://github.com/usbarmory/usbarmory/wiki/Mk-II-Introduction)
 
