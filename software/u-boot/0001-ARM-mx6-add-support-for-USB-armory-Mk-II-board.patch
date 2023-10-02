@@ -1,4 +1,4 @@
-From 7343b39a602988516ddfc0f951a0a0977a417308 Mon Sep 17 00:00:00 2001
+From 53368d31b5d1db884b971a7be367314b35a038ee Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Wed, 10 Mar 2021 15:49:12 +0100
 Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
@@ -12,10 +12,10 @@ Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
  board/inversepath/usbarmory-mark-two/Makefile |  10 +
  .../usbarmory-mark-two/imximage-1gb.cfg       |  87 +++++
  .../usbarmory-mark-two/imximage-512mb.cfg     |  88 +++++
- .../usbarmory-mark-two/usbarmory-mark-two.c   | 353 ++++++++++++++++++
- configs/usbarmory-mark-two_defconfig          |  83 ++++
- include/configs/usbarmory-mark-two.h          | 222 +++++++++++
- 11 files changed, 1131 insertions(+), 1 deletion(-)
+ .../usbarmory-mark-two/usbarmory-mark-two.c   | 348 ++++++++++++++++++
+ configs/usbarmory-mark-two_defconfig          |  89 +++++
+ include/configs/usbarmory-mark-two.h          | 210 +++++++++++
+ 11 files changed, 1120 insertions(+), 1 deletion(-)
  create mode 100644 arch/arm/dts/imx6ulz-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
  create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
@@ -27,10 +27,10 @@ Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
  create mode 100644 include/configs/usbarmory-mark-two.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index 965895bc2a..92a3db38ad 100644
+index 480269fa60..e1f7b4d4a0 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -896,7 +896,8 @@ dtb-$(CONFIG_MX6ULL) += \
+@@ -931,7 +931,8 @@ dtb-$(CONFIG_MX6ULL) += \
  	imx6ull-dart-6ul.dtb \
  	imx6ull-somlabs-visionsom.dtb \
  	imx6ulz-bsh-smm-m2.dtb \
@@ -247,10 +247,10 @@ index 0000000000..65856bf03c
 +	status = "okay";
 +};
 diff --git a/arch/arm/mach-imx/mx6/Kconfig b/arch/arm/mach-imx/mx6/Kconfig
-index c7a03e5042..9e1414be38 100644
+index 7529b311f8..741856a8a6 100644
 --- a/arch/arm/mach-imx/mx6/Kconfig
 +++ b/arch/arm/mach-imx/mx6/Kconfig
-@@ -636,6 +636,10 @@ config TARGET_UDOO_NEO
+@@ -624,6 +624,10 @@ config TARGET_UDOO_NEO
  	select SUPPORT_SPL
  	imply CMD_DM
  
@@ -261,7 +261,7 @@ index c7a03e5042..9e1414be38 100644
  config TARGET_SOFTING_VINING_2000
  	bool "Softing VIN|ING 2000"
  	depends on MX6SX
-@@ -709,6 +713,7 @@ source "board/freescale/mx6ul_14x14_evk/Kconfig"
+@@ -696,6 +700,7 @@ source "board/freescale/mx6ul_14x14_evk/Kconfig"
  source "board/freescale/mx6ullevk/Kconfig"
  source "board/bosch/acc/Kconfig"
  source "board/grinn/liteboard/Kconfig"
@@ -567,10 +567,10 @@ index 0000000000..cf52134e27
 +DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
 diff --git a/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
 new file mode 100644
-index 0000000000..c63f362460
+index 0000000000..22b30c3e04
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
-@@ -0,0 +1,353 @@
+@@ -0,0 +1,348 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 + * USB armory Mk II board initialization
@@ -845,11 +845,6 @@ index 0000000000..c63f362460
 +	return ret;
 +}
 +
-+int board_eth_init(struct bd_info *bis)
-+{
-+	return usb_eth_initialize(bis);
-+}
-+
 +int dram_init(void)
 +{
 +	gd->ram_size = imx_ddr_size();
@@ -926,13 +921,13 @@ index 0000000000..c63f362460
 +#endif
 diff --git a/configs/usbarmory-mark-two_defconfig b/configs/usbarmory-mark-two_defconfig
 new file mode 100644
-index 0000000000..8cd2fecf61
+index 0000000000..35e6da6a5f
 --- /dev/null
 +++ b/configs/usbarmory-mark-two_defconfig
-@@ -0,0 +1,83 @@
+@@ -0,0 +1,89 @@
 +CONFIG_ARM=y
 +CONFIG_ARCH_MX6=y
-+CONFIG_SYS_TEXT_BASE=0x87800000
++CONFIG_TEXT_BASE=0x87800000
 +CONFIG_TARGET_USBARMORY_MARK_TWO=y
 +CONFIG_MX6ULL=y
 +
@@ -946,6 +941,9 @@ index 0000000000..8cd2fecf61
 +# Environment
 +CONFIG_ENV_OFFSET=0x100000
 +CONFIG_ENV_SIZE=0x2000
++CONFIG_USE_HOSTNAME=y
++CONFIG_HOSTNAME="usbarmory"
++CONFIG_SYS_CBSIZE=512
 +
 +# Boot mode
 +CONFIG_SYS_BOOT_MODE_NORMAL=y
@@ -979,7 +977,10 @@ index 0000000000..8cd2fecf61
 +CONFIG_DM_I2C=y
 +CONFIG_DM_GPIO=y
 +CONFIG_DM_SERIAL=y
++CONFIG_MXC_UART=y
 +CONFIG_SYS_I2C_MXC=y
++CONFIG_SYS_I2C_MXC_I2C1=y
++CONFIG_SYS_I2C_SPEED=100000
 +CONFIG_BLK=y
 +CONFIG_OF_LIBFDT=y
 +CONFIG_OF_CONTROL=y
@@ -1015,10 +1016,10 @@ index 0000000000..8cd2fecf61
 +CONFIG_LEGACY_IMAGE_FORMAT=y
 diff --git a/include/configs/usbarmory-mark-two.h b/include/configs/usbarmory-mark-two.h
 new file mode 100644
-index 0000000000..bf97b552fc
+index 0000000000..686fb69bf9
 --- /dev/null
 +++ b/include/configs/usbarmory-mark-two.h
-@@ -0,0 +1,222 @@
+@@ -0,0 +1,210 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * USB armory Mk II board configuration settings
@@ -1037,16 +1038,10 @@ index 0000000000..bf97b552fc
 +#define CONFIG_BOARD_EARLY_INIT_F
 +
 +/* UART */
-+#define CONFIG_MXC_UART
-+#define CONFIG_MXC_UART_BASE	UART2_BASE
++#define CFG_MXC_UART_BASE	UART2_BASE
 +
 +/* USB */
-+#define CONFIG_MXC_USB_PORTSC	(PORT_PTS_UTMI | PORT_PTS_PTW)
-+#define CONFIG_USBD_HS
-+
-+/* I2C */
-+#define CONFIG_SYS_I2C_SPEED 100000
-+#define CONFIG_SYS_I2C_MXC_I2C1
++#define CFG_MXC_USB_PORTSC	(PORT_PTS_UTMI | PORT_PTS_PTW)
 +
 +/* Boot parameters */
 +#define USBARMORY_FIT_PATH	"/boot/usbarmory.itb"
@@ -1066,9 +1061,6 @@ index 0000000000..bf97b552fc
 +
 +#define CONFIG_USE_BOOTARGS
 +#define CONFIG_BOOTARGS "console=ttymxc1,115200 root=/dev/mmcblk" USBARMORY_BOOT_DEV "p1 rootwait rw"
-+
-+#define CONFIG_HOSTNAME		"usbarmory"
-+#define CONFIG_SYS_CBSIZE	512
 +
 +/* scripts */
 +
@@ -1207,7 +1199,7 @@ index 0000000000..bf97b552fc
 +#define BOOTENV
 +#endif
 +
-+#define CONFIG_EXTRA_ENV_SETTINGS		\
++#define CFG_EXTRA_ENV_SETTINGS			\
 +	"kernel_addr_r=0x80800000\0"		\
 +	"fdt_addr_r=0x82000000\0"		\
 +	"scriptaddr=0x80800000\0"		\
@@ -1233,14 +1225,11 @@ index 0000000000..bf97b552fc
 +/* Physical Memory Map */
 +#define PHYS_SDRAM			MMDC0_ARB_BASE_ADDR
 +
-+#define CONFIG_SYS_SDRAM_BASE		PHYS_SDRAM
-+#define CONFIG_SYS_INIT_RAM_ADDR	IRAM_BASE_ADDR
-+#define CONFIG_SYS_INIT_RAM_SIZE	IRAM_SIZE
-+
-+#define CONFIG_SYS_INIT_SP_OFFSET \
-+	(CONFIG_SYS_INIT_RAM_SIZE - GENERATED_GBL_DATA_SIZE)
++#define CFG_SYS_SDRAM_BASE		PHYS_SDRAM
++#define CFG_SYS_INIT_RAM_ADDR	IRAM_BASE_ADDR
++#define CFG_SYS_INIT_RAM_SIZE	IRAM_SIZE
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.38.1
+2.41.0
 
