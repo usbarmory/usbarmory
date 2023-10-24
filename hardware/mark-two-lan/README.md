@@ -97,6 +97,8 @@ static-free surface.
 The board can become hot, like any fan-less design, during continuous high CPU
 loads, mind its temperature while handling it.
 
+* [Compliance information](https://github.com/usbarmory/usbarmory/wiki/Compliance-information)
+
 License
 =======
 
