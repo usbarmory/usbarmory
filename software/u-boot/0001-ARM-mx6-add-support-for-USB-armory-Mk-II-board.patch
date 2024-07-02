@@ -1,4 +1,4 @@
-From cfeac142d2c7a7c3c8eda11502f717faa0f877ec Mon Sep 17 00:00:00 2001
+From d28e94fb64449205f0d2ec191f8681aa681a1b69 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Wed, 10 Mar 2021 15:49:12 +0100
 Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
@@ -27,10 +27,10 @@ Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
  create mode 100644 include/configs/usbarmory-mark-two.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index b102ffb5f68..1811568d22d 100644
+index 8fb6a8a1f17..72d0cdebc51 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -1030,7 +1030,8 @@ dtb-$(CONFIG_MX6ULL) += \
+@@ -871,7 +871,8 @@ dtb-$(CONFIG_MX6ULL) += \
  	imx6ull-dart-6ul.dtb \
  	imx6ull-somlabs-visionsom.dtb \
  	imx6ulz-bsh-smm-m2.dtb \
@@ -1231,5 +1231,5 @@ index 00000000000..686fb69bf99
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.44.0
+2.45.2
 
