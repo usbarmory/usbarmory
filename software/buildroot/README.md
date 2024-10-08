@@ -1,7 +1,8 @@
 Embedded Buildroot distributions for the USB armory
 ===================================================
 
-> :warning: these Buildroot profiles are no longer maintained, the following
+> [!WARNING]
+> These Buildroot profiles are no longer maintained, the following
 > [TamaGo](https://github.com/usbarmory/tamago) unikernels are
 > recommended to embed similar single-purpose applications on the USB armory:
 >

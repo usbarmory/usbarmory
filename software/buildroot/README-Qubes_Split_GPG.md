@@ -1,7 +1,8 @@
 Qubes Split GPG server for the USB armory Mk I
 ==============================================
 
-> :warning: this Buildroot profile is no longer maintained, the following
+> [!WARNING]
+> This Buildroot profile is no longer maintained, the following
 > [TamaGo](https://github.com/usbarmory/tamago) unikernel is recommended
 > to embed a similar single-purpose application on the USB armory:
 >
