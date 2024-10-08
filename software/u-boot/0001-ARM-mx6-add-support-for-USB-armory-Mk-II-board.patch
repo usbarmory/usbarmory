@@ -1,4 +1,4 @@
-From 53368d31b5d1db884b971a7be367314b35a038ee Mon Sep 17 00:00:00 2001
+From d28e94fb64449205f0d2ec191f8681aa681a1b69 Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Wed, 10 Mar 2021 15:49:12 +0100
 Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
@@ -27,10 +27,10 @@ Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
  create mode 100644 include/configs/usbarmory-mark-two.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index 480269fa60..e1f7b4d4a0 100644
+index 8fb6a8a1f17..72d0cdebc51 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -931,7 +931,8 @@ dtb-$(CONFIG_MX6ULL) += \
+@@ -871,7 +871,8 @@ dtb-$(CONFIG_MX6ULL) += \
  	imx6ull-dart-6ul.dtb \
  	imx6ull-somlabs-visionsom.dtb \
  	imx6ulz-bsh-smm-m2.dtb \
@@ -42,7 +42,7 @@ index 480269fa60..e1f7b4d4a0 100644
  	imx6q-apalis-eval.dtb \
 diff --git a/arch/arm/dts/imx6ulz-usbarmory.dts b/arch/arm/dts/imx6ulz-usbarmory.dts
 new file mode 100644
-index 0000000000..65856bf03c
+index 00000000000..65856bf03cd
 --- /dev/null
 +++ b/arch/arm/dts/imx6ulz-usbarmory.dts
 @@ -0,0 +1,200 @@
@@ -247,10 +247,10 @@ index 0000000000..65856bf03c
 +	status = "okay";
 +};
 diff --git a/arch/arm/mach-imx/mx6/Kconfig b/arch/arm/mach-imx/mx6/Kconfig
-index 7529b311f8..741856a8a6 100644
+index 15ee2b933f6..b82335380df 100644
 --- a/arch/arm/mach-imx/mx6/Kconfig
 +++ b/arch/arm/mach-imx/mx6/Kconfig
-@@ -624,6 +624,10 @@ config TARGET_UDOO_NEO
+@@ -636,6 +636,10 @@ config TARGET_UDOO_NEO
  	select SUPPORT_SPL
  	imply CMD_DM
  
@@ -261,7 +261,7 @@ index 7529b311f8..741856a8a6 100644
  config TARGET_SOFTING_VINING_2000
  	bool "Softing VIN|ING 2000"
  	depends on MX6SX
-@@ -696,6 +700,7 @@ source "board/freescale/mx6ul_14x14_evk/Kconfig"
+@@ -708,6 +712,7 @@ source "board/freescale/mx6ul_14x14_evk/Kconfig"
  source "board/freescale/mx6ullevk/Kconfig"
  source "board/bosch/acc/Kconfig"
  source "board/grinn/liteboard/Kconfig"
@@ -271,7 +271,7 @@ index 7529b311f8..741856a8a6 100644
  source "board/gateworks/gw_ventana/Kconfig"
 diff --git a/board/inversepath/usbarmory-mark-two/Kconfig b/board/inversepath/usbarmory-mark-two/Kconfig
 new file mode 100644
-index 0000000000..47456fd010
+index 00000000000..47456fd0108
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/Kconfig
 @@ -0,0 +1,75 @@
@@ -352,7 +352,7 @@ index 0000000000..47456fd010
 +endif
 diff --git a/board/inversepath/usbarmory-mark-two/MAINTAINERS b/board/inversepath/usbarmory-mark-two/MAINTAINERS
 new file mode 100644
-index 0000000000..4d5f005492
+index 00000000000..4d5f005492a
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/MAINTAINERS
 @@ -0,0 +1,6 @@
@@ -364,7 +364,7 @@ index 0000000000..4d5f005492
 +F:	configs/usbarmory-mark-two_defconfig
 diff --git a/board/inversepath/usbarmory-mark-two/Makefile b/board/inversepath/usbarmory-mark-two/Makefile
 new file mode 100644
-index 0000000000..1348635fd6
+index 00000000000..1348635fd61
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/Makefile
 @@ -0,0 +1,10 @@
@@ -380,7 +380,7 @@ index 0000000000..1348635fd6
 +obj-y	:= usbarmory-mark-two.o
 diff --git a/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg b/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg
 new file mode 100644
-index 0000000000..f287d530d2
+index 00000000000..f287d530d21
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/imximage-1gb.cfg
 @@ -0,0 +1,87 @@
@@ -473,7 +473,7 @@ index 0000000000..f287d530d2
 +DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
 diff --git a/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg b/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
 new file mode 100644
-index 0000000000..cf52134e27
+index 00000000000..cf52134e278
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/imximage-512mb.cfg
 @@ -0,0 +1,88 @@
@@ -567,7 +567,7 @@ index 0000000000..cf52134e27
 +DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
 diff --git a/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
 new file mode 100644
-index 0000000000..22b30c3e04
+index 00000000000..22b30c3e044
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
 @@ -0,0 +1,348 @@
@@ -921,7 +921,7 @@ index 0000000000..22b30c3e04
 +#endif
 diff --git a/configs/usbarmory-mark-two_defconfig b/configs/usbarmory-mark-two_defconfig
 new file mode 100644
-index 0000000000..35e6da6a5f
+index 00000000000..35e6da6a5f0
 --- /dev/null
 +++ b/configs/usbarmory-mark-two_defconfig
 @@ -0,0 +1,89 @@
@@ -1016,7 +1016,7 @@ index 0000000000..35e6da6a5f
 +CONFIG_LEGACY_IMAGE_FORMAT=y
 diff --git a/include/configs/usbarmory-mark-two.h b/include/configs/usbarmory-mark-two.h
 new file mode 100644
-index 0000000000..686fb69bf9
+index 00000000000..686fb69bf99
 --- /dev/null
 +++ b/include/configs/usbarmory-mark-two.h
 @@ -0,0 +1,210 @@
@@ -1231,5 +1231,5 @@ index 0000000000..686fb69bf9
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.41.0
+2.45.2
 
