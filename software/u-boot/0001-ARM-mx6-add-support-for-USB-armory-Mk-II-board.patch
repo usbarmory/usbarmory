@@ -1,4 +1,4 @@
-From d28e94fb64449205f0d2ec191f8681aa681a1b69 Mon Sep 17 00:00:00 2001
+From 39c8b39245dda768e4877e26758fceb16297837e Mon Sep 17 00:00:00 2001
 From: Andrej Rosano <andrej.rosano@f-secure.com>
 Date: Wed, 10 Mar 2021 15:49:12 +0100
 Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
@@ -12,10 +12,10 @@ Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
  board/inversepath/usbarmory-mark-two/Makefile |  10 +
  .../usbarmory-mark-two/imximage-1gb.cfg       |  87 +++++
  .../usbarmory-mark-two/imximage-512mb.cfg     |  88 +++++
- .../usbarmory-mark-two/usbarmory-mark-two.c   | 348 ++++++++++++++++++
+ .../usbarmory-mark-two/usbarmory-mark-two.c   | 347 ++++++++++++++++++
  configs/usbarmory-mark-two_defconfig          |  89 +++++
  include/configs/usbarmory-mark-two.h          | 210 +++++++++++
- 11 files changed, 1120 insertions(+), 1 deletion(-)
+ 11 files changed, 1119 insertions(+), 1 deletion(-)
  create mode 100644 arch/arm/dts/imx6ulz-usbarmory.dts
  create mode 100644 board/inversepath/usbarmory-mark-two/Kconfig
  create mode 100644 board/inversepath/usbarmory-mark-two/MAINTAINERS
@@ -27,13 +27,13 @@ Subject: [PATCH] ARM: mx6: add support for USB armory Mk II board
  create mode 100644 include/configs/usbarmory-mark-two.h
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index 8fb6a8a1f17..72d0cdebc51 100644
+index 2d931c23fc8..12ebd1e785e 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -871,7 +871,8 @@ dtb-$(CONFIG_MX6ULL) += \
+@@ -863,7 +863,8 @@ dtb-$(CONFIG_MX6ULL) += \
+ 	imx6ull-phytec-segin-ff-rdk-emmc.dtb \
  	imx6ull-dart-6ul.dtb \
  	imx6ull-somlabs-visionsom.dtb \
- 	imx6ulz-bsh-smm-m2.dtb \
 -	imx6ulz-14x14-evk.dtb
 +	imx6ulz-14x14-evk.dtb \
 +	imx6ulz-usbarmory.dtb
@@ -247,12 +247,12 @@ index 00000000000..65856bf03cd
 +	status = "okay";
 +};
 diff --git a/arch/arm/mach-imx/mx6/Kconfig b/arch/arm/mach-imx/mx6/Kconfig
-index 15ee2b933f6..b82335380df 100644
+index bee9d5f4877..ab9f9e8ae1e 100644
 --- a/arch/arm/mach-imx/mx6/Kconfig
 +++ b/arch/arm/mach-imx/mx6/Kconfig
-@@ -636,6 +636,10 @@ config TARGET_UDOO_NEO
- 	select SUPPORT_SPL
+@@ -638,6 +638,10 @@ config TARGET_UDOO_NEO
  	imply CMD_DM
+ 	imply OF_UPSTREAM
  
 +config TARGET_USBARMORY_MARK_TWO
 +	bool "Support USB armory Mk II"
@@ -261,7 +261,7 @@ index 15ee2b933f6..b82335380df 100644
  config TARGET_SOFTING_VINING_2000
  	bool "Softing VIN|ING 2000"
  	depends on MX6SX
-@@ -708,6 +712,7 @@ source "board/freescale/mx6ul_14x14_evk/Kconfig"
+@@ -710,6 +714,7 @@ source "board/freescale/mx6ul_14x14_evk/Kconfig"
  source "board/freescale/mx6ullevk/Kconfig"
  source "board/bosch/acc/Kconfig"
  source "board/grinn/liteboard/Kconfig"
@@ -567,10 +567,10 @@ index 00000000000..cf52134e278
 +DATA 4 0x021B001C 0x00000000  /* MMDC_MDSCR       */
 diff --git a/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
 new file mode 100644
-index 00000000000..22b30c3e044
+index 00000000000..5ad494af64c
 --- /dev/null
 +++ b/board/inversepath/usbarmory-mark-two/usbarmory-mark-two.c
-@@ -0,0 +1,348 @@
+@@ -0,0 +1,347 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 + * USB armory Mk II board initialization
@@ -580,7 +580,6 @@ index 00000000000..22b30c3e044
 + * Andrej Rosano <andrej.rosano@withsecure.com>
 + */
 +
-+#include <common.h>
 +#include <asm/io.h>
 +#include <asm/arch/imx-regs.h>
 +#include <asm/arch/sys_proto.h>
@@ -1231,5 +1230,5 @@ index 00000000000..686fb69bf99
 +
 +#endif	/* __CONFIG_H */
 -- 
-2.45.2
+2.47.0
 
