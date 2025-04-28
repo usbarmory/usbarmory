@@ -7,6 +7,18 @@ sized computer.
 This repository is aimed towards developers, if you wish to purchase a USB
 armory board please see the [ordering information](https://github.com/usbarmory/usbarmory/wiki/Ordering-information).
 
+Authors
+=======
+
+Andrea Barisani  
+andrea@inversepath.com  
+
+Andrej Rosano  
+andrej@inversepath.com  
+
+Daniele Bianco  
+daniele@inversepath.com  
+
 Revision information
 ====================
 

@@ -1,11 +1,8 @@
 USB armory Mk II debug accessory
 ================================
 
-USB armory | https://github.com/usbarmory/usbarmory  
-Copyright (c) WithSecure Corporation
-
-The USB armory from [WithSecure Foundry](https://foundry.withsecure.com) is an
-open source hardware design, implementing a flash drive sized computer.
+The USB armory is an open source hardware design, implementing a flash drive
+sized computer.
 
 The USB armory Mk II exposes a USB Type-C receptacle, which allows through the
 so called USB-C 'debug accessory mode' to route analog/debug signals over its

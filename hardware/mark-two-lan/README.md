@@ -1,14 +1,23 @@
 Introduction
 ============
 
-USB armory | https://github.com/usbarmory/usbarmory  
-Copyright (c) WithSecure Corporation
-
-The USB armory from [WithSecure Foundry](https://foundry.withsecure.com) is an open
-source hardware design, implementing a compact secure computer.
+The USB armory is an open source hardware design, implementing a compact secure
+computer.
 
 This repository is aimed towards developers, if you wish to purchase a USB
 armory board please see the [ordering information](https://github.com/usbarmory/usbarmory/wiki/Ordering-information).
+
+Authors
+=======
+
+Andrea Barisani  
+andrea@inversepath.com  
+
+Andrej Rosano  
+andrej@inversepath.com  
+
+Daniele Bianco  
+daniele@inversepath.com  
 
 Documentation
 =============
