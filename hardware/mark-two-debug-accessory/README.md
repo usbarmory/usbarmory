@@ -79,7 +79,7 @@ Serial console
 --------------
 
 When running the [USB armory Debian base image](https://github.com/usbarmory/usbarmory-debian-base_image/releases)
-the serial console can be accessed, with the debug accessory jumper set to UART
+the serial console (UART2) can be accessed, with the debug accessory jumper set to UART
 position, as follows (example on Linux host with picocom):
 
 ```
@@ -177,11 +177,12 @@ Pin assignment: UART5
 | SSRXn2 (A10) | UART5_TX    | ADBUS1   | #A RXD     |
 | SSTXp2 (B2)  | UART5_RX    | ADBUS0   | #A TXD     |
 
-Minimum configuration for console access
-========================================
+Physical access: UART2
+======================
 
-The serial console (UART2) can be accessed also by using a USB-C plug breakout
-board and a USB to 3.3 TTL serial cable with the following configuration.
+When no debug accessory is available, the serial console (UART2) can be also
+accessed with a USB-C plug breakout and a USB to 3.3 TTL serial cable with the
+following configuration.
 
 |  PIN   | Config          |
 |:-------|-----------------|
