@@ -177,6 +177,20 @@ Pin assignment: UART5
 | SSRXn2 (A10) | UART5_TX    | ADBUS1   | #A RXD     |
 | SSTXp2 (B2)  | UART5_RX    | ADBUS0   | #A TXD     |
 
+Minimum configuration for console access
+========================================
+
+The serial console (UART2) can be accessed also by using a USB-C plug breakout
+board and a USB to 3.3 TTL serial cable with the following configuration.
+
+|  PIN   | Config          |
+|:-------|-----------------|
+| A4, A5 | 56 kOhm         |
+| B4, B5 | 56 kOhm         |
+| A2, A3 | 3.3V UART TX/RX |
+| A4     | 5V              |
+| A1     | GND             |
+
 License
 =======
 
