@@ -15,7 +15,7 @@
     (date 2021-11-26)
     (rev v1.1)
     (company "F-Secure | Inverse Path")
-    (comment 1 "Copyright © F-Secure Corporation")
+    (comment 1 "Copyright (c) The USB armory authors")
     (comment 2 "License: CERN OHL v1.2")
   )
 

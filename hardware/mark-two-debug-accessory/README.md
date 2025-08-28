@@ -196,7 +196,7 @@ License
 =======
 
 USB armory | https://github.com/usbarmory/usbarmory  
-Copyright (c) WithSecure Corporation
+Copyright (c) The USB armory authors
 
 This is an open hardware design licensed under the terms of the CERN Open
 Hardware Licence (OHL) v1.2.

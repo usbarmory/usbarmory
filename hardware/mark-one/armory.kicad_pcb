@@ -18,7 +18,7 @@
     (date "10 Nov 2014")
     (rev "MARK I")
     (company "Inverse Path")
-    (comment 1 "Copyright © F-Secure Corporation")
+    (comment 1 "Copyright (c) The USB armory authors")
     (comment 2 "License: CERN OHL v1.2")
     (comment 3 https://github.com/usbarmory/usbarmory)
   )

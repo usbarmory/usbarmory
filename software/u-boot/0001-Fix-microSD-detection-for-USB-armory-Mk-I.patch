@@ -1,5 +1,5 @@
 From 9513fe63905c9fc88b8e803c19ef40c997e59f85 Mon Sep 17 00:00:00 2001
-From: Andrej Rosano <andrej.rosano@f-secure.com>
+From: Andrej Rosano <andrej@inversepath.com>
 Date: Tue, 7 Sep 2021 11:38:59 +0200
 Subject: [PATCH] Fix microSD detection for USB armory Mk I
 

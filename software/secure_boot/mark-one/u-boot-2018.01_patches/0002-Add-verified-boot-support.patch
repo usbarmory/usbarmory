@@ -1,9 +1,9 @@
 From 0610a6e4546316f7eb46b48c49464ac0e7e3f1e1 Mon Sep 17 00:00:00 2001
-From: Andrej Rosano <andrej.rosano@f-secure.com>
+From: Andrej Rosano <andrej@inversepath.com>
 Date: Tue, 13 Feb 2018 16:01:37 +0100
 Subject: [PATCH 2/3] Add verified boot support
 
-Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
+Signed-off-by: Andrej Rosano <andrej@inversepath.com>
 ---
  configs/usbarmory_defconfig | 13 +++++++++++--
  include/configs/usbarmory.h | 12 ++++++------

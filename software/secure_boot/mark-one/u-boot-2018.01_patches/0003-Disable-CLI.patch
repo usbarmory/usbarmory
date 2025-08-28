@@ -1,9 +1,9 @@
 From 58c00c3f171b60f759b5e1c1438cae0f4c2c7dca Mon Sep 17 00:00:00 2001
-From: Andrej Rosano <andrej.rosano@f-secure.com>
+From: Andrej Rosano <andrej@inversepath.com>
 Date: Tue, 13 Feb 2018 16:02:47 +0100
 Subject: [PATCH 3/3] Disable CLI
 
-Signed-off-by: Andrej Rosano <andrej.rosano@f-secure.com>
+Signed-off-by: Andrej Rosano <andrej@inversepath.com>
 ---
  configs/usbarmory_defconfig | 4 ++++
  1 file changed, 4 insertions(+)

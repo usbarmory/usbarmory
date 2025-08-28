@@ -2,8 +2,8 @@
  * USB armory Mk II LAN device tree file
  * https://github.com/usbarmory/usbarmory
  *
- * Copyright (C) 2024, WithSecure Corporation
- * Andrej Rosano <andrej.rosano@withsecure.com>
+ * Copyright (c) The USB armory authors
+ * Andrej Rosano <andrej@inversepath.com>
  *
  * This file is dual-licensed: you can use it either under the terms
  * of the GPL or the X11 license, at your option. Note that this dual

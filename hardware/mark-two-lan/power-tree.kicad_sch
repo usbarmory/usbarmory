@@ -9,7 +9,7 @@
     (date "2023-10-02")
     (rev "β")
     (company "WithSecure")
-    (comment 1 "Copyright © WithSecure Corporation")
+    (comment 1 "Copyright (c) The USB armory authors")
     (comment 2 "License: CERN-OHL-S")
     (comment 3 "https://github.com/usbarmory/usbarmory")
   )

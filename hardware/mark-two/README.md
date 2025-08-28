@@ -113,7 +113,7 @@ License
 =======
 
 USB armory | https://github.com/usbarmory/usbarmory  
-Copyright (c) F-Secure Corporation
+Copyright (c) The USB armory authors
 
 This source describes Open Hardware and is licensed under the CERN-OHL-S v2.
 
