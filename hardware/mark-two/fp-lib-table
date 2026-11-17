@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name armory-kicad)(type KiCad)(uri $KIPRJMOD/../lib.kicad/)(options "")(descr ""))
+  (lib (name snapeda)(type KiCad)(uri $KIPRJMOD/../lib.snapeda/)(options "")(descr ""))
+)

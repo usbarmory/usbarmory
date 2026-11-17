@@ -1,0 +1,8 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "armory") (type "Legacy") (uri "${KIPRJMOD}/../lib/armory.lib") (options "") (descr ""))
+	(lib (name "armory-mkII") (type "Legacy") (uri "${KIPRJMOD}/../lib/armory-mkII.lib") (options "") (descr ""))
+	(lib (name "snapeda") (type "Legacy") (uri "${KIPRJMOD}/../lib/snapeda.lib") (options "") (descr ""))
+	(lib (name "armory-rescue") (type "KiCad") (uri "${KIPRJMOD}/armory-rescue.kicad_sym") (options "") (descr ""))
+	(lib (name "tropic01") (type "KiCad") (uri "${KIPRJMOD}/../lib/TROPIC01.kicad_sym") (options "") (descr ""))
+)
