@@ -128,6 +128,20 @@
 	status = "okay";
 };
 
+&ecspi1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_ecspi1>;
+	status = "okay";
+
+	spidev0: spi@0 {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "spidev";
+		reg = <0>;
+		spi-max-frequency = <20000>;
+	};
+};
+
 &iomuxc {
 	pinctrl_uart2: uart2grp {
 		fsl,pins = <
@@ -156,6 +170,16 @@
 		fsl,pins = <
 			MX6UL_PAD_GPIO1_IO02__I2C1_SCL	0x4001b8b0
 			MX6UL_PAD_GPIO1_IO03__I2C1_SDA	0x4001b8b0
+		>;
+	};
+
+	pinctrl_ecspi1: ecspi1grp {
+		fsl,pins = <
+			MX6UL_PAD_LCD_DATA19__GPIO3_IO24	0x0b0b0 /* TROPIC_GP */
+			MX6UL_PAD_LCD_DATA20__ECSPI1_SCLK	0x0b0b0 /* CSPI_SCLK */
+			MX6UL_PAD_LCD_DATA21__GPIO3_IO26	0x0b0b0 /* CSPI_SS */
+			MX6UL_PAD_LCD_DATA22__ECSPI1_MOSI	0x0b0b0 /* CSPI_MOSI */
+			MX6UL_PAD_LCD_DATA23__ECSPI1_MISO	0x0b0b0 /* CSPI_MISO */
 		>;
 	};
 
