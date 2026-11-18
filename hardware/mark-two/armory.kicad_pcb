@@ -9,8 +9,8 @@
 	(paper "A4")
 	(title_block
 		(title "USB armory Mk II")
-		(date "2021-02-18")
-		(rev "γ")
+		(date "2026-03-31")
+		(rev "δ")
 		(company "Reversec")
 		(comment 1 "Copyright (c) The USB armory authors")
 		(comment 2 "License: CERN-OHL-S")
@@ -4158,7 +4158,7 @@
 			(uuid "bae93d6a-6ca1-47f5-8e98-d669a392ad3e")
 		)
 		(embedded_fonts no)
-		(model "${KISYS3DMOD}/Package_BGA.3dshapes/BGA-96_9.0x13.0mm_Layout2x3x16_P0.8mm.wrl"
+		(model "${KICAD10_3DMODEL_DIR}/Package_BGA.3dshapes/BGA-96_9.0x13.0mm_Layout2x3x16_P0.8mm.step"
 			(offset
 				(xyz 4.5 7 -0.5)
 			)
@@ -53080,7 +53080,7 @@
 			(uuid "ca044c66-d599-48da-a854-1403a2bf45f2")
 		)
 		(embedded_fonts no)
-		(model "${KISYS3DMOD}/Package_DFN_QFN.3dshapes/UQFN-20-1EP_3x3mm_P0.4mm_EP1.85x1.85mm.wrl"
+		(model "${KICAD10_3DMODEL_DIR}/Package_DFN_QFN.3dshapes/UQFN-20-1EP_3x3mm_P0.4mm_EP1.85x1.85mm.step"
 			(offset
 				(xyz 0 0 0)
 			)
